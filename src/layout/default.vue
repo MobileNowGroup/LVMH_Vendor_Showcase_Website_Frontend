@@ -7,10 +7,10 @@ import { onMounted, ref, watch } from "vue";
 const $router = useRouter();
 const $route = useRoute();
 const pathArray = ["/login", "/", ""];
+
 let loginPage = ref(false);
 
 onMounted(() => {
-  
   // 判断路由，控制当前导航标签
   loginPage.value = pathArray.every((item) => {
     return $route.path === item;
@@ -19,10 +19,10 @@ onMounted(() => {
 
 // 判断路由，控制当前导航标签
 watch(
-  () => $router.currentRoute.value.path,
+  () => $route.path,
   (newPath, oldPath) => {
     loginPage.value = pathArray.every((item) => {
-      return $route.path === item;
+      return newPath === item;
     });
   },
   { immediate: true }
@@ -31,6 +31,9 @@ watch(
 
 <template>
   <div class="layout" ref="layoutDom">
+    <div class=" w-screen h-screen bg-slate-700">
+    jhhjhj
+    </div>
     <div v-if="loginPage">
       <RouterView />
     </div>
