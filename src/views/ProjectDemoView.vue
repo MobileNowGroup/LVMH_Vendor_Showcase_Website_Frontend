@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { onMounted, computed, reactive, ref } from "vue";
+import { isMobile, setVideoPosterFn } from "@/util/common";
+
+const isMobileDevice = ref(isMobile());
 
 const showList = [
   {
@@ -51,6 +54,7 @@ const showSlideMedia = function (src: string, _key: number) {
   // choose whitch slide to show
   showMediaSrc.value = src;
   const changeVideoSource = document.querySelector("video");
+  // 每次更新video资源时手动load一次资源
   changeVideoSource && changeVideoSource.load();
   // 对下面的slide样式进行改变
   const frameZones = Array.from(document.querySelectorAll(".show-item"));
@@ -88,25 +92,7 @@ const nextShow = function () {
     }
   }
 };
-/** 设置每个video的预览图 */
-const setVideoPoster = function (event: any) {
-  let video = event.target;
-  // video.height = video.clientHeight;
-  let canvas = document.createElement("canvas"); // 创建 canvas
-  const ctx = canvas.getContext("2d");
-  video.currentTime = 1; // 第一帧
-  video.oncanplay = () => {
-    canvas.width = video.clientWidth; // 获取视频宽度
-    canvas.height = video.clientHeight; //获取视频高度
-    var img = new Image(); // 这里使用img是为了解决视频跨域 canvas.toDataURL会提示错误的问题
-    img.onload = function () {
-      // canvas绘图
-      ctx && ctx.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
-      // 转换成base64形式并设置封面
-      video.poster = canvas.toDataURL("image/jpeg", 1); // 截取后的视频封面
-    };
-  };
-};
+/** 设置每个video的预览图 setVideoPosterFn */
 
 /**demolink 点击事件 */
 const clickNothing = function () {};
@@ -131,15 +117,9 @@ const clickNothing = function () {};
             preload="metadata"
             :poster="`${showMediaSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
             class="video"
-            @loadeddata="setVideoPoster($event)"
+            @loadeddata="setVideoPosterFn($event)"
           >
             <source :src="showMediaSrc" type="video/mp4" />
-            <!-- <source src="/media/cc0-videos/flower.mp4" type="video/mp4" /> -->
-            <!-- Download the
-            <a href="/media/cc0-videos/flower.webm">WEBM</a>
-            or
-            <a href="/media/cc0-videos/flower.mp4">MP4</a>
-            video. -->
           </video>
         </div>
         <div v-else class="slide-image">
@@ -167,7 +147,7 @@ const clickNothing = function () {};
               <video
                 preload="metadata"
                 :poster="`${value.src}?x-oss-process=video/snapshot,t_1,m_fast`"
-                @loadeddata="setVideoPoster($event)"
+                @loadeddata="setVideoPosterFn($event)"
               >
                 <source :src="value.src" type="video/mp4" />
               </video>
@@ -177,14 +157,15 @@ const clickNothing = function () {};
             </div>
           </div>
         </div>
-        <!-- <div class="show-control"> -->
-        <img
-          class="show-control"
-          src="../assets/images/icon/close_circle.svg"
-          @click="nextShow"
-          alt="decoration img for slide control"
-        />
-        <!-- </div> -->
+        <div class="show-control">
+          <img
+            v-if="!isMobileDevice"
+            class=""
+            src="../assets/images/icon/close_circle.svg"
+            @click="nextShow"
+            alt="decoration img for slide control"
+          />
+        </div>
       </div>
     </div>
   </main>
@@ -193,7 +174,7 @@ const clickNothing = function () {};
 <style lang="scss" scoped>
 .slide {
   max-width: 93rem;
-  height: 52.3rem;
+  height: max-content;
   background: #000;
   transition: all 2s linear;
 }
@@ -204,6 +185,7 @@ const clickNothing = function () {};
   display: flex;
   align-items: center;
   video {
+    width: 100%;
     transition: all 2s linear;
     margin: 0 auto;
     height: 52.3rem;
@@ -320,8 +302,9 @@ const clickNothing = function () {};
   }
   &-control {
     position: absolute;
-    top: 4px;
-    right: 0;
+    top: 2px;
+    right: -2px;
+    height: 100%;
     padding: 3.5rem 0rem 3.5rem 13.4rem;
     background: linear-gradient(
       90deg,
@@ -329,6 +312,7 @@ const clickNothing = function () {};
       rgb(255, 255, 255, 0.96) 50%,
       white
     );
+    z-index: 9999;
   }
   &-item {
     margin-right: 0.8rem;
@@ -366,6 +350,67 @@ const clickNothing = function () {};
     background: #000;
     border-radius: 0.5rem;
     z-index: 99;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .show {
+    &-box {
+      margin: 0 1.5rem;
+    }
+    &-control {
+    }
+    .media-box {
+      width: 13.5rem;
+      height: 7.5rem;
+    }
+  }
+  .slide {
+    &-video {
+      width: calc(100vw - 3rem);
+    }
+    &-image {
+      height: 19.4rem;
+      img {
+        margin: 0;
+        height: 19.4rem;
+      }
+    }
+    video {
+      width: calc(100vw - 3rem);
+      height: auto;
+    }
+  }
+  .title {
+    color: #3e65d0;
+    font-family: lvmh_italic;
+    font-size: 32px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: capitalize;
+    position: relative;
+    margin-bottom: 3.6rem;
+    &::after {
+      position: absolute;
+      right: 1.5rem;
+      top: 2.1rem;
+      transform: translateY(-50%);
+      content: "";
+      width: 5.4rem;
+      height: 0.1rem;
+      background: #3e65d0;
+    }
+    &::before {
+      position: absolute;
+      left: 1.5rem;
+      top: 2.1rem;
+      transform: translateY(-50%);
+      content: "";
+      width: 5.4rem;
+      height: 0.1rem;
+      background: #3e65d0;
+    }
   }
 }
 </style>

@@ -1,44 +1,31 @@
 <script setup lang="ts">
-import { RouterLink, RouterView, useRouter } from "vue-router";
+import { RouterLink, RouterView, useRoute, useRouter } from "vue-router";
 import HeadComponent from "@/components/HeadComponent.vue";
 import FootComponent from "@/components/FootComponent.vue";
 import { onMounted, ref, watch } from "vue";
-const $router = useRouter();
 
+const $router = useRouter();
+const $route = useRoute();
+const pathArray = ["/login", "/", ""];
 let loginPage = ref(false);
 
 onMounted(() => {
-  console.log($router.currentRoute.value.path);
-  console.log($router.currentRoute.value.path.indexOf("/login") > 0);
-  console.log($router.currentRoute.value.path === "/");
-  console.log($router.currentRoute.value.path === "");
-  if (
-    $router.currentRoute.value.path.indexOf("/login") > 0 ||
-    $router.currentRoute.value.path === "/" ||
-    $router.currentRoute.value.path === ""
-  ) {
-    console.log("就进来了？？");
-    loginPage.value = true;
-  }
+  
+  // 判断路由，控制当前导航标签
+  loginPage.value = pathArray.every((item) => {
+    return $route.path === item;
+  });
 });
+
+// 判断路由，控制当前导航标签
 watch(
   () => $router.currentRoute.value.path,
   (newPath, oldPath) => {
-    // console.log(newPath)
-    // 监听路由变化，动态添加header下面的装饰文本
-    // switch (newPath) {
-    //   case "/projectdemo":
-    //     break;
-    //   case "/vendorlisting":
-    //     break;
-    //   default:
-    //     break;
-    // }
-    if (newPath.indexOf("/login") > 0 || newPath === "/" || newPath === "") {
-      loginPage.value = true;
-    }
+    loginPage.value = pathArray.every((item) => {
+      return $route.path === item;
+    });
   },
-  { immediate: true },
+  { immediate: true }
 );
 </script>
 
