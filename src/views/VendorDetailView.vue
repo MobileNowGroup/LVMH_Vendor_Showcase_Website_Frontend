@@ -18,8 +18,9 @@ const slideList = [
   { slideName: "hennessy", slideSrc: "../assets/images/logo.png" },
 ];
 onMounted(() => {
-  vendor.value = mockData.vendorList[0];
-  mockData.vendorList.forEach((element, elementINdex) => {
+  // 进入页面给默认数据
+  vendor.value = mockData.vendorListMock[0];
+  mockData.vendorListMock.forEach((element, elementINdex) => {
     if (element.id === Number($router.currentRoute.value.query.id)) {
       vendor.value = element;
     }

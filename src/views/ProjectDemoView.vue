@@ -313,6 +313,9 @@ const clickNothing = function () {};
       white
     );
     z-index: 9999;
+    img {
+      padding-right: 2px;
+    }
   }
   &-item {
     margin-right: 0.8rem;

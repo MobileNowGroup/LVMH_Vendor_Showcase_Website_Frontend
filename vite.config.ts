@@ -1,10 +1,41 @@
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from "node:url";
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+
+
+const os = require("os")
+
+// 获取本地ip
+function getNetWorkIp() {
+  // 打开host
+  let needHost = ""
+  try {
+    let network = os.networkInterfaces()
+
+    for (const dev in network) {
+      let iface = network[dev]
+      for (let i = 0; i < iface.length; i++) {
+        const alias = iface[i]
+        if (alias.family === "IPv4" && alias.address !== "127.0.0.1" && !alias.internal) {
+          needHost = alias.address
+        }
+      }
+    }
+  } catch (error) {
+    needHost = "http://localhost"
+  }
+  return needHost
+}
+const IP = getNetWorkIp()
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  css: {
+    postcss: {
+     plugins: [require("tailwindcss"), require("autoprefixer")],
+    },
+  },
   server: {
     host: "localhost", // 指定服务器主机名
     port: 5173, // 指定服务器端口
@@ -12,12 +43,12 @@ export default defineConfig({
     open: true, // 在服务器启动时自动在浏览器中打开应用程序
     https: false, // 是否开启 https
   },
-  plugins: [
-    vue(),
-  ],
+  plugins: [vue()],
+  // 配置别名
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
-})
+      "@": fileURLToPath(new URL("./src", import.meta.url)),  // @代替src
+      "#": fileURLToPath(new URL("./types", import.meta.url)), // #代替types
+    },
+  },
+});

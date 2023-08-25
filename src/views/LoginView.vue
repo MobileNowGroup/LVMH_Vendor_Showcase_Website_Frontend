@@ -49,7 +49,7 @@ const verifyEmail = () => {
         <p class="login-verify-text">
           <span v-show="isPassValid && !isPassVerify">*invaild email</span>
         </p>
-        <button class="login-button" @click="verifyEmail">
+        <button class="login-button bg-white" @click="verifyEmail">
           {{ buttonText }}
         </button>
       </div>

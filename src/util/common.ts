@@ -40,3 +40,51 @@ export const setVideoPosterFn = (event: any) => {
 };
 
 /**  */
+//设置cookies
+export function setCookie(name: string, value: any, MyDay: any) {
+  var ExDate = new Date();
+  ExDate.setDate(ExDate.getDate() + MyDay); //如果需要时间的话以这样获取。
+  document.cookie = name + "=" + value + ";expires=" + ExDate;
+}
+//获取cookies
+export function getCookie(name: string) {
+  //例如cookie是"username=abc; password=123"
+  var arr = document.cookie.split("; "); //用“;”和空格来划分cookie
+  for (var i = 0; i < arr.length; i++) {
+    var arr2 = arr[i].split("=");
+    if (arr2[0] == name) {
+      return arr2[1];
+    }
+  }
+  return ""; //整个遍历完没找到，就返回空值
+}
+//删除cookies
+export function removeCookie(name: string) {
+  setCookie(name, "1", -1); //第二个value值随便设个值，第三个值设为-1表示：已经过期。
+}
+
+
+// 防抖
+export function debounce(func: Function, delay: number = 300) {
+  let timeoutId: NodeJS.Timeout;
+  return function (this: any, ...args: any) {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+// 节流
+export function throttle(func: Function, delay = 300) {
+  let timeoutId: NodeJS.Timeout | null;
+  return function (this: any, ...args: any) {
+    if (!timeoutId) {
+      timeoutId = setTimeout(() => {
+        timeoutId = null;
+        func.apply(this, args);
+      }, delay);
+    }
+  };
+}

@@ -1,116 +1,55 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref, watch } from "vue";
-import { useRouter } from "vue-router";
+import { onMounted, onUnmounted, reactive, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import mockData from "../util/mockData";
+import { throttle } from "@/util/common";
 
 let filterNumber = ref(0);
 let searchVisibale = ref(false); // searchbox是否展示
-let searchValue = ref("");
+let searchValue = ref(""); // 需要search 的数据
 let filterVisibale = ref(false); // filterbox是否展示
-const filterList = reactive([
-  {
-    MenuTitle: "category",
-    selectedCount: 0,
-    isShow: false,
-    menuItemList: [
-      { desc: "Customization & Personalization (4)", isChoosed: false },
-      { desc: "Customer Service (2)", isChoosed: false },
-      { desc: "In-store Interactive Experience (2)", isChoosed: false },
-      { desc: "Metaverse (4)", isChoosed: false },
-      { desc: "Product Discovery (1)", isChoosed: false },
-    ],
-  },
-  {
-    MenuTitle: "category",
-    selectedCount: 0,
-    isShow: false,
-    menuItemList: [
-      { desc: "Customization & Personalization (4)", isChoosed: false },
-      { desc: "Customer Service (2)", isChoosed: false },
-      { desc: "In-store Interactive Experience (2)", isChoosed: false },
-      { desc: "Metaverse (4)", isChoosed: false },
-      { desc: "Product Discovery (1)", isChoosed: false },
-    ],
-  },
-  {
-    MenuTitle: "category",
-    selectedCount: 0,
-    isShow: false,
-    menuItemList: [
-      { desc: "Customization & Personalization (4)", isChoosed: false },
-      { desc: "Customer Service (2)", isChoosed: false },
-      { desc: "In-store Interactive Experience (2)", isChoosed: false },
-      { desc: "Metaverse (4)", isChoosed: false },
-      { desc: "Product Discovery (1)", isChoosed: false },
-    ],
-  },
-  {
-    MenuTitle: "category",
-    selectedCount: 0,
-    isShow: false,
-    menuItemList: [
-      { desc: "Customization & Personalization (4)", isChoosed: false },
-      { desc: "Customer Service (2)", isChoosed: false },
-      { desc: "In-store Interactive Experience (2)", isChoosed: false },
-      { desc: "Metaverse (4)", isChoosed: false },
-      { desc: "Product Discovery (1)", isChoosed: false },
-    ],
-  },
-]);
-let decoVisiable = ref(false); // 是否展示顶部装饰文本
+const filterList = mockData.filterListMock; // filter数据
+let decoVisiable = ref(true); // 是否展示顶部装饰文本
 let decoText = ref(""); // 顶部装饰文本内容
-const $router = useRouter();
+const $route = useRoute(); // router 路由信息
+const $router = useRouter(); // router 路由操作
 const headerDom = ref(null);
 
 onMounted(() => {
-  if ($router.currentRoute.value.path === "/vendorlisting") {
-    (headerDom.value as any).setAttribute(
-      "style",
-      "background: rgba(255,255,255,0.7)",
-    );
-  } else {
-    (headerDom.value as any).setAttribute(
-      "style",
-      "background: rgba(255,255,255,0)",
-    );
+  if ($route.path === "/vendordetail") {
+    decoVisiable.value = false;
   }
+
+  if (window) {
+    window.addEventListener("scroll", _onPageScroll);
+  }
+  // else {
+  // (headerDom.value as any).setAttribute(
+  //   "style",
+  //   "background: rgba(255,255,255,0)",
+  // );
+  // }
 });
 
 watch(
   () => $router.currentRoute.value.path,
   (newPath, oldPath) => {
-    // console.log(newPath)
-    // 监听路由变化，动态添加header下面的装饰文本
+    //  监听路由变化，动态添加header下面的装饰文本
     switch (newPath) {
       case "/projectdemo":
         decoVisiable.value = true;
         decoText.value = "qi ta ming zi";
-        headerDom.value &&
-          (headerDom.value as any).setAttribute(
-            "style",
-            "background: url('src/assets/images/page_bg.png')",
-          );
         break;
       case "/vendorlisting":
         decoVisiable.value = true;
         decoText.value = "Agency Listing";
-        headerDom.value &&
-          (headerDom.value as any).setAttribute(
-            "style",
-            "background: rgba(255,255,255,0.7)",
-          );
         break;
       default:
         decoVisiable.value = false;
-        decoText.value = "";
-        headerDom.value &&
-          (headerDom.value as any).setAttribute(
-            "style",
-            "background: rgba(255,255,255,1)",
-          );
         break;
     }
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 /** 返回vendorlisting */
@@ -120,13 +59,11 @@ const backToHome = () => {
 /** 打开searc或者filter */
 const openBox = (e: any, openType: string) => {
   if (openType === "search") {
-    (headerDom.value as any).setAttribute(
-      "style",
-      "background: rgba(255,255,255,1)",
-    );
     searchVisibale.value = true;
+    filterVisibale.value = false;
   } else {
     filterVisibale.value = true;
+    searchVisibale.value = false;
   }
 };
 /** 关闭searc或者filter */
@@ -136,10 +73,10 @@ const closeBox = (e: any, closeType: any) => {
   // e.stopPropagation()
   // e.preventDefault()
   if (closeType === "search") {
-    (headerDom.value as any).setAttribute(
-      "style",
-      "background: rgba(255,255,255,0.7)",
-    );
+    // (headerDom.value as any).setAttribute(
+    //   "style",
+    //   "background: rgba(255,255,255,0.7)"
+    // );
     searchVisibale.value = false;
   } else {
     filterNumber.value = 0;
@@ -177,6 +114,35 @@ const searchResult = (e: any, searchType: string) => {
     name: "search",
   });
 };
+
+/** 页面滚动 */
+const _onPageScroll = () => {
+ 
+  const scrollTop =
+    window.pageYOffset ||
+    document.documentElement.scrollTop ||
+    document.body.scrollTop;
+
+  if (scrollTop > 0) {
+    decoVisiable.value = false;
+  } else {
+    if ($route.path !== "/vendordetail") {
+      decoVisiable.value = true;
+    }else{
+      decoVisiable.value = false;
+    }
+  }
+
+  // window.onscroll = throttle(() => {
+
+  // }, 100);
+
+  setTimeout(() => {}, 500);
+};
+// 页面销毁
+onUnmounted(() => {
+  window.removeEventListener("scroll", _onPageScroll);
+});
 </script>
 <template>
   <div ref="headerDom" class="header">
@@ -348,14 +314,14 @@ const searchResult = (e: any, searchType: string) => {
 .headbg_10 {
   background: rgba(255, 255, 255, 1);
 }
-.headbg_10 {
+.headbg_0 {
   background: rgba(255, 255, 255, 0);
 }
 .header {
   position: fixed;
-  z-index: 99999;
+  z-index: 999;
   width: 100%;
-
+  background: rgba(255, 255, 255, 1);
   padding: 1.1rem 4rem;
 
   div.topbox {

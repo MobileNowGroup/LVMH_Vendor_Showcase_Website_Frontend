@@ -1,7 +1,7 @@
 import type vendorItem from "@/model/vendor.model";
 
 const allowedCommon = ["'self'"];
-const vendorList: Array<vendorItem> = [
+const vendorListMock: Array<vendorItem> = [
   {
     id: 0,
     logoSrc: "../assets/images/icon/search.svg",
@@ -60,6 +60,58 @@ const vendorList: Array<vendorItem> = [
   },
 ];
 
+const filterListMock = [
+  {
+    MenuTitle: "category",
+    selectedCount: 0,
+    isShow: false,
+    menuItemList: [
+      { desc: "Customization & Personalization (4)", isChoosed: false },
+      { desc: "Customer Service (2)", isChoosed: false },
+      { desc: "In-store Interactive Experience (2)", isChoosed: false },
+      { desc: "Metaverse (4)", isChoosed: false },
+      { desc: "Product Discovery (1)", isChoosed: false },
+    ],
+  },
+  {
+    MenuTitle: "category",
+    selectedCount: 0,
+    isShow: false,
+    menuItemList: [
+      { desc: "Customization & Personalization (4)", isChoosed: false },
+      { desc: "Customer Service (2)", isChoosed: false },
+      { desc: "In-store Interactive Experience (2)", isChoosed: false },
+      { desc: "Metaverse (4)", isChoosed: false },
+      { desc: "Product Discovery (1)", isChoosed: false },
+    ],
+  },
+  {
+    MenuTitle: "category",
+    selectedCount: 0,
+    isShow: false,
+    menuItemList: [
+      { desc: "Customization & Personalization (4)", isChoosed: false },
+      { desc: "Customer Service (2)", isChoosed: false },
+      { desc: "In-store Interactive Experience (2)", isChoosed: false },
+      { desc: "Metaverse (4)", isChoosed: false },
+      { desc: "Product Discovery (1)", isChoosed: false },
+    ],
+  },
+  {
+    MenuTitle: "category",
+    selectedCount: 0,
+    isShow: false,
+    menuItemList: [
+      { desc: "Customization & Personalization (4)", isChoosed: false },
+      { desc: "Customer Service (2)", isChoosed: false },
+      { desc: "In-store Interactive Experience (2)", isChoosed: false },
+      { desc: "Metaverse (4)", isChoosed: false },
+      { desc: "Product Discovery (1)", isChoosed: false },
+    ],
+  },
+];
+
 export default {
-  vendorList,
+  vendorListMock,
+  filterListMock
 };

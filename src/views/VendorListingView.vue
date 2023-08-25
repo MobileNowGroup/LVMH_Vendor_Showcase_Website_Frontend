@@ -5,7 +5,7 @@ import vendorList from "@/components/vendorListComponent.vue";
 let resultCount = ref(19);
 
 let vendorListArray = ref();
-vendorListArray.value = mockData.vendorList;
+vendorListArray.value = mockData.vendorListMock;
 </script>
 
 <template>
