@@ -119,4 +119,3 @@ const agreeSaveCookies = () => {
   }
 }
 </style>
-../stores/authStore
