@@ -113,5 +113,5 @@ const filterListMock = [
 
 export default {
   vendorListMock,
-  filterListMock
+  filterListMock,
 };

@@ -28,9 +28,7 @@ onMounted(() => {
   });
 });
 
-onBeforeUpdate(() => {
-  
-});
+onBeforeUpdate(() => {});
 
 // 判断路由，控制当前导航标签
 watch(
@@ -44,7 +42,7 @@ watch(
       return newPath === item;
     });
   },
-  { immediate: true }
+  { immediate: true },
 );
 const closeCookies = () => {
   showModel.value = false;
@@ -53,7 +51,6 @@ const agreeSaveCookies = () => {
   // 保存用户名什么的
   store.saveCookiesFn();
   showModel.value = false;
- 
 };
 </script>
 

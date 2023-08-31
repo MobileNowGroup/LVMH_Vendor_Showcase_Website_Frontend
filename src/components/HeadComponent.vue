@@ -49,7 +49,7 @@ watch(
         break;
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 /** 返回vendorlisting */
@@ -117,7 +117,6 @@ const searchResult = (e: any, searchType: string) => {
 
 /** 页面滚动 */
 const _onPageScroll = () => {
- 
   const scrollTop =
     window.pageYOffset ||
     document.documentElement.scrollTop ||
@@ -128,7 +127,7 @@ const _onPageScroll = () => {
   } else {
     if ($route.path !== "/vendordetail") {
       decoVisiable.value = true;
-    }else{
+    } else {
       decoVisiable.value = false;
     }
   }
