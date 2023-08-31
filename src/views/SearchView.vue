@@ -1,124 +1,120 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
+import mockData from "../util/mockData";
+import vendorList from "@/components/vendorListComponent.vue";
+import { authStore } from "../stores/authStore";
 
-const showList = [
-  {
-    src: "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4",
-  },
-  { src: "../public/qqqq.jpg" },
-  { src: "../assets/images/284_1690357473.mp4" },
-  { src: "../public/wallhaven-q6gg9l.jpeg" },
-  { src: "../public/WechatIMG2193.jpeg" },
-  { src: "../assets/images/284_1690357473.mp4" },
-];
-const mediaType = function (src: string) {
-  let a = src.indexOf("mp4") > 0 ? "media" : "image";
+let store = authStore();
 
-  return a;
-};
+let resultCount = ref(19);
 
-const showMediaSrc = ref("../assets/images/284_1690357473.mp4");
-const showMedia = function (src: string) {
-  showMediaSrc.value = src;
-  console.log(showMediaSrc);
+let vendorListArray = ref([] as any);
+
+onMounted(() => {
+  mockData.vendorListMock.forEach((element, index) => {
+    for (const value in element) {
+      if (value.indexOf("a")) {
+        vendorListArray.value.push(element);
+      }
+    }
+  });
+});
+const openCookie = () => {
+  //  store.CookiesModelopen()
 };
 </script>
 
 <template>
-  <main>
-    <div class="show-box">
-      {{ showMediaSrc }}
-      <div class="video">
-        <video controls class="video">
-          <source
-            src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
-            type="video/mp4"
-          />
-          <!-- <source src="/media/cc0-videos/flower.mp4" type="video/mp4" /> -->
-          Download the
-          <a href="/media/cc0-videos/flower.webm">WEBM</a>
-          or
-          <a href="/media/cc0-videos/flower.mp4">MP4</a>
-          video.
-        </video>
-      </div>
-
-      <div class="show show-list">
-        <div
-          class="show-item"
-          v-for="(value, key) of showList"
-          :key="key"
-        ></div>
+  <main class="vendor-listing" :class="{ hasdeco: true }">
+    <div class="vendor-list">
+      <!-- 搜索到无结果 -->
+      <div class="result" v-if="resultCount === 1">All Results: 0 Agency</div>
+      <!-- 搜索到有无结果 -->
+      <div class="result" v-else>Search Results - “hexapodant”: 1 Agency</div>
+      <vendorList
+        v-show="vendorListArray.length > 0"
+        :vendorListArray="vendorListArray"
+      ></vendorList>
+      <div class="noresult">
+        <p class="noresult-desc">Sorry, there is no relevant search result.</p>
+        <button class="noresult-button">BACK</button>
       </div>
     </div>
   </main>
 </template>
 
 <style lang="scss" scoped>
-.video {
-  position: relative;
-  max-width: 53rem;
-  width: 53rem;
-  &-control {
-    position: absolute;
-    bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-  &-control-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  &-control-rail {
-    width: 70%;
-    height: 4px;
-    border-radius: 2px;
-    background: #ccc;
-  }
+.vendor-listing {
+  max-width: 100vw;
+  width: auto;
+  min-height: 100vh;
+  background: url("../assets/images/page_bg.png") repeat;
 }
 
-.show {
+.result {
+  color: #20253b;
+  font-family: avenir_next_text;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+}
+.vendor-list {
+  margin: 0 17.8rem;
+}
+@media screen and (max-width: 1069px) {
+  .vendor-list {
+    margin: 0 7.8rem;
+  }
+}
+@media screen and (max-width: 960px) {
+  .vendor-list {
+    margin: 0 auto;
+  }
+
+  .result {
+    color: var(--lvmh-primary-1100, #20253b);
+    font-family: avenir_next_text;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 3rem 1.5rem 1.8rem;
+  }
+}
+.noresult {
   display: flex;
-  &-box {
-    max-width: 53rem;
-    overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1.5rem;
+  margin-top: 19.8rem;
+  &-desc {
+    color: var(--lvmh-primary-1100, #20253b);
+    text-align: center;
+    font-family: lvmh_italic;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
-  &-list {
-    margin: 1rem 0;
-  }
-  &-item {
-    margin-right: 1rem;
-  }
-  .video-box {
-    position: relative;
-  }
-  .media-box {
-    width: 10rem;
-    height: 6rem;
-    background: #000;
-    overflow: hidden;
+  &-button {
+    color: var(--lvmh-primary-110, #e9eaec);
+    font-family: avenir_next_text;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.028px;
     display: flex;
+    width: 12rem;
+    height: 4rem;
+    margin: 2rem;
+    border: none;
+    justify-content: center;
     align-items: center;
-    video {
-      width: 10rem;
-      height: 6rem;
-    }
-    img.media-img {
-      margin: 0 auto;
-      height: 6rem;
-    }
-  }
-  &-item-video-icon {
-    position: absolute;
-    bottom: 0.8rem;
-    right: 1rem;
-    width: 1rem;
-    height: 1rem;
-    background: #000;
-    border-radius: 0.5rem;
-    z-index: 99;
+    background: var(--lvmh-primary-1100, #20253b);
   }
 }
 </style>

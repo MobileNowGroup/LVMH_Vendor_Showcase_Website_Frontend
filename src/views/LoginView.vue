@@ -16,6 +16,8 @@ const verifyEmail = () => {
     router.push({
       name: "vendorlisting",
     });
+
+    
   }
 };
 </script>

@@ -2,28 +2,34 @@
 import { RouterLink, RouterView, useRoute, useRouter } from "vue-router";
 import HeadComponent from "@/components/HeadComponent.vue";
 import FootComponent from "@/components/FootComponent.vue";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, onBeforeUpdate, ref, watch } from "vue";
 import { authStore } from "../stores/authStore";
 import { storeToRefs } from "pinia";
 
 const $router = useRouter();
 const $route = useRoute();
 const pathArray = ["/login", "/", ""];
+let showModel = ref(true);
+
 let store = authStore();
-const { showCookiesModel, userName, StorageTime, ExpirationTime } =
+const { cookiesIsSave, userName, StorageTime, ExpirationTime } =
   storeToRefs(store);
 
 let loginPage = ref(false);
 
 onMounted(() => {
-  console.log(showCookiesModel.value);
+  console.log(cookiesIsSave.value);
+  cookiesIsSave.value ? (showModel.value = false) : (showModel.value = true);
   if ($route.path !== "/vendorlisting") {
-    
   }
   // 判断路由，控制当前导航标签
   loginPage.value = pathArray.some((item) => {
     return $route.path === item;
   });
+});
+
+onBeforeUpdate(() => {
+  
 });
 
 // 判断路由，控制当前导航标签
@@ -41,16 +47,13 @@ watch(
   { immediate: true }
 );
 const closeCookies = () => {
-  // showCookies.value = false;
-  store.CookiesModelClose();
+  showModel.value = false;
 };
 const agreeSaveCookies = () => {
   // 保存用户名什么的
-  store.CookiesModelClose()
-  // store.$patch({
-  //   showCookiesModel: true,
-  //   num: store.num + 1,
-  // });
+  store.saveCookiesFn();
+  showModel.value = false;
+ 
 };
 </script>
 
@@ -60,10 +63,7 @@ const agreeSaveCookies = () => {
       <RouterView />
     </div>
     <div v-else>
-      <div
-        v-if="showCookiesModel"
-        class="cookies w-screen h-fit bg-slate-950/50"
-      >
+      <div v-if="showModel" class="cookies w-screen h-fit bg-slate-950/50">
         <div
           class="cookies-item w-screen h-36 px-20 py-10.5 flex justify-between bg-black h-max items-center"
         >

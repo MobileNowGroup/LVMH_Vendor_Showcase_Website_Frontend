@@ -2,33 +2,31 @@
 import { reactive, ref } from "vue";
 import mockData from "../util/mockData";
 import vendorList from "@/components/vendorListComponent.vue";
+import { authStore } from "../stores/authStore";
+
+let store = authStore();
+
 let resultCount = ref(19);
 
 let vendorListArray = ref();
 vendorListArray.value = mockData.vendorListMock;
+
+const openCookie = () => {
+  //  store.CookiesModelopen()
+};
 </script>
 
 <template>
   <main class="vendor-listing" :class="{ hasdeco: true }">
     <div class="vendor-list">
       <!-- 展示所有数据 -->
-      <div class="result" v-if="resultCount > 0">
+      <div class="result" v-if="resultCount > 0" @click="openCookie">
         All Results: {{ resultCount }} Agencies
       </div>
-      <!-- 搜索到无结果 -->
-      <div class="result" v-else-if="resultCount === 1">
-        All Results: 0 Agency
-      </div>
-      <!-- 搜索到有无结果 -->
-      <div class="result" v-else>Search Results - “hexapodant”: 1 Agency</div>
       <vendorList
         v-show="vendorListArray.length > 0"
         :vendorListArray="vendorListArray"
       ></vendorList>
-      <div class="noresult">
-        <p class="noresult-desc">Sorry, there is no relevant search result.</p>
-        <button class="noresult-button">BACK</button>
-      </div>
     </div>
   </main>
 </template>

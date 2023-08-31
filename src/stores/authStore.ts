@@ -27,7 +27,7 @@ export const authStore = defineStore("auth", {
   state() {
     // 存放的就是模块的变量
     return {
-      showCookiesModel: true, // 是否展示cookies model
+      cookiesIsSave: false, // 是否展示cookies model
       userName: "", // 用户名
       StorageTime: new Date().getTime(), // 保存时间
       ExpirationTime: 0, // 过期时间
@@ -38,18 +38,31 @@ export const authStore = defineStore("auth", {
   },
   actions: {
     // 可以通过actions 方法，改变 state 里面的值。
-    CookiesModelClose() {
-      this.$state.showCookiesModel = false;
-      console.log(this.$state.showCookiesModel);
+    saveUserNameFn(userName: string) {
+      this.$state.userName = userName;
+    },
+    clearUser() {
+      this.$state.userName = "";
+      this.$state.cookiesIsSave = false;
+      this.$state.StorageTime = new Date().getTime();
+      this.$state.ExpirationTime = 0;
+    },
+    saveCookiesFn() {
+      // 持久化关闭
+      this.$state.cookiesIsSave = true;
+
+      console.log(this.$state.cookiesIsSave);
       // 特别注意：在这里this指向的就是当前的实例化出来的对象，piniaAdd 该函数如果换成箭头函数的话，this 指向就会发生 改变，不能再使用 this.count++; 了
     },
   },
   persist: {
     enabled: true,
     strategies: [
-      { storage: localStorage, paths: ["showCookiesModel"] },
-      { storage: localStorage, paths: ["userName"] },
-      { storage: localStorage, paths: ["ExpirationTime"] },
+      {
+        key: "auth",
+        storage: localStorage,
+        paths: ["cookiesIsSave", "userName", "ExpirationTime"],
+      },
     ],
   },
 });
