@@ -6,6 +6,7 @@ cp ./.deploy/docker/$BUILD_ENV_DOCKER_FILE ./Dockerfile
 # build image
 echo "build image"
 docker buildx build --platform linux/amd64 . -t "$BUILD_IMG_TAG"
+docker images
 # --platform linux/amd64: M1芯片
 docker push $BUILD_IMG_TAG
 docker rmi $BUILD_IMG_TAG --force

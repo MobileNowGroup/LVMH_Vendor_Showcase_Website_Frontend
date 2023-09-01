@@ -50,3 +50,8 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+
+## deploy 
+
+sh .deploy/shell/run.dev.sh
