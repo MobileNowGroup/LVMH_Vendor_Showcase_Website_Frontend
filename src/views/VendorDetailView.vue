@@ -5,17 +5,16 @@ import { useRouter } from "vue-router";
 
 const $router = useRouter();
 const vendor = ref({} as any);
-const slideListNode = ref();
 const featureShow = ref("link");
 const slideList = [
-  { slideName: "hennessy", slideSrc: "../assets/images/logo.png" },
-  { slideName: "hennessy", slideSrc: "../assets/images/logo.png" },
-  { slideName: "hennessy", slideSrc: "../assets/images/logo.png" },
-  { slideName: "hennessy", slideSrc: "../assets/images/logo.png" },
-  { slideName: "hennessy", slideSrc: "../assets/images/logo.png" },
-  { slideName: "hennessy", slideSrc: "../assets/images/logo.png" },
-  { slideName: "hennessy", slideSrc: "../assets/images/logo.png" },
-  { slideName: "hennessy", slideSrc: "../assets/images/logo.png" },
+  { slideName: "hennessy", slideSrc: "src/assets/images/detail_top_bg.png" },
+  { slideName: "hennessy", slideSrc: "src/assets/images/zanting.png" },
+  { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
+  { slideName: "hennessy", slideSrc: "src/assets/images/shengyin.png" },
+  { slideName: "hennessy", slideSrc: "src/assets/images/quanping.png" },
+  { slideName: "hennessy", slideSrc: "src/assets/images/logo_black.png" },
+  { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
+  { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
 ];
 onMounted(() => {
   // 进入页面给默认数据
@@ -33,9 +32,28 @@ const mouseDown = (e: any) => {
   // console.log(e)
 };
 const draged = (e: any) => {
-  console.log(slideListNode.value.scrollWidth);
-  console.log(e.target.scrollWidth);
+  // console.log(slideListNode.value.scrollWidth);
+  // console.log(e.target.scrollWidth);
   // sslideListNode.value.scrollWidth = e.target.scrollWidth
+};
+
+let slideListNode = ref();
+let scrollThumbNode = ref();
+let count = 1;
+const scrollPrev = () => {};
+
+const scrollNext = () => {
+  console.log(slideListNode.value.scrollLeft);
+  if (count <= slideList.length - 4) {
+    slideListNode.value.scrollLeft = count++ * 100;
+    scrollThumbNode.value.style.marginLeft = 8 * count + "px";
+  } else {
+    count = 1;
+    slideListNode.value.scrollLeft = 0;
+    scrollThumbNode.value.style.marginLeft = "0px";
+  }
+
+  console.log(slideListNode.value.scrollLeft);
 };
 
 let sendEmailVisable = ref(false);
@@ -80,6 +98,7 @@ const gotoDemo = () => {
       </div>
       <div class="slide-box">
         <img
+          @click.stop="scrollPrev"
           class="slide-arrow slide-arrow-left"
           src="../assets/images/icon/left_arrow.svg"
           alt=""
@@ -99,12 +118,17 @@ const gotoDemo = () => {
               :key="slideIndex"
             >
               <div class="img-box">
-                <img src="../assets/images/logo.png" alt="" />
+                <img :src="slide.slideSrc" alt="" />
               </div>
             </div>
           </div>
+          <div class="scroll-track">
+            <div ref="scrollThumbNode" class="scroll-thumb"></div>
+            <div class="scroll-track-bottom"></div>
+          </div>
         </div>
         <img
+          @click.stop="scrollNext"
           class="slide-arrow slide-arrow-right"
           src="../assets/images/icon/right_arrow.svg"
           alt=""
@@ -428,12 +452,35 @@ const gotoDemo = () => {
     }
     img {
       width: 4.5rem;
+      height: 4.5rem;
       margin: 0 auto;
     }
   }
 }
+.scroll {
+  &-track {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 40px;
+    width: 80px;
+    height: fit-content;
+  }
+  &-thumb {
+    width: 40px;
+    height: 4px;
+    background: #ecf0fa;
+  }
+  &-track-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
 .slide-item-list {
   &::-webkit-scrollbar {
+    display: none;
     width: 10px; // y轴滚动条宽度
     height: 10px; // x轴滚动条宽度
     border-radius: 10px;
@@ -893,9 +940,15 @@ const gotoDemo = () => {
         align-items: center;
       }
       img {
-        width: 4.5rem;
+        width: 3.3rem;
+        height: 3.3rem;
         margin: 0 auto;
       }
+    }
+  }
+  .scroll {
+    &-track {
+      margin-top: 2.4rem;
     }
   }
   .title {

@@ -3,7 +3,7 @@ FROM nginx:stable
 WORKDIR /usr/share/nginx/html
 
 COPY .deploy/nginx/default.conf /etc/nginx/conf.d/
-COPY dist/     ./lvmh_vendor_showcase_frontend/
+COPY dist/  ./lvmh_vendor_showcase_frontend/
 
 EXPOSE 80
 CMD [ "nginx", "-g", "daemon off;" ]
