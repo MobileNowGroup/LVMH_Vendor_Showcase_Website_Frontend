@@ -51,7 +51,12 @@ npm run test:unit
 npm run lint
 ```
 
+## Deploy to dev server
 
-## deploy 
+```bash
+Step 1. Local
+$ sh .deploy/shell/run.dev.sh
 
-sh .deploy/shell/run.dev.sh
+Step 2. Server
+$ sh lvmh_vendor_showcase_frontend/deploy.dev.sh
+```
