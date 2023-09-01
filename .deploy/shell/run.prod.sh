@@ -25,7 +25,8 @@ npm run build:prod
 sh .deploy/shell/docker-app.sh
 docker -v
 
-export BUILD_IMG_TAG=mobilenowdev/lvmh_vendor_showcase_frontend:prod\
+export REGISTRY_REPO=registry.cn-hangzhou.aliyuncs.com\
+  BUILD_IMG_TAG=mobilenowdev/lvmh_vendor_showcase_frontend:prod\
   BUILD_ENV_DOCKER_FILE=Dockerfile.prod\
 
 sh .deploy/shell/build-image.sh
