@@ -2,6 +2,7 @@
 import { onMounted, reactive, ref } from "vue";
 import mockData from "../util/mockData";
 import { useRouter } from "vue-router";
+import { isMobile } from "@/util/common";
 
 const $router = useRouter();
 const vendor = ref({} as any);
@@ -24,26 +25,34 @@ onMounted(() => {
       vendor.value = element;
     }
   });
+  // 监听slidelist滚动距离计算下面scrllbar的滚动距离且只在移动端生效
+  if (isMobile()) {
+    slideListNode.value.addEventListener("scroll", (e: any) => {
+      scrollThumbNode.value.style.marginLeft = e.target.scrollLeft / 5 + "px";
+    });
+  }
 });
-const scrollEvent = (e: any) => {
+const move = (e: any) => {
   // console.log(e)
-};
-const mouseDown = (e: any) => {
-  // console.log(e)
-};
-const draged = (e: any) => {
-  // console.log(slideListNode.value.scrollWidth);
-  // console.log(e.target.scrollWidth);
-  // sslideListNode.value.scrollWidth = e.target.scrollWidth
+  console.log(e);
 };
 
 let slideListNode = ref();
 let scrollThumbNode = ref();
 let count = 1;
-const scrollPrev = () => {};
+
+const scrollPrev = () => {
+  if (count <= slideList.length - 4 && count > 1) {
+    slideListNode.value.scrollLeft = count-- * 100;
+    scrollThumbNode.value.style.marginLeft = 8 * count + "px";
+  } else {
+    count = 1;
+    slideListNode.value.scrollLeft = 0;
+    scrollThumbNode.value.style.marginLeft = "0px";
+  }
+};
 
 const scrollNext = () => {
-  console.log(slideListNode.value.scrollLeft);
   if (count <= slideList.length - 4) {
     slideListNode.value.scrollLeft = count++ * 100;
     scrollThumbNode.value.style.marginLeft = 8 * count + "px";
@@ -52,8 +61,6 @@ const scrollNext = () => {
     slideListNode.value.scrollLeft = 0;
     scrollThumbNode.value.style.marginLeft = "0px";
   }
-
-  console.log(slideListNode.value.scrollLeft);
 };
 
 let sendEmailVisable = ref(false);
@@ -105,13 +112,7 @@ const gotoDemo = () => {
         />
         <div class="slide-track">
           <p class="slide-title">Service Brands</p>
-          <div
-            class="slide-item-list"
-            ref="slideListNode"
-            @scroll="scrollEvent($event)"
-            @mousedown="mouseDown($event)"
-            @drag="draged($event)"
-          >
+          <div class="slide-item-list" ref="slideListNode">
             <div
               class="slide-item"
               v-for="(slide, slideIndex) of slideList"
@@ -617,6 +618,7 @@ const gotoDemo = () => {
         img {
           width: 2.8rem;
           height: 2.8rem;
+          margin: 0 auto;
         }
       }
     }
@@ -988,6 +990,9 @@ const gotoDemo = () => {
         width: 100%;
         div {
           margin: 0 0 1.2rem;
+        }
+        img {
+          margin: 0 auto;
         }
       }
     }
