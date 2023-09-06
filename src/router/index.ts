@@ -4,6 +4,7 @@ import VendorListing from "@/views/VendorListingView.vue";
 import vendorDetail from "@/views/VendorDetailView.vue";
 import Search from "@/views/SearchView.vue";
 import projectDemo from "@/views/ProjectDemoView.vue";
+import Policy from "@/views/Policy.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,12 @@ const router = createRouter({
       name: "search",
       component: Search,
     },
+    {
+      path: "/Policy",
+      name: "Policy",
+      component: Policy,
+    },
+
     {
       path: "/about",
       name: "about",

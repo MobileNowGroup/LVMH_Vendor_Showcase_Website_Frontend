@@ -18,15 +18,15 @@ const $router = useRouter();
       v-for="(vendor, vendorIndex) of vendorListArray"
       :key="vendorIndex"
     >
-      <div class="vendor-head">
-        <img class="vendor-logo" src="@/assets/images/cat.png" alt="" />
-        <div>
-          <router-link :to="`/vendordetail?id=${vendor.id}`">
+      <router-link :to="`/vendordetail?id=${vendor.id}`">
+        <div class="vendor-head">
+          <img class="vendor-logo" src="@/assets/images/cat.png" alt="" />
+          <div>
             <p class="vendor-name">
               {{ vendor.vendorName }}
             </p>
-          </router-link>
-          <!-- <p
+
+            <!-- <p
             class="vendor-name"
             @click="
               () => {
@@ -41,34 +41,35 @@ const $router = useRouter();
           >
             {{ vendor.vendorName }}
           </p> -->
-          <span class="vendor-category">{{ vendor.vendorCategory }}</span>
-          <span class="vendor-category-num">{{
-            vendor.vendorCategoryNum
-          }}</span>
+            <span class="vendor-category">{{ vendor.vendorCategory }}</span>
+            <span class="vendor-category-num">{{
+              vendor.vendorCategoryNum
+            }}</span>
+          </div>
         </div>
-      </div>
-      <div class="vendor-main">
-        <p class="vendor-brief">{{ vendor.vendorBrief }}</p>
-        <p>
-          <span
-            class="vendor-tag"
-            v-for="(tag, tagIndex) of vendor.vendorTags"
-            :key="tagIndex"
-            >{{ tag }}</span
-          >
-        </p>
-      </div>
-      <div class="vendor-foot">
-        <p class="vendor-status">{{ vendor.vendorStatus }}</p>
-        <div class="vendor-dots">
-          <div
-            class="vendor-dot"
-            :class="{ 'vendor-dot-level': vendor.vendorDot > valueIndex }"
-            v-for="(value, valueIndex) of 4"
-            :key="valueIndex"
-          ></div>
+        <div class="vendor-main">
+          <p class="vendor-brief">{{ vendor.vendorBrief }}</p>
+          <p>
+            <span
+              class="vendor-tag"
+              v-for="(tag, tagIndex) of vendor.vendorTags"
+              :key="tagIndex"
+              >{{ tag }}</span
+            >
+          </p>
         </div>
-      </div>
+        <div class="vendor-foot">
+          <p class="vendor-status">{{ vendor.vendorStatus }}</p>
+          <div class="vendor-dots">
+            <div
+              class="vendor-dot"
+              :class="{ 'vendor-dot-level': vendor.vendorDot > valueIndex }"
+              v-for="(value, valueIndex) of 4"
+              :key="valueIndex"
+            ></div>
+          </div>
+        </div>
+      </router-link>
     </div>
   </main>
 </template>
@@ -78,7 +79,7 @@ const $router = useRouter();
   &-listing-component {
     display: grid;
     grid-gap: 3.2rem 2.4rem;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
   //   max-width: 34.5rem;
   //   margin: 0 auto;
@@ -194,7 +195,16 @@ const $router = useRouter();
     background: #2437a0 !important;
   }
 }
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1500px) {
+  .vendor {
+    &-listing-component {
+      display: grid;
+      grid-gap: 3.2rem 2.4rem;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+@media screen and (max-width: 1250px) {
   .vendor {
     &-listing-component {
       display: grid;

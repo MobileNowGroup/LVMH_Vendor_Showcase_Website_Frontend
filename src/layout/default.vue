@@ -19,7 +19,7 @@ let loginPage = ref(false);
 
 onMounted(() => {
   console.log(cookiesIsSave.value);
-  cookiesIsSave.value ? (showModel.value = false) : (showModel.value = true);
+  // cookiesIsSave.value ? (showModel.value = false) : (showModel.value = true);
   if ($route.path !== "/vendorlisting") {
   }
   // 判断路由，控制当前导航标签
@@ -42,7 +42,7 @@ watch(
       return newPath === item;
     });
   },
-  { immediate: true },
+  { immediate: true }
 );
 const closeCookies = () => {
   showModel.value = false;
@@ -62,13 +62,17 @@ const agreeSaveCookies = () => {
     <div v-else>
       <div v-if="showModel" class="cookies w-screen h-fit bg-slate-950/50">
         <div
-          class="cookies-item w-screen h-36 px-20 py-10.5 flex justify-between bg-black h-max items-center"
+          class="cookies-item w-screen px-32 py-10.5 flex justify-between bg-black h-max items-center"
         >
           <p class="text-white w-190 text-sm leading-normal">
             We use essential cookies to make our site work. With your content,
             we may also use non-essential cookies to improve user experience and
             analyze website traffic. By clicking ”Accept”, you agree to put
-            website’s cookies use as described in our “Cookie Policy”.
+            website’s cookies use as described in our “<router-link
+              class="underline"
+              to="/Policy"
+              >Cookie Policy</router-link
+            >”.
           </p>
           <div class="flex">
             <button

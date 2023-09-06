@@ -24,7 +24,7 @@ const verifyEmail = () => {
   <main>
     <div class="login">
       <div class="login-box">
-        <img class="logo" src="../assets/images/logo.png" alt="" />
+        <img class="logo" src="@assets/images/logo.png" alt="" />
         <p class="login-title" v-show="!isPassVerify">
           We need to verify your identity.
         </p>
@@ -61,11 +61,11 @@ const verifyEmail = () => {
 .login {
   max-width: 100vw;
   height: 100vh;
-  background: url("../assets/images/LVMH_IT_Digita_bg.png") repeat-x;
+  background: url("@assets/images/LVMH_IT_Digita_bg.png") repeat-x;
   object-fit: cover;
   &-box {
     width: max-content;
-    padding-top: 25rem;
+    padding-top: 20rem; // 改为20
     margin: 0 auto;
     text-align: center;
     .logo {
@@ -88,6 +88,7 @@ const verifyEmail = () => {
   }
   &-desc {
     color: var(--lvmh-primary-110, #e9eaec);
+    margin-top: 1.2rem;
     font-family: lvmh_regular;
     text-align: left;
     max-width: 30rem;
@@ -103,7 +104,7 @@ const verifyEmail = () => {
     outline: none;
     border-style: none;
 
-    color: var(--lvmh-primary-170, #636776);
+    color: white; // 改为白色
     padding-bottom: 8px;
     font-family: avenir_next_text;
     font-size: 14px;
