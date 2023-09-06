@@ -8,6 +8,7 @@ let filterNumber = ref(0);
 let searchVisibale = ref(false); // searchbox是否展示
 let searchValue = ref(""); // 需要search 的数据
 let filterVisibale = ref(false); // filterbox是否展示
+let filterVisibaleBg = ref(false); // filterbox background
 const filterList = mockData.filterListMock; // filter数据
 let decoVisiable = ref(true); // 是否展示顶部装饰文本
 let decoText = ref(""); // 顶部装饰文本内容
@@ -49,7 +50,7 @@ watch(
         break;
     }
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 /** 返回vendorlisting */
@@ -64,6 +65,7 @@ const openBox = (e: any, openType: string) => {
   } else {
     filterVisibale.value = true;
     searchVisibale.value = false;
+    filterVisibaleBg.value = true; // bg 展示
   }
 };
 /** 关闭searc或者filter */
@@ -84,6 +86,9 @@ const closeBox = (e: any, closeType: any) => {
       filterNumber.value += menu.selectedCount;
     });
     filterVisibale.value = false;
+    setTimeout(() => {
+      filterVisibaleBg.value = false;
+    }, 1000);
   }
   // console.log('关闭',filterVisibale.value)
   return false;
@@ -131,12 +136,6 @@ const _onPageScroll = () => {
       decoVisiable.value = false;
     }
   }
-
-  // window.onscroll = throttle(() => {
-
-  // }, 100);
-
-  setTimeout(() => {}, 500);
 };
 // 页面销毁
 onUnmounted(() => {
@@ -159,47 +158,49 @@ onUnmounted(() => {
         >
           <img class="search" src="@/assets/images/icon/search.svg" alt="" />
           <span>search</span>
-          <div class="search-box" v-show="searchVisibale">
-            <div class="bg-box">
-              <img
-                class="close-icon"
-                src="@/assets/images/icon/close.svg"
-                alt=""
-                @click.stop="closeBox($event, 'search')"
-              />
-              <div class="inner-box">
-                <div class="input-box">
-                  <img
-                    class="search-icon"
-                    src="@/assets/images/icon/search_gray.svg"
-                    alt=""
-                  />
-                  <input
-                    type="text"
-                    placeholder="Search here"
-                    v-model="searchValue"
-                  />
-                  <p
-                    class="search-clear"
+          <Transition>
+            <div class="search-box" v-show="searchVisibale">
+              <div class="bg-box">
+                <img
+                  class="close-icon"
+                  src="@/assets/images/icon/close.svg"
+                  alt=""
+                  @click.stop="closeBox($event, 'search')"
+                />
+                <div class="inner-box">
+                  <div class="input-box">
+                    <img
+                      class="search-icon"
+                      src="@/assets/images/icon/search_gray.svg"
+                      alt=""
+                    />
+                    <input
+                      type="text"
+                      placeholder="Search here"
+                      v-model="searchValue"
+                    />
+                    <p
+                      class="search-clear"
+                      @click="
+                        () => {
+                          searchValue = '';
+                        }
+                      "
+                    >
+                      Clear
+                    </p>
+                  </div>
+                  <button
                     @click="
-                      () => {
-                        searchValue = '';
-                      }
+                      searchResult($event, 'search'), closeBox($event, 'search')
                     "
                   >
-                    Clear
-                  </p>
+                    SEARCH
+                  </button>
                 </div>
-                <button
-                  @click="
-                    searchResult($event, 'search'), closeBox($event, 'search')
-                  "
-                >
-                  SEARCH
-                </button>
               </div>
             </div>
-          </div>
+          </Transition>
         </div>
         <div
           class="condition is-flex-center"
@@ -207,68 +208,53 @@ onUnmounted(() => {
         >
           <img class="filter" src="@/assets/images/icon/filter.svg" alt="" />
           <span> filter({{ filterNumber }}) </span>
-          <div class="filter-box" v-show="filterVisibale">
-            <div class="bg-box">
-              <img
-                class="close-icon"
-                src="@/assets/images/icon/close.svg"
-                alt=""
-                @click.stop="closeBox($event, 'filter')"
-              />
-              <div class="filter-main">
-                <div class="inner-box">
-                  <div
-                    class="menu-box"
-                    v-for="(menu, menuIndex) of filterList"
-                    :key="menuIndex"
-                  >
-                    <p
-                      class="menu-title"
-                      @click="
-                        () => {
-                          menu.isShow = !menu.isShow;
-                        }
-                      "
+          <!-- <Transition
+            mode="in-out"
+            enter-active-class="animate__animated animate__slideInRight"
+            leave-active-class="animate__animated animate__slideOutRight"
+          > -->
+            <div class="filter-box" v-show="filterVisibaleBg">
+              <div class="bg-box" v-show="filterVisibale">
+                <img
+                  class="close-icon"
+                  src="@/assets/images/icon/close.svg"
+                  alt=""
+                  @click.stop="closeBox($event, 'filter')"
+                />
+                <div class="filter-main">
+                  <div class="inner-box">
+                    <div
+                      class="menu-box"
+                      v-for="(menu, menuIndex) of filterList"
+                      :key="menuIndex"
                     >
-                      <span>
-                        {{ menu.MenuTitle
-                        }}{{
-                          menu.selectedCount > 0
-                            ? ` (${menu.selectedCount})`
-                            : null
-                        }}
-                      </span>
-                      <img
-                        :class="{ 'menu-title-show': menu.isShow }"
-                        src="../assets/images/icon/arrow.svg"
-                        alt=""
-                      />
-                    </p>
-                    <div v-show="menu.isShow">
                       <p
-                        class="menu-item"
-                        v-for="(menuItem, menuItemIndex) of menu.menuItemList"
-                        :key="menuItemIndex"
+                        class="menu-title"
                         @click="
-                          (e) => {
-                            menuItem.isChoosed = !menuItem.isChoosed;
-                            menu.selectedCount = 0;
-                            menu.menuItemList.forEach((item) => {
-                              if (item.isChoosed) {
-                                menu.selectedCount += 1;
-                              }
-                            });
+                          () => {
+                            menu.isShow = !menu.isShow;
                           }
                         "
                       >
-                        <input
-                          type="checkbox"
-                          name="my-checkbox"
-                          :checked="menuItem.isChoosed"
-                          :id="menuIndex.toLocaleString() + menuItemIndex"
+                        <span>
+                          {{ menu.MenuTitle
+                          }}{{
+                            menu.selectedCount > 0
+                              ? ` (${menu.selectedCount})`
+                              : null
+                          }}
+                        </span>
+                        <img
+                          :class="{ 'menu-title-show': menu.isShow }"
+                          src="../assets/images/icon/arrow.svg"
+                          alt=""
                         />
-                        <label
-                          :for="menuIndex.toLocaleString() + menuItemIndex"
+                      </p>
+                      <div v-show="menu.isShow">
+                        <p
+                          class="menu-item"
+                          v-for="(menuItem, menuItemIndex) of menu.menuItemList"
+                          :key="menuItemIndex"
                           @click="
                             (e) => {
                               menuItem.isChoosed = !menuItem.isChoosed;
@@ -280,29 +266,57 @@ onUnmounted(() => {
                               });
                             }
                           "
-                          >{{ menuItem.desc }}</label
                         >
-                      </p>
+                          <input
+                            type="checkbox"
+                            name="my-checkbox"
+                            :checked="menuItem.isChoosed"
+                            :id="menuIndex.toLocaleString() + menuItemIndex"
+                          />
+                          <label
+                            :for="menuIndex.toLocaleString() + menuItemIndex"
+                            @click="
+                              (e) => {
+                                menuItem.isChoosed = !menuItem.isChoosed;
+                                menu.selectedCount = 0;
+                                menu.menuItemList.forEach((item) => {
+                                  if (item.isChoosed) {
+                                    menu.selectedCount += 1;
+                                  }
+                                });
+                              }
+                            "
+                            >{{ menuItem.desc }}</label
+                          >
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="control-box">
-                  <button @click="clearFilter" class="clear">CLEAR</button>
-                  <button
-                    @click="
-                      searchResult($event, 'filter'), closeBox($event, 'filter')
-                    "
-                  >
-                    SEARCH
-                  </button>
+                  <div class="control-box">
+                    <button @click="clearFilter" class="clear">CLEAR</button>
+                    <button
+                      @click="
+                        searchResult($event, 'filter'),
+                          closeBox($event, 'filter')
+                      "
+                    >
+                      SEARCH
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          <!-- </Transition> -->
         </div>
       </div>
     </div>
-    <h1 class="agency-listing" v-if="decoVisiable">{{ decoText }}</h1>
+    <Transition
+      mode="in-out"
+      enter-active-class="animate__animated animate__fadeIn"
+      leave-active-class="animate__animated animate__fadeOut"
+    >
+      <h1 class="agency-listing" v-show="decoVisiable">{{ decoText }}</h1>
+    </Transition>
   </div>
 </template>
 
@@ -367,7 +381,7 @@ onUnmounted(() => {
     height: calc(100vh - 8rem);
     border-top: 1px solid rgba(36, 55, 160, 0.15);
     background: rgba(0, 0, 0, 0.5);
-    transition: all 0.5s linear;
+    z-index: 999;
     .bg-box {
       background: #fff;
       height: 12rem;
@@ -444,7 +458,6 @@ onUnmounted(() => {
     height: 100vh;
     border-top: 1px solid rgba(36, 55, 160, 0.15);
     background: rgba(0, 0, 0, 0.5);
-    transition: all 0.5s linear;
     .bg-box {
       float: right;
       background: #fff;
