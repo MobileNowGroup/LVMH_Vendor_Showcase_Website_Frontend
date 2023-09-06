@@ -9,7 +9,7 @@ let searchVisibale = ref(false); // searchbox是否展示
 let searchValue = ref(""); // 需要search 的数据
 let filterVisibale = ref(false); // filterbox是否展示
 let filterVisibaleBg = ref(false); // filterbox background
-const filterList = mockData.filterListMock; // filter数据
+const filterList = ref(mockData.filterListMock); // filter数据
 let decoVisiable = ref(true); // 是否展示顶部装饰文本
 let decoText = ref(""); // 顶部装饰文本内容
 const $route = useRoute(); // router 路由信息
@@ -82,7 +82,7 @@ const closeBox = (e: any, closeType: any) => {
     searchVisibale.value = false;
   } else {
     filterNumber.value = 0;
-    filterList.forEach((menu, menuIndex) => {
+    filterList.value.forEach((menu, menuIndex) => {
       filterNumber.value += menu.selectedCount;
     });
     filterVisibale.value = false;
@@ -95,7 +95,7 @@ const closeBox = (e: any, closeType: any) => {
 };
 /**清空所有filter */
 const clearFilter = () => {
-  filterList.forEach((menu, menindex) => {
+  filterList.value.forEach((menu, menindex) => {
     // 清空所有category num
     menu.selectedCount = 0;
     // 清空filter总数量
@@ -208,12 +208,13 @@ onUnmounted(() => {
         >
           <img class="filter" src="@/assets/images/icon/filter.svg" alt="" />
           <span> filter({{ filterNumber }}) </span>
-          <!-- <Transition
-            mode="in-out"
-            enter-active-class="animate__animated animate__slideInRight"
-            leave-active-class="animate__animated animate__slideOutRight"
-          > -->
-            <div class="filter-box" v-show="filterVisibaleBg">
+
+          <div class="filter-box" v-show="filterVisibaleBg">
+            <Transition
+              mode="in-out"
+              enter-active-class="animate__animated animate__slideInRight"
+              leave-active-class="animate__animated animate__slideOutRight"
+            >
               <div class="bg-box" v-show="filterVisibale">
                 <img
                   class="close-icon"
@@ -305,8 +306,8 @@ onUnmounted(() => {
                   </div>
                 </div>
               </div>
-            </div>
-          <!-- </Transition> -->
+            </Transition>
+          </div>
         </div>
       </div>
     </div>

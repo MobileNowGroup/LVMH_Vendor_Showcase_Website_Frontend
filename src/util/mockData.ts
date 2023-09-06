@@ -1,7 +1,8 @@
 import type vendorItem from "@/model/vendor.model";
+import { reactive } from "vue";
 
 const allowedCommon = ["'self'"];
-const vendorListMock: Array<vendorItem> = [
+const vendorListMock: Array<vendorItem> = reactive([
   {
     id: 0,
     logoSrc: "../assets/images/icon/search.svg",
@@ -58,9 +59,9 @@ const vendorListMock: Array<vendorItem> = [
     vendorStatus: "4. Blueprint",
     vendorDot: 0,
   },
-];
+])
 
-const filterListMock = [
+const filterListMock = reactive([
   {
     MenuTitle: "category",
     selectedCount: 0,
@@ -109,7 +110,7 @@ const filterListMock = [
       { desc: "Product Discovery (1)", isChoosed: false },
     ],
   },
-];
+])
 
 export default {
   vendorListMock,
