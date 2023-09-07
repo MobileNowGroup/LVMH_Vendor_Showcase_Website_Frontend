@@ -59,7 +59,7 @@ const vendorListMock: Array<vendorItem> = reactive([
     vendorStatus: "4. Blueprint",
     vendorDot: 0,
   },
-])
+]);
 
 const filterListMock = reactive([
   {
@@ -110,7 +110,7 @@ const filterListMock = reactive([
       { desc: "Product Discovery (1)", isChoosed: false },
     ],
   },
-])
+]);
 
 export default {
   vendorListMock,

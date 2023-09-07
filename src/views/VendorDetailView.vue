@@ -62,11 +62,12 @@ const scrollNext = () => {
     scrollThumbNode.value.style.marginLeft = "0px";
   }
 };
-
+const sendEmailText = ref("REQUEST");
 let sendEmailVisable = ref(false);
 // 发送邮件
 const sendEmail = () => {
   sendEmailVisable.value = true;
+  sendEmailText.value = "REQUESTED";
 };
 
 const gotoDemo = () => {
@@ -289,7 +290,7 @@ const gotoDemo = () => {
         class="button"
         :class="{ 'button-gray': sendEmailVisable }"
       >
-        REQUEST
+        {{ sendEmailText }}
       </button>
       <div class="information information-box">
         <p class="information" v-show="sendEmailVisable">

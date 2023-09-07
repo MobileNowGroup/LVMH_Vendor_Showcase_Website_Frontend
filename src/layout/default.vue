@@ -42,7 +42,7 @@ watch(
       return newPath === item;
     });
   },
-  { immediate: true }
+  { immediate: true },
 );
 const closeCookies = () => {
   showModel.value = false;

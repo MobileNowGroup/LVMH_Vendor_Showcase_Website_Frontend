@@ -20,7 +20,10 @@
       >
     </p>
     <p class="right">
-      <span>沪ICP备 ***********号</span>
+      <span>
+        <router-link to="policy" class="mr-10">Privacy policy</router-link>
+      </span>
+      <span class="mr-8">沪ICP备 ***********号</span>
       <span>Copyright@LVMH Digital</span>
     </p>
   </div>

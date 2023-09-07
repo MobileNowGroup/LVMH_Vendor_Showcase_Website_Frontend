@@ -10,20 +10,24 @@ let searchValue = ref(""); // 需要search 的数据
 let filterVisibale = ref(false); // filterbox是否展示
 let filterVisibaleBg = ref(false); // filterbox background
 const filterList = ref(mockData.filterListMock); // filter数据
-let decoVisiable = ref(true); // 是否展示顶部装饰文本
-let decoText = ref(""); // 顶部装饰文本内容
+const filterShow = ref(true); // 是否展示filter
+let decoVisiable = ref(false); // 是否展示顶部装饰文本
+let decoText = ref("Agency Listing"); // 顶部装饰文本内容
 const $route = useRoute(); // router 路由信息
 const $router = useRouter(); // router 路由操作
 const headerDom = ref(null);
+const decoShowArray = ["/vendordetail", "/policy"]; // 不展示agency listing 的页面
+decoVisiable.value = decoShowArray.every((item) => {
+  return item !== $route.path;
+});
 
 onMounted(() => {
-  if ($route.path === "/vendordetail") {
-    decoVisiable.value = false;
-  }
-
   if (window) {
     window.addEventListener("scroll", _onPageScroll);
   }
+  // 启用filter功能
+  filterShow.value = $route.path !== "/vendordetail";
+
   // else {
   // (headerDom.value as any).setAttribute(
   //   "style",
@@ -36,19 +40,28 @@ watch(
   () => $router.currentRoute.value.path,
   (newPath, oldPath) => {
     //  监听路由变化，动态添加header下面的装饰文本
-    switch (newPath) {
-      case "/projectdemo":
-        decoVisiable.value = true;
+    decoVisiable.value = decoShowArray.every((item) => {
+      if ("/projectdemo" === item) {
         decoText.value = "qi ta ming zi";
-        break;
-      case "/vendorlisting":
-        decoVisiable.value = true;
-        decoText.value = "Agency Listing";
-        break;
-      default:
-        decoVisiable.value = false;
-        break;
-    }
+      }
+      return item !== newPath;
+    });
+
+    filterShow.value = newPath !== "/vendordetail";
+
+    // switch (newPath) {
+    //   case "/projectdemo":
+    //     decoVisiable.value = true;
+    //     decoText.value = "qi ta ming zi";
+    //     break;
+    //   case "/vendorlisting":
+    //     decoVisiable.value = true;
+    //     decoText.value = "Agency Listing";
+    //     break;
+    //   default:
+    //     decoVisiable.value = false;
+    //     break;
+    // }
   },
   { immediate: true }
 );
@@ -88,7 +101,7 @@ const closeBox = (e: any, closeType: any) => {
     filterVisibale.value = false;
     setTimeout(() => {
       filterVisibaleBg.value = false;
-    }, 1000);
+    }, 800);
   }
   // console.log('关闭',filterVisibale.value)
   return false;
@@ -130,11 +143,9 @@ const _onPageScroll = () => {
   if (scrollTop > 0) {
     decoVisiable.value = false;
   } else {
-    if ($route.path !== "/vendordetail") {
-      decoVisiable.value = true;
-    } else {
-      decoVisiable.value = false;
-    }
+    decoVisiable.value = decoShowArray.every((item) => {
+      return item !== $route.path;
+    });
   }
 };
 // 页面销毁
@@ -174,10 +185,27 @@ onUnmounted(() => {
                       src="@/assets/images/icon/search_gray.svg"
                       alt=""
                     />
+
                     <input
                       type="text"
                       placeholder="Search here"
                       v-model="searchValue"
+                      @focus="
+                        (e) => {
+                          (e as any).target.previousSibling.setAttribute(
+                            'style',
+                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);'
+                          );
+                        }
+                      "
+                      @blur="
+                        (e) => {
+                          (e as any).target.previousSibling.setAttribute(
+                            'style',
+                            'background: transparent'
+                          );
+                        }
+                      "
                     />
                     <p
                       class="search-clear"
@@ -205,15 +233,14 @@ onUnmounted(() => {
         <div
           class="condition is-flex-center"
           @click="openBox($event, 'filter')"
+          v-if="filterShow"
         >
           <img class="filter" src="@/assets/images/icon/filter.svg" alt="" />
           <span> filter({{ filterNumber }}) </span>
-
           <div class="filter-box" v-show="filterVisibaleBg">
             <Transition
-              mode="in-out"
-              enter-active-class="animate__animated animate__slideInRight"
-              leave-active-class="animate__animated animate__slideOutRight"
+              enter-active-class="animate__animated animate__fadeInRight"
+              leave-active-class="animate__animated animate__fadeOutRight"
             >
               <div class="bg-box" v-show="filterVisibale">
                 <img
@@ -424,7 +451,7 @@ onUnmounted(() => {
       background: transparent;
       outline: none;
       border-style: none;
-      color: var(--lvmh-primary-170, #636776);
+      color: var(--lvmh-primary-170, #000);
       padding-bottom: 8px;
       font-family: avenir_next_text;
       font-size: 14px;
