@@ -338,11 +338,7 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <Transition
-      mode="in-out"
-      enter-active-class="animate__animated animate__fadeIn"
-      leave-active-class="animate__animated animate__fadeOut"
-    >
+    <Transition>
       <h1 class="agency-listing" v-show="decoVisiable">{{ decoText }}</h1>
     </Transition>
   </div>

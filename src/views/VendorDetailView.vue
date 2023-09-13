@@ -39,28 +39,28 @@ const move = (e: any) => {
 
 let slideListNode = ref();
 let scrollThumbNode = ref();
-let count = 1;
+let count = ref(0);
 
 const scrollPrev = () => {
-  if (count <= slideList.length - 4 && count > 1) {
-    slideListNode.value.scrollLeft = count-- * 100;
-    scrollThumbNode.value.style.marginLeft = 8 * count + "px";
-  } else {
-    count = 1;
-    slideListNode.value.scrollLeft = 0;
-    scrollThumbNode.value.style.marginLeft = "0px";
-  }
+  slideListNode.value.scrollLeft = count.value-- * 100;
+  scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
+  // if (count.value <= slideList.length - 4 && count.value > 0) {
+  // } else {
+  //   count.value = 1;
+  //   slideListNode.value.scrollLeft = 0;
+  //   scrollThumbNode.value.style.marginLeft = "0px";
+  // }
 };
 
 const scrollNext = () => {
-  if (count <= slideList.length - 4) {
-    slideListNode.value.scrollLeft = count++ * 100;
-    scrollThumbNode.value.style.marginLeft = 8 * count + "px";
-  } else {
-    count = 1;
-    slideListNode.value.scrollLeft = 0;
-    scrollThumbNode.value.style.marginLeft = "0px";
-  }
+  slideListNode.value.scrollLeft = count.value++ * 100;
+  scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
+  // if (count.value <= slideList.length - 4) {
+  // } else {
+  //   count.value = 1;
+  //   slideListNode.value.scrollLeft = 0;
+  //   scrollThumbNode.value.style.marginLeft = "0px";
+  // }
 };
 const sendEmailText = ref("REQUEST");
 let sendEmailVisable = ref(false);
@@ -106,6 +106,7 @@ const gotoDemo = () => {
       </div>
       <div class="slide-box">
         <img
+          v-show="count > -1"
           @click.stop="scrollPrev"
           class="slide-arrow slide-arrow-left"
           src="../assets/images/icon/left_arrow.svg"
@@ -129,12 +130,14 @@ const gotoDemo = () => {
             <div class="scroll-track-bottom"></div>
           </div>
         </div>
-        <img
-          @click.stop="scrollNext"
-          class="slide-arrow slide-arrow-right"
-          src="../assets/images/icon/right_arrow.svg"
-          alt=""
-        />
+        <div class="slide-arrow slide-arrow-right flex items-center">
+          <img
+            v-show="count < slideList.length - 3"
+            @click.stop="scrollNext"
+            src="../assets/images/icon/right_arrow.svg"
+            alt=""
+          />
+        </div>
       </div>
     </div>
     <div class="content">
