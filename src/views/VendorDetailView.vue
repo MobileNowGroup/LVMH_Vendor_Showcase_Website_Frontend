@@ -42,8 +42,11 @@ let scrollThumbNode = ref();
 let count = ref(0);
 
 const scrollPrev = () => {
-  slideListNode.value.scrollLeft = count.value-- * 100;
-  scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
+  if (count.value > 0) {
+    slideListNode.value.scrollLeft = --count.value * 100;
+    scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
+  }
+
   // if (count.value <= slideList.length - 4 && count.value > 0) {
   // } else {
   //   count.value = 1;
@@ -53,8 +56,11 @@ const scrollPrev = () => {
 };
 
 const scrollNext = () => {
-  slideListNode.value.scrollLeft = count.value++ * 100;
-  scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
+  if (count.value <= slideList.length - 4) {
+    slideListNode.value.scrollLeft = ++count.value * 100;
+    scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
+  }
+
   // if (count.value <= slideList.length - 4) {
   // } else {
   //   count.value = 1;
@@ -105,13 +111,15 @@ const gotoDemo = () => {
         </div>
       </div>
       <div class="slide-box">
-        <img
-          v-show="count > -1"
-          @click.stop="scrollPrev"
-          class="slide-arrow slide-arrow-left"
-          src="../assets/images/icon/left_arrow.svg"
-          alt=""
-        />
+        <div class="slide-arrow slide-arrow-left flex items-center">
+          <img
+            v-show="count > 0"
+            @click.stop="scrollPrev"
+            class=""
+            src="../assets/images/icon/left_arrow.svg"
+            alt=""
+          />
+        </div>
         <div class="slide-track">
           <p class="slide-title">Service Brands</p>
           <div class="slide-item-list" ref="slideListNode">
