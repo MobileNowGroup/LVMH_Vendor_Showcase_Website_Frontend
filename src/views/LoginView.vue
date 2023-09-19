@@ -75,7 +75,7 @@ const verifyEmail = () => {
     }
   }
   &-title {
-    padding-top: 8rem;
+    padding-top: 6rem;
     max-width: 30rem;
     color: var(--lvmh-primary-110, #e9eaec);
     font-family: lvmh_regular;
@@ -115,6 +115,8 @@ const verifyEmail = () => {
       border-bottom: 1px solid #e9eaec;
     }
     &::placeholder {
+      font-size: 14px;
+      font-weight: 600;
       color: #636776;
     }
   }
@@ -134,6 +136,7 @@ const verifyEmail = () => {
   &-button {
     width: 100%;
     height: 4rem;
+    font-size: 14px;
     padding: 1rem 4rem;
     justify-content: center;
     align-items: center;

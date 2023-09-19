@@ -346,12 +346,12 @@ const clickNothing = function () {};
   }
   &-item-video-icon {
     position: absolute;
-    bottom: 0.8rem;
-    right: 1rem;
-    width: 1rem;
-    height: 1rem;
+    bottom: 0.4rem;
+    right: 0.4rem;
+    width: 2.4rem;
+    height: 2.4rem;
     background: #000;
-    border-radius: 0.5rem;
+    border-radius: 1.2rem;
     z-index: 99;
   }
 }

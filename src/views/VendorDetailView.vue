@@ -350,6 +350,9 @@ const gotoDemo = () => {
     font-weight: 500;
     line-height: 22px; /* 137.5% */
   }
+  &-category {
+    @include ellipsisLn(1);
+  }
   &-name {
     color: var(--lvmh-secondary-1100, #3e65d0);
     font-family: avenir_next_text;
@@ -382,6 +385,9 @@ const gotoDemo = () => {
       border-radius: 2px;
       background: var(--lvmh-secondary-110, #ecf0fa);
     }
+  }
+  &-intro {
+    @include ellipsisLn(3);
   }
 }
 .slide {
@@ -619,14 +625,14 @@ const gotoDemo = () => {
     &-right {
       text-align: left;
       margin-top: 2rem;
-      margin-left: 1.2rem;
+      margin-left: 2.4rem;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
       div {
         text-align: center;
-        box-shadow: 2px 2px 12px #ccc;
+        box-shadow: 0px 7px 14px 0px #3e65d010;
         padding: 2rem;
-        margin: 0 1.2rem 1.2rem;
         img {
           width: 2.8rem;
           height: 2.8rem;
@@ -659,6 +665,7 @@ const gotoDemo = () => {
       font-style: normal;
       font-weight: 500;
       line-height: normal;
+      background: #e9eaec;
     }
     &-video-box {
       width: 93rem;
@@ -681,7 +688,7 @@ const gotoDemo = () => {
     div {
       padding: 0 2rem 1.7rem 2rem;
       background: #fff;
-      box-shadow: 0px 0px 10px 0px rgba(62, 101, 208, 0.15);
+      box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
       margin: 1.2rem;
       img {
         display: block;

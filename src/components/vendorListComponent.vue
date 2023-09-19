@@ -42,9 +42,9 @@ const $router = useRouter();
             {{ vendor.vendorName }}
           </p> -->
             <span class="vendor-category">{{ vendor.vendorCategory }}</span>
-            <span class="vendor-category-num">{{
-              vendor.vendorCategoryNum
-            }}</span>
+            <span class="vendor-category-num"
+              >+{{ vendor.vendorCategoryNum }}</span
+            >
           </div>
         </div>
         <div class="vendor-main">
@@ -63,7 +63,7 @@ const $router = useRouter();
           <div class="vendor-dots">
             <div
               class="vendor-dot"
-              :class="{ 'vendor-dot-level': vendor.vendorDot > valueIndex }"
+              :class="{ 'vendor-dot-level': vendor.vendorDot > valueIndex  }"
               v-for="(value, valueIndex) of 4"
               :key="valueIndex"
             ></div>
@@ -76,6 +76,7 @@ const $router = useRouter();
 
 <style lang="scss" scoped>
 .vendor {
+  box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.10);
   &-listing-component {
     display: grid;
     grid-gap: 3.2rem 2.4rem;

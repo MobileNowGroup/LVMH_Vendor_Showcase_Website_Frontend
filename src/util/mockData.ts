@@ -29,7 +29,7 @@ const vendorListMock: Array<vendorItem> = reactive([
       "Founded in 2019, it is dedicated to using digital innovations and tools to create, and enhance the user experience online and offline.",
     vendorTags: ["Artificial Intelligence", "3D Display"],
     vendorStatus: "4. Blueprint",
-    vendorDot: 4,
+    vendorDot: 3,
   },
   {
     id: 2,
@@ -57,7 +57,7 @@ const vendorListMock: Array<vendorItem> = reactive([
       "Founded in 2019, it is dedicated to using digital innovations and tools to create, and enhance the user experience online and offline.",
     vendorTags: ["Artificial Intelligence", "3D Display"],
     vendorStatus: "4. Blueprint",
-    vendorDot: 0,
+    vendorDot: 1,
   },
 ]);
 

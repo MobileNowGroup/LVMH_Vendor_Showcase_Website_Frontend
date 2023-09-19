@@ -20,7 +20,7 @@ const openCookie = () => {
   <main class="vendor-listing" :class="{ hasdeco: true }">
     <div class="vendor-list">
       <!-- 展示所有数据 -->
-      <div class="result" v-if="resultCount > 0" @click="openCookie">
+      <div class="result font-weight" v-if="resultCount > 0" @click="openCookie">
         All Results: {{ resultCount }} Agencies
       </div>
       <vendorList
@@ -44,7 +44,7 @@ const openCookie = () => {
   font-family: avenir_next_text;
   font-size: 16px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: normal;
   margin-top: 6rem;
   margin-bottom: 2rem;

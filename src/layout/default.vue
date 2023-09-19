@@ -42,7 +42,7 @@ watch(
       return newPath === item;
     });
   },
-  { immediate: true },
+  { immediate: true }
 );
 const closeCookies = () => {
   showModel.value = false;
@@ -60,39 +60,42 @@ const agreeSaveCookies = () => {
       <RouterView />
     </div>
     <div v-else>
-      <div v-if="showModel" class="cookies w-screen h-fit bg-slate-950/50">
+      <div v-if="showModel" class="fixed w-screen h-screen z-50 bg-black/50">
         <div
-          class="cookies-item w-screen px-32 py-10.5 flex justify-between bg-black h-max items-center"
+          class="absolute bottom-0 w-screen h-fit lg:px-32 py-10.5 px-16 flex justify-between bg-black items-center"
         >
-          <p class="text-white w-190 text-sm leading-normal">
-            We use essential cookies to make our site work. With your content,
-            we may also use non-essential cookies to improve user experience and
-            analyze website traffic. By clicking ”Accept”, you agree to put
-            website’s cookies use as described in our “<router-link
-              class="underline"
-              to="/Policy"
-              >Cookie Policy</router-link
-            >”.
-          </p>
-          <div class="flex">
-            <button
-              class="px-10.5 py-2.5 text-white h-min border-white border mr-4"
-              @click="closeCookies"
-            >
-              Reject
-            </button>
-            <button
-              class="px-10.5 py-2.5 text-black h-min bg-white border-white"
-              @click="agreeSaveCookies"
-            >
-              Accept
-            </button>
-          </div>
           <img
+            class="absolute top-8 right-14 cursor-pointer"
             @click="closeCookies"
             src="../assets/images/icon/close_white.svg"
             alt=""
           />
+          <div class="lg:mt-0 mt-16 w-full flex justify-between items-center">
+            <p class="text-[#E9EAEC] lg:w-190 text-[14px] font-medium leading-normal">
+              We use essential cookies to make our site work. With your content,
+              we may also use non-essential cookies to improve user experience
+              and analyze website traffic. By clicking ”Accept”, you agree to
+              put website’s cookies use as described in our “<router-link
+                class="underline"
+                to="/Policy"
+                >Cookie Policy</router-link
+              >”.
+            </p>
+            <div class="flex">
+              <button
+                class="py-2.5 w-[160px] text-[#E9EAEC] text-center h-min text-[14px] font-medium border-[#E9EAEC] border mr-[16px]"
+                @click="closeCookies"
+              >
+                Reject
+              </button>
+              <button
+                class="py-2.5 w-[160px] text-black text-center h-min text-[14px] font-medium bg-[#E9EAEC] border-[#E9EAEC]"
+                @click="agreeSaveCookies"
+              >
+                Accept
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <HeadComponent></HeadComponent>
@@ -103,20 +106,20 @@ const agreeSaveCookies = () => {
 </template>
 
 <style lang="scss" scoped>
-.cookies {
-  position: fixed;
-  z-index: 99999;
-  width: 100vw;
-  height: 100vh;
-  &-item {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    img {
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
-    }
-  }
-}
+// .cookies {
+//   position: fixed;
+//   z-index: 99999;
+//   width: 100vw;
+//   height: 100vh;
+//   &-item {
+//     position: absolute;
+//     bottom: 0;
+//     left: 0;
+//     img {
+//       position: absolute;
+//       top: 2rem;
+//       right: 2rem;
+//     }
+//   }
+// }
 </style>

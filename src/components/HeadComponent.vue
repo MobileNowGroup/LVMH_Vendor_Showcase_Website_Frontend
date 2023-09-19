@@ -154,7 +154,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <div ref="headerDom" class="header">
+  <div ref="headerDom" class="header z-10">
     <div class="topbox">
       <img
         class="logo"
@@ -356,7 +356,6 @@ onUnmounted(() => {
 }
 .header {
   position: fixed;
-  z-index: 999;
   width: 100%;
   background: rgba(255, 255, 255, 1);
   padding: 1.1rem 4rem;
@@ -407,6 +406,7 @@ onUnmounted(() => {
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
     .bg-box {
+      box-shadow: 0 1px 0px 0px #2437A015 inset;
       background: #fff;
       height: 12rem;
     }
@@ -447,7 +447,7 @@ onUnmounted(() => {
       background: transparent;
       outline: none;
       border-style: none;
-      color: var(--lvmh-primary-170, #000);
+      color: var(--lvmh-primary-170, #20253B);
       padding-bottom: 8px;
       font-family: avenir_next_text;
       font-size: 14px;
@@ -457,7 +457,7 @@ onUnmounted(() => {
       padding: 0;
       margin-left: 1.2rem;
       &::placeholder {
-        color: #636776;
+        color: #D8D8D8;
       }
     }
     button {

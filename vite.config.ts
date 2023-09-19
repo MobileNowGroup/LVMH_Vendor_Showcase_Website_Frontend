@@ -32,6 +32,9 @@ const IP = getNetWorkIp()
 // https://vitejs.dev/config/
 export default defineConfig({
   css: {
+    preprocessorOptions:{
+         scss:"@import 'src/assets/base.scss"
+    },
     postcss: {
      plugins: [require("tailwindcss"), require("autoprefixer")],
     },
