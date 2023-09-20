@@ -44,7 +44,7 @@ const openCookie = () => {
   font-family: avenir_next_text;
   font-size: 16px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
   margin-top: 6rem;
   margin-bottom: 2rem;

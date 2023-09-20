@@ -586,7 +586,7 @@ onUnmounted(() => {
       font-family: avenir_next_text;
       font-size: 1.4rem;
       font-style: normal;
-      font-weight: 600;
+      font-weight: 500;
       line-height: normal;
       letter-spacing: 0.028px;
       margin: 0.8rem auto;

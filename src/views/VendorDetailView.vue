@@ -81,6 +81,28 @@ const gotoDemo = () => {
     name: "projectdemo",
   });
 };
+
+import { Swiper, SwiperSlide } from "swiper/vue"; // swiper所需组件
+// 这是分页器和对应方法，swiper好像在6的时候就已经分离了分页器和一些其他工具
+
+// import { Autoplay, Navigation, Pagination } from "swiper";
+// 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+// setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
+const modules = ref([]);
+const navigation = ref({
+  nextEl: ".button-next",
+  prevEl: ".button-prev",
+});
+const prevEl = () => {
+  // console.log('上一张' + index + item)
+};
+const nextEl = () => {
+  // console.log('下一张')
+};
 </script>
 
 <template>
@@ -110,6 +132,7 @@ const gotoDemo = () => {
           </p>
         </div>
       </div>
+
       <div class="slide-box">
         <div class="slide-arrow slide-arrow-left flex items-center">
           <img
@@ -123,15 +146,26 @@ const gotoDemo = () => {
         <div class="slide-track">
           <p class="slide-title">Service Brands</p>
           <div class="slide-item-list" ref="slideListNode">
-            <div
-              class="slide-item"
-              v-for="(slide, slideIndex) of slideList"
-              :key="slideIndex"
+            <swiper
+              :slidesPerView="5"
+              :spaceBetween="20"
+              :loop="false"
+              :centeredSlides="false"
+              :autoplay="{ delay: 2000, disableOnInteraction: false }"
+              :navigation="navigation"
+              :modules="modules"
+              class="mySwiper"
             >
-              <div class="img-box">
-                <img :src="slide.slideSrc" alt="" />
-              </div>
-            </div>
+              <swiper-slide
+                class="slide-item"
+                v-for="(slide, slideIndex) of slideList"
+                :key="slideIndex"
+              >
+                <div class="img-box">
+                  <img :src="slide.slideSrc" alt="" />
+                </div>
+              </swiper-slide>
+            </swiper>
           </div>
           <div class="scroll-track">
             <div ref="scrollThumbNode" class="scroll-thumb"></div>
@@ -139,7 +173,6 @@ const gotoDemo = () => {
           </div>
         </div>
 
-  
         <div class="slide-arrow slide-arrow-right flex items-center">
           <img
             v-show="count < slideList.length - 3"
@@ -741,7 +774,7 @@ const gotoDemo = () => {
     width: 140px;
     height: 40px;
     padding: 10px 40px;
-    font-weight: 600;
+    font-weight: 500;
     color: #e9eaec;
     justify-content: center;
     align-items: center;

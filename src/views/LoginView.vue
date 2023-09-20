@@ -140,6 +140,7 @@ const verifyEmail = () => {
     padding: 1rem 4rem;
     justify-content: center;
     align-items: center;
+    font-weight: 500;
     gap: 10px;
   }
 }
