@@ -367,15 +367,15 @@ onUnmounted(() => {
 .header {
   position: fixed;
   width: 100%;
-  background: rgba(255, 255, 255, 1);
   box-shadow: 0 1px 0px 0px #2437a015;
-  padding: 1.1rem 4rem;
 
   div.topbox {
     // height: 8rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: white;
+    padding: 1.1rem 4rem;
   }
   .agency-listing {
     height: 12rem;
@@ -386,6 +386,7 @@ onUnmounted(() => {
     font-style: italic;
     font-weight: 400;
     line-height: 10rem;
+    background: rgba(255, 255, 255, 0.7);
   }
   .logo {
     width: 8.1rem;
