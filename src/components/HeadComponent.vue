@@ -358,6 +358,7 @@ onUnmounted(() => {
   position: fixed;
   width: 100%;
   background: rgba(255, 255, 255, 1);
+  box-shadow: 0 1px 0px 0px #2437A015;
   padding: 1.1rem 4rem;
 
   div.topbox {
@@ -576,15 +577,14 @@ onUnmounted(() => {
       align-items: center;
       // width: 100%;
       margin: 0 4rem;
-      margin-top: 6rem;
-      margin-bottom: 7.2rem;
+      margin-bottom: 6.2rem;
     }
     button {
       color: #e9eaec;
       font-family: avenir_next_text;
       font-size: 1.4rem;
       font-style: normal;
-      font-weight: 500;
+      font-weight: 600;
       line-height: normal;
       letter-spacing: 0.028px;
       margin: 0.8rem auto;
@@ -598,7 +598,6 @@ onUnmounted(() => {
       font-family: avenir_next_text;
       font-size: 14px;
       font-style: normal;
-      font-weight: 500;
       line-height: normal;
       letter-spacing: 0.28px;
       background: #fff;

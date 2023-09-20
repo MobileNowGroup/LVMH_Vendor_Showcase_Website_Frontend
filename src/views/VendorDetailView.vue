@@ -739,6 +739,7 @@ const gotoDemo = () => {
     width: 140px;
     height: 40px;
     padding: 10px 40px;
+    font-weight: 600;
     color: #e9eaec;
     justify-content: center;
     align-items: center;
