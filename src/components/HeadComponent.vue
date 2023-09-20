@@ -272,11 +272,19 @@ onUnmounted(() => {
                               : null
                           }}
                         </span>
-                        <img
-                          :class="{ 'menu-title-show': menu.isShow }"
-                          src="../assets/images/icon/arrow.svg"
-                          alt=""
-                        />
+                        <Transition
+                          enter-active-class="animate__animated animate__rotateIn"
+                          leave-active-class="animate__animated animate__rotateOut"
+                        >
+                          <img
+                            :class="{
+                              'menu-title-show': menu.isShow,
+                              'menu-title-hide': !menu.isShow,
+                            }"
+                            src="../assets/images/icon/arrow.svg"
+                            alt=""
+                          />
+                        </Transition>
                       </p>
                       <div v-show="menu.isShow">
                         <p
@@ -533,9 +541,13 @@ onUnmounted(() => {
         img {
           margin-right: -0.4rem;
         }
+        &-hide {
+          transform: rotate(0deg);
+          transition: all 0.3s linear 0s;
+        }
         &-show {
           transform: rotate(180deg);
-          transition: all 0.5s linear;
+          transition: all 0.3s linear 0s;
         }
       }
 
