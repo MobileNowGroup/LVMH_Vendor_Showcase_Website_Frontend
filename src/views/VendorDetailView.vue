@@ -99,9 +99,17 @@ const navigation = ref({
 });
 const prevEl = () => {
   // console.log('上一张' + index + item)
+  if (count.value > 0) {
+    slideListNode.value.scrollLeft = --count.value * 100;
+    scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
+  }
 };
 const nextEl = () => {
   // console.log('下一张')
+  if (count.value <= slideList.length - 4) {
+    slideListNode.value.scrollLeft = ++count.value * 100;
+    scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
+  }
 };
 </script>
 
@@ -137,7 +145,7 @@ const nextEl = () => {
         <div class="slide-arrow slide-arrow-left flex items-center">
           <img
             v-show="count > 0"
-            @click.stop="scrollPrev"
+            @click.stop="prevEl"
             class=""
             src="../assets/images/icon/left_arrow.svg"
             alt=""
@@ -176,7 +184,7 @@ const nextEl = () => {
         <div class="slide-arrow slide-arrow-right flex items-center">
           <img
             v-show="count < slideList.length - 3"
-            @click.stop="scrollNext"
+            @click.stop="nextEl"
             src="../assets/images/icon/right_arrow.svg"
             alt=""
           />

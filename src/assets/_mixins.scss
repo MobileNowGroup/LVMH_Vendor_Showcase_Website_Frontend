@@ -1,10 +1,10 @@
 @mixin ellipsisLn($line: 1) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    display: -moz-box;
-    -moz-box-orient: vertical;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: $line;
-    -moz-line-clamp: $line;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+  -moz-line-clamp: $line;
 }

@@ -42,7 +42,7 @@ watch(
       return newPath === item;
     });
   },
-  { immediate: true }
+  { immediate: true },
 );
 const closeCookies = () => {
   showModel.value = false;
@@ -71,7 +71,9 @@ const agreeSaveCookies = () => {
             alt=""
           />
           <div class="lg:mt-0 mt-16 w-full flex justify-between items-center">
-            <p class="text-[#E9EAEC] lg:w-190 text-[14px] font-medium leading-normal">
+            <p
+              class="text-[#E9EAEC] lg:w-190 text-[14px] font-medium leading-normal"
+            >
               We use essential cookies to make our site work. With your content,
               we may also use non-essential cookies to improve user experience
               and analyze website traffic. By clicking ”Accept”, you agree to

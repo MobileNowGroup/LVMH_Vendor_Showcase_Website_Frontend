@@ -20,7 +20,11 @@ const openCookie = () => {
   <main class="vendor-listing" :class="{ hasdeco: true }">
     <div class="vendor-list">
       <!-- 展示所有数据 -->
-      <div class="result font-weight" v-if="resultCount > 0" @click="openCookie">
+      <div
+        class="result font-weight"
+        v-if="resultCount > 0"
+        @click="openCookie"
+      >
         All Results: {{ resultCount }} Agencies
       </div>
       <vendorList

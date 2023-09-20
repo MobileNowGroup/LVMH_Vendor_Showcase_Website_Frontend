@@ -63,7 +63,7 @@ const $router = useRouter();
           <div class="vendor-dots">
             <div
               class="vendor-dot"
-              :class="{ 'vendor-dot-level': vendor.vendorDot > valueIndex  }"
+              :class="{ 'vendor-dot-level': vendor.vendorDot > valueIndex }"
               v-for="(value, valueIndex) of 4"
               :key="valueIndex"
             ></div>
@@ -76,7 +76,7 @@ const $router = useRouter();
 
 <style lang="scss" scoped>
 .vendor {
-  box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.10);
+  box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
   &-listing-component {
     display: grid;
     grid-gap: 3.2rem 2.4rem;
