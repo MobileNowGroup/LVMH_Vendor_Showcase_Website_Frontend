@@ -59,32 +59,20 @@ input:focus {
   border-color: transparent !important;
 }
 
-.v-leave-from,
-.v-enter-to {
-  opacity: 1;
-}
 
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
+// 元素开始进入的状态 | 元素离开结束的状态
+.run-enter-from,
+.run-leave-to {
   opacity: 0;
 }
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-to,
-.fade-leave-from {
+// 元素进入结束的状态 ｜ 元素开始离开的状态。     这里不写也可以！！！！！！
+.run-enter-to,
+.run-leave-from {
   opacity: 1;
 }
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
+// 元素进入 ｜ 结束时，过渡的效果
+.run-enter-active,
+.run-leave-active {
+  // 过渡动画的使用
+  transition: opacity 0.15s linear 0s;
 }

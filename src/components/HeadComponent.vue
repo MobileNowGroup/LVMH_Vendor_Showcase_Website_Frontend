@@ -101,7 +101,7 @@ const closeBox = (e: any, closeType: any) => {
     filterVisibale.value = false;
     setTimeout(() => {
       filterVisibaleBg.value = false;
-    }, 800);
+    }, 400);
   }
   // console.log('关闭',filterVisibale.value)
   return false;
@@ -338,8 +338,10 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <Transition>
-      <h1 class="agency-listing" v-show="decoVisiable">{{ decoText }}</h1>
+    <Transition name="run">
+      <div class="agency-listing" v-show="decoVisiable">
+        {{ decoText }}
+      </div>
     </Transition>
   </div>
 </template>
@@ -358,7 +360,7 @@ onUnmounted(() => {
   position: fixed;
   width: 100%;
   background: rgba(255, 255, 255, 1);
-  box-shadow: 0 1px 0px 0px #2437A015;
+  box-shadow: 0 1px 0px 0px #2437a015;
   padding: 1.1rem 4rem;
 
   div.topbox {
@@ -407,7 +409,7 @@ onUnmounted(() => {
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
     .bg-box {
-      box-shadow: 0 1px 0px 0px #2437A015 inset;
+      box-shadow: 0 1px 0px 0px #2437a015 inset;
       background: #fff;
       height: 12rem;
     }
@@ -448,7 +450,7 @@ onUnmounted(() => {
       background: transparent;
       outline: none;
       border-style: none;
-      color: var(--lvmh-primary-170, #20253B);
+      color: var(--lvmh-primary-170, #20253b);
       padding-bottom: 8px;
       font-family: avenir_next_text;
       font-size: 14px;
@@ -458,7 +460,7 @@ onUnmounted(() => {
       padding: 0;
       margin-left: 1.2rem;
       &::placeholder {
-        color: #D8D8D8;
+        color: #d8d8d8;
       }
     }
     button {
