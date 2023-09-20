@@ -139,22 +139,7 @@ const gotoDemo = () => {
           </div>
         </div>
 
-        <swiper
-                    :slidesPerView="7"
-                    :spaceBetween="10"
-                    :loop="true"
-                    :centeredSlides="false"
-                    :autoplay="{delay: 2000,disableOnInteraction: false}"
-                    :navigation="navigation"
-                    :modules="modules"
-                    class="mySwiper">
-                <swiper-slide v-for="num in 14" :key="num">
-                    <div class="swiper-content">
-                        <div><img src="@/assets/homePage/组件%2062%20–%201.png" alt="" style="width: 58px;height: 58px; "/></div>
-                        <p class="swiper-content-text">星云大数据</p>
-                    </div>
-                </swiper-slide>
-            </swiper>
+  
         <div class="slide-arrow slide-arrow-right flex items-center">
           <img
             v-show="count < slideList.length - 3"
