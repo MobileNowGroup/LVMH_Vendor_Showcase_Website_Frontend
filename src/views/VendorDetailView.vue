@@ -678,7 +678,7 @@ const nextEl = () => {
       gap: 1.2rem;
       div {
         text-align: center;
-        box-shadow: 0px 7px 14px 0px #3e65d010;
+        box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
         padding: 2rem;
         img {
           width: 2.8rem;
