@@ -185,7 +185,7 @@ const nextEl = () => {
           <img
             v-show="count < slideList.length - 3"
             @click.stop="nextEl"
-            src="../assets/images/icon/right_arrow.svg"
+            src="../assets/images/right_arrow.png"
             alt=""
           />
         </div>
@@ -443,6 +443,10 @@ const nextEl = () => {
   }
   &-arrow {
     width: 2rem;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.5;
+    }
     &-left {
       margin-right: 2.4rem;
     }

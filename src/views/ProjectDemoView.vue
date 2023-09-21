@@ -100,78 +100,83 @@ const clickNothing = function () {};
 
 <template>
   <main :class="{ hasdeco: true }">
-    <div class="title-box">
-      <h2 class="title">Claimed Kpis</h2>
-    </div>
-    <div v-if="demoLink" class="demo-box">
-      <!-- <p class="demo-desc">Click the link to view demo</p> -->
-      <button class="demo-button" @click="clickNothing">
-        <img src="../assets/images/icon/button_link.svg" alt="" /> Demo link
-      </button>
-    </div>
-    <div class="show-box">
-      <div class="slide">
-        <div class="slide-video" v-if="mediaType(showMediaSrc) === 'media'">
-          <video
-            controls
-            preload="metadata"
-            :poster="`${showMediaSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
-            class="video"
-            @loadeddata="setVideoPosterFn($event)"
-          >
-            <source :src="showMediaSrc" type="video/mp4" />
-          </video>
+   
+      <div class="bg-white pt-[10rem]">
+        <div class="title-box">
+          <h2 class="title">Claimed Kpis</h2>
         </div>
-        <div v-else class="slide-image">
-          <img :src="showMediaSrc" alt="" />
+        <div v-if="demoLink" class="demo-box">
+          <!-- <p class="demo-desc">Click the link to view demo</p> -->
+          <button class="demo-button" @click="clickNothing">
+            <img src="../assets/images/icon/button_link.svg" alt="" /> Demo link
+          </button>
         </div>
-      </div>
-
-      <div class="show" ref="slide">
-        <div class="show-list">
-          <div
-            class="show-item"
-            v-for="(value, key) of showList"
-            :key="key"
-            @click="showSlideMedia(value.src, key)"
-          >
-            <div
-              class="media-box video-box"
-              v-if="mediaType(value.src) === 'media'"
-            >
-              <img
-                class="icon show-item-video-icon"
-                src="../assets/images/24gf-videoCamera.png"
-                alt=""
-              />
+        <div class="show-box">
+          <div class="slide">
+            <div class="slide-video" v-if="mediaType(showMediaSrc) === 'media'">
               <video
+                controls
                 preload="metadata"
-                :poster="`${value.src}?x-oss-process=video/snapshot,t_1,m_fast`"
+                :poster="`${showMediaSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
+                class="video"
                 @loadeddata="setVideoPosterFn($event)"
               >
-                <source :src="value.src" type="video/mp4" />
+                <source :src="showMediaSrc" type="video/mp4" />
               </video>
             </div>
-            <div class="media-box image-box" v-else>
-              <img class="media-img" :src="value.src" alt="" />
+            <div v-else class="slide-image">
+              <img :src="showMediaSrc" alt="" />
+            </div>
+          </div>
+
+          <div class="show" ref="slide">
+            <div class="show-list">
+              <div
+                class="show-item"
+                v-for="(value, key) of showList"
+                :key="key"
+                @click="showSlideMedia(value.src, key)"
+              >
+                <div
+                  class="media-box video-box"
+                  v-if="mediaType(value.src) === 'media'"
+                >
+                  <img
+                    class="icon show-item-video-icon"
+                    src="../assets/images/24gf-videoCamera.png"
+                    alt=""
+                  />
+                  <video
+                    preload="metadata"
+                    :poster="`${value.src}?x-oss-process=video/snapshot,t_1,m_fast`"
+                    @loadeddata="setVideoPosterFn($event)"
+                  >
+                    <source :src="value.src" type="video/mp4" />
+                  </video>
+                </div>
+                <div class="media-box image-box" v-else>
+                  <img class="media-img" :src="value.src" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="show-control">
+              <img
+                v-if="!isMobileDevice"
+                class=""
+                src="../assets/images/icon/close_circle.svg"
+                @click="nextShow"
+                alt="decoration img for slide control"
+              />
             </div>
           </div>
         </div>
-        <div class="show-control">
-          <img
-            v-if="!isMobileDevice"
-            class=""
-            src="../assets/images/icon/close_circle.svg"
-            @click="nextShow"
-            alt="decoration img for slide control"
-          />
-        </div>
       </div>
-    </div>
+   
   </main>
 </template>
 
 <style lang="scss" scoped>
+
 .slide {
   max-width: 93rem;
   height: max-content;
@@ -281,6 +286,7 @@ const clickNothing = function () {};
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    background: #e9eaec;
   }
 }
 .show-list::-webkit-scrollbar {

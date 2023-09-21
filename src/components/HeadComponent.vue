@@ -15,11 +15,15 @@ let decoVisiable = ref(false); // 是否展示顶部装饰文本
 let decoText = ref("Agency Listing"); // 顶部装饰文本内容
 const $route = useRoute(); // router 路由信息
 const $router = useRouter(); // router 路由操作
-const headerDom = ref(null);
+const headerDom = ref();
 const decoShowArray = ["/vendordetail", "/policy"]; // 不展示agency listing 的页面
 decoVisiable.value = decoShowArray.every((item) => {
   return item !== $route.path;
 });
+// header背景色
+const headbg_07 = ref(false),
+  headbg_0 = ref(false),
+  headbg_10 = ref(false);
 
 onMounted(() => {
   if (window) {
@@ -27,6 +31,22 @@ onMounted(() => {
   }
   // 启用filter功能
   filterShow.value = $route.path !== "/vendordetail";
+
+  // 监听路由匹配不同header背景色
+  switch ($route.path) {
+    case "/vendorlisting":
+      headerDom.value.className = "header z-10 headbg_07";
+      break;
+    case "/vendordetail":
+      headerDom.value.className = "header z-10 headbg_10";
+      break;
+    case "/projectdemo":
+      headerDom.value.className = "header z-10 headbg_0 headbg_image";
+      break;
+    default:
+      headerDom.value.className = "header z-10 headbg_10";
+      break;
+  }
 
   // else {
   // (headerDom.value as any).setAttribute(
@@ -49,21 +69,24 @@ watch(
 
     filterShow.value = newPath !== "/vendordetail";
 
-    // switch (newPath) {
-    //   case "/projectdemo":
-    //     decoVisiable.value = true;
-    //     decoText.value = "qi ta ming zi";
-    //     break;
+    // 监听路由匹配不同header背景色
+    // switch ($route.path) {
     //   case "/vendorlisting":
-    //     decoVisiable.value = true;
-    //     decoText.value = "Agency Listing";
+    //     headerDom.value.className = "header z-10 headbg_07";
+    //     break;
+    //   case "/vendordetail":
+    //     headerDom.value.className = "header z-10 headbg_10";
+    //     break;
+    //   case "/projectdemo":
+    //     console.log(headerDom.value)
+    //    headerDom.value.className = "header z-10 headbg_0";
     //     break;
     //   default:
-    //     decoVisiable.value = false;
+    //     headerDom.value.className = "header z-10 headbg_10";
     //     break;
     // }
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 /** 返回vendorlisting */
@@ -142,7 +165,25 @@ const _onPageScroll = () => {
 
   if (scrollTop > 0) {
     decoVisiable.value = false;
+    // 发生滚动时header背景
+    headerDom.value.className = "header z-10 headbg_10";
   } else {
+    // 监听路由匹配不同header背景色
+    switch ($route.path) {
+      case "/vendorlisting":
+        headerDom.value.className = "header z-10 headbg_07";
+        break;
+      case "/vendordetail":
+        headerDom.value.className = "header z-10 headbg_10";
+        break;
+      case "/projectdemo":
+        headerDom.value.className = "header z-10 headbg_0 headbg_image";
+        break;
+      default:
+        headerDom.value.className = "header z-10 headbg_10";
+        break;
+    }
+
     decoVisiable.value = decoShowArray.every((item) => {
       return item !== $route.path;
     });
@@ -194,7 +235,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);',
+                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);'
                           );
                         }
                       "
@@ -202,7 +243,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'background: transparent',
+                            'background: transparent'
                           );
                         }
                       "
@@ -356,13 +397,20 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .headbg_07 {
+  transition: all 0.5s linear;
   background: rgba(255, 255, 255, 0.7);
 }
 .headbg_10 {
+  transition: all 0.5s linear;
   background: rgba(255, 255, 255, 1);
 }
 .headbg_0 {
+  transition: all 0.5s linear;
   background: rgba(255, 255, 255, 0);
+}
+.headbg_image {
+  transition: all 0.5s linear;
+  background: url("../assets/images/page_bg.png") repeat;
 }
 .header {
   position: fixed;
@@ -374,7 +422,6 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: white;
     padding: 1.1rem 4rem;
   }
   .agency-listing {
@@ -386,7 +433,6 @@ onUnmounted(() => {
     font-style: italic;
     font-weight: 400;
     line-height: 10rem;
-    background: rgba(255, 255, 255, 0.7);
   }
   .logo {
     width: 8.1rem;
