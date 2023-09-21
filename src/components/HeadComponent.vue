@@ -33,6 +33,16 @@ onMounted(() => {
   filterShow.value = $route.path !== "/vendordetail";
 
   // 监听路由匹配不同header背景色
+  headerbg();
+  // else {
+  // (headerDom.value as any).setAttribute(
+  //   "style",
+  //   "background: rgba(255,255,255,0)",
+  // );
+  // }
+});
+
+const headerbg = () => {
   switch ($route.path) {
     case "/vendorlisting":
       headerDom.value.className = "header z-10 headbg_07";
@@ -47,14 +57,7 @@ onMounted(() => {
       headerDom.value.className = "header z-10 headbg_10";
       break;
   }
-
-  // else {
-  // (headerDom.value as any).setAttribute(
-  //   "style",
-  //   "background: rgba(255,255,255,0)",
-  // );
-  // }
-});
+};
 
 watch(
   () => $router.currentRoute.value.path,
@@ -68,23 +71,14 @@ watch(
     });
 
     filterShow.value = newPath !== "/vendordetail";
+    // 强制每个页面初始化的时候滚动条在最上部
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 
     // 监听路由匹配不同header背景色
-    // switch ($route.path) {
-    //   case "/vendorlisting":
-    //     headerDom.value.className = "header z-10 headbg_07";
-    //     break;
-    //   case "/vendordetail":
-    //     headerDom.value.className = "header z-10 headbg_10";
-    //     break;
-    //   case "/projectdemo":
-    //     console.log(headerDom.value)
-    //    headerDom.value.className = "header z-10 headbg_0";
-    //     break;
-    //   default:
-    //     headerDom.value.className = "header z-10 headbg_10";
-    //     break;
-    // }
+    setTimeout(() => {
+      headerbg();
+    });
   },
   { immediate: true }
 );
@@ -92,9 +86,11 @@ watch(
 /** 返回vendorlisting */
 const backToHome = () => {
   $router.push({ name: "vendorlisting" });
+  headerbg();
 };
 /** 打开searc或者filter */
 const openBox = (e: any, openType: string) => {
+  headerDom.value.className = "header z-10 headbg_10";
   if (openType === "search") {
     searchVisibale.value = true;
     filterVisibale.value = false;
@@ -106,6 +102,7 @@ const openBox = (e: any, openType: string) => {
 };
 /** 关闭searc或者filter */
 const closeBox = (e: any, closeType: any) => {
+  headerbg();
   // 点击关闭searchbox
   if (e) e.cancelBubble = true;
   // e.stopPropagation()
@@ -169,20 +166,7 @@ const _onPageScroll = () => {
     headerDom.value.className = "header z-10 headbg_10";
   } else {
     // 监听路由匹配不同header背景色
-    switch ($route.path) {
-      case "/vendorlisting":
-        headerDom.value.className = "header z-10 headbg_07";
-        break;
-      case "/vendordetail":
-        headerDom.value.className = "header z-10 headbg_10";
-        break;
-      case "/projectdemo":
-        headerDom.value.className = "header z-10 headbg_0 headbg_image";
-        break;
-      default:
-        headerDom.value.className = "header z-10 headbg_10";
-        break;
-    }
+    headerbg();
 
     decoVisiable.value = decoShowArray.every((item) => {
       return item !== $route.path;
