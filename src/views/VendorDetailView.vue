@@ -785,9 +785,13 @@ const nextEl = () => {
     display: flex;
     width: 140px;
     height: 40px;
-    padding: 10px 40px;
+    color: var(--lvmh-primary-110, #e9eaec);
+    font-family: Avenir Next;
+    font-size: 14px;
+    font-style: normal;
     font-weight: 500;
-    color: #e9eaec;
+    line-height: normal;
+    letter-spacing: 0.028px;
     justify-content: center;
     align-items: center;
     padding: 1rem 2rem;
