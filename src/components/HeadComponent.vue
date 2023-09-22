@@ -372,10 +372,10 @@ onUnmounted(() => {
       </div>
     </div>
     <Transition name="run">
-      <div class="agency-listing" v-if="decoVisiable">
+      <div class="agency-listing items-center" v-if="decoVisiable">
         <img
           v-if="$route.path === '/projectdemo'"
-          class="lg:w-[136px] lg:h-[78px] m-auto"
+          class="lg:w-[136px] lg:h-[78px] w-52 m-auto"
           src="../assets/images/hennessy.png"
           alt=""
         />

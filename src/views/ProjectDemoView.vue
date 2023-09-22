@@ -100,7 +100,7 @@ const clickNothing = function () {};
 
 <template>
   <main :class="{ hasdeco: true }">
-    <div class="bg-white pb-[10rem]">
+    <div class="bg-white pb-[10rem] lg:mx-0 mx-4">
       <div class="title-box">
         <h2 class="title">
           <div class="flex items-center justify-center">
@@ -246,27 +246,6 @@ const clickNothing = function () {};
   font-weight: 400;
   line-height: normal;
   text-transform: capitalize;
-
-  &::after {
-    position: absolute;
-    right: 21.4%;
-    top: 2.1rem;
-    transform: translateY(-50%);
-    content: "";
-    width: 19%;
-    height: 0.05rem;
-    background: #3e65d0;
-  }
-  &::before {
-    position: absolute;
-    left: 21.4%;
-    top: 2.1rem;
-    transform: translateY(-50%);
-    content: "";
-    width: 19%;
-    height: 0.05rem;
-    background: #3e65d0;
-  }
 }
 .demo {
   &-box {
@@ -408,26 +387,7 @@ const clickNothing = function () {};
     text-transform: capitalize;
     position: relative;
     margin-bottom: 3.6rem;
-    &::after {
-      position: absolute;
-      right: 1.5rem;
-      top: 2.1rem;
-      transform: translateY(-50%);
-      content: "";
-      width: 5.4rem;
-      height: 0.1rem;
-      background: #3e65d0;
-    }
-    &::before {
-      position: absolute;
-      left: 1.5rem;
-      top: 2.1rem;
-      transform: translateY(-50%);
-      content: "";
-      width: 5.4rem;
-      height: 0.1rem;
-      background: #3e65d0;
-    }
+   
   }
 }
 </style>
