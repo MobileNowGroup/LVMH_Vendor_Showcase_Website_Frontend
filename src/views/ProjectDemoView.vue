@@ -352,7 +352,6 @@ const clickNothing = function () {};
   .show {
     &-box {
       margin: 0 1.5rem;
-     
     }
     &-control {
     }
@@ -387,7 +386,6 @@ const clickNothing = function () {};
     text-transform: capitalize;
     position: relative;
     margin-bottom: 3.6rem;
-   
   }
 }
 </style>

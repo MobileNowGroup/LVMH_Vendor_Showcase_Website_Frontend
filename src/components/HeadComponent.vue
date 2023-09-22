@@ -80,7 +80,7 @@ watch(
       headerbg();
     });
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 /** 返回vendorlisting */
@@ -219,7 +219,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);'
+                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);',
                           );
                         }
                       "
@@ -227,7 +227,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'background: transparent'
+                            'background: transparent',
                           );
                         }
                       "
@@ -311,8 +311,8 @@ onUnmounted(() => {
                           />
                         </Transition>
                       </p>
-                      <div v-show="menu.isShow">
-                        <p
+                      <ul v-show="menu.isShow">
+                        <li
                           class="menu-item"
                           v-for="(menuItem, menuItemIndex) of menu.menuItemList"
                           :key="menuItemIndex"
@@ -328,29 +328,16 @@ onUnmounted(() => {
                             }
                           "
                         >
-                          <input
-                            type="checkbox"
-                            name="my-checkbox"
-                            :checked="menuItem.isChoosed"
-                            :id="menuIndex.toLocaleString() + menuItemIndex"
-                          />
-                          <label
-                            :for="menuIndex.toLocaleString() + menuItemIndex"
-                            @click="
-                              (e) => {
-                                menuItem.isChoosed = !menuItem.isChoosed;
-                                menu.selectedCount = 0;
-                                menu.menuItemList.forEach((item) => {
-                                  if (item.isChoosed) {
-                                    menu.selectedCount += 1;
-                                  }
-                                });
-                              }
-                            "
-                            >{{ menuItem.desc }}</label
-                          >
-                        </p>
-                      </div>
+                          <div class="flex items-center">
+                            <span
+                              class="inline-block w-[20px] h-[20px] border border-[#A6A8B1] mr-[8px]"
+                              :class="{ checkedBg: menuItem.isChoosed }"
+                            >
+                            </span>
+                            <span>{{ menuItem.desc }}</span>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                   <div class="control-box">
@@ -605,21 +592,26 @@ onUnmounted(() => {
         input[type="checkbox"] {
           width: 2rem;
           height: 2rem;
+          border-radius: 0;
           margin-right: 0.8rem;
           cursor: pointer;
         }
         label {
           cursor: pointer;
         }
-
+        .checkedBg {
+          background: url("../assets/images/checkbox.png");
+        }
         input[type="checkbox"]:checked::after {
-          content: "\2713";
+          content: "";
           display: block;
           cursor: pointer;
-          color: #fff;
-          text-indent: 0.5rem;
-          font-size: 1.65rem;
-          background-color: black;
+          // color: #fff;
+          // width: 20px;
+          // height: 20px;
+          // text-indent: 0.5rem;
+          // font-size: 1.65rem;
+          // background-color: black;
         }
       }
     }
