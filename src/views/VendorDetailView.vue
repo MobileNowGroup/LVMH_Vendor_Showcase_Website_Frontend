@@ -278,7 +278,7 @@ const nextEl = () => {
           </div>
           <div class="content-price-right">
             <div>
-              <img src="../assets/logo.svg" alt="" />
+              <img src="../assets/images/Media.jpg" alt="" />
               <h2 class="">Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
