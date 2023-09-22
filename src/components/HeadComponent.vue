@@ -602,20 +602,9 @@ onUnmounted(() => {
         .checkedBg {
           width:20px;
           height:20px;
-          border-color: #000;
+          border-color: #20253B;
           background: url("../assets/images/checkbox.png");
           background-size:contain;
-        }
-        input[type="checkbox"]:checked::after {
-          content: "";
-          display: block;
-          cursor: pointer;
-          // color: #fff;
-          // width: 20px;
-          // height: 20px;
-          // text-indent: 0.5rem;
-          // font-size: 1.65rem;
-          // background-color: black;
         }
       }
     }
