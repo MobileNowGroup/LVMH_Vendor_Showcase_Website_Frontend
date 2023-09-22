@@ -32,7 +32,7 @@ onMounted(() => {
     });
   }
 });
-const serviceBrandsList = [{},{},{},{}]
+const serviceBrandsList = [{}, {}, {}, {}];
 let slideListNode = ref();
 let scrollThumbNode = ref();
 let count = ref(0);
@@ -279,7 +279,7 @@ const nextEl = () => {
           <div class="content-price-right">
             <div>
               <img src="../assets/logo.svg" alt="" />
-              <h2>Hosting</h2>
+              <h2 class="">Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
               <p>SPECIFIX Integration</p>
@@ -361,7 +361,7 @@ const nextEl = () => {
         <div class="content-service-list">
           <div
             @click="gotoDemo"
-            v-for="(serviceBrands,serviceBrandsIndex) of serviceBrandsList"
+            v-for="(serviceBrands, serviceBrandsIndex) of serviceBrandsList"
             :key="serviceBrandsIndex"
           >
             <img
@@ -704,6 +704,24 @@ const nextEl = () => {
           height: 2.8rem;
           margin: 0 auto;
         }
+      }
+      h2 {
+        color: var(--lvmh-secondary-1100, #3e65d0);
+        text-align: center;
+        font-family: Avenir Next;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+      p {
+        color: var(--lvmh-primary-1100, #20253b);
+        text-align: center;
+        font-family: Avenir Next;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
       }
     }
   }
