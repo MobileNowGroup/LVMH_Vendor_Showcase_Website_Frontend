@@ -708,7 +708,7 @@ const nextEl = () => {
       h2 {
         color: var(--lvmh-secondary-1100, #3e65d0);
         text-align: center;
-        font-family: Avenir Next;
+        font-family: avenir_next_text;
         font-size: 14px;
         font-style: normal;
         font-weight: 600;
@@ -717,7 +717,7 @@ const nextEl = () => {
       p {
         color: var(--lvmh-primary-1100, #20253b);
         text-align: center;
-        font-family: Avenir Next;
+        font-family: avenir_next_text;
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
@@ -823,7 +823,7 @@ const nextEl = () => {
     width: 140px;
     height: 40px;
     color: var(--lvmh-primary-110, #e9eaec);
-    font-family: Avenir Next;
+    font-family: avenir_next_text;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -845,7 +845,7 @@ const nextEl = () => {
     }
     color: var(--lvmh-secondary-1100, #3e65d0);
     text-align: center;
-    font-family: Avenir Next;
+    font-family: avenir_next_text;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;

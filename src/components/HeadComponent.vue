@@ -456,7 +456,7 @@ onUnmounted(() => {
     }
     .search-clear {
       color: #a6a8b1;
-      font-family: Avenir Next;
+      font-family: avenir_next_text;
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
