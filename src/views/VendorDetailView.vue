@@ -32,7 +32,7 @@ onMounted(() => {
     });
   }
 });
-
+const serviceBrandsList = [{},{},{},{}]
 let slideListNode = ref();
 let scrollThumbNode = ref();
 let count = ref(0);
@@ -80,7 +80,7 @@ const gotoDemo = () => {
 
 import { Swiper, SwiperSlide } from "swiper/vue"; // swiper所需组件
 // 这是分页器和对应方法，swiper好像在6的时候就已经分离了分页器和一些其他工具
-import { useSwiper } from "swiper/vue";
+// import { useSwiper } from "swiper/vue";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 // 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
 
@@ -334,13 +334,13 @@ const nextEl = () => {
         </div>
         <div v-else-if="featureShow === 'link'">
           <p class="content-feature-desc">Click the link to view demo</p>
-          <button class="content-feature-button" @click="gotoDemo">
+          <button class="content-feature-button" @click="">
             <img src="../assets/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
         <div v-else>
           <p class="content-feature-desc">Click the play button to view demo</p>
-          <div class="content-feature-video-box" @click="gotoDemo">
+          <div class="content-feature-video-box" @click="">
             <img src="../assets/images/icon/video_play.svg" alt="" />
             <!-- <video controls src="../assets/images/284_1690357473.mp4"></video> -->
           </div>
@@ -359,31 +359,11 @@ const nextEl = () => {
           </div>
         </h2>
         <div class="content-service-list">
-          <div>
-            <img
-              class="content-service-logo"
-              src="../assets/images/cat.png"
-              alt=""
-            />
-            <a class="content-desc content-service-desc" href="">Demo</a>
-          </div>
-          <div>
-            <img
-              class="content-service-logo"
-              src="../assets/images/cat.png"
-              alt=""
-            />
-            <a class="content-desc content-service-desc" href="">Demo</a>
-          </div>
-          <div>
-            <img
-              class="content-service-logo"
-              src="../assets/images/cat.png"
-              alt=""
-            />
-            <a class="content-desc content-service-desc" href="">Demo</a>
-          </div>
-          <div>
+          <div
+            @click="gotoDemo"
+            v-for="(serviceBrands,serviceBrandsIndex) of serviceBrandsList"
+            :key="serviceBrandsIndex"
+          >
             <img
               class="content-service-logo"
               src="../assets/images/cat.png"
