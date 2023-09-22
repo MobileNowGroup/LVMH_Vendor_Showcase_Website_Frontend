@@ -163,7 +163,7 @@ const _onPageScroll = () => {
   if (scrollTop > 0) {
     decoVisiable.value = false;
     // 发生滚动时header背景
-    headerDom.value.className = "header z-10 headbg_10";
+    headerDom.value.className = "header z-10 headbg_10 headshadow";
   } else {
     // 监听路由匹配不同header背景色
     headerbg();
@@ -372,8 +372,14 @@ onUnmounted(() => {
       </div>
     </div>
     <Transition name="run">
-      <div class="agency-listing" v-show="decoVisiable">
-        {{ decoText }}
+      <div class="agency-listing" v-if="decoVisiable">
+        <img
+          v-if="$route.path === '/projectdemo'"
+          class="lg:w-[136px] lg:h-[78px] m-auto"
+          src="../assets/images/hennessy.png"
+          alt=""
+        />
+        <span v-else> {{ decoText }}</span>
       </div>
     </Transition>
   </div>
@@ -396,10 +402,12 @@ onUnmounted(() => {
   transition: all 0.5s linear;
   background: url("../assets/images/page_bg.png") repeat;
 }
+.headshadow {
+  box-shadow: 0 1px 0px 0px #2437a026;
+}
 .header {
   position: fixed;
   width: 100%;
-  box-shadow: 0 1px 0px 0px #2437a015;
 
   div.topbox {
     // height: 8rem;

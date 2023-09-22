@@ -32,10 +32,6 @@ onMounted(() => {
     });
   }
 });
-const move = (e: any) => {
-  // console.log(e)
-  console.log(e);
-};
 
 let slideListNode = ref();
 let scrollThumbNode = ref();
@@ -84,8 +80,8 @@ const gotoDemo = () => {
 
 import { Swiper, SwiperSlide } from "swiper/vue"; // swiper所需组件
 // 这是分页器和对应方法，swiper好像在6的时候就已经分离了分页器和一些其他工具
-
-// import { Autoplay, Navigation, Pagination } from "swiper";
+import { useSwiper } from "swiper/vue";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 // 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
 
 import "swiper/css";
@@ -97,6 +93,15 @@ const navigation = ref({
   nextEl: ".button-next",
   prevEl: ".button-prev",
 });
+
+let useSwiper: any = null;
+
+// 初始化swiper
+const onSwiper = (swiper: any) => {
+  console.log(swiper);
+  swiper.value?.el.swiper.slideNext();
+};
+// const swiper = useSwiper();
 const prevEl = () => {
   // console.log('上一张' + index + item)
   if (count.value > 0) {
@@ -117,7 +122,7 @@ const nextEl = () => {
   <main :class="{ hasnodeco: true }">
     <div class="top">
       <div class="vendor-box">
-        <div class="vendor-box-in">
+        <div class="vendor-box-in h-[41rem]">
           <h2 class="vendor-name">{{ vendor.vendorName }}</h2>
           <p class="vendor-category">
             <span class="vendor-title">Category: </span
@@ -155,6 +160,7 @@ const nextEl = () => {
           <p class="slide-title">Service Brands</p>
           <div class="slide-item-list" ref="slideListNode">
             <swiper
+              ref="mySwiper"
               :slidesPerView="5"
               :spaceBetween="20"
               :loop="false"
@@ -163,7 +169,9 @@ const nextEl = () => {
               :navigation="navigation"
               :modules="modules"
               class="mySwiper"
+              @swiper="onSwiper"
             >
+              <template> </template>
               <swiper-slide
                 class="slide-item"
                 v-for="(slide, slideIndex) of slideList"
@@ -362,7 +370,7 @@ const nextEl = () => {
 <style lang="scss" scoped>
 .top {
   max-width: 100vw;
-  height: 30rem;
+  height: 36rem;
   padding-top: 6rem;
   background: url("../assets/images/detail_top_bg.png");
   display: flex;
@@ -438,6 +446,7 @@ const nextEl = () => {
     float: right;
     // max-width: 48rem;
     margin-right: 7.8rem;
+    margin-top: 5.2rem;
     text-align: center;
     display: flex;
   }
@@ -445,7 +454,7 @@ const nextEl = () => {
     width: 2rem;
     &:hover {
       cursor: pointer;
-      opacity: 0.5;
+      // opacity: 0.5;
     }
     &-left {
       margin-right: 2.4rem;
@@ -603,7 +612,7 @@ const nextEl = () => {
   }
 }
 .content {
-  margin-top: 16rem;
+  margin-top: 21rem;
   text-align: center;
   &-box {
     position: relative;

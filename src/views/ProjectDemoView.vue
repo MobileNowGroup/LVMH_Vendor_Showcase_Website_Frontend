@@ -101,7 +101,7 @@ const clickNothing = function () {};
 <template>
   <main :class="{ hasdeco: true }">
    
-      <div class="bg-white pt-[10rem]">
+      <div class="bg-white pb-[10rem]">
         <div class="title-box">
           <h2 class="title">Claimed Kpis</h2>
         </div>
