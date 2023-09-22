@@ -452,7 +452,7 @@ onUnmounted(() => {
     top: 8rem;
     width: 100vw;
     height: calc(100vh - 8rem);
-    border-top: 1px solid rgba(36, 55, 160, 0.15);
+    // border-top: 1px solid rgba(36, 55, 160, 0.15);
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
     .bg-box {
@@ -663,6 +663,9 @@ onUnmounted(() => {
   .header {
     width: 100%;
     padding: 1rem 1.5rem;
+    div.topbox {
+      padding: 0;
+    }
     .logo {
       width: 5.6rem;
       height: 4rem;
@@ -691,6 +694,7 @@ onUnmounted(() => {
     }
   }
   .search-box {
+    top: 6rem !important;
     .bg-box {
       background: #fff;
       height: 16.7rem !important;

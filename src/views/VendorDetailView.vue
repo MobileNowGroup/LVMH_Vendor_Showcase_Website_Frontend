@@ -162,7 +162,7 @@ const nextEl = () => {
             <swiper
               ref="mySwiper"
               :slidesPerView="5"
-              :spaceBetween="20"
+              :spaceBetween="isMobile() ? 10 : 20"
               :loop="false"
               :centeredSlides="false"
               :autoplay="{ delay: 2000, disableOnInteraction: false }"
@@ -201,7 +201,17 @@ const nextEl = () => {
     </div>
     <div class="content">
       <div class="content-box content-box-solution">
-        <h2 class="title">Solution Case</h2>
+        <h2 class="title">
+          <div class="flex items-center justify-center">
+            <div
+              class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+            ></div>
+            <span class="block flex-none">Solution Case</span>
+            <div
+              class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+            ></div>
+          </div>
+        </h2>
         <p class="content-desc content-solution">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -210,7 +220,17 @@ const nextEl = () => {
         </p>
       </div>
       <div class="content-box content-box-claimed">
-        <h2 class="title">Claimed Kpis</h2>
+        <h2 class="title">
+          <div class="flex items-center justify-center">
+            <div
+              class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+            ></div>
+            <span class="block flex-none">Claimed Kpis</span>
+            <div
+              class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+            ></div>
+          </div>
+        </h2>
         <div class="is-flex-row kpibox">
           <p class="content-desc content-claimed is-flex-column">
             <span class="content-kpi">+16%</span>
@@ -231,7 +251,17 @@ const nextEl = () => {
         </div>
       </div>
       <div class="content-box content-box-price">
-        <h2 class="title">Pricing Model</h2>
+        <h2 class="title">
+          <div class="flex items-center justify-center">
+            <div
+              class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+            ></div>
+            <span class="block flex-none">Pricing Model</span>
+            <div
+              class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+            ></div>
+          </div>
+        </h2>
         <p class="content-desc content-pric">
           Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui
           esse pariatur duis deserunt mollit dolore cillum minim tempor enim.
@@ -287,7 +317,17 @@ const nextEl = () => {
         </div>
       </div>
       <div class="content-box content-box-feature">
-        <h2 class="title">Featured Demo</h2>
+        <h2 class="title">
+          <div class="flex items-center justify-center">
+            <div
+              class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+            ></div>
+            <span class="block flex-none">Featured Demo</span>
+            <div
+              class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+            ></div>
+          </div>
+        </h2>
         <div v-if="featureShow === 'code'">
           <p class="content-feature-desc">Scan the QR code to view demo</p>
           <img src="../assets/images/qrcode.png" alt="" />
@@ -307,7 +347,17 @@ const nextEl = () => {
         </div>
       </div>
       <div class="content-box content-box-service">
-        <h2 class="title">Service Brands</h2>
+        <h2 class="title">
+          <div class="flex items-center justify-center">
+            <div
+              class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+            ></div>
+            <span class="block flex-none">Service Brands</span>
+            <div
+              class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+            ></div>
+          </div>
+        </h2>
         <div class="content-service-list">
           <div>
             <img
@@ -589,27 +639,7 @@ const nextEl = () => {
   font-weight: 400;
   line-height: normal;
   text-transform: capitalize;
-
-  &::after {
-    position: absolute;
-    right: 21.4%;
-    top: 2.1rem;
-    transform: translateY(-50%);
-    content: "";
-    width: 19%;
-    height: 0.05rem;
-    background: #3e65d0;
-  }
-  &::before {
-    position: absolute;
-    left: 21.4%;
-    top: 2.1rem;
-    transform: translateY(-50%);
-    content: "";
-    width: 19%;
-    height: 0.05rem;
-    background: #3e65d0;
-  }
+  margin: 0 auto;
 }
 .content {
   margin-top: 21rem;
@@ -1046,6 +1076,7 @@ const nextEl = () => {
 
   .content {
     margin: 0 1.5rem;
+    margin-top: 80px;
     .kpibox {
       // margin: 0 20%;
       display: grid;
