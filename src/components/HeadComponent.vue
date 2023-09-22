@@ -600,8 +600,11 @@ onUnmounted(() => {
           cursor: pointer;
         }
         .checkedBg {
+          width:20px;
+          height:20px;
           border-color: #000;
           background: url("../assets/images/checkbox.png");
+          background-size:contain;
         }
         input[type="checkbox"]:checked::after {
           content: "";
