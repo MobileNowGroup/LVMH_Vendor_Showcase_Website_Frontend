@@ -22,10 +22,10 @@ const verifyEmail = () => {
 
 <template>
   <main>
-    <div class=" bg-[url('@assets/images/LVMH_IT_Digita_bg.png')] bg-repeat-x h-screen">
-      <div class=" w-max pt-50 m-auto">
-        <img class=" w-32 h-22.5 m-auto " src="@assets/images/logo.png" alt="" />
-        <p class="pt-15" v-show="!isPassVerify">
+    <div class="login">
+      <div class="login-box">
+        <img class="logo" src="@assets/images/logo.png" alt="" />
+        <p class="login-title" v-show="!isPassVerify">
           We need to verify your identity.
         </p>
         <p class="login-title" v-show="isPassVerify">FIND AGENCIES.</p>
