@@ -1080,7 +1080,14 @@ const nextEl = () => {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem 4.4rem;
-      margin: 0;
+      width: fit-content;
+      margin: 0 auto;
+    }
+    &-kpi {
+      font-size: 28px;
+      &-desc {
+        font-size: 14px;
+      }
     }
     &-price {
       &-box {
@@ -1118,6 +1125,12 @@ const nextEl = () => {
           }
         }
       }
+    }
+  }
+  .content-bottom {
+    padding: 6rem;
+    h2 {
+      font-size: 24px;
     }
   }
 }
