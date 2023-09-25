@@ -70,6 +70,7 @@ let sendEmailVisable = ref(false);
 const sendEmail = () => {
   sendEmailVisable.value = true;
   sendEmailText.value = "REQUESTED";
+  info();
 };
 
 const gotoDemo = () => {
@@ -116,10 +117,16 @@ const nextEl = () => {
     scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
   }
 };
+
+import { message } from 'ant-design-vue';
+const info = () => {
+  message.info('This is a normal message');
+};
 </script>
 
 <template>
   <main :class="{ hasnodeco: true }">
+    <a-button type="primary">Primary Button</a-button>
     <div class="top">
       <div class="vendor-box">
         <div class="vendor-box-in h-[41rem]">
@@ -841,7 +848,7 @@ const nextEl = () => {
   }
   .information {
     &-box {
-      height: 1.9rem;
+      line-height: 1.9rem;
     }
     color: var(--lvmh-secondary-1100, #3e65d0);
     text-align: center;
@@ -1132,6 +1139,7 @@ const nextEl = () => {
     h2 {
       font-size: 24px;
     }
+   
   }
 }
 </style>

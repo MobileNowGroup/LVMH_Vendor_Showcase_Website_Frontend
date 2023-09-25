@@ -3,31 +3,37 @@ import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
+import Components from "unplugin-vue-components/vite";
+import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 
-const os = require("os")
+const os = require("os");
 
 // 获取本地ip
 function getNetWorkIp() {
   // 打开host
-  let needHost = ""
+  let needHost = "";
   try {
-    let network = os.networkInterfaces()
+    let network = os.networkInterfaces();
 
     for (const dev in network) {
-      let iface = network[dev]
+      let iface = network[dev];
       for (let i = 0; i < iface.length; i++) {
-        const alias = iface[i]
-        if (alias.family === "IPv4" && alias.address !== "127.0.0.1" && !alias.internal) {
-          needHost = alias.address
+        const alias = iface[i];
+        if (
+          alias.family === "IPv4" &&
+          alias.address !== "127.0.0.1" &&
+          !alias.internal
+        ) {
+          needHost = alias.address;
         }
       }
     }
   } catch (error) {
-    needHost = "http://localhost"
+    needHost = "http://localhost";
   }
-  return needHost
+  return needHost;
 }
-const IP = getNetWorkIp()
+const IP = getNetWorkIp();
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -46,12 +52,21 @@ export default defineConfig({
     open: true, // 在服务器启动时自动在浏览器中打开应用程序
     https: false, // 是否开启 https
   },
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    Components({
+      resolvers: [
+        AntDesignVueResolver({
+          importStyle: false, // css in js
+        }),
+      ],
+    }),
+  ],
   // 配置别名
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),  // @代替src
-      "@assets": fileURLToPath(new URL("./src/assets", import.meta.url)),  // @代替src
+      "@": fileURLToPath(new URL("./src", import.meta.url)), // @代替src
+      "@assets": fileURLToPath(new URL("./src/assets", import.meta.url)), // @代替src
       "#": fileURLToPath(new URL("./types", import.meta.url)), // #代替types
     },
   },
