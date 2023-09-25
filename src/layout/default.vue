@@ -42,7 +42,7 @@ watch(
       return newPath === item;
     });
   },
-  { immediate: true },
+  { immediate: true }
 );
 const closeCookies = () => {
   showModel.value = false;
@@ -62,17 +62,19 @@ const agreeSaveCookies = () => {
     <div v-else>
       <div v-if="showModel" class="fixed w-screen h-screen z-50 bg-black/50">
         <div
-          class="absolute bottom-0 w-screen h-fit lg:px-32 py-10.5 px-16 flex justify-between bg-black items-center"
+          class="absolute bottom-0 w-screen h-fit lg:px-32 lg:py-10.5 px-[15px] pt-[40px] pb-[23px] flex justify-between bg-black items-center"
         >
           <img
-            class="absolute top-8 right-14 cursor-pointer"
+            class="absolute lg:top-8 lg:right-14 top-[15px] right-[15px] cursor-pointer"
             @click="closeCookies"
             src="../assets/images/icon/close_white.svg"
             alt=""
           />
-          <div class="lg:mt-0 mt-16 w-full flex justify-between items-center">
+          <div
+            class="w-full flex lg:flex-row flex-col justify-between items-center"
+          >
             <p
-              class="text-[#E9EAEC] lg:w-190 text-[14px] font-medium leading-normal"
+              class="cookies text-[#E9EAEC] lg:w-190 lg:text-[14px] text-[12px] font-medium leading-normal"
             >
               We use essential cookies to make our site work. With your content,
               we may also use non-essential cookies to improve user experience
@@ -83,7 +85,7 @@ const agreeSaveCookies = () => {
                 >Cookie Policy</router-link
               >”.
             </p>
-            <div class="flex">
+            <div class="flex lg:mt-0 mt-5">
               <button
                 class="py-2.5 w-[160px] text-[#E9EAEC] text-center h-min text-[14px] font-medium border-[#E9EAEC] border mr-[16px]"
                 @click="closeCookies"
@@ -108,20 +110,11 @@ const agreeSaveCookies = () => {
 </template>
 
 <style lang="scss" scoped>
-// .cookies {
-//   position: fixed;
-//   z-index: 99999;
-//   width: 100vw;
-//   height: 100vh;
-//   &-item {
-//     position: absolute;
-//     bottom: 0;
-//     left: 0;
-//     img {
-//       position: absolute;
-//       top: 2rem;
-//       right: 2rem;
-//     }
-//   }
-// }
+.cookies {
+  color: var(--neutral-0, #fff);
+  font-family: avenir_next_text;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%;
+}
 </style>

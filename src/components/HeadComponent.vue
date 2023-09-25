@@ -80,7 +80,7 @@ watch(
       headerbg();
     });
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 /** 返回vendorlisting */
@@ -105,13 +105,17 @@ const closeBox = (e: any, closeType: any) => {
   headerbg();
   // 点击关闭searchbox
   if (e) e.cancelBubble = true;
+  // 获取滚动高度
+  const scrollTop =
+    window.pageYOffset ||
+    document.documentElement.scrollTop ||
+    document.body.scrollTop;
+  if (scrollTop > 0) {
+    headerDom.value.className = "header z-10 headbg_10";
+  }
   // e.stopPropagation()
   // e.preventDefault()
   if (closeType === "search") {
-    // (headerDom.value as any).setAttribute(
-    //   "style",
-    //   "background: rgba(255,255,255,0.7)"
-    // );
     searchVisibale.value = false;
   } else {
     filterNumber.value = 0;
@@ -219,7 +223,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);',
+                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);'
                           );
                         }
                       "
@@ -227,7 +231,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'background: transparent',
+                            'background: transparent'
                           );
                         }
                       "
@@ -239,6 +243,7 @@ onUnmounted(() => {
                           searchValue = '';
                         }
                       "
+                      v-show="searchValue"
                     >
                       Clear
                     </p>
@@ -248,7 +253,7 @@ onUnmounted(() => {
                       searchResult($event, 'search'), closeBox($event, 'search')
                     "
                   >
-                    SEARCH
+                    APPLY
                   </button>
                 </div>
               </div>
@@ -519,6 +524,7 @@ onUnmounted(() => {
     height: 100vh;
     border-top: 1px solid rgba(36, 55, 160, 0.15);
     background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
     .bg-box {
       float: right;
       background: #fff;
@@ -561,7 +567,7 @@ onUnmounted(() => {
         font-family: avenir_next_text;
         font-size: 14px;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 500;
         line-height: 100%; /* 14px */
         text-transform: uppercase;
         img {
@@ -600,11 +606,11 @@ onUnmounted(() => {
           cursor: pointer;
         }
         .checkedBg {
-          width:20px;
-          height:20px;
-          border-color: #20253B;
+          width: 20px;
+          height: 20px;
+          border-color: #20253b;
           background: url("../assets/images/checkbox.png");
-          background-size:contain;
+          background-size: contain;
         }
       }
     }
@@ -734,7 +740,7 @@ onUnmounted(() => {
       height: -webkit-fill-available;
       min-height: 30rem;
       margin: 6.6rem 0rem 0 2rem !important;
-      padding-right: 3rem;
+      padding-right: 2rem !important;
       overflow-y: scroll;
     }
     .inner-box ::-webkit-scrollbar-thumb {
@@ -755,7 +761,7 @@ onUnmounted(() => {
         font-family: avenir_next_text;
         font-size: 14px;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 500;
         line-height: 100%; /* 14px */
         text-transform: uppercase;
         img {
@@ -827,6 +833,8 @@ onUnmounted(() => {
       font-style: normal;
       font-weight: 500;
       line-height: normal;
+      margin: 0;
+      margin-top: 0.8rem;
       letter-spacing: 0.28px;
       background: #fff;
       border: 1px solid #000;

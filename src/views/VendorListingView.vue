@@ -77,6 +77,9 @@ const openCookie = () => {
     margin: 3rem 1.5rem 1.8rem;
   }
 }
+.vendor-listing {
+  padding-bottom: 6rem;
+}
 .noresult {
   display: flex;
   flex-direction: column;

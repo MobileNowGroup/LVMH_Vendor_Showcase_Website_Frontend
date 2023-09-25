@@ -432,7 +432,7 @@ const nextEl = () => {
     line-height: 22px; /* 137.5% */
   }
   &-category {
-    @include ellipsisLn(1);
+    // @include ellipsisLn(1);
   }
   &-name {
     color: var(--lvmh-secondary-1100, #3e65d0);
@@ -468,7 +468,7 @@ const nextEl = () => {
     }
   }
   &-intro {
-    @include ellipsisLn(3);
+    // @include ellipsisLn(3);
   }
 }
 .slide {

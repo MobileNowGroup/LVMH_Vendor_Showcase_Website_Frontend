@@ -144,6 +144,18 @@ const verifyEmail = () => {
     gap: 10px;
   }
 }
+
+@media screen and (max-width: 960px) {
+  .login {
+    &-box {
+      padding-top: 9.2rem;
+    }
+    &-title {
+      padding-top: 8rem;
+    }
+  }
+}
+
 /* WebKit browsers */
 ::-webkit-input-placeholder {
   // color: red;
