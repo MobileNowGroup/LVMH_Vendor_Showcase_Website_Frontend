@@ -70,7 +70,6 @@ let sendEmailVisable = ref(false);
 const sendEmail = () => {
   sendEmailVisable.value = true;
   sendEmailText.value = "REQUESTED";
-  info();
 };
 
 const gotoDemo = () => {
@@ -117,16 +116,10 @@ const nextEl = () => {
     scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
   }
 };
-
-import { message } from 'ant-design-vue';
-const info = () => {
-  message.info('This is a normal message');
-};
 </script>
 
 <template>
   <main :class="{ hasnodeco: true }">
-    <a-button type="primary">Primary Button</a-button>
     <div class="top">
       <div class="vendor-box">
         <div class="vendor-box-in h-[41rem]">
@@ -285,14 +278,14 @@ const info = () => {
           </div>
           <div class="content-price-right">
             <div>
-              <img src="../assets/images/Media.jpg" alt="" />
+              <img src="@/assets/images/icon/hosting.svg" alt="" />
               <h2 class="">Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
               <p>SPECIFIX Integration</p>
             </div>
             <div>
-              <img src="../assets/logo.svg" alt="" />
+              <img src="@/assets/images/icon/integration.svg" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
@@ -300,21 +293,21 @@ const info = () => {
             </div>
 
             <div>
-              <img src="../assets/logo.svg" alt="" />
+              <img src="@/assets/images/icon/mobileintegration.svg" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
               <p>SPECIFIX Integration</p>
             </div>
             <div>
-              <img src="../assets/logo.svg" alt="" />
+              <img src="@/assets/images/icon/PIPL.svg" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
               <p>SPECIFIX Integration</p>
             </div>
             <div>
-              <img src="../assets/logo.svg" alt="" />
+              <img src="@/assets/images/icon/MPLS.svg" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
@@ -668,12 +661,13 @@ const info = () => {
     &-list {
       display: flex;
       justify-content: center;
+      align-items: center;
       margin-top: 8rem;
     }
     &-left {
       width: 43.2rem;
       height: 33rem;
-      background: url("../assets/images/cat.png");
+      background: url("../assets/images/Media.jpg");
       padding: 4rem;
       text-align: left;
       h2 {
@@ -697,7 +691,6 @@ const info = () => {
     }
     &-right {
       text-align: left;
-      margin-top: 2rem;
       margin-left: 2.4rem;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -781,6 +774,7 @@ const info = () => {
       background: #fff;
       box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
       margin: 1.2rem;
+      cursor: pointer;
       img {
         display: block;
         margin: 3.5rem 1.62rem;
@@ -1139,7 +1133,6 @@ const info = () => {
     h2 {
       font-size: 24px;
     }
-   
   }
 }
 </style>

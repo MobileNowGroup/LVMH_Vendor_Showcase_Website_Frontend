@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive, ref, watch } from "vue";
+import {
+  onBeforeUpdate,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  watch,
+} from "vue";
 import { useRoute, useRouter } from "vue-router";
 import mockData from "../util/mockData";
 import { throttle } from "@/util/common";
@@ -21,9 +28,7 @@ decoVisiable.value = decoShowArray.every((item) => {
   return item !== $route.path;
 });
 // header背景色
-const headbg_07 = ref(false),
-  headbg_0 = ref(false),
-  headbg_10 = ref(false);
+const shutDownComponent = ref(true);
 
 onMounted(() => {
   if (window) {
@@ -64,13 +69,21 @@ watch(
   (newPath, oldPath) => {
     //  监听路由变化，动态添加header下面的装饰文本
     decoVisiable.value = decoShowArray.every((item) => {
-      if ("/projectdemo" === item) {
+      if (item === "/projectdemo") {
         decoText.value = "qi ta ming zi";
+      }
+      if (item === "/vendordetail") {
+        // 绕过agencylisting 动画直接强制关闭这个组件
+        shutDownComponent.value = false;
+      } else {
+        shutDownComponent.value = true;
       }
       return item !== newPath;
     });
-
-    filterShow.value = newPath !== "/vendordetail";
+    // 在这两个页面不显示filter功能
+    filterShow.value = ["/vendordetail", "/projectdemo"].every((item) => {
+      return newPath !== item;
+    });
     // 强制每个页面初始化的时候滚动条在最上部
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
@@ -80,9 +93,10 @@ watch(
       headerbg();
     });
   },
-  { immediate: true }
+  { immediate: true },
 );
 
+onBeforeUpdate(() => {});
 /** 返回vendorlisting */
 const backToHome = () => {
   $router.push({ name: "vendorlisting" });
@@ -223,7 +237,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);'
+                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);',
                           );
                         }
                       "
@@ -231,7 +245,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'background: transparent'
+                            'background: transparent',
                           );
                         }
                       "
@@ -363,17 +377,19 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <Transition name="run">
-      <div class="agency-listing items-center" v-if="decoVisiable">
-        <img
-          v-if="$route.path === '/projectdemo'"
-          class="lg:w-[136px] lg:h-[78px] w-52 m-auto"
-          src="../assets/images/hennessy.png"
-          alt=""
-        />
-        <span v-else> {{ decoText }}</span>
-      </div>
-    </Transition>
+    <div v-if="shutDownComponent">
+      <Transition name="run">
+        <div class="agency-listing items-center" v-if="decoVisiable">
+          <img
+            v-if="$route.path === '/projectdemo'"
+            class="lg:w-[136px] lg:h-[78px] w-52 m-auto"
+            src="../assets/images/hennessy.png"
+            alt=""
+          />
+          <span v-else> {{ decoText }}</span>
+        </div>
+      </Transition>
+    </div>
   </div>
 </template>
 
