@@ -11,7 +11,7 @@
         }
       "
     />
-    <p class="mid">
+    <p class="mid lg:ml-[45px]">
       <span>Principle: Regina</span>
       <span>E-mail: ReginaLVMH@gmail.com</span>
       <span
@@ -21,9 +21,9 @@
     </p>
     <p class="right">
       <span>
-        <router-link to="policy" class="mr-10">Privacy policy</router-link>
+        <router-link to="policy" class="lg:mr-[42px]">Privacy policy</router-link>
       </span>
-      <span class="mr-8">沪ICP备 ***********号</span>
+      <span class="lg:mr-[34px]">沪ICP备 ***********号</span>
       <span>Copyright@LVMH Digital</span>
     </p>
   </div>
@@ -47,6 +47,7 @@
     cursor: pointer;
   }
   p.mid {
+   
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -58,9 +59,9 @@
     line-height: normal;
   }
   p.right {
-    span:first-child {
-      margin-right: 4rem;
-    }
+    // span:first-child {
+    //   margin-right: 4rem;
+    // }
   }
   span {
     color: #a6a8b1;

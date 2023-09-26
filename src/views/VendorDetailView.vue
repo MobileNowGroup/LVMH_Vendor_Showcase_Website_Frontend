@@ -81,14 +81,20 @@ const gotoDemo = () => {
 import { Swiper, SwiperSlide } from "swiper/vue"; // swiper所需组件
 // 这是分页器和对应方法，swiper好像在6的时候就已经分离了分页器和一些其他工具
 // import { useSwiper } from "swiper/vue";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import {
+  Autoplay,
+  Navigation,
+  Pagination,
+  Virtual,
+  Grid,
+} from "swiper/modules";
 // 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 // setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
-const modules = ref([]);
+const modules = ref([Navigation, Pagination, Grid]);
 const navigation = ref({
   nextEl: ".button-next",
   prevEl: ".button-prev",
@@ -157,7 +163,17 @@ const nextEl = () => {
           />
         </div>
         <div class="slide-track">
-          <p class="slide-title">Service Brands</p>
+          <div class="slide-title">
+            <div class="flex items-center justify-center">
+              <div
+                class="h-[1px] flex-1 bg-[#ECF0FA] lg:mr-[24px] mr-[16px]"
+              ></div>
+              <span class="block flex-none"> Service Brands</span>
+              <div
+                class="h-[1px] flex-1 bg-[#ECF0FA] lg:ml-[24px] ml-[16px]"
+              ></div>
+            </div>
+          </div>
           <div class="slide-item-list" ref="slideListNode">
             <swiper
               ref="mySwiper"
@@ -204,11 +220,11 @@ const nextEl = () => {
         <h2 class="title">
           <div class="flex items-center justify-center">
             <div
-              class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
             <span class="block flex-none">Solution Case</span>
             <div
-              class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
           </div>
         </h2>
@@ -223,11 +239,11 @@ const nextEl = () => {
         <h2 class="title">
           <div class="flex items-center justify-center">
             <div
-              class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
             <span class="block flex-none">Claimed Kpis</span>
             <div
-              class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
           </div>
         </h2>
@@ -254,11 +270,11 @@ const nextEl = () => {
         <h2 class="title">
           <div class="flex items-center justify-center">
             <div
-              class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
             <span class="block flex-none">Pricing Model</span>
             <div
-              class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
           </div>
         </h2>
@@ -320,11 +336,11 @@ const nextEl = () => {
         <h2 class="title">
           <div class="flex items-center justify-center">
             <div
-              class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
             <span class="block flex-none">Featured Demo</span>
             <div
-              class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
           </div>
         </h2>
@@ -350,11 +366,11 @@ const nextEl = () => {
         <h2 class="title">
           <div class="flex items-center justify-center">
             <div
-              class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
             <span class="block flex-none">Service Brands</span>
             <div
-              class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
           </div>
         </h2>
@@ -503,44 +519,17 @@ const nextEl = () => {
     text-transform: capitalize;
     position: relative;
     margin-bottom: 3.6rem;
-    &::after {
-      position: absolute;
-      right: 0;
-      top: 2.1rem;
-      transform: translateY(-50%);
-      content: "";
-      width: 9.4rem;
-      height: 0.1rem;
-      background: aliceblue;
-    }
-    &::before {
-      position: absolute;
-      left: 0;
-      top: 2.1rem;
-      transform: translateY(-50%);
-      content: "";
-      width: 9.4rem;
-      height: 0.1rem;
-      background: aliceblue;
-    }
   }
   &-track {
   }
   &-item-list {
     width: 48rem;
     max-width: 48rem;
-    // display: grid;
-    // grid-template-columns: repeat(4, 1fr);
-    // justify-content: center;
-    // gap: 0rem 2rem;
-    // display: flex;
-    // justify-content: center;
     overflow-x: scroll;
     text-wrap: nowrap;
     :not(:last-child) {
       margin-right: 2rem;
     }
-    // overflow-x: scroll;
   }
   &-item {
     width: 8rem;
@@ -548,8 +537,6 @@ const nextEl = () => {
     border-radius: 50%;
     background: #3e65d0;
     display: inline-block;
-    // display: flex;
-    // align-items: center;
     .img-box {
       display: flex;
       height: 8rem;
@@ -626,6 +613,7 @@ const nextEl = () => {
   text-align: center;
   &-box {
     position: relative;
+    margin: 0 21.31%;
     margin-bottom: 8rem;
   }
   &-desc {
@@ -643,7 +631,6 @@ const nextEl = () => {
   }
   /** kpi  */
   .kpibox {
-    margin: 0 20%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
   }
@@ -770,6 +757,9 @@ const nextEl = () => {
     // margin: 0 20%;
     margin-top: 4rem;
     div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 0 2rem 1.7rem 2rem;
       background: #fff;
       box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
@@ -901,26 +891,6 @@ const nextEl = () => {
       text-transform: capitalize;
       position: relative;
       margin-bottom: 3.6rem;
-      &::after {
-        position: absolute;
-        right: 0;
-        top: 2.1rem;
-        transform: translateY(-50%);
-        content: "";
-        width: 4vw;
-        height: 0.1rem;
-        background: aliceblue;
-      }
-      &::before {
-        position: absolute;
-        left: 0;
-        top: 2.1rem;
-        transform: translateY(-50%);
-        content: "";
-        width: 4vw;
-        height: 0.1rem;
-        background: aliceblue;
-      }
     }
     &-track {
       width: 100%;
@@ -1002,27 +972,8 @@ const nextEl = () => {
       line-height: normal;
       text-transform: capitalize;
       position: relative;
+      margin: 0 1.5rem;
       margin-bottom: 3.6rem;
-      &::after {
-        position: absolute;
-        right: 1.5rem;
-        top: 2.1rem;
-        transform: translateY(-50%);
-        content: "";
-        width: 5.4rem;
-        height: 0.1rem;
-        background: aliceblue;
-      }
-      &::before {
-        position: absolute;
-        left: 1.5rem;
-        top: 2.1rem;
-        transform: translateY(-50%);
-        content: "";
-        width: 5.4rem;
-        height: 0.1rem;
-        background: aliceblue;
-      }
     }
     &-track {
     }
@@ -1038,7 +989,7 @@ const nextEl = () => {
       // overflow-x: scroll;
     }
     &-item {
-      width: 6rem;
+      width: 6rem !important;
       height: 6rem;
       border-radius: 50%;
       background: #3e65d0;
@@ -1076,6 +1027,10 @@ const nextEl = () => {
   .content {
     margin: 0 1.5rem;
     margin-top: 80px;
+    &-box {
+      margin: 0;
+      margin-bottom: 6rem;
+    }
     .kpibox {
       // margin: 0 20%;
       display: grid;
@@ -1103,6 +1058,7 @@ const nextEl = () => {
       }
       &-right {
         margin-left: 0rem;
+        margin-top: 2.4rem;
         grid-template-columns: repeat(1, 1fr);
         width: 100%;
         div {
@@ -1134,5 +1090,9 @@ const nextEl = () => {
       font-size: 24px;
     }
   }
+}
+
+.swiper-wrapper {
+  // justify-content: center;
 }
 </style>

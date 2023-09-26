@@ -456,13 +456,8 @@ const clickNothing = function () {};
     top: 2px;
     right: -2px;
     height: 100%;
-    padding: 3.5rem 0rem 3.5rem 13.4rem;
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.3),
-      rgb(255, 255, 255, 0.96) 50%,
-      white
-    );
+    padding: 3.5rem 0rem 3.5rem 16.4rem;
+    background: linear-gradient(89deg, rgba(255, 255, 255, 0.50) 1.25%, #FFF 73.86%);
     z-index: 9999;
     img {
       padding-right: 2px;
@@ -513,6 +508,7 @@ const clickNothing = function () {};
       margin: 0 1.5rem;
     }
     &-control {
+      padding: 3.5rem 0rem 3.5rem 5.9rem;
     }
     .media-box {
       width: 13.5rem;
