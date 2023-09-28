@@ -139,7 +139,7 @@ const closeBox = (e: any, closeType: any) => {
     filterVisibale.value = false;
     setTimeout(() => {
       filterVisibaleBg.value = false;
-    }, 400);
+    }, 250);
   }
   // console.log('关闭',filterVisibale.value)
   return false;
@@ -538,7 +538,6 @@ onUnmounted(() => {
     top: 0rem;
     width: 100vw;
     height: 100vh;
-    border-top: 1px solid rgba(36, 55, 160, 0.15);
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
     .bg-box {
