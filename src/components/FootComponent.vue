@@ -11,7 +11,7 @@
         }
       "
     />
-    <p class="mid lg:ml-[45px]">
+    <p class="mid lg:ml-[-111px]" >
       <span>Principle: Regina</span>
       <span>E-mail: ReginaLVMH@gmail.com</span>
       <span

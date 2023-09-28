@@ -68,8 +68,12 @@ const sendEmailText = ref("REQUEST");
 let sendEmailVisable = ref(false);
 // 发送邮件
 const sendEmail = () => {
-  sendEmailVisable.value = true;
-  sendEmailText.value = "REQUESTED";
+ 
+  sendEmailText.value = "please wait...";
+  setTimeout(() => {
+    sendEmailVisable.value = true;
+    sendEmailText.value = "REQUESTED";
+  }, 2000);
 };
 
 const gotoDemo = () => {
@@ -267,23 +271,26 @@ const nextEl = () => {
         </div>
       </div>
       <div class="content-box content-box-price">
-        <h2 class="title">
-          <div class="flex items-center justify-center">
-            <div
-              class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
-            ></div>
-            <span class="block flex-none">Pricing Model</span>
-            <div
-              class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
-            ></div>
-          </div>
-        </h2>
-        <p class="content-desc content-pric">
-          Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui
-          esse pariatur duis deserunt mollit dolore cillum minim tempor enim.
-          Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate
-          aute id deserunt nisi.
-        </p>
+        <div class="content-box-price-spec">
+          <h2 class="title">
+            <div class="flex items-center justify-center">
+              <div
+                class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+              ></div>
+              <span class="block flex-none">Pricing Model</span>
+              <div
+                class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+              ></div>
+            </div>
+          </h2>
+          <p class="content-desc content-pric">
+            Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt
+            qui esse pariatur duis deserunt mollit dolore cillum minim tempor
+            enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut
+            voluptate aute id deserunt nisi.
+          </p>
+        </div>
+
         <div class="content-price-list">
           <div class="content-price-left">
             <h2>Our Technology</h2>
@@ -401,7 +408,7 @@ const nextEl = () => {
         {{ sendEmailText }}
       </button>
       <div class="information information-box">
-        <p class="information" v-show="sendEmailVisable">
+        <p class="information" :class="{'information-show':sendEmailVisable}">
           <img src="../assets/images/icon/sure.svg" alt="" />
           <span>
             Your request has been sent, we will get back to you as soon as
@@ -613,8 +620,19 @@ const nextEl = () => {
   text-align: center;
   &-box {
     position: relative;
-    margin: 0 21.31%;
-    margin-bottom: 8rem;
+    &-solution,
+    &-claimed,
+    &-feature,
+    &-service {
+      margin: 0 21.31%;
+      margin-bottom: 8rem;
+    }
+    &-price {
+      margin-bottom: 8rem;
+      &-spec {
+        margin: 0 21.31%;
+      }
+    }
   }
   &-desc {
     margin: 0 auto;
@@ -629,6 +647,7 @@ const nextEl = () => {
     line-height: normal;
     text-transform: capitalize;
   }
+
   /** kpi  */
   .kpibox {
     display: grid;
@@ -700,6 +719,7 @@ const nextEl = () => {
         font-style: normal;
         font-weight: 600;
         line-height: normal;
+        margin-top: 1.2rem;
       }
       p {
         color: var(--lvmh-primary-1100, #20253b);
@@ -708,7 +728,7 @@ const nextEl = () => {
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
-        line-height: normal;
+        line-height: 150%;
       }
     }
   }
@@ -844,6 +864,10 @@ const nextEl = () => {
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0;
+    &-show{
+      opacity: 1;
+    }
     img {
       margin-right: 0.4rem;
     }
@@ -1030,6 +1054,9 @@ const nextEl = () => {
     &-box {
       margin: 0;
       margin-bottom: 6rem;
+    }
+    .content-box-price-spec {
+      margin: 0;
     }
     .kpibox {
       // margin: 0 20%;

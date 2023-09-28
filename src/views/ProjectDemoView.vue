@@ -37,10 +37,15 @@ const showList = [
 let demoLink = ref("ddddd"); // demolink的地址
 const showMediaSrc = ref(showList[0].src); // 当前展示的多媒体地址
 
+
+
 onMounted(() => {
   // carousel on init
-  const frameZones = Array.from(document.querySelectorAll(".show-item"));
-  frameZones[0].className = "show-item show-item-active";
+  const frameZones = Array.from(document.querySelectorAll(".show-list"));
+  for (let i = 0; i < frameZones.length; i++) {
+    console.log();
+    frameZones[i].children[0].className = "show-item show-item-active";
+  }
 });
 
 /** 判断当前多媒体资源是视频还是图片 */
@@ -67,10 +72,13 @@ const showSlideMedia = function (src: string, _key: number) {
   });
 };
 /** 点击右箭头换下一个slide */
-const nextShow = function () {
+const nextShow = function ($event: any) {
+  console.log($event.target.parentNode.previousElementSibling);
   // 对下面的slide样式进行改变
-  const frameZones = Array.from(document.querySelectorAll(".show-item"));
-  const frameDom = document.querySelector(".show-list") as Element;
+  // const frameZones = Array.from(document.querySelectorAll(".show-item"));
+  // const frameDom = document.querySelector(".show-list") as Element;
+  const frameZones = $event.target.parentNode.previousElementSibling.children;
+  const frameDom = $event.target.parentNode.previousElementSibling;
   console.log();
   for (let i = 0; i < frameZones.length; i++) {
     if (frameZones[i].className === "show-item show-item-active") {
@@ -173,7 +181,7 @@ const clickNothing = function () {};
                 v-if="!isMobileDevice"
                 class=""
                 src="../assets/images/icon/close_circle.svg"
-                @click="nextShow"
+                @click="nextShow($event)"
                 alt="decoration img for slide control"
               />
             </div>
@@ -187,7 +195,7 @@ const clickNothing = function () {};
               <div
                 class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
               ></div>
-              <span class="block flex-none">project 3</span>
+              <span class="block flex-none">project 2</span>
               <div
                 class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
               ></div>
@@ -456,9 +464,13 @@ const clickNothing = function () {};
     top: 2px;
     right: -2px;
     height: 100%;
-    padding: 3.5rem 0rem 3.5rem 16.4rem;
-    background: linear-gradient(89deg, rgba(255, 255, 255, 0.50) 1.25%, #FFF 73.86%);
-    z-index: 9999;
+    padding: 3.5rem 0rem 3.5rem 13.4rem;
+    background: linear-gradient(
+      89deg,
+      rgba(255, 255, 255, 0.5) 1.25%,
+      #fff 73.86%
+    );
+    z-index: 9;
     img {
       padding-right: 2px;
     }
