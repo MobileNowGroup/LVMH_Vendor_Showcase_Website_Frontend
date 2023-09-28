@@ -11,7 +11,7 @@
         }
       "
     />
-    <p class="mid lg:ml-[-111px]" >
+    <p class="mid lg:ml-[-111px]">
       <span>Principle: Regina</span>
       <span>E-mail: ReginaLVMH@gmail.com</span>
       <span
@@ -21,9 +21,11 @@
     </p>
     <p class="right">
       <span>
-        <router-link to="policy" class="lg:mr-[42px]">Privacy policy</router-link>
+        <router-link to="policy" class="lg:mr-[42px]"
+          >Privacy policy</router-link
+        >
       </span>
-      <span class="lg:mr-[34px]">沪ICP备 ***********号</span>
+      <span class="lg:mr-[34px] ping">沪ICP备 ***********号</span>
       <span>Copyright@LVMH Digital</span>
     </p>
   </div>
@@ -47,7 +49,6 @@
     cursor: pointer;
   }
   p.mid {
-   
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -58,12 +59,17 @@
     font-weight: 400;
     line-height: normal;
   }
-  p.right {
-    // span:first-child {
-    //   margin-right: 4rem;
-    // }
+  p.right>span{
+    
+    color: var(--lvmh-primary-140, #a6a8b1);
+    text-align: right;
+    font-family: Avenir Next;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
-  span {
+  span.ping {
     color: #a6a8b1;
     text-align: center;
     font-family: PingFang SC;
@@ -84,14 +90,19 @@
   p.mid {
     align-items: center !important;
     span {
+      font-size: 12px;
       margin-top: 0.8rem;
     }
   }
   .right {
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-top: 4rem;
+    
     span {
+      font-size: 12px;
+      text-align: center;
       margin: 0 !important;
     }
   }

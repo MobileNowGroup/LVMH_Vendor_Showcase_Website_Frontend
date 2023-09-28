@@ -17,6 +17,7 @@ const slideList = [
   { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
   { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
 ];
+const isMobileAgent  = ref(isMobile())
 onMounted(() => {
   // 进入页面给默认数据
   vendor.value = mockData.vendorListMock[0];
@@ -25,13 +26,16 @@ onMounted(() => {
       vendor.value = element;
     }
   });
+ 
   // 监听slidelist滚动距离计算下面scrllbar的滚动距离且只在移动端生效
-  if (isMobile()) {
+  if (isMobileAgent.value) {
     slideListNode.value.addEventListener("scroll", (e: any) => {
       scrollThumbNode.value.style.marginLeft = e.target.scrollLeft / 5 + "px";
     });
   }
 });
+
+
 const serviceBrandsList = [{}, {}, {}, {}];
 let slideListNode = ref();
 let scrollThumbNode = ref();
@@ -68,8 +72,7 @@ const sendEmailText = ref("REQUEST");
 let sendEmailVisable = ref(false);
 // 发送邮件
 const sendEmail = () => {
- 
-  sendEmailText.value = "please wait...";
+  sendEmailText.value = "Please wait...";
   setTimeout(() => {
     sendEmailVisable.value = true;
     sendEmailText.value = "REQUESTED";
@@ -182,7 +185,7 @@ const nextEl = () => {
             <swiper
               ref="mySwiper"
               :slidesPerView="5"
-              :spaceBetween="isMobile() ? 10 : 20"
+              :spaceBetween="isMobileAgent ? 10 : 20"
               :loop="false"
               :centeredSlides="false"
               :autoplay="{ delay: 2000, disableOnInteraction: false }"
@@ -398,7 +401,14 @@ const nextEl = () => {
       </div>
     </div>
     <div class="content-bottom">
-      <h2>Let’s get in touch with an awesome team</h2>
+      <h2 v-if="isMobileAgent">
+        Let’s get in touch <br />
+        with an awesome team
+      </h2>
+      <h2 v-else>
+        Let’s get in touch
+        with an awesome team
+      </h2>
       <p>Please click the button below to request contact information</p>
       <button
         @click="sendEmail"
@@ -408,7 +418,10 @@ const nextEl = () => {
         {{ sendEmailText }}
       </button>
       <div class="information information-box">
-        <p class="information" :class="{'information-show':sendEmailVisable}">
+        <p
+          class="information"
+          :class="{ 'information-show': sendEmailVisable }"
+        >
           <img src="../assets/images/icon/sure.svg" alt="" />
           <span>
             Your request has been sent, we will get back to you as soon as
@@ -692,6 +705,7 @@ const nextEl = () => {
         font-size: 16px;
         font-style: normal;
         font-weight: 500;
+        width: 21.5rem;
         line-height: 22px; /* 137.5% */
         text-transform: capitalize;
       }
@@ -866,7 +880,7 @@ const nextEl = () => {
     align-items: center;
     justify-content: center;
     opacity: 0;
-    &-show{
+    &-show {
       opacity: 1;
     }
     img {
@@ -1083,6 +1097,9 @@ const nextEl = () => {
       }
       &-left {
         width: 100%;
+        p {
+          width: 17.6rem;
+        }
       }
       &-right {
         margin-left: 0rem;
