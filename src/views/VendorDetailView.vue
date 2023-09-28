@@ -674,6 +674,7 @@ const nextEl = () => {
       width: 43.2rem;
       height: 33rem;
       background: url("../assets/images/Media.jpg");
+      background-size: 100%;
       padding: 4rem;
       text-align: left;
       h2 {
