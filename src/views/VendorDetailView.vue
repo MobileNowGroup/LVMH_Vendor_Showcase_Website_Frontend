@@ -1093,7 +1093,7 @@ const touchmoves = (swiper: any) => {
 
       img {
         width: 3.3rem;
-        height: 3.3rem;
+        // height: 3.3rem;
         margin: 0 auto;
       }
     }
