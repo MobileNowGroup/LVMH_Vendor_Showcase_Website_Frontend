@@ -191,6 +191,16 @@ const _onPageScroll = () => {
     });
   }
 };
+// 用来控制filter中的apply 按钮样式
+const applyshowcolorVisiable = ref(false);
+const applyshowcolor = () => {
+  // 判断所有filter中的数据，只要有一个是被选中那么就是true
+  applyshowcolorVisiable.value = filterList.value.some((menu, menindex) => {
+    return menu.menuItemList.some((menuItem) => {
+      return menuItem.isChoosed;
+    });
+  });
+};
 // 页面销毁
 onUnmounted(() => {
   window.removeEventListener("scroll", _onPageScroll);
@@ -339,13 +349,13 @@ onUnmounted(() => {
                             (e) => {
                               menuItem.isChoosed = !menuItem.isChoosed;
                               menu.selectedCount = 0;
-                              filterNumber=0
+
                               menu.menuItemList.forEach((item) => {
                                 if (item.isChoosed) {
                                   menu.selectedCount += 1;
-                                  filterNumber+=1
                                 }
                               });
+                              applyshowcolor();
                             }
                           "
                         >
@@ -364,7 +374,7 @@ onUnmounted(() => {
                   <div class="control-box">
                     <button @click="clearFilter" class="clear">CLEAR</button>
                     <button
-                      :class="{ hasfilter: filterNumber  }"
+                      :class="{ hasfilter: applyshowcolorVisiable }"
                       @click="
                         searchResult($event, 'filter'),
                           closeBox($event, 'filter')
