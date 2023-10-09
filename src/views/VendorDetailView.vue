@@ -112,7 +112,7 @@ const touchmoves = (swiper: any) => {
       (Math.abs(swiper.translate - 30) / 300) * 30 + "px";
     return;
   }
-  scrollThumbNode.value.style.marginLeft = '0px';
+  scrollThumbNode.value.style.marginLeft = "0px";
 };
 </script>
 
@@ -401,7 +401,7 @@ const touchmoves = (swiper: any) => {
       >
         {{ sendEmailText }}
       </button>
-      <div class="information information-box">
+      <div class="information-box">
         <p
           class="information"
           :class="{ 'information-show': sendEmailVisable }"
@@ -865,6 +865,17 @@ const touchmoves = (swiper: any) => {
     justify-content: center;
     opacity: 0;
     &-show {
+      color: var(--lvmh-secondary-1100, #3e65d0);
+      text-align: center;
+      font-family: avenir_next_text;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
       opacity: 1;
     }
     img {
