@@ -85,7 +85,7 @@ const agreeSaveCookies = () => {
                 >Cookie Policy</router-link
               >”.
             </p>
-            <div class="flex lg:mt-0 mt-5">
+            <div class="flex justify-between lg:mt-0 mt-5">
               <button
                 class="py-2.5 w-[160px] text-[#E9EAEC] text-center h-min text-[14px] font-medium border-[#E9EAEC] border lg:mr-[16px] mr-[12px]"
                 @click="closeCookies"
