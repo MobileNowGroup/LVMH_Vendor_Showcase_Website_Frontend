@@ -403,7 +403,7 @@ const touchmoves = (swiper: any) => {
       </button>
       <div class="information-box">
         <p
-          class="information"
+          class="information "
           :class="{ 'information-show': sendEmailVisable }"
         >
           <img src="../assets/images/icon/sure.svg" alt="" />
@@ -865,17 +865,6 @@ const touchmoves = (swiper: any) => {
     justify-content: center;
     opacity: 0;
     &-show {
-      color: var(--lvmh-secondary-1100, #3e65d0);
-      text-align: center;
-      font-family: avenir_next_text;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
       opacity: 1;
     }
     img {
@@ -1193,6 +1182,12 @@ const touchmoves = (swiper: any) => {
     padding: 6rem;
     h2 {
       font-size: 24px;
+    }
+  }
+  .information {
+    &-show {
+      align-items: flex-start !important;
+      opacity: 1;
     }
   }
 }

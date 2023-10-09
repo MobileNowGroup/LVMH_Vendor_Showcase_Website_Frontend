@@ -156,6 +156,7 @@ const clearFilter = () => {
       menuItem.isChoosed = false;
     });
   });
+  applyshowcolor();
 };
 /** 根据filter查询结果 */
 const searchResult = (e: any, searchType: string) => {
