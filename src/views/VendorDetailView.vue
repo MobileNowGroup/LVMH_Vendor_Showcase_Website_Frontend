@@ -110,6 +110,10 @@ const touchmoves = (swiper: any) => {
   if (swiper.translate < 0) {
     scrollThumbNode.value.style.marginLeft =
       (Math.abs(swiper.translate - 30) / 300) * 30 + "px";
+      if(isMobileAgent){
+        scrollThumbNode.value.style.marginLeft =
+      (Math.abs(swiper.translate - 30) / 270) * 60 + "px";
+      }
     return;
   }
   scrollThumbNode.value.style.marginLeft = "0px";
