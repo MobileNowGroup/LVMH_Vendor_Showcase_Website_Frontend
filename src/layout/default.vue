@@ -87,13 +87,13 @@ const agreeSaveCookies = () => {
             </p>
             <div class="flex lg:mt-0 mt-5">
               <button
-                class="py-2.5 w-[160px] text-[#E9EAEC] text-center h-min text-[14px] font-medium border-[#E9EAEC] border mr-[16px]"
+                class="py-2.5 w-[160px] text-[#E9EAEC] text-center h-min text-[14px] font-medium border-[#E9EAEC] border lg:mr-[16px] mr-[12px]"
                 @click="closeCookies"
               >
                 Reject
               </button>
               <button
-                class="py-2.5 w-[160px] text-black text-center h-min text-[14px] font-medium bg-[#E9EAEC] border-[#E9EAEC]"
+                class="py-2.5 w-[160px] text-black text-center h-min text-[14px] font-medium bg-[#E9EAEC] border-[#E9EAEC] border"
                 @click="agreeSaveCookies"
               >
                 Accept

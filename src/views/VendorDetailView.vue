@@ -1073,6 +1073,7 @@ const touchmoves = (swiper: any) => {
       }
       &-left {
         width: 100%;
+        background-size: 125%;
         p {
           width: 17.6rem;
         }
