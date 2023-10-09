@@ -1037,7 +1037,7 @@ const touchmoves = (swiper: any) => {
 
   .slide {
     &-box {
-      margin-top: 2rem;
+      margin-top: 3.6rem;
       width: 100%;
       margin-right: 0rem;
       text-align: center;
@@ -1064,7 +1064,7 @@ const touchmoves = (swiper: any) => {
       text-transform: capitalize;
       position: relative;
       margin: 0 1.5rem;
-      margin-bottom: 3.6rem;
+      margin-bottom: 2rem;
     }
     &-track {
     }
