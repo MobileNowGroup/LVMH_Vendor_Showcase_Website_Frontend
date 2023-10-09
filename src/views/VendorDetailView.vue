@@ -967,13 +967,85 @@ const touchmoves = (swiper: any) => {
     flex-direction: column;
     justify-content: center;
   }
+
   .vendor {
     &-box {
       margin: 0 1.5rem;
-
       max-width: 100%;
+
+      &-in {
+        padding: 4rem;
+        background: #fff;
+        box-shadow: 0px 8px 15px 0px rgba(62, 101, 208, 0.1);
+      }
+    }
+    &-title {
+      color: var(--lvmh-primary-1100, #20253b);
+      font-family: avenir_next_text;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 22px; /* 137.5% */
+    }
+    &-category {
+      color: var(--lvmh-primary-1100, #20253b);
+      font-family: Avenir Next;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 22px;
+      text-transform: capitalize;
+    }
+    &-found {
+      color: var(--lvmh-primary-1100, #20253b);
+      font-family: Avenir Next;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 22px;
+      text-transform: capitalize;
+    }
+
+    &-time {
+      color: var(--lvmh-primary-1100, #20253b);
+      font-family: Avenir Next;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 22px;
+      text-transform: capitalize;
+    }
+
+    &-tag {
+      margin-bottom: 2rem;
+      span {
+        color: var(--lvmh-secondary-1100, #3e65d0);
+        font-family: avenir_next_text;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        display: inline-block;
+        margin-right: 4px;
+        padding: 4px 8px;
+        justify-content: center;
+        align-items: center;
+        gap: 2px;
+        border-radius: 2px;
+        background: var(--lvmh-secondary-110, #ecf0fa);
+      }
+    }
+    &-intro {
+      color: var(--lvmh-primary-1100, #20253b);
+      font-family: Avenir Next;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 22px;
+      // @include ellipsisLn(3);
     }
   }
+
   .slide {
     &-box {
       margin-top: 2rem;
