@@ -126,7 +126,7 @@ const clickNothing = function () {};
         <div v-if="demoLink" class="demo-box">
           <!-- <p class="demo-desc">Click the link to view demo</p> -->
           <button class="demo-button" @click="clickNothing">
-            <img src="../assets/images/icon/button_link.svg" alt="" /> Demo link
+            <img src="../../public/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
         <div class="show-box">
@@ -160,7 +160,7 @@ const clickNothing = function () {};
                 >
                   <img
                     class="icon show-item-video-icon"
-                    src="../assets/images/24gf-videoCamera.png"
+                    src="../../public/images/24gf-videoCamera.png"
                     alt=""
                   />
                   <video
@@ -180,7 +180,7 @@ const clickNothing = function () {};
               <img
                 v-if="!isMobileDevice"
                 class=""
-                src="../assets/images/icon/close_circle.svg"
+                src="../../public/images/icon/close_circle.svg"
                 @click="nextShow($event)"
                 alt="decoration img for slide control"
               />
@@ -205,7 +205,7 @@ const clickNothing = function () {};
         <div v-if="demoLink" class="demo-box">
           <!-- <p class="demo-desc">Click the link to view demo</p> -->
           <button class="demo-button" @click="clickNothing">
-            <img src="../assets/images/icon/button_link.svg" alt="" /> Demo link
+            <img src="../../public/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
         <div class="show-box">
@@ -239,7 +239,7 @@ const clickNothing = function () {};
                 >
                   <img
                     class="icon show-item-video-icon"
-                    src="../assets/images/24gf-videoCamera.png"
+                    src="../../public/images/24gf-videoCamera.png"
                     alt=""
                   />
                   <video
@@ -259,7 +259,7 @@ const clickNothing = function () {};
               <img
                 v-if="!isMobileDevice"
                 class=""
-                src="../assets/images/icon/close_circle.svg"
+                src="../../public/images/icon/close_circle.svg"
                 @click="nextShow"
                 alt="decoration img for slide control"
               />
@@ -284,7 +284,7 @@ const clickNothing = function () {};
         <div v-if="demoLink" class="demo-box">
           <!-- <p class="demo-desc">Click the link to view demo</p> -->
           <button class="demo-button" @click="clickNothing">
-            <img src="../assets/images/icon/button_link.svg" alt="" /> Demo link
+            <img src="../../public/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
         <div class="show-box">
@@ -318,7 +318,7 @@ const clickNothing = function () {};
                 >
                   <img
                     class="icon show-item-video-icon"
-                    src="../assets/images/24gf-videoCamera.png"
+                    src="../../public/images/24gf-videoCamera.png"
                     alt=""
                   />
                   <video
@@ -338,7 +338,7 @@ const clickNothing = function () {};
               <img
                 v-if="!isMobileDevice"
                 class=""
-                src="../assets/images/icon/close_circle.svg"
+                src="../../public/images/icon/close_circle.svg"
                 @click="nextShow"
                 alt="decoration img for slide control"
               />

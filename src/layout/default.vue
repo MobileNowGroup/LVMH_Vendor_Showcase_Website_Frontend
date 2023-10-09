@@ -67,7 +67,7 @@ const agreeSaveCookies = () => {
           <img
             class="absolute lg:top-8 lg:right-14 top-[15px] right-[15px] cursor-pointer"
             @click="closeCookies"
-            src="../assets/images/icon/close_white.svg"
+            src="../../../public/images/icon/close_white.svg"
             alt=""
           />
           <div

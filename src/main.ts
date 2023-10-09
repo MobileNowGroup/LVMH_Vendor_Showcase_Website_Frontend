@@ -8,7 +8,7 @@ import piniaPersist from "pinia-plugin-persist";
 import App from "./App.vue";
 import router from "./router";
 
-import imgPlugin from "./directive";
+// import imgPlugin from "./directive";
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -16,6 +16,6 @@ pinia.use(piniaPersist);
 
 app.use(pinia);
 app.use(router);
-app.use(imgPlugin);
+// app.use(imgPlugin);
 
 app.mount("#app");

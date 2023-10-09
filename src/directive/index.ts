@@ -1,5 +1,5 @@
 // 导入默认图片
-import defaultImg from "../assets/images/LVMH_IT_Digita_bg.png";
+import defaultImg from "../../public/images/LVMH_IT_Digita_bg.png";
 // 引入监听是否进入视口
 import { useIntersectionObserver } from "@vueuse/core";
 export default {

@@ -3,7 +3,7 @@
   <div class="foot">
     <img
       class="logo"
-      src="../assets/images/logo.png"
+      src="../../public/images/logo.png"
       alt=""
       @loadeddata="
         ($event) => {

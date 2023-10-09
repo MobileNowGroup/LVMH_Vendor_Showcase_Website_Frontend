@@ -8,14 +8,14 @@ const $router = useRouter();
 const vendor = ref({} as any);
 const featureShow = ref("link");
 const slideList = [
-  { slideName: "hennessy", slideSrc: "src/assets/images/checkbox.png" },
-  { slideName: "hennessy", slideSrc: "src/assets/images/zanting.png" },
-  { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
-  { slideName: "hennessy", slideSrc: "src/assets/images/shengyin.png" },
-  { slideName: "hennessy", slideSrc: "src/assets/images/quanping.png" },
-  { slideName: "hennessy", slideSrc: "src/assets/images/logo_black.png" },
-  { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
-  { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
+  { slideName: "hennessy", slideSrc: "../../public/images/logo/hennessy logo.png" },
+  { slideName: "hennessy", slideSrc: "../..//public/images/logo/lc-logo.png" },
+  { slideName: "hennessy", slideSrc: "../..//public/images/logo/leica-logo.png" },
+  { slideName: "hennessy", slideSrc: "../..//public/images/logo/sephora-logo.png" },
+  { slideName: "hennessy", slideSrc: "../..//public/images/logo/sweaty-logo.png" },
+  { slideName: "hennessy", slideSrc: "../..//public/images/logo/hennessy logo.png" },
+  { slideName: "hennessy", slideSrc: "../..//public/images/logo/lc-logo.png" },
+  { slideName: "hennessy", slideSrc: "../..//public/images/logo/sephora-logo.png" },
 ];
 const isMobileAgent = ref(isMobile());
 onMounted(() => {
@@ -118,7 +118,7 @@ const touchmoves = (swiper: any) => {
 
 <template>
   <main :class="{ hasnodeco: true }">
-    <div class="top">
+    <div class="top" :class="{ top_mobile: isMobileAgent }">
       <div class="vendor-box">
         <div class="vendor-box-in h-[41rem]">
           <h2 class="vendor-name">{{ vendor.vendorName }}</h2>
@@ -150,7 +150,7 @@ const touchmoves = (swiper: any) => {
             v-show="count > 0"
             @click.stop="prevEl"
             class=""
-            src="../assets/images/icon/left_arrow.svg"
+            src="../../public/images/icon/left_arrow.svg"
             alt=""
           />
         </div>
@@ -203,7 +203,7 @@ const touchmoves = (swiper: any) => {
           <img
             v-show="count < slideList.length - 4"
             @click.stop="nextEl"
-            src="../assets/images/right_arrow.png"
+            src="../../public/images/right_arrow.png"
             alt=""
           />
         </div>
@@ -291,14 +291,14 @@ const touchmoves = (swiper: any) => {
           </div>
           <div class="content-price-right">
             <div>
-              <img src="@/assets/images/icon/hosting.svg" alt="" />
+              <img src="../../public/images/icon/hosting.svg" alt="" />
               <h2 class="">Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
               <p>SPECIFIX Integration</p>
             </div>
             <div>
-              <img src="@/assets/images/icon/integration.svg" alt="" />
+              <img src="../../public/images/icon/integration.svg" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
@@ -306,21 +306,21 @@ const touchmoves = (swiper: any) => {
             </div>
 
             <div>
-              <img src="@/assets/images/icon/mobileintegration.svg" alt="" />
+              <img src="../../public/images/icon/mobileintegration.svg" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
               <p>SPECIFIX Integration</p>
             </div>
             <div>
-              <img src="@/assets/images/icon/PIPL.svg" alt="" />
+              <img src="../../public/images/icon/PIPL.svg" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
               <p>SPECIFIX Integration</p>
             </div>
             <div>
-              <img src="@/assets/images/icon/MPLS.svg" alt="" />
+              <img src="../../public/images/icon/MPLS.svg" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
@@ -343,19 +343,19 @@ const touchmoves = (swiper: any) => {
         </h2>
         <div v-if="featureShow === 'code'">
           <p class="content-feature-desc">Scan the QR code to view demo</p>
-          <img src="../assets/images/qrcode.png" alt="" />
+          <img src="../../public/images/qrcode.png" alt="" />
         </div>
         <div v-else-if="featureShow === 'link'">
           <p class="content-feature-desc">Click the link to view demo</p>
           <button class="content-feature-button" @click="">
-            <img src="../assets/images/icon/button_link.svg" alt="" /> Demo link
+            <img src="../../public/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
         <div v-else>
           <p class="content-feature-desc">Click the play button to view demo</p>
           <div class="content-feature-video-box" @click="">
-            <img src="../assets/images/icon/video_play.svg" alt="" />
-            <!-- <video controls src="../assets/images/284_1690357473.mp4"></video> -->
+            <img src="../../public/images/icon/video_play.svg" alt="" />
+            <!-- <video controls src="../../public/images/284_1690357473.mp4"></video> -->
           </div>
         </div>
       </div>
@@ -379,7 +379,7 @@ const touchmoves = (swiper: any) => {
           >
             <img
               class="content-service-logo"
-              src="../assets/images/cat.png"
+              src="../../public/images/cat.png"
               alt=""
             />
             <a class="content-desc content-service-desc" href="">Demo</a>
@@ -403,10 +403,10 @@ const touchmoves = (swiper: any) => {
       </button>
       <div class="information-box">
         <p
-          class="information "
+          class="information"
           :class="{ 'information-show': sendEmailVisable }"
         >
-          <img src="../assets/images/icon/sure.svg" alt="" />
+          <img src="../../public/images/icon/sure.svg" alt="" />
           <span>
             Your request has been sent, we will get back to you as soon as
             possible.
@@ -422,9 +422,12 @@ const touchmoves = (swiper: any) => {
   max-width: 100vw;
   height: 36rem;
   padding-top: 6rem;
-  background: url("../assets/images/detail_top_bg.png");
+  background: url("../../public/images/detail_top_bg.png");
   display: flex;
   justify-content: space-between;
+}
+.top_mobile {
+  background: url("../../public/images/PDP-bg@2x.jpg");
 }
 .vendor {
   &-box {
@@ -670,7 +673,7 @@ const touchmoves = (swiper: any) => {
     &-left {
       width: 43.2rem;
       height: 33rem;
-      background: url("../assets/images/Media.jpg");
+      background: url("../../public/images/Media.jpg");
       background-size: 100%;
       padding: 4rem;
       text-align: left;
@@ -761,7 +764,7 @@ const touchmoves = (swiper: any) => {
       width: 93rem;
       height: 52.3rem;
       margin: 0 auto;
-      background: url("../assets/images/2978edfd8198672cbedd2d62ad446d607daa1856f2fb92e6dda9544a274ef680.png");
+      background: url("../../public/images/2978edfd8198672cbedd2d62ad446d607daa1856f2fb92e6dda9544a274ef680.png");
       display: flex;
       align-items: center;
       justify-content: center;
@@ -951,10 +954,10 @@ const touchmoves = (swiper: any) => {
 }
 @media screen and (max-width: 960px) {
   .top {
-    height: 66rem;
+    height: 69rem;
     padding-top: 5.2rem;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .vendor {
