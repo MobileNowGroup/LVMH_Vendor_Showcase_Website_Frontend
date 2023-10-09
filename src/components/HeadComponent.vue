@@ -11,7 +11,7 @@ import { useRoute, useRouter } from "vue-router";
 import mockData from "../util/mockData";
 import { throttle } from "@/util/common";
 
-let filterNumber = ref(0);
+const filterNumber = ref(0);
 let searchVisibale = ref(false); // searchbox是否展示
 let searchValue = ref(""); // 需要search 的数据
 let filterVisibale = ref(false); // filterbox是否展示
@@ -93,7 +93,7 @@ watch(
       headerbg();
     });
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 onBeforeUpdate(() => {});
@@ -237,7 +237,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);',
+                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);'
                           );
                         }
                       "
@@ -245,7 +245,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'background: transparent',
+                            'background: transparent'
                           );
                         }
                       "
@@ -339,9 +339,11 @@ onUnmounted(() => {
                             (e) => {
                               menuItem.isChoosed = !menuItem.isChoosed;
                               menu.selectedCount = 0;
+                              filterNumber=0
                               menu.menuItemList.forEach((item) => {
                                 if (item.isChoosed) {
                                   menu.selectedCount += 1;
+                                  filterNumber+=1
                                 }
                               });
                             }
@@ -362,12 +364,13 @@ onUnmounted(() => {
                   <div class="control-box">
                     <button @click="clearFilter" class="clear">CLEAR</button>
                     <button
+                      :class="{ hasfilter: filterNumber  }"
                       @click="
                         searchResult($event, 'filter'),
                           closeBox($event, 'filter')
                       "
                     >
-                      SEARCH
+                      APPLY
                     </button>
                   </div>
                 </div>
@@ -639,7 +642,7 @@ onUnmounted(() => {
       margin-bottom: 6.2rem;
     }
     button {
-      color: #e9eaec;
+      color: #a6a8b1;
       font-family: avenir_next_text;
       font-size: 1.4rem;
       font-style: normal;
@@ -650,6 +653,10 @@ onUnmounted(() => {
       width: 100%;
       height: 4rem;
       border: 0;
+      background: #e9eaec;
+    }
+    button.hasfilter {
+      color: #e9eaec;
       background: #20253b;
     }
     button.clear {
