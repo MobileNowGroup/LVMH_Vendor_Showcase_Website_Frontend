@@ -24,7 +24,7 @@ const verifyEmail = () => {
   <main>
     <div class="login">
       <div class="login-box">
-        <img class="logo" src="@assets/images/logo.png" alt="" />
+        <img class="logo" src="../../public/images/logo.png" alt="" />
         <p class="login-title" v-show="!isPassVerify">
           We need to verify your identity.
         </p>
