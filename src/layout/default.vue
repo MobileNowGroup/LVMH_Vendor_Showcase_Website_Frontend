@@ -71,7 +71,7 @@ const agreeSaveCookies = () => {
             alt=""
           />
           <div
-            class="w-full flex lg:flex-row flex-col justify-between items-center"
+            class="w-full flex lg:flex-row flex-col justify-between lg:items-center"
           >
             <p
               class="cookies text-[#E9EAEC] lg:w-190 lg:text-[14px] text-[12px] font-medium leading-normal"

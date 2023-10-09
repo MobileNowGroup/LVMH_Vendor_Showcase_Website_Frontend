@@ -8,7 +8,7 @@ const $router = useRouter();
 const vendor = ref({} as any);
 const featureShow = ref("link");
 const slideList = [
-  { slideName: "hennessy", slideSrc: "src/assets/images/detail_top_bg.png" },
+  { slideName: "hennessy", slideSrc: "src/assets/images/checkbox.png" },
   { slideName: "hennessy", slideSrc: "src/assets/images/zanting.png" },
   { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
   { slideName: "hennessy", slideSrc: "src/assets/images/shengyin.png" },
@@ -17,7 +17,7 @@ const slideList = [
   { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
   { slideName: "hennessy", slideSrc: "src/assets/images/logo.png" },
 ];
-const isMobileAgent  = ref(isMobile())
+const isMobileAgent = ref(isMobile());
 onMounted(() => {
   // 进入页面给默认数据
   vendor.value = mockData.vendorListMock[0];
@@ -26,7 +26,7 @@ onMounted(() => {
       vendor.value = element;
     }
   });
- 
+
   // 监听slidelist滚动距离计算下面scrllbar的滚动距离且只在移动端生效
   if (isMobileAgent.value) {
     slideListNode.value.addEventListener("scroll", (e: any) => {
@@ -35,39 +35,11 @@ onMounted(() => {
   }
 });
 
-
 const serviceBrandsList = [{}, {}, {}, {}];
 let slideListNode = ref();
 let scrollThumbNode = ref();
 let count = ref(0);
 
-const scrollPrev = () => {
-  if (count.value > 0) {
-    slideListNode.value.scrollLeft = --count.value * 100;
-    scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
-  }
-
-  // if (count.value <= slideList.length - 4 && count.value > 0) {
-  // } else {
-  //   count.value = 1;
-  //   slideListNode.value.scrollLeft = 0;
-  //   scrollThumbNode.value.style.marginLeft = "0px";
-  // }
-};
-
-const scrollNext = () => {
-  if (count.value <= slideList.length - 4) {
-    slideListNode.value.scrollLeft = ++count.value * 100;
-    scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
-  }
-
-  // if (count.value <= slideList.length - 4) {
-  // } else {
-  //   count.value = 1;
-  //   slideListNode.value.scrollLeft = 0;
-  //   scrollThumbNode.value.style.marginLeft = "0px";
-  // }
-};
 const sendEmailText = ref("REQUEST");
 let sendEmailVisable = ref(false);
 // 发送邮件
@@ -109,25 +81,38 @@ const navigation = ref({
 
 let useSwiper: any = null;
 
+let swipers: any = null;
 // 初始化swiper
 const onSwiper = (swiper: any) => {
+  swipers = swiper;
   console.log(swiper);
-  swiper.value?.el.swiper.slideNext();
 };
-// const swiper = useSwiper();
+
 const prevEl = () => {
   // console.log('上一张' + index + item)
   if (count.value > 0) {
     slideListNode.value.scrollLeft = --count.value * 100;
     scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
   }
+  swipers.slidePrev();
 };
 const nextEl = () => {
   // console.log('下一张')
-  if (count.value <= slideList.length - 4) {
-    slideListNode.value.scrollLeft = ++count.value * 100;
-    scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
+  if (count.value <= slideList.length - 3) {
+    slideListNode.value.scrollLeft = count.value++ * 100;
+    scrollThumbNode.value.style.marginLeft = 10 * count.value + "px";
   }
+  swipers.slideNext();
+};
+
+const touchmoves = (swiper: any) => {
+  console.log(swiper, swipers.getTranslate());
+  if (swiper.translate < 0) {
+    scrollThumbNode.value.style.marginLeft =
+      (Math.abs(swiper.translate - 30) / 300) * 30 + "px";
+    return;
+  }
+  scrollThumbNode.value.style.marginLeft = '0px';
 };
 </script>
 
@@ -187,21 +172,23 @@ const nextEl = () => {
               :slidesPerView="5"
               :spaceBetween="isMobileAgent ? 10 : 20"
               :loop="false"
+              :centerInsufficientSlides="false"
               :centeredSlides="false"
               :autoplay="{ delay: 2000, disableOnInteraction: false }"
               :navigation="navigation"
               :modules="modules"
               class="mySwiper"
               @swiper="onSwiper"
+              @touchMove="touchmoves"
             >
               <template> </template>
               <swiper-slide
-                class="slide-item"
+                class=""
                 v-for="(slide, slideIndex) of slideList"
                 :key="slideIndex"
               >
-                <div class="img-box">
-                  <img :src="slide.slideSrc" alt="" />
+                <div class="slide-item">
+                  <img class="images" :src="slide.slideSrc" alt="" />
                 </div>
               </swiper-slide>
             </swiper>
@@ -214,7 +201,7 @@ const nextEl = () => {
 
         <div class="slide-arrow slide-arrow-right flex items-center">
           <img
-            v-show="count < slideList.length - 3"
+            v-show="count < slideList.length - 4"
             @click.stop="nextEl"
             src="../assets/images/right_arrow.png"
             alt=""
@@ -405,10 +392,7 @@ const nextEl = () => {
         Let’s get in touch <br />
         with an awesome team
       </h2>
-      <h2 v-else>
-        Let’s get in touch
-        with an awesome team
-      </h2>
+      <h2 v-else>Let’s get in touch with an awesome team</h2>
       <p>Please click the button below to request contact information</p>
       <button
         @click="sendEmail"
@@ -552,20 +536,20 @@ const nextEl = () => {
     }
   }
   &-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 8rem;
     height: 8rem;
-    border-radius: 50%;
+    margin: 0 auto;
     background: #3e65d0;
-    display: inline-block;
-    .img-box {
-      display: flex;
-      height: 8rem;
-      align-items: center;
-    }
+    border-radius: 50%;
+
     img {
-      width: 4.5rem;
-      height: 4.5rem;
-      margin: 0 auto;
+      max-width: 5.2rem;
+      // width: 4.5rem;
+      // height: 4.5rem;
+      // margin: 0 auto;
     }
   }
 }
@@ -944,18 +928,14 @@ const nextEl = () => {
       // overflow-x: scroll;
     }
     &-item {
-      width: 8rem;
-      height: 8rem;
-      border-radius: 50%;
-      background: #3e65d0;
-      display: inline-block;
+      // width: 8rem;
+      // height: 8rem;
+      // border-radius: 50%;
+      // background: #3e65d0;
+      // display: inline-block;
       // display: flex;
       // align-items: center;
-      .img-box {
-        display: flex;
-        height: 8rem;
-        align-items: center;
-      }
+
       img {
         width: 4.5rem;
         margin: 0 auto;
@@ -1029,17 +1009,13 @@ const nextEl = () => {
     }
     &-item {
       width: 6rem !important;
-      height: 6rem;
+      height: 6rem !important;
       border-radius: 50%;
       background: #3e65d0;
-      display: inline-block;
+      // display: inline-block;
       // display: flex;
       // align-items: center;
-      .img-box {
-        display: flex;
-        height: 6rem;
-        align-items: center;
-      }
+
       img {
         width: 3.3rem;
         height: 3.3rem;
