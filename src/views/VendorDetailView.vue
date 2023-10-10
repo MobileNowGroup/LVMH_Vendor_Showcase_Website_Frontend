@@ -643,7 +643,6 @@ const touchmoves = (swiper: any) => {
   }
   &-desc {
     margin: 0 auto;
-    margin-top: 0.4rem;
     max-width: 77.5rem;
     text-align: left;
     color: var(--lvmh-primary-1100, #20253b);
@@ -1134,6 +1133,12 @@ const touchmoves = (swiper: any) => {
       margin: 0;
       margin-bottom: 6rem;
     }
+    &-solution,
+    &-pric,
+    &-feature,
+    &-service-list {
+      margin-top: 2rem;
+    }
     .content-box-price-spec {
       margin: 0;
     }
@@ -1153,7 +1158,6 @@ const touchmoves = (swiper: any) => {
       }
     }
     &-price {
-      margin-top: 2rem;
       &-box {
         align-items: center;
         flex-direction: column;
