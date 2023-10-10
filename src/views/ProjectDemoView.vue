@@ -2,91 +2,17 @@
 import { onMounted, computed, reactive, ref } from "vue";
 import { isMobile, setVideoPosterFn } from "@/util/common";
 
-const isMobileDevice = ref(isMobile());
-
-import img22 from "/images/image 22.png";
-import img23 from "/images/image 23.png";
-import img25 from "/images/image 25.png";
-
-const showList = [
-  "http://www.w3school.com.cn/i/movie.mp4",
-  img22,
-  "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
-  "http://vjs.zencdn.net/v/oceans.mp4",
-  img23,
-  "http://vjs.zencdn.net/v/oceans.mp4",
-  img25,
-  img25,
-  img25,
-];
-
 let demoLink = ref("ddddd"); // demolink的地址
-const showMediaSrc = ref(showList[0]); // 当前展示的多媒体地址
+
+import projectSlide from "@/components/ProjectSlideComponent.vue";
 
 onMounted(() => {
   // carousel on init
   const frameZones = Array.from(document.querySelectorAll(".show-list"));
   for (let i = 0; i < frameZones.length; i++) {
-    console.log();
     frameZones[i].children[0].className = "show-item show-item-active";
   }
 });
-
-/** 判断当前多媒体资源是视频还是图片 */
-const mediaType = function (src: string) {
-  console.log(src);
-
-  let a = src.indexOf("mp4") > 0 ? "media" : "image";
-  return a;
-};
-
-/** 点击展示当前的slide */
-const showSlideMedia = function (src: string, _key: number) {
-  // choose whitch slide to show
-  showMediaSrc.value = src;
-  const changeVideoSource = document.querySelector("video");
-  // 每次更新video资源时手动load一次资源
-  changeVideoSource && changeVideoSource.load();
-  // 对下面的slide样式进行改变
-  const frameZones = Array.from(document.querySelectorAll(".show-item"));
-  frameZones.forEach((element, index) => {
-    if (_key === index) {
-      element.className = "show-item show-item-active";
-    } else {
-      element.className = "show-item";
-    }
-  });
-};
-/** 点击右箭头换下一个slide */
-const nextShow = function ($event: any) {
-  console.log($event.target.parentNode.previousElementSibling);
-  // 对下面的slide样式进行改变
-  // const frameZones = Array.from(document.querySelectorAll(".show-item"));
-  // const frameDom = document.querySelector(".show-list") as Element;
-  const frameZones = $event.target.parentNode.previousElementSibling.children;
-  const frameDom = $event.target.parentNode.previousElementSibling;
-  console.log();
-  for (let i = 0; i < frameZones.length; i++) {
-    if (frameZones[i].className === "show-item show-item-active") {
-      frameZones[i].className = "show-item";
-      if (frameZones[i + 1]) {
-        frameZones[i + 1].className = "show-item show-item-active";
-        // 修改地址
-        showMediaSrc.value = showList[i + 1];
-        // 修改选中元素与左边边距
-        frameDom.scrollLeft = 175 * (i + 1);
-      } else {
-        frameZones[0].className = "show-item show-item-active";
-        // 修改地址
-        showMediaSrc.value = showList[0];
-        // 修改选中元素与左边边距
-        frameDom.scrollLeft = 0;
-      }
-      break;
-    }
-  }
-};
-/** 设置每个video的预览图 setVideoPosterFn */
 
 /**demolink 点击事件 */
 const clickNothing = function () {};
@@ -116,64 +42,7 @@ const clickNothing = function () {};
             <img src="/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
-        <div class="show-box">
-          <div class="slide">
-            <div class="slide-video" v-if="mediaType(showMediaSrc) === 'media'">
-              <video
-                controls
-                preload="metadata"
-                :poster="`${showMediaSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
-                class="video"
-                @loadeddata="setVideoPosterFn($event)"
-              >
-                <source :src="showMediaSrc" type="video/mp4" />
-              </video>
-            </div>
-            <div v-else class="slide-image">
-              <img :src="showMediaSrc" alt="" />
-            </div>
-          </div>
-          <div class="show" ref="slide">
-            <div class="show-list">
-              <div
-                class="show-item"
-                v-for="(value, key) of showList"
-                :key="key"
-                @click="showSlideMedia(value, key)"
-              >
-                <div
-                  class="media-box video-box"
-                  v-if="mediaType(value) === 'media'"
-                >
-                  <img
-                    class="icon show-item-video-icon"
-                    src="/images/24gf-videoCamera.png"
-                    alt=""
-                  />
-                  <video
-                    preload="metadata"
-                    :poster="`${value}?x-oss-process=video/snapshot,t_1,m_fast`"
-                    @loadeddata="setVideoPosterFn($event)"
-                  >
-                    <source :src="value" type="video/mp4" />
-                  </video>
-                </div>
-                <div class="media-box image-box" v-else>
-                  <img class="media-img" :src="value" alt="" />
-                </div>
-              </div>
-            </div>
-            <div class="show-control">
-              <img
-                v-if="!isMobileDevice"
-                class=""
-                src="/images/icon/close_circle.svg"
-                @click="nextShow($event)"
-                alt="decoration img for slide control"
-              />
-            </div>
-          </div>
-        </div>
+        <projectSlide></projectSlide>
       </div>
       <div>
         <div class="title-box">
@@ -218,64 +87,7 @@ const clickNothing = function () {};
             <img src="/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
-        <div class="show-box">
-          <div class="slide">
-            <div class="slide-video" v-if="mediaType(showMediaSrc) === 'media'">
-              <video
-                controls
-                preload="metadata"
-                :poster="`${showMediaSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
-                class="video"
-                @loadeddata="setVideoPosterFn($event)"
-              >
-                <source :src="showMediaSrc" type="video/mp4" />
-              </video>
-            </div>
-            <div v-else class="slide-image">
-              <img :src="showMediaSrc" alt="" />
-            </div>
-          </div>
-          <div class="show" ref="slide">
-            <div class="show-list">
-              <div
-                class="show-item"
-                v-for="(value, key) of showList"
-                :key="key"
-                @click="showSlideMedia(value, key)"
-              >
-                <div
-                  class="media-box video-box"
-                  v-if="mediaType(value) === 'media'"
-                >
-                  <img
-                    class="icon show-item-video-icon"
-                    src="/images/24gf-videoCamera.png"
-                    alt=""
-                  />
-                  <video
-                    preload="metadata"
-                    :poster="`${value}?x-oss-process=video/snapshot,t_1,m_fast`"
-                    @loadeddata="setVideoPosterFn($event)"
-                  >
-                    <source :src="value" type="video/mp4" />
-                  </video>
-                </div>
-                <div class="media-box image-box" v-else>
-                  <img class="media-img" :src="value" alt="" />
-                </div>
-              </div>
-            </div>
-            <div class="show-control">
-              <img
-                v-if="!isMobileDevice"
-                class=""
-                src="/images/icon/close_circle.svg"
-                @click="nextShow($event)"
-                alt="decoration img for slide control"
-              />
-            </div>
-          </div>
-        </div>
+        <projectSlide></projectSlide>
       </div>
     </div>
   </main>
@@ -472,9 +284,9 @@ const clickNothing = function () {};
       width: calc(100vw - 3rem);
     }
     &-image {
+      width: 100%;
       height: 19.4rem;
       img {
-        margin: 0;
         height: 19.4rem;
       }
     }

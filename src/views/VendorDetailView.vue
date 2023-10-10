@@ -631,6 +631,7 @@ const touchmoves = (swiper: any) => {
     &-feature,
     &-service {
       margin: 0 21.31%;
+      margin-top: 2rem;
       margin-bottom: 8rem;
     }
     &-price {
@@ -1143,6 +1144,7 @@ const touchmoves = (swiper: any) => {
       gap: 2rem 4rem;
       width: fit-content;
       margin: 0 auto;
+      margin-top: 2rem;
     }
     &-kpi {
       font-size: 28px;
@@ -1151,6 +1153,7 @@ const touchmoves = (swiper: any) => {
       }
     }
     &-price {
+      margin-top: 2rem;
       &-box {
         align-items: center;
         flex-direction: column;
