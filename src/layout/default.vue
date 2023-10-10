@@ -85,15 +85,17 @@ const agreeSaveCookies = () => {
                 >Cookie Policy</router-link
               >”.
             </p>
-            <div class="flex justify-between lg:mt-0 mt-5">
+            <div
+              class="buttonbox lg:mt-0 mt-5"
+            >
               <button
-                class="py-2.5 lg:w-[160px] w-[166px] text-[#E9EAEC] text-center h-min text-[14px] font-medium border-[#E9EAEC] border lg:mr-[16px]"
+                class="py-2.5 lg:w-[160px] text-[#E9EAEC] text-center h-min text-[14px] font-medium border-[#E9EAEC] border lg:mr-[16px]"
                 @click="closeCookies"
               >
                 Reject
               </button>
               <button
-                class="py-2.5 lg:w-[160px] w-[166px] text-black text-center h-min text-[14px] font-medium bg-[#E9EAEC] border-[#E9EAEC] border"
+                class="py-2.5 lg:w-[160px] text-black text-center h-min text-[14px] font-medium bg-[#E9EAEC] border-[#E9EAEC] border"
                 @click="agreeSaveCookies"
               >
                 Accept
@@ -110,6 +112,19 @@ const agreeSaveCookies = () => {
 </template>
 
 <style lang="scss" scoped>
+.buttonbox {
+  display: flex;
+  justify-content: space-between;
+ 
+}
+@media screen and (min-width: 430px) {
+  .buttonbox {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px/* 8px */;
+  }
+}
+
 .cookies {
   color: var(--neutral-0, #fff);
   font-family: avenir_next_text;
