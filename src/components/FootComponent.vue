@@ -59,8 +59,7 @@
     font-weight: 400;
     line-height: normal;
   }
-  p.right>span{
-    
+  p.right > span {
     color: var(--lvmh-primary-140, #a6a8b1);
     text-align: right;
     font-family: Avenir Next;
@@ -99,7 +98,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 4rem;
-    
+
     span {
       font-size: 12px;
       text-align: center;

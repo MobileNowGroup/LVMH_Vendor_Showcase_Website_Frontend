@@ -93,7 +93,7 @@ watch(
       headerbg();
     });
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 onBeforeUpdate(() => {});
@@ -248,7 +248,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);'
+                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);',
                           );
                         }
                       "
@@ -256,7 +256,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'background: transparent'
+                            'background: transparent',
                           );
                         }
                       "

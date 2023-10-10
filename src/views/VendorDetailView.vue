@@ -65,38 +65,23 @@ const gotoDemo = () => {
 };
 
 import { Swiper, SwiperSlide } from "swiper/vue"; // swiper所需组件
-// 这是分页器和对应方法，swiper好像在6的时候就已经分离了分页器和一些其他工具
-// import { useSwiper } from "swiper/vue";
-import {
-  Autoplay,
-  Navigation,
-  Pagination,
-  Virtual,
-  Grid,
-} from "swiper/modules";
-// 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
-
-import "swiper/css";
+import { Navigation, Pagination, Grid } from "swiper/modules";
+import "swiper/css"; // 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-// setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
-const modules = ref([Navigation, Pagination, Grid]);
+const modules = ref([Navigation, Pagination, Grid]); // setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
 const navigation = ref({
   nextEl: ".button-next",
   prevEl: ".button-prev",
 });
 
-let useSwiper: any = null;
-
 let swipers: any = null;
 // 初始化swiper
 const onSwiper = (swiper: any) => {
   swipers = swiper;
-  console.log(swiper);
 };
 
 const prevEl = () => {
-  // console.log('上一张' + index + item)
   if (count.value > 0) {
     slideListNode.value.scrollLeft = --count.value * 100;
     scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
@@ -104,7 +89,6 @@ const prevEl = () => {
   swipers.slidePrev();
 };
 const nextEl = () => {
-  // console.log('下一张')
   if (count.value <= slideList.length - 3) {
     slideListNode.value.scrollLeft = count.value++ * 100;
     scrollThumbNode.value.style.marginLeft = 10 * count.value + "px";
@@ -317,10 +301,7 @@ const touchmoves = (swiper: any) => {
             </div>
 
             <div>
-              <img
-                src="/images/icon/mobileintegration.svg"
-                alt=""
-              />
+              <img src="/images/icon/mobileintegration.svg" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
@@ -362,8 +343,7 @@ const touchmoves = (swiper: any) => {
         <div v-else-if="featureShow === 'link'">
           <p class="content-feature-desc">Click the link to view demo</p>
           <button class="content-feature-button" @click="">
-            <img src="/images/icon/button_link.svg" alt="" /> Demo
-            link
+            <img src="/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
         <div v-else>
@@ -392,11 +372,7 @@ const touchmoves = (swiper: any) => {
             v-for="(serviceBrands, serviceBrandsIndex) of serviceBrandsList"
             :key="serviceBrandsIndex"
           >
-            <img
-              class="content-service-logo"
-              src="/images/cat.png"
-              alt=""
-            />
+            <img class="content-service-logo" src="/images/cat.png" alt="" />
             <a class="content-desc content-service-desc" href="">Demo</a>
           </div>
         </div>

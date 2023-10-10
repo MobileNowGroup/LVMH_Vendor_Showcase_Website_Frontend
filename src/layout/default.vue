@@ -42,7 +42,7 @@ watch(
       return newPath === item;
     });
   },
-  { immediate: true }
+  { immediate: true },
 );
 const closeCookies = () => {
   showModel.value = false;
@@ -85,9 +85,7 @@ const agreeSaveCookies = () => {
                 >Cookie Policy</router-link
               >”.
             </p>
-            <div
-              class="buttonbox lg:mt-0 mt-5"
-            >
+            <div class="buttonbox lg:mt-0 mt-5">
               <button
                 class="py-2.5 lg:w-[160px] text-[#E9EAEC] text-center h-min text-[14px] font-medium border-[#E9EAEC] border lg:mr-[16px]"
                 @click="closeCookies"
@@ -115,13 +113,12 @@ const agreeSaveCookies = () => {
 .buttonbox {
   display: flex;
   justify-content: space-between;
- 
 }
 @media screen and (max-width: 430px) {
   .buttonbox {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 12px/* 8px */;
+    column-gap: 12px /* 8px */;
   }
 }
 

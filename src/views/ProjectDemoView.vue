@@ -37,8 +37,6 @@ const showList = [
 let demoLink = ref("ddddd"); // demolink的地址
 const showMediaSrc = ref(showList[0].src); // 当前展示的多媒体地址
 
-
-
 onMounted(() => {
   // carousel on init
   const frameZones = Array.from(document.querySelectorAll(".show-list"));
