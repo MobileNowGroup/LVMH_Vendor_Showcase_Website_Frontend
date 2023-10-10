@@ -13,7 +13,10 @@ import lcLogo from "/images/logo/lc-logo.png";
 import leicaLogo from "/images/logo/leica-logo.png";
 import sephoraLogo from "/images/logo/sephora-logo.png";
 import sweatyLogo from "/images/logo/sweaty-logo.png";
-
+import brand from "/images/brand/brand.png";
+import brand1 from "/images/brand/brand-1.png";
+import brand2 from "/images/brand/brand-2.png";
+import brand4 from "/images/brand/brand-4.png";
 const slideList = [
   { slideName: "hennessy", slideSrc: hennessyLogo },
   { slideName: "hennessy", slideSrc: lcLogo },
@@ -42,7 +45,12 @@ onMounted(() => {
   }
 });
 
-const serviceBrandsList = [{}, {}, {}, {}];
+const serviceBrandsList = [
+  { brandName: "demo", brandSrc: brand },
+  { brandName: "demo", brandSrc: brand1 },
+  { brandName: "demo", brandSrc: brand2 },
+  { brandName: "Coming soon", brandSrc: brand4 },
+];
 let slideListNode = ref();
 let scrollThumbNode = ref();
 let count = ref(0);
@@ -372,8 +380,14 @@ const touchmoves = (swiper: any) => {
             v-for="(serviceBrands, serviceBrandsIndex) of serviceBrandsList"
             :key="serviceBrandsIndex"
           >
-            <img class="content-service-logo" src="/images/cat.png" alt="" />
-            <a class="content-desc content-service-desc" href="">Demo</a>
+            <img
+              class="content-service-logo"
+              :src="serviceBrands.brandSrc"
+              alt=""
+            />
+            <a class="content-desc content-service-desc" href="">{{
+              serviceBrands.brandName
+            }}</a>
           </div>
         </div>
       </div>
@@ -628,7 +642,7 @@ const touchmoves = (swiper: any) => {
   }
   &-desc {
     margin: 0 auto;
-    margin-top: 2rem;
+    margin-top: 0.4rem;
     max-width: 77.5rem;
     text-align: left;
     color: var(--lvmh-primary-1100, #20253b);
@@ -770,6 +784,7 @@ const touchmoves = (swiper: any) => {
     // gap: 0 2.4rem;
     // margin: 0 20%;
     margin-top: 4rem;
+
     div {
       display: flex;
       flex-direction: column;
@@ -779,11 +794,10 @@ const touchmoves = (swiper: any) => {
       box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
       margin: 1.2rem;
       cursor: pointer;
+
       img {
         display: block;
-        margin: 3.5rem 1.62rem;
-        width: 8.7rem;
-        height: 4.9rem;
+        width: 12rem;
       }
       a {
         color: var(--lvmh-secondary-1100, #3e65d0);
@@ -793,6 +807,12 @@ const touchmoves = (swiper: any) => {
         font-weight: 500;
         line-height: normal;
         text-decoration-line: underline;
+      }
+      &:last-child {
+        a {
+          color: #d8d8d8;
+          text-decoration-line: none;
+        }
       }
     }
   }

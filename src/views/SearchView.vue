@@ -6,7 +6,7 @@ import { authStore } from "../stores/authStore";
 
 let store = authStore();
 
-let resultCount = ref(19);
+let resultCount = ref(0);
 
 let vendorListArray = ref([] as any);
 
@@ -28,13 +28,13 @@ const openCookie = () => {
   <main class="vendor-listing" :class="{ hasdeco: true }">
     <div class="vendor-list">
       <!-- 搜索到无结果 -->
-      <div class="result" v-if="resultCount === 1">All Results: 0 Agency</div>
+      <div class="result" v-if="resultCount === 0">All Results: 0 Agency</div>
       <!-- 搜索到有无结果 -->
       <div class="result" v-else>Search Results - “hexapodant”: 1 Agency</div>
-      <vendorList
+      <!-- <vendorList
         v-show="vendorListArray.length > 0"
         :vendorListArray="vendorListArray"
-      ></vendorList>
+      ></vendorList> -->
       <div class="noresult">
         <p class="noresult-desc">Sorry, there is no relevant search result.</p>
         <button class="noresult-button">BACK</button>
@@ -93,7 +93,7 @@ const openCookie = () => {
   &-desc {
     color: var(--lvmh-primary-1100, #20253b);
     text-align: center;
-    font-family: lvmh_italic;
+    font-family: lvmh_regular;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;

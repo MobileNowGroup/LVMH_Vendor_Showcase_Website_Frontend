@@ -89,7 +89,7 @@ const openCookie = () => {
   &-desc {
     color: var(--lvmh-primary-1100, #20253b);
     text-align: center;
-    font-family: lvmh_italic;
+    font-family: lvmh_regular;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
