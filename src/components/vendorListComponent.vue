@@ -20,7 +20,10 @@ const $router = useRouter();
     >
       <router-link :to="`/vendordetail?id=${vendor.id}`">
         <div class="vendor-head">
-          <img class="vendor-logo" src="/images/cat.png" alt="" />
+          <div class="vendor-logo">
+            <img  :src="vendor.logoSrc" alt="" />
+          </div>
+         
           <div>
             <p class="vendor-name">
               {{ vendor.vendorName }}
@@ -97,10 +100,18 @@ const $router = useRouter();
     background: #2437a0;
   }
   &-logo {
-    widows: 5.2rem;
-    height: 5.2rem;
+    width: 5rem;
+    height: 5rem;
     border-radius: 50%;
     margin-right: 1.2rem;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    img{
+      width:3.3rem;
+      height: 3.3rem;
+      margin: auto;
+    }
   }
   &-name {
     color: #ecf0fa;

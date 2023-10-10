@@ -5,7 +5,7 @@ const allowedCommon = ["'self'"];
 const vendorListMock: Array<vendorItem> = reactive([
   {
     id: 0,
-    logoSrc: "../../public/images/icon/search.svg",
+    logoSrc: "/images/vendor.png",
     vendorName: "hexapodant",
     vendorCategory: "In-store interactive experience ",
     vendorCategoryNum: 12,
@@ -19,7 +19,7 @@ const vendorListMock: Array<vendorItem> = reactive([
   },
   {
     id: 1,
-    logoSrc: "../../public/images/icon/search.svg",
+    logoSrc: "/images/vendor.png",
     vendorName: "hexapodant",
     vendorCategory: "In-store interactive experience ",
     vendorCategoryNum: 12,
@@ -33,7 +33,7 @@ const vendorListMock: Array<vendorItem> = reactive([
   },
   {
     id: 2,
-    logoSrc: "../../public/images/icon/search.svg",
+    logoSrc: "/images/vendor.png",
     vendorName: "hexapodant",
     vendorCategory: "In-store interactive experience ",
     vendorCategoryNum: 12,
@@ -47,7 +47,7 @@ const vendorListMock: Array<vendorItem> = reactive([
   },
   {
     id: 3,
-    logoSrc: "../../public/images/icon/search.svg",
+    logoSrc: "/images/vendor.png",
     vendorName: "hexapodant",
     vendorCategory: "In-store interactive experience ",
     vendorCategoryNum: 12,

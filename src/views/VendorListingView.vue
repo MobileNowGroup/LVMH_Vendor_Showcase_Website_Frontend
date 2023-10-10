@@ -6,10 +6,9 @@ import { authStore } from "../stores/authStore";
 
 let store = authStore();
 
-let resultCount = ref(19);
-
 let vendorListArray = ref();
 vendorListArray.value = mockData.vendorListMock;
+const resultCount = ref(vendorListArray.value.length);
 
 const openCookie = () => {
   //  store.CookiesModelopen()

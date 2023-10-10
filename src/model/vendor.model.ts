@@ -1,6 +1,6 @@
 export default interface vendorItem {
   id: Number;
-  logoSrc: String;
+  logoSrc: string;
   vendorName: String;
   vendorCategory: String;
   vendorCategoryNum: Number;

@@ -4,38 +4,24 @@ import { isMobile, setVideoPosterFn } from "@/util/common";
 
 const isMobileDevice = ref(isMobile());
 
+import img22 from "/images/image 22.png";
+import img23 from "/images/image 23.png";
+import img25 from "/images/image 25.png";
+
 const showList = [
-  {
-    src: "http://www.w3school.com.cn/i/movie.mp4",
-  },
-  {
-    src: "https://gd-hbimg.huaban.com/1bc498878d9f9a52de872f143b40e6f4c5a7541f98a0-YI3ytv_fw1200",
-  },
-  {
-    src: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
-  },
-  {
-    src: "http://vjs.zencdn.net/v/oceans.mp4",
-  },
-  {
-    src: "https://gd-hbimg.huaban.com/467722e905f3fe3ed64d4ddc8b0736da6281f98e19010a-3eLYnS",
-  },
-  {
-    src: "https://gd-hbimg.huaban.com/e6d260daa7c31af126b9a4252ac65cf59fe7cba41b2173-RVNo9U_fw658webp",
-  },
-  {
-    src: "http://vjs.zencdn.net/v/oceans.mp4",
-  },
-  {
-    src: "https://gd-hbimg.huaban.com/e6d260daa7c31af126b9a4252ac65cf59fe7cba41b2173-RVNo9U_fw658webp",
-  },
-  {
-    src: "https://gd-hbimg.huaban.com/e6d260daa7c31af126b9a4252ac65cf59fe7cba41b2173-RVNo9U_fw658webp",
-  },
+  "http://www.w3school.com.cn/i/movie.mp4",
+  img22,
+  "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
+  "http://vjs.zencdn.net/v/oceans.mp4",
+  img23,
+  "http://vjs.zencdn.net/v/oceans.mp4",
+  img25,
+  img25,
+  img25,
 ];
 
 let demoLink = ref("ddddd"); // demolink的地址
-const showMediaSrc = ref(showList[0].src); // 当前展示的多媒体地址
+const showMediaSrc = ref(showList[0]); // 当前展示的多媒体地址
 
 onMounted(() => {
   // carousel on init
@@ -48,6 +34,9 @@ onMounted(() => {
 
 /** 判断当前多媒体资源是视频还是图片 */
 const mediaType = function (src: string) {
+
+  console.log(src)
+
   let a = src.indexOf("mp4") > 0 ? "media" : "image";
   return a;
 };
@@ -84,13 +73,13 @@ const nextShow = function ($event: any) {
       if (frameZones[i + 1]) {
         frameZones[i + 1].className = "show-item show-item-active";
         // 修改地址
-        showMediaSrc.value = showList[i + 1].src;
+        showMediaSrc.value = showList[i + 1];
         // 修改选中元素与左边边距
         frameDom.scrollLeft = 175 * (i + 1);
       } else {
         frameZones[0].className = "show-item show-item-active";
         // 修改地址
-        showMediaSrc.value = showList[0].src;
+        showMediaSrc.value = showList[0];
         // 修改选中元素与左边边距
         frameDom.scrollLeft = 0;
       }
@@ -150,11 +139,11 @@ const clickNothing = function () {};
                 class="show-item"
                 v-for="(value, key) of showList"
                 :key="key"
-                @click="showSlideMedia(value.src, key)"
+                @click="showSlideMedia(value, key)"
               >
                 <div
                   class="media-box video-box"
-                  v-if="mediaType(value.src) === 'media'"
+                  v-if="mediaType(value) === 'media'"
                 >
                   <img
                     class="icon show-item-video-icon"
@@ -163,14 +152,14 @@ const clickNothing = function () {};
                   />
                   <video
                     preload="metadata"
-                    :poster="`${value.src}?x-oss-process=video/snapshot,t_1,m_fast`"
+                    :poster="`${value}?x-oss-process=video/snapshot,t_1,m_fast`"
                     @loadeddata="setVideoPosterFn($event)"
                   >
-                    <source :src="value.src" type="video/mp4" />
+                    <source :src="value" type="video/mp4" />
                   </video>
                 </div>
                 <div class="media-box image-box" v-else>
-                  <img class="media-img" :src="value.src" alt="" />
+                  <img class="media-img" :src="value" alt="" />
                 </div>
               </div>
             </div>
@@ -193,7 +182,7 @@ const clickNothing = function () {};
               <div
                 class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
               ></div>
-              <span class="block flex-none">project 2</span>
+              <span class="block flex-none">project 1</span>
               <div
                 class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
               ></div>
@@ -229,11 +218,11 @@ const clickNothing = function () {};
                 class="show-item"
                 v-for="(value, key) of showList"
                 :key="key"
-                @click="showSlideMedia(value.src, key)"
+                @click="showSlideMedia(value, key)"
               >
                 <div
                   class="media-box video-box"
-                  v-if="mediaType(value.src) === 'media'"
+                  v-if="mediaType(value) === 'media'"
                 >
                   <img
                     class="icon show-item-video-icon"
@@ -242,14 +231,14 @@ const clickNothing = function () {};
                   />
                   <video
                     preload="metadata"
-                    :poster="`${value.src}?x-oss-process=video/snapshot,t_1,m_fast`"
+                    :poster="`${value}?x-oss-process=video/snapshot,t_1,m_fast`"
                     @loadeddata="setVideoPosterFn($event)"
                   >
-                    <source :src="value.src" type="video/mp4" />
+                    <source :src="value" type="video/mp4" />
                   </video>
                 </div>
                 <div class="media-box image-box" v-else>
-                  <img class="media-img" :src="value.src" alt="" />
+                  <img class="media-img" :src="value" alt="" />
                 </div>
               </div>
             </div>
@@ -258,7 +247,7 @@ const clickNothing = function () {};
                 v-if="!isMobileDevice"
                 class=""
                 src="/images/icon/close_circle.svg"
-                @click="nextShow"
+                @click="nextShow($event)"
                 alt="decoration img for slide control"
               />
             </div>
@@ -272,7 +261,7 @@ const clickNothing = function () {};
               <div
                 class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
               ></div>
-              <span class="block flex-none">project 3</span>
+              <span class="block flex-none">project 1</span>
               <div
                 class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
               ></div>
@@ -308,11 +297,11 @@ const clickNothing = function () {};
                 class="show-item"
                 v-for="(value, key) of showList"
                 :key="key"
-                @click="showSlideMedia(value.src, key)"
+                @click="showSlideMedia(value, key)"
               >
                 <div
                   class="media-box video-box"
-                  v-if="mediaType(value.src) === 'media'"
+                  v-if="mediaType(value) === 'media'"
                 >
                   <img
                     class="icon show-item-video-icon"
@@ -321,14 +310,14 @@ const clickNothing = function () {};
                   />
                   <video
                     preload="metadata"
-                    :poster="`${value.src}?x-oss-process=video/snapshot,t_1,m_fast`"
+                    :poster="`${value}?x-oss-process=video/snapshot,t_1,m_fast`"
                     @loadeddata="setVideoPosterFn($event)"
                   >
-                    <source :src="value.src" type="video/mp4" />
+                    <source :src="value" type="video/mp4" />
                   </video>
                 </div>
                 <div class="media-box image-box" v-else>
-                  <img class="media-img" :src="value.src" alt="" />
+                  <img class="media-img" :src="value" alt="" />
                 </div>
               </div>
             </div>
@@ -337,7 +326,7 @@ const clickNothing = function () {};
                 v-if="!isMobileDevice"
                 class=""
                 src="/images/icon/close_circle.svg"
-                @click="nextShow"
+                @click="nextShow($event)"
                 alt="decoration img for slide control"
               />
             </div>
@@ -463,7 +452,11 @@ const clickNothing = function () {};
     right: -2px;
     height: 100%;
     padding: 3.5rem 0rem 3.5rem 13.4rem;
-    background: linear-gradient(89deg, rgba(255, 255, 255, 0.00) 1.25%, #FFF 73.86%);
+    background: linear-gradient(
+      89deg,
+      rgba(255, 255, 255, 0) 1.25%,
+      #fff 73.86%
+    );
     z-index: 99;
     img {
       padding-right: 2px;

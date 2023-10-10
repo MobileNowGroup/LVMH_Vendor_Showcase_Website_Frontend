@@ -1140,7 +1140,7 @@ const touchmoves = (swiper: any) => {
       // margin: 0 20%;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 2rem 4.4rem;
+      gap: 2rem 4rem;
       width: fit-content;
       margin: 0 auto;
     }
