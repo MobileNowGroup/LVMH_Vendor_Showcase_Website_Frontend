@@ -117,7 +117,7 @@ const agreeSaveCookies = () => {
   justify-content: space-between;
  
 }
-@media screen and (min-width: 430px) {
+@media screen and (max-width: 430px) {
   .buttonbox {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

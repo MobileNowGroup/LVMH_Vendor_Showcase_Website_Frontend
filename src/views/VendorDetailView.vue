@@ -443,6 +443,7 @@ const touchmoves = (swiper: any) => {
 }
 .top_mobile {
   background: url("/images/PDP-bg@2x.jpg");
+  background-size: 100%;
 }
 .vendor {
   &-box {
