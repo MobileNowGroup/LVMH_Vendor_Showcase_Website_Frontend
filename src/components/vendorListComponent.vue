@@ -20,7 +20,7 @@ const $router = useRouter();
     >
       <router-link :to="`/vendordetail?id=${vendor.id}`">
         <div class="vendor-head">
-          <img class="vendor-logo" src="../../public/images/cat.png" alt="" />
+          <img class="vendor-logo" src="/images/cat.png" alt="" />
           <div>
             <p class="vendor-name">
               {{ vendor.vendorName }}

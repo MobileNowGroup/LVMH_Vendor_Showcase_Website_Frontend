@@ -212,7 +212,7 @@ onUnmounted(() => {
     <div class="topbox">
       <img
         class="logo"
-        src="../../public/images/logo_black.png"
+        src="/images/logo_black.png"
         @click="backToHome"
         alt=""
       />
@@ -221,14 +221,14 @@ onUnmounted(() => {
           class="condition is-flex-center"
           @click="openBox($event, 'search')"
         >
-          <img class="search" src="../../public/images/icon/search.svg" alt="" />
+          <img class="search" src="/images/icon/search.svg" alt="" />
           <span>search</span>
           <Transition>
             <div class="search-box" v-show="searchVisibale">
               <div class="bg-box">
                 <img
                   class="close-icon"
-                  src="../../public/images/icon/close.svg"
+                  src="/images/icon/close.svg"
                   alt=""
                   @click.stop="closeBox($event, 'search')"
                 />
@@ -236,7 +236,7 @@ onUnmounted(() => {
                   <div class="input-box">
                     <img
                       class="search-icon"
-                      src="../../public/images/icon/search_gray.svg"
+                      src="/images/icon/search_gray.svg"
                       alt=""
                     />
 
@@ -290,7 +290,7 @@ onUnmounted(() => {
           @click="openBox($event, 'filter')"
           v-if="filterShow"
         >
-          <img class="filter" src="../../public/images/icon/filter.svg" alt="" />
+          <img class="filter" src="/images/icon/filter.svg" alt="" />
           <span> filter({{ filterNumber }}) </span>
           <div class="filter-box" v-show="filterVisibaleBg">
             <Transition
@@ -300,7 +300,7 @@ onUnmounted(() => {
               <div class="bg-box" v-show="filterVisibale">
                 <img
                   class="close-icon"
-                  src="../../public/images/icon/close.svg"
+                  src="/images/icon/close.svg"
                   alt=""
                   @click.stop="closeBox($event, 'filter')"
                 />
@@ -336,7 +336,7 @@ onUnmounted(() => {
                               'menu-title-show': menu.isShow,
                               'menu-title-hide': !menu.isShow,
                             }"
-                            src="../../public/images/icon/arrow.svg"
+                            src="/images/icon/arrow.svg"
                             alt=""
                           />
                         </Transition>
@@ -397,7 +397,7 @@ onUnmounted(() => {
           <img
             v-if="$route.path === '/projectdemo'"
             class="lg:w-[136px] lg:h-[78px] w-52 m-auto"
-            src="../../public/images/hennessy.png"
+            src="/images/hennessy.png"
             alt=""
           />
           <span v-else> {{ decoText }}</span>
@@ -422,7 +422,7 @@ onUnmounted(() => {
 }
 .headbg_image {
   transition: all 0.5s linear;
-  background: url("../../public/images/page_bg.png") repeat;
+  background: url("/images/page_bg.png") repeat;
 }
 .headshadow {
   box-shadow: 0 1px 0px 0px #2437a026;
@@ -638,7 +638,7 @@ onUnmounted(() => {
           width: 20px;
           height: 20px;
           border-color: #20253b;
-          background: url("../../public/images/checkbox.png");
+          background: url("/images/checkbox.png");
           background-size: contain;
         }
       }

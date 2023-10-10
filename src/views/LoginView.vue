@@ -24,7 +24,7 @@ const verifyEmail = () => {
   <main>
     <div class="login">
       <div class="login-box">
-        <img class="logo" src="../../public/images/logo.png" alt="" />
+        <img class="logo" src="/images/logo.png" alt="" />
         <p class="login-title" v-show="!isPassVerify">
           We need to verify your identity.
         </p>
@@ -61,7 +61,7 @@ const verifyEmail = () => {
 .login {
   max-width: 100vw;
   height: 100vh;
-  background: url("../../public/images/LVMH_IT_Digita_bg.png") repeat-x;
+  background: url("/images/LVMH_IT_Digita_bg.png") repeat-x;
   object-fit: cover;
   &-box {
     width: max-content;

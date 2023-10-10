@@ -48,7 +48,7 @@ const openCookie = () => {
   max-width: 100vw;
   width: auto;
   min-height: 100vh;
-  background: url("../../public/images/page_bg.png") repeat;
+  background: url("/images/page_bg.png") repeat;
 }
 
 .result {
