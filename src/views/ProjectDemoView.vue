@@ -463,12 +463,8 @@ const clickNothing = function () {};
     right: -2px;
     height: 100%;
     padding: 3.5rem 0rem 3.5rem 13.4rem;
-    background: linear-gradient(
-      89deg,
-      rgba(255, 255, 255, 0.5) 1.25%,
-      #fff 73.86%
-    );
-    z-index: 9;
+    background: linear-gradient(89deg, rgba(255, 255, 255, 0.00) 1.25%, #FFF 73.86%);
+    z-index: 99;
     img {
       padding-right: 2px;
     }

@@ -60,9 +60,9 @@ const agreeSaveCookies = () => {
       <RouterView />
     </div>
     <div v-else>
-      <div v-if="showModel" class="fixed w-screen h-screen z-50 bg-black/50">
+      <div v-if="showModel" class="fixed w-screen h-screen  bg-black/50 z-[999]">
         <div
-          class="absolute bottom-0 w-screen h-fit lg:px-32 lg:py-10.5 px-[15px] pt-[40px] pb-[23px] flex justify-between bg-black items-center"
+          class="absolute bottom-0 w-screen h-fit lg:px-32 lg:py-10.5 px-[15px] pt-[40px] pb-[23px] flex justify-between bg-black items-center "
         >
           <img
             class="absolute lg:top-8 lg:right-14 top-[15px] right-[15px] cursor-pointer"

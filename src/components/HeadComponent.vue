@@ -93,15 +93,11 @@ watch(
       headerbg();
     });
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 onBeforeUpdate(() => {});
-/** 返回vendorlisting */
-const backToHome = () => {
-  $router.push({ name: "vendorlisting" });
-  headerbg();
-};
+
 /** 打开searc或者filter */
 const openBox = (e: any, openType: string) => {
   headerDom.value.className = "header z-10 headbg_10";
@@ -169,6 +165,9 @@ const searchResult = (e: any, searchType: string) => {
   }
   $router.push({
     name: "search",
+    query: {
+      queryParam: searchValue.value,
+    },
   });
 };
 
@@ -213,7 +212,14 @@ onUnmounted(() => {
       <img
         class="logo"
         src="/images/logo_black.png"
-        @click="backToHome"
+        @click="
+          () => {
+            $router.push({
+              name: 'vendorlisting',
+            });
+            headerbg();
+          }
+        "
         alt=""
       />
       <div class="condition-box is-flex-center">
@@ -248,7 +254,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);',
+                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);'
                           );
                         }
                       "
@@ -256,7 +262,7 @@ onUnmounted(() => {
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
                             'style',
-                            'background: transparent',
+                            'background: transparent'
                           );
                         }
                       "

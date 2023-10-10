@@ -3,17 +3,23 @@ import { onMounted, reactive, ref } from "vue";
 import mockData from "../util/mockData";
 import vendorList from "@/components/vendorListComponent.vue";
 import { authStore } from "../stores/authStore";
+import { useRouter, useRoute } from "vue-router";
 
 let store = authStore();
 
 let resultCount = ref(0);
 
 let vendorListArray = ref([] as any);
+const $router = useRouter(); // router 路由操作
+const $route = useRoute(); // 路由信息
+
+const param  =  $route.query.queryParam
+// console.log(param)
 
 onMounted(() => {
   mockData.vendorListMock.forEach((element, index) => {
     for (const value in element) {
-      if (value.indexOf("a")) {
+      if (value.indexOf("param")) {
         vendorListArray.value.push(element);
       }
     }
@@ -31,13 +37,24 @@ const openCookie = () => {
       <div class="result" v-if="resultCount === 0">All Results: 0 Agency</div>
       <!-- 搜索到有无结果 -->
       <div class="result" v-else>Search Results - “hexapodant”: 1 Agency</div>
-      <!-- <vendorList
+      <vendorList
         v-show="vendorListArray.length > 0"
         :vendorListArray="vendorListArray"
-      ></vendorList> -->
+      ></vendorList>
       <div class="noresult">
         <p class="noresult-desc">Sorry, there is no relevant search result.</p>
-        <button class="noresult-button">BACK</button>
+        <button
+          class="noresult-button"
+          @click="
+            () => {
+              $router.push({
+                name: 'vendorlisting',
+              });
+            }
+          "
+        >
+          BACK
+        </button>
       </div>
     </div>
   </main>

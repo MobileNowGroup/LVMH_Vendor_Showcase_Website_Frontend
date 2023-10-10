@@ -1187,7 +1187,7 @@ const touchmoves = (swiper: any) => {
         div {
           margin: 0;
           img {
-            margin: 3.5rem 1.7rem;
+            // margin: 3.5rem 1.7rem;
           }
         }
       }
