@@ -22,14 +22,16 @@ const verifyEmail = () => {
 
 <template>
   <main>
-    <div class="login">
-      <div class="login-box">
-        <img class="logo" src="/images/logo.png" alt="" />
-        <p class="login-title" v-show="!isPassVerify">
+    <div
+      class="max-w-[100vw] h-screen bg-[url('/images/LVMH_IT_Digita_bg.png')] bg-repeat-x object-cover"
+    >
+      <div class=" w-max pt-50 mx-auto my-0 text-center">
+        <img class="w-[128px] h-[90px] mx-auto my-0" src="/images/logo.png" alt="" />
+        <p class="pt-[60px] max-w-[300px] font-lvmh_regular text-[28px] text-e9eaec text-left uppercase " v-show="!isPassVerify">
           We need to verify your identity.
         </p>
-        <p class="login-title" v-show="isPassVerify">FIND AGENCIES.</p>
-        <p class="login-desc" v-show="isPassVerify">
+        <p class="pt-[60px] max-w-[300px] font-lvmh_regular text-[28px] text-e9eaec text-left uppercase " v-show="isPassVerify">FIND AGENCIES.</p>
+        <p class=" mt-3 font-lvmh_regular" v-show="isPassVerify">
           Elevating LVMH digital services through sharing and transparency.
         </p>
         <div class="login-input-box" v-show="!isPassVerify">

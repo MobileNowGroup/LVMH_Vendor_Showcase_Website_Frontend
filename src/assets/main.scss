@@ -3,7 +3,6 @@
 #app {
   margin: 0 auto;
   font-weight: normal;
-  font-size: 10px;
 }
 
 a,
@@ -14,45 +13,32 @@ a,
 }
 
 @media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+  // a:hover {
+  //   background-color: hsla(160, 100%, 37%, 0.2);
+  // }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
 
-  #app {
-    width: 100vw;
-    height: 100vh;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr; */
-  }
-}
-
-.noresult {
-  &-desc {
-    color: var(--lvmh-primary-1100, #20253b);
-    text-align: center;
-    font-family: lvmh_italic;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-  &-button {
-    color: var(--lvmh-primary-110, #e9eaec);
-    font-family: avenir_next_text;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: 0.028px;
-  }
-}
+// .noresult {
+//   &-desc {
+//     color: var(--lvmh-primary-1100, #20253b);
+//     text-align: center;
+//     font-family: lvmh_italic;
+//     font-size: 20px;
+//     font-style: normal;
+//     font-weight: 400;
+//     line-height: normal;
+//   }
+//   &-button {
+//     color: var(--lvmh-primary-110, #e9eaec);
+//     font-family: avenir_next_text;
+//     font-size: 14px;
+//     font-style: normal;
+//     font-weight: 500;
+//     line-height: normal;
+//     letter-spacing: 0.028px;
+//   }
+// }
 
 textarea:focus,
 input:focus {
