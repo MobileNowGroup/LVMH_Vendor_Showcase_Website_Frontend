@@ -13,18 +13,26 @@ let vendorListArray = ref([] as any);
 const $router = useRouter(); // router 路由操作
 const $route = useRoute(); // 路由信息
 
-const param  =  $route.query.queryParam
+const param = $route.query.queryParam;
 // console.log(param)
 
-onMounted(() => {
-  mockData.vendorListMock.forEach((element, index) => {
-    for (const value in element) {
-      if (value.indexOf("param")) {
-        vendorListArray.value.push(element);
-      }
+mockData.vendorListMock.forEach((element, index) => {
+  if (!param) return;
+  Object.values(element).forEach((value) => {
+    if (value.toString().indexOf(param) > -1) {
+      vendorListArray.value.push(element);
     }
   });
+  // Object.entries(element).forEach((item) => {
+  //   console.log(item);
+  // });
+  // Object.keys(element).forEach((key) => {
+  //   console.log(key);
+  // });
 });
+resultCount.value = vendorListArray.value.length;
+
+onMounted(() => {});
 const openCookie = () => {
   //  store.CookiesModelopen()
 };
@@ -36,7 +44,9 @@ const openCookie = () => {
       <!-- 搜索到无结果 -->
       <div class="result" v-if="resultCount === 0">All Results: 0 Agency</div>
       <!-- 搜索到有无结果 -->
-      <div class="result" v-else>Search Results - “hexapodant”: 1 Agency</div>
+      <div class="result" v-else>
+        Search Results - “{{ param }}”: {{ resultCount }} Agency
+      </div>
       <vendorList
         v-show="vendorListArray.length > 0"
         :vendorListArray="vendorListArray"

@@ -157,7 +157,7 @@ const clearFilter = () => {
 /** 根据filter查询结果 */
 const searchResult = (e: any, searchType: string) => {
   // 点击查询结果
-  console.log(searchType);
+  // console.log(searchType);
   if (searchType === "search") {
     // 执行search逻辑
   } else {

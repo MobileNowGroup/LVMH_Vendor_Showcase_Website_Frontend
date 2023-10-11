@@ -12,7 +12,7 @@ const vendorListMock: Array<vendorItem> = reactive([
     brandFounded: "1995.04.07",
     leadTime: "4 weeks",
     vendorBrief:
-      "Founded in 2019, it is dedicated to using digital innovations and tools to create, and enhance the user experience online and offline.",
+      "xiaosi in 2019, it is dedicated to using digital innovations and tools to create, and enhance the user experience online and offline.",
     vendorTags: ["Artificial Intelligence", "3D Display"],
     vendorStatus: "4. Blueprint",
     vendorDot: 3,
@@ -40,7 +40,7 @@ const vendorListMock: Array<vendorItem> = reactive([
     brandFounded: "1995.04.07",
     leadTime: "4 weeks",
     vendorBrief:
-      "Founded in 2019, it is dedicated to using digital innovations and tools to create, and enhance the user experience online and offline.",
+      "ceshi in 2019, it is dedicated to using digital innovations and tools to create, and enhance the user experience online and offline.",
     vendorTags: ["Artificial Intelligence", "3D Display"],
     vendorStatus: "4. Blueprint",
     vendorDot: 2,
@@ -54,7 +54,7 @@ const vendorListMock: Array<vendorItem> = reactive([
     brandFounded: "1995.04.07",
     leadTime: "4 weeks",
     vendorBrief:
-      "Founded in 2019, it is dedicated to using digital innovations and tools to create, and enhance the user experience online and offline.",
+      "test in 2019, it is dedicated to using digital innovations and tools to create, and enhance the user experience online and offline.",
     vendorTags: ["Artificial Intelligence", "3D Display"],
     vendorStatus: "4. Blueprint",
     vendorDot: 1,
