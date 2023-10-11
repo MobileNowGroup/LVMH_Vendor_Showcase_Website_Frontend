@@ -253,16 +253,16 @@ onUnmounted(() => {
                       @focus="
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
-                            'style',
-                            'filter: drop-shadow(#000 2000px 0);transform: translateX(-2000px);'
+                            'src',
+                            '/images/icon/search.svg'
                           );
                         }
                       "
                       @blur="
                         (e) => {
                           (e as any).target.previousSibling.setAttribute(
-                            'style',
-                            'background: transparent'
+                            'src',
+                            '/images/icon/search_gray.svg'
                           );
                         }
                       "
