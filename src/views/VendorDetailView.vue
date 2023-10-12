@@ -276,7 +276,7 @@ const touchmoves = (swiper: any) => {
               ></div>
             </div>
           </h2>
-          <p class="content-desc content-pric">
+          <p class="content-desc content-price">
             Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt
             qui esse pariatur duis deserunt mollit dolore cillum minim tempor
             enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut
@@ -623,6 +623,7 @@ const touchmoves = (swiper: any) => {
 }
 .content {
   margin-top: 21rem;
+  margin-bottom:12rem;
   text-align: center;
   &-box {
     position: relative;
@@ -631,7 +632,6 @@ const touchmoves = (swiper: any) => {
     &-feature,
     &-service {
       margin: 0 21.31%;
-      margin-top: 2rem;
       margin-bottom: 8rem;
     }
     &-price {
@@ -641,6 +641,7 @@ const touchmoves = (swiper: any) => {
       }
     }
   }
+
   &-desc {
     margin: 0 auto;
     max-width: 77.5rem;
@@ -653,7 +654,13 @@ const touchmoves = (swiper: any) => {
     line-height: normal;
     text-transform: capitalize;
   }
-
+  &-solution,
+  &-claimed,
+  &-feature,
+  &-service,
+  &-price {
+    margin-top: 2rem;
+  }
   /** kpi  */
   .kpibox {
     display: grid;
@@ -783,7 +790,7 @@ const touchmoves = (swiper: any) => {
     // grid-template-columns: repeat(4, 1fr);
     // gap: 0 2.4rem;
     // margin: 0 20%;
-    margin-top: 4rem;
+    margin-top: 2rem;
 
     div {
       display: flex;
@@ -792,7 +799,7 @@ const touchmoves = (swiper: any) => {
       padding: 0 2rem 1.7rem 2rem;
       background: #fff;
       box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
-      margin: 1.2rem;
+      margin: 0 1.2rem;
       cursor: pointer;
 
       img {
