@@ -1156,7 +1156,6 @@ const touchmoves = (swiper: any) => {
       gap: 2rem 4rem;
       width: fit-content;
       margin: 0 auto;
-      margin-top: 2rem;
     }
     &-kpi {
       font-size: 28px;
