@@ -100,8 +100,8 @@ const $router = useRouter();
     background: #2437a0;
   }
   &-logo {
-    width: 5rem;
-    height: 5rem;
+    min-width: 5rem;
+    min-height: 5rem;
     border-radius: 50%;
     margin-right: 1.2rem;
     background: #fff;
@@ -121,6 +121,7 @@ const $router = useRouter();
     font-weight: 800;
     line-height: normal;
     text-transform: uppercase;
+    @include ellipsisLn(1)
   }
   &-category {
     color: #ecf0fa;
@@ -150,14 +151,7 @@ const $router = useRouter();
   &-brief {
     overflow: hidden;
     color: #20253b;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    display: -moz-box;
-    -moz-box-orient: vertical;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    -moz-line-clamp: 3;
+    @include ellipsisLn(3);
     font-family: avenir_next_text;
     font-size: 14px;
     font-style: normal;

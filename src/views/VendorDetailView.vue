@@ -226,10 +226,7 @@ const touchmoves = (swiper: any) => {
           </div>
         </h2>
         <p class="content-desc content-solution">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          {{ vendor.solutionCase }}
         </p>
       </div>
       <div class="content-box content-box-claimed">
@@ -277,10 +274,7 @@ const touchmoves = (swiper: any) => {
             </div>
           </h2>
           <p class="content-desc content-price">
-            Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt
-            qui esse pariatur duis deserunt mollit dolore cillum minim tempor
-            enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut
-            voluptate aute id deserunt nisi.
+           {{vendor.priceModel}}
           </p>
         </div>
 
@@ -472,6 +466,7 @@ const touchmoves = (swiper: any) => {
     line-height: normal;
     text-transform: uppercase;
     margin-bottom: 2.4rem;
+    @include ellipsisLn(1);
   }
   &-time {
     margin-bottom: 1.2rem;
@@ -497,7 +492,7 @@ const touchmoves = (swiper: any) => {
     }
   }
   &-intro {
-    // @include ellipsisLn(3);
+    @include ellipsisLn(6);
   }
 }
 .slide {
@@ -623,7 +618,7 @@ const touchmoves = (swiper: any) => {
 }
 .content {
   margin-top: 21rem;
-  margin-bottom:12rem;
+  margin-bottom: 12rem;
   text-align: center;
   &-box {
     position: relative;
