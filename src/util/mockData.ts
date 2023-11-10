@@ -17,7 +17,7 @@ const vendorListMock: Array<vendorItem> = reactive([
     briefIntroduction:
       "Our AR try-on products provide full category product try-on capabilities for e-commerce brand customers, solving the pain point needs of consumers' online shopping, and being an important engine for brand GMV growth. It's the omnichannel support from head to toe where you can try everthing from clothing, bag, shoes, jewelry, watches and even for bags.  The AR try-on is the end-computing engine, so there won't be anything uploaded to the cloud. Our 3D rendering engine is also our key product that we can shot 30 images of the product and let it automate the modeling process. We take a deep webgl development and you may see for the 3D of tiffany, it may have the best 3d quality.",
     vendorTags: [
-      "Application Scenario tags - #ProductDiscovery; ",
+      "#ProductDiscovery;",
       "#VirtualTry-on",
     ],
     solutionCase:

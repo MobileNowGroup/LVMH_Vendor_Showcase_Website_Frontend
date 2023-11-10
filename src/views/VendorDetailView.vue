@@ -187,11 +187,11 @@ const touchmoves = (swiper: any) => {
               <template> </template>
               <swiper-slide
                 class=""
-                v-for="(slide, slideIndex) of slideList"
+                v-for="(slide, slideIndex) of vendor.serviceBrandLogos"
                 :key="slideIndex"
               >
                 <div class="slide-item">
-                  <img class="images" :src="slide.slideSrc" alt="" />
+                  <img class="images" :src="slide" alt="" />
                 </div>
               </swiper-slide>
             </swiper>
