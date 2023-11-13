@@ -6,7 +6,7 @@ import { isMobile } from "@/util/common";
 
 const $router = useRouter();
 const vendor = ref({} as any);
-const featureShow = ref("link");
+const featureShow = ref("link"); // feature 展示类型
 
 import hennessyLogo from "/images/logo/hennessy logo.png";
 import lcLogo from "/images/logo/lc-logo.png";
@@ -66,10 +66,14 @@ const sendEmail = () => {
   }, 2000);
 };
 
-const gotoDemo = () => {
-  $router.push({
-    name: "projectdemo",
-  });
+const gotoDemo = (serviceBrands: any) => {
+  if (!serviceBrands.isCommingSoon) {
+    const data = JSON.stringify(serviceBrands);
+    $router.push({
+      name: "projectdemo",
+      query: { data },
+    });
+  }
 };
 
 import { Swiper, SwiperSlide } from "swiper/vue"; // swiper所需组件
@@ -77,6 +81,7 @@ import { Navigation, Pagination, Grid } from "swiper/modules";
 import "swiper/css"; // 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { json } from "stream/consumers";
 const modules = ref([Navigation, Pagination, Grid]); // setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
 const navigation = ref({
   nextEl: ".button-next",
@@ -225,6 +230,7 @@ const touchmoves = (swiper: any) => {
             ></div>
           </div>
         </h2>
+        <img :src="vendor.solutionCaseSrc" alt="" />
         <p class="content-desc content-solution">
           {{ vendor.solutionCase }}
         </p>
@@ -241,8 +247,12 @@ const touchmoves = (swiper: any) => {
             ></div>
           </div>
         </h2>
-        <div class="is-flex-row kpibox">
-          <p class="content-desc content-claimed is-flex-column">
+        <!-- <div class="is-flex-row kpibox"></div> -->
+        <div class="is-flex-row">
+          <p style="font-size: 16px">
+            {{ vendor.claimedKpis }}
+          </p>
+          <!-- <p class="content-desc content-claimed is-flex-column">
             <span class="content-kpi">+16%</span>
             <span class="content-kpi-desc">conventions</span>
           </p>
@@ -257,7 +267,7 @@ const touchmoves = (swiper: any) => {
           <p class="content-desc content-claimed is-flex-column">
             <span class="content-kpi">+16%</span>
             <span class="content-kpi-desc">conventions</span>
-          </p>
+          </p> -->
         </div>
       </div>
       <div class="content-box content-box-price">
@@ -274,7 +284,7 @@ const touchmoves = (swiper: any) => {
             </div>
           </h2>
           <p class="content-desc content-price">
-           {{vendor.priceModel}}
+            {{ vendor.priceModel }}
           </p>
         </div>
 
@@ -287,42 +297,41 @@ const touchmoves = (swiper: any) => {
             </p>
           </div>
           <div class="content-price-right">
-            <div>
-              <img src="/images/icon/hosting.svg" alt="" />
-              <h2 class="">Hosting</h2>
-              <p>Back-end Integration</p>
-              <p>CRM Integration</p>
-              <p>SPECIFIX Integration</p>
+            <div v-for="(item, index) of vendor.priceModelCard" :key="index">
+              <img :src="item.src" alt="" />
+              <h2 class="">{{ item.title }}</h2>
+              <p v-for="(items, indexs) of item.list" :key="indexs">
+                {{ items }}
+              </p>
             </div>
-            <div>
-              <img src="/images/icon/integration.svg" alt="" />
-              <h2>Hosting</h2>
-              <p>Back-end Integration</p>
-              <p>CRM Integration</p>
-              <p>SPECIFIX Integration</p>
-            </div>
-
-            <div>
-              <img src="/images/icon/mobileintegration.svg" alt="" />
+            <!-- <div>
+              <img src="" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
               <p>SPECIFIX Integration</p>
             </div>
             <div>
-              <img src="/images/icon/PIPL.svg" alt="" />
+              <img src="" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
               <p>SPECIFIX Integration</p>
             </div>
             <div>
-              <img src="/images/icon/MPLS.svg" alt="" />
+              <img src="" alt="" />
               <h2>Hosting</h2>
               <p>Back-end Integration</p>
               <p>CRM Integration</p>
               <p>SPECIFIX Integration</p>
             </div>
+            <div>
+              <img src="" alt="" />
+              <h2>Hosting</h2>
+              <p>Back-end Integration</p>
+              <p>CRM Integration</p>
+              <p>SPECIFIX Integration</p>
+            </div> -->
           </div>
         </div>
       </div>
@@ -338,21 +347,25 @@ const touchmoves = (swiper: any) => {
             ></div>
           </div>
         </h2>
-        <div v-if="featureShow === 'code'">
-          <p class="content-feature-desc">Scan the QR code to view demo</p>
-          <img src="/images/qrcode.png" alt="" />
-        </div>
-        <div v-else-if="featureShow === 'link'">
-          <p class="content-feature-desc">Click the link to view demo</p>
-          <button class="content-feature-button" @click="">
-            <img src="/images/icon/button_link.svg" alt="" /> Demo link
-          </button>
-        </div>
-        <div v-else>
-          <p class="content-feature-desc">Click the play button to view demo</p>
-          <div class="content-feature-video-box" @click="">
-            <img src="/images/icon/video_play.svg" alt="" />
-            <!-- <video controls src="/images/284_1690357473.mp4"></video> -->
+        <div v-for="(item, index) of vendor.featureDemo" :key="index">
+          <div v-if="item.type === 'code'">
+            <p class="content-feature-desc">Scan the QR code to view demo</p>
+            <img :src="item.src" alt="" />
+          </div>
+          <div v-else-if="item.type === 'link'">
+            <p class="content-feature-desc">Click the link to view demo</p>
+            <button class="content-feature-button" @click="">
+              <img :src="item.src" alt="" /> Demo link
+            </button>
+          </div>
+          <div v-else>
+            <p class="content-feature-desc">
+              Click the play button to view demo
+            </p>
+            <div class="content-feature-video-box" @click="">
+              <img :src="item.src" alt="" />
+              <!-- <video controls src=""></video> -->
+            </div>
           </div>
         </div>
       </div>
@@ -370,18 +383,26 @@ const touchmoves = (swiper: any) => {
         </h2>
         <div class="content-service-list">
           <div
-            @click="gotoDemo"
-            v-for="(serviceBrands, serviceBrandsIndex) of serviceBrandsList"
+            @click="gotoDemo(serviceBrands)"
+            v-for="(
+              serviceBrands, serviceBrandsIndex
+            ) of vendor.serviceBrandProjects"
             :key="serviceBrandsIndex"
+            class="content-service-list-item"
           >
-            <img
-              class="content-service-logo"
-              :src="serviceBrands.brandSrc"
-              alt=""
-            />
-            <a class="content-desc content-service-desc" href="">{{
-              serviceBrands.brandName
-            }}</a>
+            <div class="content-service-list-item-logo-box">
+              <img
+                class="content-service-logo"
+                :src="serviceBrands.logo"
+                alt=""
+              />
+            </div>
+            <a
+              class="content-desc content-service-desc"
+              :class="{ 'is-comming-soon': serviceBrands.isCommingSoon }"
+              href=""
+              >{{ serviceBrands.isCommingSoon ? "comming soon" : "demo" }}</a
+            >
           </div>
         </div>
       </div>
@@ -780,23 +801,30 @@ const touchmoves = (swiper: any) => {
   }
   /** servic */
   &-service-list {
-    display: flex;
+    display: grid;
     justify-content: center;
-    // grid-template-columns: repeat(4, 1fr);
-    // gap: 0 2.4rem;
-    // margin: 0 20%;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.4rem;
     margin-top: 2rem;
 
-    div {
+    &-item {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: space-evenly;
       padding: 0 2rem 1.7rem 2rem;
       background: #fff;
       box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
       margin: 0 1.2rem;
       cursor: pointer;
-
+      &-logo-box {
+        display: flex;
+        align-items: center;
+        width: 12rem;
+        height: 5rem;
+        margin: 3.5rem 1.6rem;
+        overflow: hidden;
+      }
       img {
         display: block;
         width: 12rem;
@@ -810,12 +838,16 @@ const touchmoves = (swiper: any) => {
         line-height: normal;
         text-decoration-line: underline;
       }
-      &:last-child {
-        a {
-          color: #d8d8d8;
-          text-decoration-line: none;
-        }
+      .is-comming-soon {
+        color: #d8d8d8;
+        text-decoration-line: none;
       }
+      // &:last-child {
+      //   a {
+      //     color: #d8d8d8;
+      //     text-decoration-line: none;
+      //   }
+      // }
     }
   }
 }
@@ -1141,6 +1173,7 @@ const touchmoves = (swiper: any) => {
     &-service-list {
       margin-top: 2rem;
     }
+
     .content-box-price-spec {
       margin: 0;
     }
@@ -1192,11 +1225,24 @@ const touchmoves = (swiper: any) => {
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem 1.2rem;
 
-        div {
-          margin: 0;
-          img {
-            // margin: 3.5rem 1.7rem;
+        &-item {
+          &-logo-box {
+            // display: flex;
+            // align-items: center;
+            // width: 12rem;
+            // height: 5rem;
+            margin: 2rem 0;
+            display: flex;
+            text-align: center;
+            overflow: hidden;
           }
+          // div {
+          //   margin: 0;
+          img {
+            margin: 0 auto;
+            width: 10rem;
+          }
+          // }
         }
       }
     }

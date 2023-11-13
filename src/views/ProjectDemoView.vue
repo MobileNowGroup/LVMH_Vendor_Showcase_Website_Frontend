@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { onMounted, computed, reactive, ref } from "vue";
+import { onMounted, computed, ref, reactive } from "vue";
 import { isMobile, setVideoPosterFn } from "@/util/common";
+
+import { useRouter, useRoute } from "vue-router";
 
 let demoLink = ref("ddddd"); // demolink的地址
 
 import projectSlide from "@/components/ProjectSlideComponent.vue";
+let projectDemoData = reactive({} as any);
 
 onMounted(() => {
   // carousel on init
@@ -12,6 +15,11 @@ onMounted(() => {
   for (let i = 0; i < frameZones.length; i++) {
     frameZones[i].children[0].className = "show-item show-item-active";
   }
+
+  const $route = useRoute();
+  const $router = useRouter();
+  console.log($route.query.data, $router);
+  projectDemoData = $route.query.data;
 });
 
 /**demolink 点击事件 */
