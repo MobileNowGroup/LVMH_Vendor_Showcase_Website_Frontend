@@ -1,33 +1,30 @@
 <script setup lang="ts" name="vendorListComponent">
 import { useRouter } from "vue-router";
 import { isMobile, setVideoPosterFn } from "@/util/common";
+import { ref, reactive, defineEmits, defineProps } from "vue";
+import { onMounted } from "vue";
+
 const isMobileDevice = ref(isMobile());
-import img19 from "/images/image19.jpg";
-import img20 from "/images/image 20.jpg";
-import img21 from "/images/image 21.jpg";
-import img22 from "/images/image 22.jpg";
-import img23 from "/images/image 23.jpg";
-import img25 from "/images/image 23.jpg";
-import img28 from "/images/image 28.jpg";
-import img29 from "/images/image 29.jpg";
-import img31 from "/images/image 31.jpg";
-import img33 from "/images/image 33.jpg";
-import { ref } from "vue";
 
-const showList = [
-  img19,
-  img20,
-  img21,
-  img22,
-  img23,
-  img25,
-  img28,
-  img29,
-  img31,
-  img33,
-];
+const props = defineProps({
+  projectExample: { type: Object, reauired: true },
+});
+const showList = reactive([
+  {
+    exampleDesc: "bvlgari size guide:",
+    exampleType: "",
+    exampleSrc: "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4",
+  },
+] as any);
+let showMediaSrc = ref("");
+showList.values = props.projectExample;
 
-const showMediaSrc = ref(showList[0]); // 当前展示的多媒体地址
+
+onMounted(() => {
+  showMediaSrc.value = showList.values[0].exampleSrc; // 当前展示的多媒体地址
+
+  console.log(showList.values);
+});
 /** 判断当前多媒体资源是视频还是图片 */
 const mediaType = function (src: string) {
   let a = src.indexOf("mp4") > 0 ? "media" : "image";
@@ -37,7 +34,7 @@ const mediaType = function (src: string) {
 /** 点击展示当前的slide */
 const showSlideMedia = function (src: string, _key: number, $event: any) {
   // choose whitch slide to show
-  console.log( $event.target.parentNode.parentNode.parentNode.children)
+  console.log($event.target.parentNode.parentNode.parentNode.children);
   showMediaSrc.value = src;
   const changeVideoSource = document.querySelector("video");
   // 每次更新video资源时手动load一次资源
@@ -47,19 +44,19 @@ const showSlideMedia = function (src: string, _key: number, $event: any) {
 
   for (let i = 0; i < frameZones.length; i++) {
     if (_key === i) {
-        console.log(frameZones[i])
-        frameZones[i].className = "show-item show-item-active";
+      console.log(frameZones[i]);
+      frameZones[i].className = "show-item show-item-active";
     } else {
-        frameZones[i].className = "show-item";
+      frameZones[i].className = "show-item";
     }
   }
-//   frameZones.forEach((element: any, index: any) => {
-//     if (_key === index) {
-//       element.className = "show-item show-item-active";
-//     } else {
-//       element.className = "show-item";
-//     }
-//   });
+  //   frameZones.forEach((element: any, index: any) => {
+  //     if (_key === index) {
+  //       element.className = "show-item show-item-active";
+  //     } else {
+  //       element.className = "show-item";
+  //     }
+  //   });
 };
 /** 点击右箭头换下一个slide */
 const nextShow = function ($event: any) {
@@ -76,13 +73,13 @@ const nextShow = function ($event: any) {
       if (frameZones[i + 1]) {
         frameZones[i + 1].className = "show-item show-item-active";
         // 修改地址
-        showMediaSrc.value = showList[i + 1];
+        showMediaSrc.value = showList[i + 1].exampleSrc;
         // 修改选中元素与左边边距
         frameDom.scrollLeft = 175 * (i + 1);
       } else {
         frameZones[0].className = "show-item show-item-active";
         // 修改地址
-        showMediaSrc.value = showList[0];
+        showMediaSrc.value = showList[0].exampleSrc;
         // 修改选中元素与左边边距
         frameDom.scrollLeft = 0;
       }
@@ -104,7 +101,10 @@ const nextShow = function ($event: any) {
           class="video"
           @loadeddata="setVideoPosterFn($event)"
         >
-          <source :src="showMediaSrc" type="video/mp4" />
+          <source
+            :src="showMediaSrc"
+            type="video/mp4"
+          />
         </video>
       </div>
       <div v-else class="slide-image">
@@ -117,9 +117,9 @@ const nextShow = function ($event: any) {
           class="show-item"
           v-for="(value, key) of showList"
           :key="key"
-          @click="showSlideMedia(value, key, $event)"
+          @click="showSlideMedia(value.exampleSrc, key, $event)"
         >
-          <div class="media-box video-box" v-if="mediaType(value) === 'media'">
+          <div class="media-box video-box" v-if="value.exampleDesc === 'video'">
             <img
               class="icon show-item-video-icon"
               src="/images/24gf-videoCamera.png"
@@ -130,11 +130,11 @@ const nextShow = function ($event: any) {
               :poster="`${value}?x-oss-process=video/snapshot,t_1,m_fast`"
               @loadeddata="setVideoPosterFn($event)"
             >
-              <source :src="value" type="video/mp4" />
+              <source :src="value.exampleDesc" type="video/mp4" />
             </video>
           </div>
           <div class="media-box image-box" v-else>
-            <img class="media-img" :src="value" alt="" />
+            <img class="media-img" :src="showMediaSrc" alt="" />
           </div>
         </div>
       </div>

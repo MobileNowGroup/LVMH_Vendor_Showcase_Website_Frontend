@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { onMounted, computed, ref, reactive } from "vue";
 import { isMobile, setVideoPosterFn } from "@/util/common";
-
 import { useRouter, useRoute } from "vue-router";
+import projectSlide from "@/components/ProjectSlideComponent.vue";
 
 let demoLink = ref("ddddd"); // demolink的地址
 
-import projectSlide from "@/components/ProjectSlideComponent.vue";
-let projectDemoData = reactive({} as any);
+const $route = useRoute();
+const $router = useRouter();
+const projectDemoData = JSON.parse($route.query.data as string);
+const projectSlideData = projectDemoData.filter((item: any, index: number) => {
+  return item.exampleType !== "Link Only";
+});
+console.log(projectDemoData, projectSlideData);
 
 onMounted(() => {
   // carousel on init
@@ -15,44 +20,69 @@ onMounted(() => {
   for (let i = 0; i < frameZones.length; i++) {
     frameZones[i].children[0].className = "show-item show-item-active";
   }
-
-  const $route = useRoute();
-  const $router = useRouter();
-  console.log($route.query.data, $router);
-  projectDemoData = $route.query.data;
 });
 
 /**demolink 点击事件 */
-const clickNothing = function () {};
+const clickNothing = function (src: any) {
+  window.open(src);
+};
 </script>
 
 <template>
   <main :class="{ hasdeco: true }">
     <div class="bg-white pb-[10rem] lg:mx-0 mx-4">
-      <div>
+      <div
+        v-for="(projectDemo, projectDemoIndex) of projectDemoData"
+        :key="projectDemoIndex"
+      >
         <div class="title-box">
           <h2 class="title">
             <div class="flex items-center justify-center">
               <div
                 class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
               ></div>
-              <span class="block flex-none">project 1</span>
+              <span class="block flex-none"
+                >project {{ projectDemoIndex + 1 }}</span
+              >
               <div
                 class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
               ></div>
             </div>
           </h2>
         </div>
-        <div v-if="demoLink" class="demo-box">
-          <p class="demo-link">Media Only</p>
-          <!-- <p class="demo-desc">Click the link to view demo</p> -->
-          <button class="demo-button" @click="clickNothing">
+        <div v-if="projectDemo.exampleType === 'Media Only'" class="demo-box">
+          <p class="demo-link">{{ projectDemo.exampleType }}</p>
+        </div>
+        <div
+          v-else-if="projectDemo.exampleType === 'Link Only'"
+          class="demo-box"
+        >
+          <p class="demo-desc" v-if="projectDemo.exampleType === 'Link Only'">
+            {{ projectDemo.exampleType }}
+          </p>
+          <button
+            class="demo-button"
+            @click="clickNothing(projectDemo.exampleSrc)"
+          >
             <img src="/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
-        <projectSlide></projectSlide>
+        <div v-else class="demo-box">
+          <p class="demo-desc">{{ projectDemo.exampleType }}</p>
+          <button
+            class="demo-button"
+            @click="clickNothing(projectDemo.exampleSrc)"
+          >
+            <img src="/images/icon/button_link.svg" alt="" /> Demo link
+          </button>
+        </div>
+        <!-- <video autoplay src="https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4"></video> -->
+        <projectSlide
+          v-if="projectSlideData.length > 0"
+          :project-example="projectSlideData"
+        ></projectSlide>
       </div>
-      <div>
+      <!-- <div>
         <div class="title-box">
           <h2 class="title">
             <div class="flex items-center justify-center">
@@ -68,13 +98,13 @@ const clickNothing = function () {};
         </div>
         <div v-if="demoLink" class="demo-box">
           <p class="demo-link">Link Only</p>
-          <!-- <p class="demo-desc">Click the link to view demo</p> -->
+          <p class="demo-desc">Click the link to view demo</p>
           <button class="demo-button" @click="clickNothing">
             <img src="/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
-      </div>
-      <div>
+      </div> -->
+      <!-- <div>
         <div class="title-box">
           <h2 class="title">
             <div class="flex items-center justify-center">
@@ -90,13 +120,13 @@ const clickNothing = function () {};
         </div>
         <div v-if="demoLink" class="demo-box">
           <p class="demo-link">Media and Link</p>
-          <!-- <p class="demo-desc">Click the link to view demo</p> -->
+          <p class="demo-desc">Click the link to view demo</p>
           <button class="demo-button" @click="clickNothing">
             <img src="/images/icon/button_link.svg" alt="" /> Demo link
           </button>
         </div>
         <projectSlide></projectSlide>
-      </div>
+      </div> -->
     </div>
   </main>
 </template>

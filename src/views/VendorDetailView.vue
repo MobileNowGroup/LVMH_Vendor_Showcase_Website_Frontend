@@ -68,7 +68,7 @@ const sendEmail = () => {
 
 const gotoDemo = (serviceBrands: any) => {
   if (!serviceBrands.isCommingSoon) {
-    const data = JSON.stringify(serviceBrands);
+    const data = JSON.stringify(serviceBrands.example);
     $router.push({
       name: "projectdemo",
       query: { data },
