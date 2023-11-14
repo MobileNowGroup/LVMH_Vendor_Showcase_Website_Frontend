@@ -7,9 +7,11 @@ const vendorListMock: Array<vendorItem> = reactive([
     id: 0,
     logoSrc:
       "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/logo-en-official_Kivisense_new.png",
-    vendorName: "Chengdu Kivisense Technology Co., Ltd.",
+    vendorName: "Kivisense",
+    vendorShortName: "Kivisense",
+    vendorFullName: "Chengdu Kivisense Technology Co., Ltd.",
     vendorCategory: "Product Discovery",
-    vendorCategoryNum: 12,
+    vendorCategoryNum: 1, // vendorCategory的数量
     brandFounded: "2018",
     leadTime: "Try-on product: 2 weeks 3D modeling: 2 mandays per piece of SKU",
     vendorBrief:
@@ -110,8 +112,9 @@ const vendorListMock: Array<vendorItem> = reactive([
         isCommingSoon: false,
         example: [
           {
-            exampleDesc: "CELINE 3D:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "CELINE 3D:",
+            exampleType: "link",
             exampleSrc:
               "https://meta.kivisense.com/celine-3d-web/index.html?sku=10I822DS9.04LU",
           },
@@ -122,14 +125,16 @@ const vendorListMock: Array<vendorItem> = reactive([
         isCommingSoon: false,
         example: [
           {
-            exampleDesc: "bvlgari AR try-on:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "bvlgari AR try-on:",
+            exampleType: "link",
             exampleSrc:
               "https://bvlgari.kivisense.com/bvlgari-tryon-center/index.html",
           },
           {
-            exampleDesc: "bvlgari size guide:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "bvlgari size guide:",
+            exampleType: "link",
             exampleSrc: "https://www.bulgari.cn/zh-cn/products/an860189",
           },
         ],
@@ -139,19 +144,22 @@ const vendorListMock: Array<vendorItem> = reactive([
         isCommingSoon: false,
         example: [
           {
-            exampleDesc: "tiffany high quality 3D:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "tiffany high quality 3D:",
+            exampleType: "link",
             exampleSrc: "https://www.youtube.com/watch?v=IsYCnMgusEE",
           },
           {
-            exampleDesc: "3D here:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "3D here:",
+            exampleType: "link",
             exampleSrc:
               "https://meta.kivisense.com/tiffany-wx/display.html?sku=GRP11535",
           },
           {
-            exampleDesc: "Tiffany AR try-on:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "Tiffany AR try-on:",
+            exampleType: "link",
             exampleSrc: "https://www.youtube.com/watch?v=LhjoFHOibr4",
           },
         ],
@@ -173,13 +181,15 @@ const vendorListMock: Array<vendorItem> = reactive([
         isCommingSoon: false,
         example: [
           {
-            exampleDesc: "sizing guide:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "sizing guide:",
+            exampleType: "link",
             exampleSrc: "https://www.youtube.com/watch?v=_UOpG9BK7Lc",
           },
           {
-            exampleDesc: "try here:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "try here:",
+            exampleType: "link",
             exampleSrc:
               "https://www.pomellato.com/en_intl/jewelry/rings/ring-nudo-classic-rose-gold-18kt-white-gold-18kt-blue-london-topaz?childSku=PAA1100_O6000_000TL_58",
           },
@@ -190,13 +200,15 @@ const vendorListMock: Array<vendorItem> = reactive([
         isCommingSoon: false,
         example: [
           {
-            exampleDesc: "shoes try-on:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "shoes try-on:",
+            exampleType: "link",
             exampleSrc: "https://www.youtube.com/watch?v=TW0TOK8gMbM",
           },
           {
-            exampleDesc: "try here:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "try here:",
+            exampleType: "link",
             exampleSrc: "https://www.valentino.cn/zh-cn/WW2S0CS4RUSL71",
           },
         ],
@@ -206,15 +218,17 @@ const vendorListMock: Array<vendorItem> = reactive([
         isCommingSoon: false,
         example: [
           {
-            exampleDesc: "bracelace:",
-            exampleType: "Link Only",
+            exampleDesc: "Link Only",
+            exampleContent: "bracelace:",
+            exampleType: "link",
             exampleSrc:
               "https://meta.kivisense.com/gucci-tmall-tryon-web/bracelet.html",
           },
           {
-            exampleDesc:
+            exampleDesc: "Link Only",
+            exampleContent:
               "gucci shoes try-on for wechat, tmall, website .cn (mobile only):",
-            exampleType: "Link Only",
+            exampleType: "link",
             exampleSrc: "https://gucci.kivisense.com/",
           },
         ],
@@ -225,6 +239,7 @@ const vendorListMock: Array<vendorItem> = reactive([
         example: [
           {
             exampleDesc: "Media Only",
+            exampleContent: "",
             exampleType: "video",
             exampleSrc:
               "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4",
@@ -237,6 +252,7 @@ const vendorListMock: Array<vendorItem> = reactive([
         example: [
           {
             exampleDesc: "Media Only",
+            exampleContent: "",
             exampleType: "video",
             exampleSrc:
               "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E8%90%A7%E9%82%A6chopard.mp4",
@@ -249,6 +265,7 @@ const vendorListMock: Array<vendorItem> = reactive([
         example: [
           {
             exampleDesc: "Media Only",
+            exampleContent: "",
             exampleType: "video",
             exampleSrc:
               "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E5%AE%9D%E7%8F%80Blancpain.mp4",
@@ -261,6 +278,7 @@ const vendorListMock: Array<vendorItem> = reactive([
         example: [
           {
             exampleDesc: "Media Only",
+            exampleContent: "",
             exampleType: "video",
             exampleSrc:
               "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/stellamccartney.mp4",
@@ -273,6 +291,7 @@ const vendorListMock: Array<vendorItem> = reactive([
         example: [
           {
             exampleDesc: "Media Only",
+            exampleContent: "",
             exampleType: "video",
             exampleSrc:
               "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/etro.mp4",
@@ -285,12 +304,14 @@ const vendorListMock: Array<vendorItem> = reactive([
         example: [
           {
             exampleDesc: "Media Only",
+            exampleContent: "",
             exampleType: "video",
             exampleSrc:
               "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Armani.mp4",
           },
           {
             exampleDesc: "Media Only",
+            exampleContent: "",
             exampleType: "video",
             exampleSrc:
               "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Armani%E5%8C%85.mp4",
@@ -303,7 +324,9 @@ const vendorListMock: Array<vendorItem> = reactive([
         example: [
           {
             exampleDesc: "Media Only",
+            exampleContent: "",
             exampleType: "video",
+
             exampleSrc:
               "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E5%A4%A7%E7%8E%8BAlexander%20wang.mp4",
           },
@@ -315,12 +338,14 @@ const vendorListMock: Array<vendorItem> = reactive([
         example: [
           {
             exampleDesc: "Media Only",
+            exampleContent: "",
             exampleType: "video",
             exampleSrc:
               "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/BBY.mp4",
           },
           {
             exampleDesc: "Media Only",
+            exampleContent: "",
             exampleType: "video",
             exampleSrc:
               "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Burberry%20%E4%B8%8A%E7%BA%BFdemo.MOV",

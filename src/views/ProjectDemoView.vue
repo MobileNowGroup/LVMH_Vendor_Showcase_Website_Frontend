@@ -50,15 +50,15 @@ const clickNothing = function (src: any) {
             </div>
           </h2>
         </div>
-        <div v-if="projectDemo.exampleType === 'Media Only'" class="demo-box">
-          <p class="demo-link">{{ projectDemo.exampleType }}</p>
+        <div v-if="projectDemo.exampleType === 'video'" class="demo-box">
+          <p class="demo-link">{{ projectDemo.exampleDesc }}</p>
         </div>
         <div
           v-else-if="projectDemo.exampleType === 'Link Only'"
           class="demo-box"
         >
-          <p class="demo-desc" v-if="projectDemo.exampleType === 'Link Only'">
-            {{ projectDemo.exampleType }}
+          <p class="demo-desc" v-if="projectDemo.exampleType === 'link'">
+            {{ projectDemo.exampleDesce }}
           </p>
           <button
             class="demo-button"
@@ -68,7 +68,7 @@ const clickNothing = function (src: any) {
           </button>
         </div>
         <div v-else class="demo-box">
-          <p class="demo-desc">{{ projectDemo.exampleType }}</p>
+          <p class="demo-desc">{{ projectDemo.exampleDesc }}</p>
           <button
             class="demo-button"
             @click="clickNothing(projectDemo.exampleSrc)"
