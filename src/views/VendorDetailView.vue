@@ -2,11 +2,11 @@
 import { onMounted, reactive, ref } from "vue";
 import mockData from "../util/mockData";
 import { useRouter } from "vue-router";
-import { isMobile } from "@/util/common";
+import { isMobile,openLink } from "@/util/common";
 
 const $router = useRouter();
 const vendor = ref({} as any);
-const length = ref(0)// slide 长度
+const length = ref(0); // slide 长度
 const isMobileAgent = ref(isMobile());
 
 onMounted(() => {
@@ -17,8 +17,11 @@ onMounted(() => {
     }
   });
 
-  length.value = vendor.value.serviceBrandLogos.length
-  console.log( vendor.value.serviceBrandLogos instanceof Array,vendor.value.serviceBrandLogos.length);
+  length.value = vendor.value.serviceBrandLogos.length;
+  console.log(
+    vendor.value.serviceBrandLogos instanceof Array,
+    vendor.value.serviceBrandLogos.length
+  );
   // 监听slidelist滚动距离计算下面scrllbar的滚动距离且只在移动端生效
   if (isMobileAgent.value) {
     slideListNode.value.addEventListener("scroll", (e: any) => {
@@ -26,7 +29,6 @@ onMounted(() => {
     });
   }
 });
-
 
 let slideListNode = ref();
 let scrollThumbNode = ref();
@@ -90,10 +92,10 @@ const touchmoves = (swiper: any) => {
   console.log(swiper, swipers.getTranslate());
   if (swiper.translate < 0) {
     scrollThumbNode.value.style.marginLeft =
-      (Math.abs(swiper.translate - 30) / 300) * 30 + "px";
+      (Math.abs(swiper.translate - 30) / 1300) * 30 + "px";
     if (isMobileAgent) {
       scrollThumbNode.value.style.marginLeft =
-        (Math.abs(swiper.translate - 30) / 270) * 60 + "px";
+        (Math.abs(swiper.translate - 30) / 1270) * 60 + "px";
     }
     return;
   }
@@ -207,10 +209,10 @@ const touchmoves = (swiper: any) => {
             ></div>
           </div>
         </h2>
-        <img :src="vendor.solutionCaseSrc" alt="" />
         <p class="content-desc content-solution">
           {{ vendor.solutionCase }}
         </p>
+        <img :src="vendor.solutionCaseSrc" alt="" />
       </div>
       <div class="content-box content-box-claimed">
         <h2 class="title">
@@ -226,7 +228,7 @@ const touchmoves = (swiper: any) => {
         </h2>
         <!-- <div class="is-flex-row kpibox"></div> -->
         <div class="is-flex-row">
-          <p style="font-size: 16px">
+          <p class="content-desc content-claimed">
             {{ vendor.claimedKpis }}
           </p>
           <!-- <p class="content-desc content-claimed is-flex-column">
@@ -325,13 +327,18 @@ const touchmoves = (swiper: any) => {
           </div>
         </h2>
         <div v-for="(item, index) of vendor.featureDemo" :key="index">
-          <div v-if="item.type === 'code'">
+          <div v-if="item.type === 'QRcode'">
             <p class="content-feature-desc">Scan the QR code to view demo</p>
             <img :src="item.src" alt="" />
           </div>
           <div v-else-if="item.type === 'link'">
             <p class="content-feature-desc">Click the link to view demo</p>
-            <button class="content-feature-button" @click="">
+            <button
+              class="content-feature-button"
+              @click="
+               openLink(item.src)
+              "
+            >
               <img :src="item.src" alt="" /> Demo link
             </button>
           </div>
@@ -340,7 +347,7 @@ const touchmoves = (swiper: any) => {
               Click the play button to view demo
             </p>
             <div class="content-feature-video-box" @click="">
-              <img :src="item.src" alt="" />
+              <!-- <img :src="item.src" alt="" /> -->
               <!-- <video controls src=""></video> -->
             </div>
           </div>

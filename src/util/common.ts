@@ -87,3 +87,7 @@ export function throttle(func: Function, delay = 300) {
     }
   };
 }
+
+export function openLink(link: string) {
+  window.open(link);
+}

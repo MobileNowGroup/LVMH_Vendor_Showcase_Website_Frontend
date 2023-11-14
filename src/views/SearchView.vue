@@ -4,6 +4,7 @@ import mockData from "../util/mockData";
 import vendorList from "@/components/vendorListComponent.vue";
 import { authStore } from "../stores/authStore";
 import { useRouter, useRoute } from "vue-router";
+import { AnyARecord } from "dns";
 
 let store = authStore();
 
@@ -14,25 +15,58 @@ const $router = useRouter(); // router 路由操作
 const $route = useRoute(); // 路由信息
 
 const param = $route.query.queryParam;
-// console.log(param)
+const searchType = $route.query.queryParam;
+console.log($route, param);
+const filterList = mockData.filterListMock;
+onMounted(() => {
+  if (searchType === "search") {
+    mockData.vendorListMock.forEach((element, index) => {
+      if (!param) return;
+      console.log(element.vendorName, param);
+      // 只搜索vendorname
+      if (
+        param &&
+        element.vendorName
+          .toLocaleLowerCase()
+          .indexOf(param.toLocaleString().toLocaleLowerCase() + "") > -1
+      ) {
+        vendorListArray.value.push(element);
+      }
+      console.log("meijinlai");
 
-mockData.vendorListMock.forEach((element, index) => {
-  if (!param) return;
-  Object.values(element).forEach((value) => {
-    if (value.toString().indexOf(param) > -1) {
-      vendorListArray.value.push(element);
-    }
-  });
-  // Object.entries(element).forEach((item) => {
-  //   console.log(item);
-  // });
-  // Object.keys(element).forEach((key) => {
-  //   console.log(key);
-  // });
+      // 搜索所有数据
+      // Object.values(element).forEach((value) => {
+      //   console.log(value)
+      //   if (value.toString().indexOf(param) > -1) {
+      //     vendorListArray.value.push(element);
+      //   }
+      // });
+    });
+  } else {
+    let filterParam = "";
+    let tempArry: any = [];
+    filterList.forEach((items, itemsindex) => {
+      tempArry.push(items.menuItemList);
+      // if (items instanceof Array) {
+      //   console.log('aaaaa')
+      //   items.forEach((item, index) => {
+      //     if (item.isChoosed) {
+      //       console.log( item.desc)
+      //       filterParam += " " + item.desc;
+      //     }
+      //   });
+      // }
+    });
+    tempArry.forEach((item: any, index: any) => {
+      if (item.isChoosed) {
+        filterParam += item.desc;
+      }
+    });
+    console.log(filterList, filterParam);
+  }
+  // 设置搜索数据总数
+  resultCount.value = vendorListArray.value.length;
 });
-resultCount.value = vendorListArray.value.length;
-
-onMounted(() => {});
 const openCookie = () => {
   //  store.CookiesModelopen()
 };

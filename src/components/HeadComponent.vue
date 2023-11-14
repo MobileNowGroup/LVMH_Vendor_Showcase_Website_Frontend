@@ -16,7 +16,7 @@ let searchVisibale = ref(false); // searchbox是否展示
 let searchValue = ref(""); // 需要search 的数据
 let filterVisibale = ref(false); // filterbox是否展示
 let filterVisibaleBg = ref(false); // filterbox background
-const filterList = ref(mockData.filterListMock); // filter数据
+const filterList = mockData.filterListMock; // filter数据
 const filterShow = ref(true); // 是否展示filter
 let decoVisiable = ref(false); // 是否展示顶部装饰文本
 let decoText = ref("Agency Listing"); // 顶部装饰文本内容
@@ -31,6 +31,8 @@ decoVisiable.value = decoShowArray.every((item) => {
 const shutDownComponent = ref(true);
 
 onMounted(() => {
+
+  console.log($route)
   if (window) {
     window.addEventListener("scroll", _onPageScroll);
   }
@@ -129,7 +131,7 @@ const closeBox = (e: any, closeType: any) => {
     searchVisibale.value = false;
   } else {
     filterNumber.value = 0;
-    filterList.value.forEach((menu, menuIndex) => {
+    filterList.forEach((menu, menuIndex) => {
       filterNumber.value += menu.selectedCount;
     });
     filterVisibale.value = false;
@@ -142,7 +144,7 @@ const closeBox = (e: any, closeType: any) => {
 };
 /**清空所有filter */
 const clearFilter = () => {
-  filterList.value.forEach((menu, menindex) => {
+  filterList.forEach((menu, menindex) => {
     // 清空所有category num
     menu.selectedCount = 0;
     // 清空filter总数量
@@ -159,16 +161,25 @@ const searchResult = (e: any, searchType: string) => {
   // 点击查询结果
   // console.log(searchType);
   if (searchType === "search") {
-    // 执行search逻辑
+    // 执行search逻辑,进入search页面
+    $router.push({
+      name: "search",
+      query: {
+        searchType: "search",
+        queryParam: searchValue.value,
+      },
+    });
+
   } else {
-    // 执行filter逻辑
+    // 执行filter逻辑,进入search页面
+    $router.push({
+      name: "search",
+      query: {
+        searchType: "filter",
+      },
+    });
+
   }
-  $router.push({
-    name: "search",
-    query: {
-      queryParam: searchValue.value,
-    },
-  });
 };
 
 /** 页面滚动 */
@@ -185,7 +196,6 @@ const _onPageScroll = () => {
   } else {
     // 监听路由匹配不同header背景色
     headerbg();
-
     decoVisiable.value = decoShowArray.every((item) => {
       return item !== $route.path;
     });
@@ -195,7 +205,7 @@ const _onPageScroll = () => {
 const applyshowcolorVisiable = ref(false);
 const applyshowcolor = () => {
   // 判断所有filter中的数据，只要有一个是被选中那么就是true
-  applyshowcolorVisiable.value = filterList.value.some((menu, menindex) => {
+  applyshowcolorVisiable.value = filterList.some((menu, menindex) => {
     return menu.menuItemList.some((menuItem) => {
       return menuItem.isChoosed;
     });
