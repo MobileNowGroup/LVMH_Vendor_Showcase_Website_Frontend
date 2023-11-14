@@ -6,37 +6,19 @@ import { isMobile } from "@/util/common";
 
 const $router = useRouter();
 const vendor = ref({} as any);
-const featureShow = ref("link"); // feature 展示类型
-
-import hennessyLogo from "/images/logo/hennessy logo.png";
-import lcLogo from "/images/logo/lc-logo.png";
-import leicaLogo from "/images/logo/leica-logo.png";
-import sephoraLogo from "/images/logo/sephora-logo.png";
-import sweatyLogo from "/images/logo/sweaty-logo.png";
-import brand from "/images/brand/brand.png";
-import brand1 from "/images/brand/brand-1.png";
-import brand2 from "/images/brand/brand-2.png";
-import brand4 from "/images/brand/brand-4.png";
-const slideList = [
-  { slideName: "hennessy", slideSrc: hennessyLogo },
-  { slideName: "hennessy", slideSrc: lcLogo },
-  { slideName: "hennessy", slideSrc: leicaLogo },
-  { slideName: "hennessy", slideSrc: sephoraLogo },
-  { slideName: "hennessy", slideSrc: sweatyLogo },
-  { slideName: "hennessy", slideSrc: hennessyLogo },
-  { slideName: "hennessy", slideSrc: lcLogo },
-  { slideName: "hennessy", slideSrc: leicaLogo },
-];
+const length = ref(0)// slide 长度
 const isMobileAgent = ref(isMobile());
+
 onMounted(() => {
   // 进入页面给默认数据
-  vendor.value = mockData.vendorListMock[0];
   mockData.vendorListMock.forEach((element, elementINdex) => {
     if (element.id === Number($router.currentRoute.value.query.id)) {
       vendor.value = element;
     }
   });
 
+  length.value = vendor.value.serviceBrandLogos.length
+  console.log( vendor.value.serviceBrandLogos instanceof Array,vendor.value.serviceBrandLogos.length);
   // 监听slidelist滚动距离计算下面scrllbar的滚动距离且只在移动端生效
   if (isMobileAgent.value) {
     slideListNode.value.addEventListener("scroll", (e: any) => {
@@ -45,12 +27,7 @@ onMounted(() => {
   }
 });
 
-const serviceBrandsList = [
-  { brandName: "demo", brandSrc: brand },
-  { brandName: "demo", brandSrc: brand1 },
-  { brandName: "demo", brandSrc: brand2 },
-  { brandName: "Coming soon", brandSrc: brand4 },
-];
+
 let slideListNode = ref();
 let scrollThumbNode = ref();
 let count = ref(0);
@@ -97,14 +74,14 @@ const onSwiper = (swiper: any) => {
 const prevEl = () => {
   if (count.value > 0) {
     slideListNode.value.scrollLeft = --count.value * 100;
-    scrollThumbNode.value.style.marginLeft = 8 * count.value + "px";
+    scrollThumbNode.value.style.marginLeft = 5 * count.value + "px";
   }
   swipers.slidePrev();
 };
 const nextEl = () => {
-  if (count.value <= slideList.length - 3) {
+  if (count.value <= length.value - 3) {
     slideListNode.value.scrollLeft = count.value++ * 100;
-    scrollThumbNode.value.style.marginLeft = 10 * count.value + "px";
+    scrollThumbNode.value.style.marginLeft = 5 * count.value + "px";
   }
   swipers.slideNext();
 };
@@ -209,7 +186,7 @@ const touchmoves = (swiper: any) => {
 
         <div class="slide-arrow slide-arrow-right flex items-center">
           <img
-            v-show="count < slideList.length - 4"
+            v-show="count < length - 4"
             @click.stop="nextEl"
             src="/images/right_arrow.png"
             alt=""

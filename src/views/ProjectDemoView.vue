@@ -10,7 +10,7 @@ const $route = useRoute();
 const $router = useRouter();
 const projectDemoData = JSON.parse($route.query.data as string);
 const projectSlideData = projectDemoData.filter((item: any, index: number) => {
-  return item.exampleType !== "Link Only";
+  return item.exampleType == "Link Only";
 });
 console.log(projectDemoData, projectSlideData);
 
@@ -197,6 +197,7 @@ const clickNothing = function (src: any) {
 }
 .demo {
   &-box {
+    margin-top:2rem;
     text-align: center;
   }
   &-link {
