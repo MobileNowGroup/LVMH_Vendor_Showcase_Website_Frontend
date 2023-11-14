@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import mockData from "../util/mockData";
 import vendorList from "@/components/vendorListComponent.vue";
 import { authStore } from "../stores/authStore";
@@ -15,10 +15,10 @@ const $router = useRouter(); // router 路由操作
 const $route = useRoute(); // 路由信息
 
 const param = $route.query.queryParam;
-const searchType = $route.query.queryParam;
-console.log($route, param);
+const searchType = $route.query.searchType;
 const filterList = mockData.filterListMock;
-onMounted(() => {
+
+const filterDataFn=()=>{
   if (searchType === "search") {
     mockData.vendorListMock.forEach((element, index) => {
       if (!param) return;
@@ -32,9 +32,10 @@ onMounted(() => {
       ) {
         vendorListArray.value.push(element);
       }
-      console.log("meijinlai");
+      console.warn("进来的是search");
 
       // 搜索所有数据
+      
       // Object.values(element).forEach((value) => {
       //   console.log(value)
       //   if (value.toString().indexOf(param) > -1) {
@@ -43,29 +44,39 @@ onMounted(() => {
       // });
     });
   } else {
+    console.warn("进来的是filter");
     let filterParam = "";
     let tempArry: any = [];
     filterList.forEach((items, itemsindex) => {
-      tempArry.push(items.menuItemList);
-      // if (items instanceof Array) {
-      //   console.log('aaaaa')
-      //   items.forEach((item, index) => {
-      //     if (item.isChoosed) {
-      //       console.log( item.desc)
-      //       filterParam += " " + item.desc;
-      //     }
-      //   });
-      // }
+      tempArry.push(JSON.parse(JSON.stringify(items.menuItemList)));
     });
-    tempArry.forEach((item: any, index: any) => {
-      if (item.isChoosed) {
-        filterParam += item.desc;
+    tempArry.forEach((itema: any, indexa: any) => {
+      itema.forEach((itemb: any, indexb: any) => {
+        if (itemb.isChoosed) {
+          filterParam += itemb.desc;
+        }
+      });
+    });
+
+    mockData.vendorListMock.forEach((element, index) => {
+      // 只搜索vendorname
+      if (filterParam.indexOf(element.vendorCategory + "") > -1) {
+        vendorListArray.value.push(element);
       }
     });
-    console.log(filterList, filterParam);
   }
   // 设置搜索数据总数
   resultCount.value = vendorListArray.value.length;
+}
+
+// let count = 0;
+// watch(count,(newValue,oldValue)=>{
+//   if(newValue){
+//     console.log(`我侦听到了count状态的变化，当前值为${newValue},从而处理相关逻辑`);
+//   }
+// })
+onMounted(() => {
+  filterDataFn()
 });
 const openCookie = () => {
   //  store.CookiesModelopen()

@@ -2,7 +2,7 @@
 import { onMounted, reactive, ref } from "vue";
 import mockData from "../util/mockData";
 import { useRouter } from "vue-router";
-import { isMobile,openLink } from "@/util/common";
+import { isMobile, openLink, setVideoPosterFn } from "@/util/common";
 
 const $router = useRouter();
 const vendor = ref({} as any);
@@ -210,9 +210,9 @@ const touchmoves = (swiper: any) => {
           </div>
         </h2>
         <p class="content-desc content-solution">
-          {{ vendor.solutionCase }}
+          {{ vendor.useCaseExample }}
         </p>
-        <img :src="vendor.solutionCaseSrc" alt="" />
+        <img :src="vendor.useCaseExampleSrc" alt="" />
       </div>
       <div class="content-box content-box-claimed">
         <h2 class="title">
@@ -333,12 +333,7 @@ const touchmoves = (swiper: any) => {
           </div>
           <div v-else-if="item.type === 'link'">
             <p class="content-feature-desc">Click the link to view demo</p>
-            <button
-              class="content-feature-button"
-              @click="
-               openLink(item.src)
-              "
-            >
+            <button class="content-feature-button" @click="openLink(item.src)">
               <img :src="item.src" alt="" /> Demo link
             </button>
           </div>
@@ -348,7 +343,15 @@ const touchmoves = (swiper: any) => {
             </p>
             <div class="content-feature-video-box" @click="">
               <!-- <img :src="item.src" alt="" /> -->
-              <!-- <video controls src=""></video> -->
+              <video
+                controls
+                preload="metadata"
+                :poster="`${item.src}?x-oss-process=video/snapshot,t_1,m_fast`"
+                class="video"
+                @loadeddata="setVideoPosterFn($event)"
+              >
+                <source :src="item.src" type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>

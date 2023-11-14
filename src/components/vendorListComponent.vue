@@ -26,7 +26,7 @@ const $router = useRouter();
          
           <div>
             <p class="vendor-name">
-              {{ vendor.vendorName }}
+              {{ vendor.vendorShortName }}
             </p>
 
             <!-- <p

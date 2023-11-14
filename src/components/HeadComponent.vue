@@ -32,7 +32,6 @@ const shutDownComponent = ref(true);
 
 onMounted(() => {
 
-  console.log($route)
   if (window) {
     window.addEventListener("scroll", _onPageScroll);
   }

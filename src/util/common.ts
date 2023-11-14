@@ -19,6 +19,8 @@ export const isMobile = () => {
   return isFromMobile;
 };
 
+/** 预览图*/
+
 /** 设置每个video的预览图 setVideoPosterFn */
 export const setVideoPosterFn = (event: any) => {
   let video = event.target;
