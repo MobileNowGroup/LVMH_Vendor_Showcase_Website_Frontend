@@ -6,10 +6,12 @@ import {
   reactive,
   ref,
   watch,
+  computed,
 } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import mockData from '../util/mockData'
 import { throttle } from '@/util/common'
+import { commonStore } from '@/stores/authStore'
 import { match } from 'assert'
 const filterNumber = ref(0)
 let searchVisibale = ref(false) // searchbox是否展示
@@ -24,6 +26,9 @@ const $route = useRoute() // router 路由信息
 const $router = useRouter() // router 路由操作
 const headerDom = ref()
 const decoShowArray = ['/vendordetail', '/policy'] // 不展示agency listing 的页面
+let logoUrl = computed(() => {
+  return commonStore().demoUrl
+})
 decoVisiable.value = decoShowArray.every(item => {
   return item !== $route.path
 })
@@ -451,7 +456,8 @@ onUnmounted(() => {
           <img
             v-if="$route.path === '/projectdemo'"
             class="lg:w-[136px] lg:h-[78px] w-52 m-auto"
-            src="/images/hennessy.png"
+            :src="logoUrl"
+            style="object-fit: contain"
             alt=""
           />
           <span v-else>{{ decoText }}</span>

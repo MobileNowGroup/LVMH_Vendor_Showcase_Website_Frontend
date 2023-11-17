@@ -1,57 +1,57 @@
 <script setup lang="ts">
-import { RouterLink, RouterView, useRoute, useRouter } from "vue-router";
-import HeadComponent from "@/components/HeadComponent.vue";
-import FootComponent from "@/components/FootComponent.vue";
-import { onMounted, onBeforeUpdate, ref, watch } from "vue";
-import { authStore } from "../stores/authStore";
-import { storeToRefs } from "pinia";
+import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
+import HeadComponent from '@/components/HeadComponent.vue'
+import FootComponent from '@/components/FootComponent.vue'
+import { onMounted, onBeforeUpdate, ref, watch } from 'vue'
+import { authStore } from '../stores/authStore'
+import { storeToRefs } from 'pinia'
 
-const $router = useRouter();
-const $route = useRoute();
-const pathArray = ["/login", "/", ""];
-let showModel = ref(true);
+const $router = useRouter()
+const $route = useRoute()
+const pathArray = ['/login', '/', '']
+let showModel = ref(true)
 
-let store = authStore();
+let store = authStore()
 const { cookiesIsSave, userName, StorageTime, ExpirationTime } =
-  storeToRefs(store);
+  storeToRefs(store)
 
-let loginPage = ref(false);
+let loginPage = ref(false)
 
 onMounted(() => {
-  console.log(cookiesIsSave.value);
+  console.log(cookiesIsSave.value)
   // cookiesIsSave.value ? (showModel.value = false) : (showModel.value = true);
-  if ($route.path !== "/vendorlisting") {
+  if ($route.path !== '/vendorlisting') {
   }
   // 判断路由，控制当前导航标签
-  loginPage.value = pathArray.some((item) => {
-    return $route.path === item;
-  });
-});
+  loginPage.value = pathArray.some(item => {
+    return $route.path === item
+  })
+})
 
-onBeforeUpdate(() => {});
+onBeforeUpdate(() => {})
 
 // 判断路由，控制当前导航标签
 watch(
   () => $route.path,
   (newPath, oldPath) => {
-    if (newPath !== "/vendorlisting") {
+    if (newPath !== '/vendorlisting') {
     } else {
       // showCookies.value = true;
     }
-    loginPage.value = pathArray.some((item) => {
-      return newPath === item;
-    });
+    loginPage.value = pathArray.some(item => {
+      return newPath === item
+    })
   },
-  { immediate: true },
-);
+  { immediate: true }
+)
 const closeCookies = () => {
-  showModel.value = false;
-};
+  showModel.value = false
+}
 const agreeSaveCookies = () => {
   // 保存用户名什么的
-  store.saveCookiesFn();
-  showModel.value = false;
-};
+  store.saveCookiesFn()
+  showModel.value = false
+}
 </script>
 
 <template>
@@ -60,9 +60,9 @@ const agreeSaveCookies = () => {
       <RouterView />
     </div>
     <div v-else>
-      <div v-if="showModel" class="fixed w-screen h-screen  bg-black/50 z-[999]">
+      <div v-if="showModel" class="fixed w-screen h-screen bg-black/50 z-[999]">
         <div
-          class="absolute bottom-0 w-screen h-fit lg:px-32 lg:py-10.5 px-[15px] pt-[40px] pb-[23px] flex justify-between bg-black items-center "
+          class="absolute bottom-0 w-screen h-fit lg:px-32 lg:py-10.5 px-[15px] pt-[40px] pb-[23px] flex justify-between bg-black items-center"
         >
           <img
             class="absolute lg:top-8 lg:right-14 top-[15px] right-[15px] cursor-pointer"
@@ -79,11 +79,11 @@ const agreeSaveCookies = () => {
               We use essential cookies to make our site work. With your content,
               we may also use non-essential cookies to improve user experience
               and analyze website traffic. By clicking ”Accept”, you agree to
-              put website’s cookies use as described in our “<router-link
-                class="underline"
-                to="/Policy"
-                >Cookie Policy</router-link
-              >”.
+              put website’s cookies use as described in our “
+              <router-link class="underline" to="/Policy">
+                Cookie Policy
+              </router-link>
+              ”.
             </p>
             <div class="buttonbox lg:mt-0 mt-5">
               <button
@@ -102,9 +102,11 @@ const agreeSaveCookies = () => {
           </div>
         </div>
       </div>
-      <HeadComponent></HeadComponent>
-      <RouterView />
-      <FootComponent></FootComponent>
+      <div style="display: flex; height: 100vh; flex-flow: column nowrap">
+        <HeadComponent></HeadComponent>
+        <RouterView style="flex: 1" />
+        <FootComponent></FootComponent>
+      </div>
     </div>
   </div>
 </template>

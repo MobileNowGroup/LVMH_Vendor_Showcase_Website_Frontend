@@ -47,10 +47,12 @@ const sendEmail = () => {
 
 const gotoDemo = (serviceBrands: any) => {
   if (!serviceBrands.isCommingSoon) {
-    const data = JSON.stringify(serviceBrands.example)
+    // const data: any = JSON.stringify(serviceBrands.example)
+    const brandId = serviceBrands.id
+    const cardId = vendor.value.id
     $router.push({
       name: 'projectdemo',
-      query: { data },
+      query: { cardId: cardId, brandId: brandId },
     })
   }
 }
@@ -104,7 +106,7 @@ const touchmoves = (swiper: any) => {
 </script>
 
 <template>
-  <main :class="{ hasnodeco: true }">
+  <main :class="{ hasnodeco: true }" style="background: white">
     <div class="top" :class="{ top_mobile: isMobileAgent }">
       <div class="vendor-box">
         <div class="vendor-box-in h-[41rem]">
@@ -633,6 +635,7 @@ const touchmoves = (swiper: any) => {
   margin-top: 21rem;
   margin-bottom: 12rem;
   text-align: center;
+  background: white;
   &-box {
     position: relative;
     &-solution,

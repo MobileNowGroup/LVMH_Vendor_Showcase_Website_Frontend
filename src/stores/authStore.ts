@@ -66,6 +66,26 @@ export const authStore = defineStore('auth', {
     ],
   },
 })
+export const commonStore = defineStore('common', {
+  state() {
+    // 存放的就是模块的变量
+    return {
+      demoUrl: '', //demo页面的头部icon
+    }
+  },
+  getters: {
+    // 相当于vue里面的计算属性，可以缓存数据
+  },
+  actions: {
+    // 可以通过actions 方法，改变 state 里面的值。
+    setDemoUrl(url: string) {
+      this.$state.demoUrl = url
+    },
+    clearDemoUrl() {
+      this.$state.demoUrl = ''
+    },
+  },
+})
 // export const useStore = defineStore("user", {
 //   state: () => {
 //     return { userName: "" };

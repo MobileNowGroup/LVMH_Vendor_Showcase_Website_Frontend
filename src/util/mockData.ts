@@ -4,7 +4,7 @@ import { reactive } from 'vue'
 const allowedCommon = ["'self'"]
 const vendorListMock: Array<vendorItem> = reactive([
   {
-    id: 0,
+    id: 1,
     logoSrc:
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/Kivisense_logo_new.png',
     vendorName: 'Chengdu Kivisense Technology Co., Ltd.',
@@ -30,11 +30,13 @@ const vendorListMock: Array<vendorItem> = reactive([
       'About 20k - 40k Euro annual SaaS license for each AR try-on category with unlimited SKU and traffic. There wil be good discount for try-on head to toe of all the try-on license',
     priceModelCard: [
       {
+        id: 1,
         title: 'Host',
         src: '/images/icon/hosting.svg',
         list: ['Cloud Provider'],
       },
       {
+        id: 2,
         title: 'Integration',
         src: '/images/icon/integration.svg',
         list: [
@@ -46,17 +48,20 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 3,
         title: 'Mobile Integration',
         src: '/images/icon/mobileintegration.svg',
         list: ['Front end / Web'],
       },
       {
+        id: 4,
         // title: "PIPL (Personal Information Protection Law)",
         title: 'PIPL',
         src: '/images/icon/PIPL.svg',
         list: ['No Data Collected'],
       },
       {
+        id: 5,
         // title: "MLPS (Multi-Level Protection Scheme)",
         title: 'MLPS',
         src: '/images/icon/MPLS.svg',
@@ -65,21 +70,25 @@ const vendorListMock: Array<vendorItem> = reactive([
     ],
     featureDemo: [
       {
+        id: 1,
         type: 'link',
         desc: 'AR try-on from head to toe',
         src: 'https://www.youtube.com/watch?v=bu0QHVT2DyE&t=7s',
       },
       {
+        id: 2,
         type: 'link',
         desc: 'Ulysse Nardin watch try-on',
         src: 'https://www.youtube.com/watch?v=EdUsFeXZmq0',
       },
       {
+        id: 3,
         type: 'link',
         desc: 'Celine bag 3D interaction',
         src: 'https://www.youtube.com/watch?v=u76O_-xhlw4',
       },
       {
+        id: 4,
         type: 'link',
         desc: 'Valentino shoes try-on',
         src: 'https://www.youtube.com/watch?v=TW0TOK8gMbM',
@@ -107,10 +116,12 @@ const vendorListMock: Array<vendorItem> = reactive([
     ],
     serviceBrandProjects: [
       {
+        id: 1,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/celine_logo.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Link Only',
             exampleContent: 'CELINE 3D:',
             exampleType: 'link',
@@ -120,10 +131,12 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 2,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/bulgari_logo.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Link Only',
             exampleContent: 'bvlgari AR try-on:',
             exampleType: 'link',
@@ -131,6 +144,7 @@ const vendorListMock: Array<vendorItem> = reactive([
               'https://bvlgari.kivisense.com/bvlgari-tryon-center/index.html',
           },
           {
+            id: 2,
             exampleDesc: 'Link Only',
             exampleContent: 'bvlgari size guide:',
             exampleType: 'link',
@@ -139,16 +153,19 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 3,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/tiffanylogo.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Link Only',
             exampleContent: 'tiffany high quality 3D:',
             exampleType: 'link',
             exampleSrc: 'https://www.youtube.com/watch?v=IsYCnMgusEE',
           },
           {
+            id: 2,
             exampleDesc: 'Link Only',
             exampleContent: '3D here:',
             exampleType: 'link',
@@ -156,6 +173,7 @@ const vendorListMock: Array<vendorItem> = reactive([
               'https://meta.kivisense.com/tiffany-wx/display.html?sku=GRP11535',
           },
           {
+            id: 3,
             exampleDesc: 'Link Only',
             exampleContent: 'Tiffany AR try-on:',
             exampleType: 'link',
@@ -164,24 +182,29 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 4,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/logo-christian-dior-couture.png',
         isCommingSoon: true,
       },
       {
+        id: 5,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/chaumet.png',
         isCommingSoon: true,
       },
       {
+        id: 6,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/pomellato_logo.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Link Only',
             exampleContent: 'sizing guide:',
             exampleType: 'link',
             exampleSrc: 'https://www.youtube.com/watch?v=_UOpG9BK7Lc',
           },
           {
+            id: 2,
             exampleDesc: 'Link Only',
             exampleContent: 'try here:',
             exampleType: 'link',
@@ -191,16 +214,19 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 7,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/valention-logo.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Link Only',
             exampleContent: 'shoes try-on:',
             exampleType: 'link',
             exampleSrc: 'https://www.youtube.com/watch?v=TW0TOK8gMbM',
           },
           {
+            id: 2,
             exampleDesc: 'Link Only',
             exampleContent: 'try here:',
             exampleType: 'link',
@@ -209,10 +235,12 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 8,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/gucci.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Link Only',
             exampleContent: 'bracelace:',
             exampleType: 'link',
@@ -220,6 +248,7 @@ const vendorListMock: Array<vendorItem> = reactive([
               'https://meta.kivisense.com/gucci-tmall-tryon-web/bracelet.html',
           },
           {
+            id: 2,
             exampleDesc: 'Link Only',
             exampleContent:
               'gucci shoes try-on for wechat, tmall, website .cn (mobile only):',
@@ -231,22 +260,27 @@ const vendorListMock: Array<vendorItem> = reactive([
     ],
     projectDetail: [
       {
+        id: 1,
         desc: 'bvlgari AR try-on:',
         src: 'https://bvlgari.kivisense.com/bvlgari-tryon-center/index.html',
       },
       {
+        id: 2,
         desc: 'bvlgari size guide:',
         src: 'https://www.bulgari.cn/zh-cn/products/an860189',
       },
       {
+        id: 3,
         desc: 'tiffany high quality 3D:',
         src: 'https://www.youtube.com/watch?v=IsYCnMgusEE',
       },
       {
+        id: 4,
         desc: '3D here:',
         src: 'https://meta.kivisense.com/tiffany-wx/display.html?sku=GRP11535',
       },
       {
+        id: 5,
         desc: 'Tiffany AR try-on:',
         src: 'https://www.youtube.com/watch?v=LhjoFHOibr4',
       },
@@ -254,9 +288,8 @@ const vendorListMock: Array<vendorItem> = reactive([
     vendorStatus: '2. Used by Maison',
     vendorDot: 2,
   },
-
   {
-    id: 1,
+    id: 2,
     logoSrc:
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/FancyTechLogoNew.png',
     vendorName: 'FANCY TECHNOLOGY (NANJING) CO., LTD',
@@ -280,11 +313,13 @@ const vendorListMock: Array<vendorItem> = reactive([
       'AIGC video: 5000-10000/per video (depends on category)\n 3D modeling: 2500-30000/SKU (depends on category)',
     priceModelCard: [
       {
+        id: 1,
         title: 'Host',
         src: '/images/icon/hosting.svg',
         list: ['Cloud Provider'],
       },
       {
+        id: 2,
         title: 'Integration',
         src: '/images/icon/integration.svg',
         list: [
@@ -294,17 +329,20 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 3,
         title: 'Mobile Integration',
         src: '/images/icon/mobileintegration.svg',
         list: ['API', 'SDK', 'Front end / Web'],
       },
       {
+        id: 4,
         // title: "PIPL (Personal Information Protection Law)",
         title: 'PIPL',
         src: '/images/icon/PIPL.svg',
         list: ['No Data Collected'],
       },
       {
+        id: 5,
         // title: "MLPS (Multi-Level Protection Scheme)",
         title: 'MLPS',
         src: '/images/icon/MPLS.svg',
@@ -324,10 +362,12 @@ const vendorListMock: Array<vendorItem> = reactive([
     ],
     serviceBrandProjects: [
       {
+        id: 1,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/Givenchy_logo.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Media Only',
             exampleContent: '',
             exampleType: 'video',
@@ -337,10 +377,12 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 2,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/Chopard.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
@@ -350,10 +392,12 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 3,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/%E5%AE%9D%E7%8F%80Blancpain.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
@@ -363,10 +407,12 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 4,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/stellamccartney.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
@@ -376,10 +422,12 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 5,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/Etro.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
@@ -389,10 +437,12 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 6,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/EMPORIO_ARMANI.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
@@ -400,6 +450,7 @@ const vendorListMock: Array<vendorItem> = reactive([
               'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Armani.mp4',
           },
           {
+            id: 2,
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
@@ -409,10 +460,12 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 7,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/alexanderwang.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
@@ -422,10 +475,12 @@ const vendorListMock: Array<vendorItem> = reactive([
         ],
       },
       {
+        id: 8,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/Burberry.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Media Only',
             exampleContent: '',
             exampleType: 'video',
@@ -433,6 +488,7 @@ const vendorListMock: Array<vendorItem> = reactive([
               'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/BBY.mp4',
           },
           {
+            id: 2,
             exampleDesc: 'Media Only',
             exampleContent: '',
             exampleType: 'video',
@@ -445,9 +501,8 @@ const vendorListMock: Array<vendorItem> = reactive([
     vendorStatus: '2. Used by Maison',
     vendorDot: 2,
   },
-
   {
-    id: 2,
+    id: 3,
     logoSrc:
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/ICC%20Logo.png',
     vendorName: 'iCC Grow',
@@ -491,27 +546,32 @@ Accounts with AI functionalities: $2500 per account per year; (includes 6000 mon
 Corpus cleaning: fees are determined based on the clarity difficulty and scale of the database: A one-time base fee of ¥30,000 RMB, with a monthly corpus cleaning fee quote of ¥25,000 RMB."`,
     priceModelCard: [
       {
+        id: 1,
         title: 'Host',
         src: '/images/icon/hosting.svg',
         list: ['Cloud Provider'],
       },
       {
+        id: 2,
         title: 'Integration',
         src: '/images/icon/integration.svg',
         list: ['Back End Integration (API)'],
       },
       {
+        id: 3,
         title: 'Mobile Integration',
         src: '/images/icon/mobileintegration.svg',
         list: ['API'],
       },
       {
+        id: 4,
         // title: "PIPL (Personal Information Protection Law)",
         title: 'PIPL',
         src: '/images/icon/PIPL.svg',
         list: ['Basic'],
       },
       {
+        id: 5,
         // title: "MLPS (Multi-Level Protection Scheme)",
         title: 'MLPS',
         src: '/images/icon/MPLS.svg',
@@ -520,6 +580,7 @@ Corpus cleaning: fees are determined based on the clarity difficulty and scale o
     ],
     featureDemo: [
       {
+        id: 1,
         type: 'video',
         desc: '',
         src: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Featured%20Demo%20and%20%20Maison%20Cases_iCC.mp4',
@@ -538,10 +599,12 @@ Corpus cleaning: fees are determined based on the clarity difficulty and scale o
     ],
     serviceBrandProjects: [
       {
+        id: 1,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/lv-logo-noir-ok.png',
         isCommingSoon: false,
         example: [
           {
+            id: 1,
             exampleDesc: 'Media Only',
             exampleContent: '',
             exampleType: 'video',
@@ -551,34 +614,42 @@ Corpus cleaning: fees are determined based on the clarity difficulty and scale o
         ],
       },
       {
+        id: 2,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/macdonald.png',
         isCommingSoon: true,
       },
       {
+        id: 3,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/burgerKing.png',
         isCommingSoon: true,
       },
       {
+        id: 4,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/subway.png',
         isCommingSoon: true,
       },
       {
+        id: 5,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/staccato.png',
         isCommingSoon: true,
       },
       {
+        id: 6,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/LOCCITANE.png',
         isCommingSoon: true,
       },
       {
+        id: 7,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/starbucks.png',
         isCommingSoon: true,
       },
       {
+        id: 8,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/anta.png',
         isCommingSoon: true,
       },
       {
+        id: 9,
         logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/shell.png',
         isCommingSoon: true,
       },
@@ -590,102 +661,124 @@ Corpus cleaning: fees are determined based on the clarity difficulty and scale o
 
 const filterListMock = reactive([
   {
+    id: 1,
     MenuTitle: 'category',
     selectedCount: 0,
     isShow: false,
     menuItemList: [
       {
+        id: 1,
         desc: 'Customization & Personalization (4)',
         isChoosed: false,
         type: 'category',
       },
-      { desc: 'Customer Service (2)', isChoosed: false, type: 'category' },
       {
+        id: 2,
+        desc: 'Customer Service (2)',
+        isChoosed: false,
+        type: 'category',
+      },
+      {
+        id: 3,
         desc: 'In-store Interactive Experience (2)',
         isChoosed: false,
         type: 'category',
       },
-      { desc: 'Metaverse (4)', isChoosed: false, type: 'category' },
-      { desc: 'Product Discovery (1)', isChoosed: false, type: 'category' },
+      { id: 4, desc: 'Metaverse (4)', isChoosed: false, type: 'category' },
+      {
+        id: 5,
+        desc: 'Product Discovery (1)',
+        isChoosed: false,
+        type: 'category',
+      },
     ],
   },
   {
+    id: 2,
     MenuTitle: 'TECHNOLOGY',
     selectedCount: 0,
     isShow: false,
     menuItemList: [
-      { desc: 'AI', isChoosed: false, type: 'tags' },
-      { desc: 'AIGC', isChoosed: false, type: 'tags' },
-      { desc: 'ML', isChoosed: false, type: 'tags' },
-      { desc: 'NLP', isChoosed: false, type: 'tags' },
-      { desc: 'Computer Vision', isChoosed: false, type: 'tags' },
-      { desc: 'InteractiveHardware', isChoosed: false, type: 'tags' },
-      { desc: 'Screen', isChoosed: false, type: 'tags' },
-      { desc: 'Sensor', isChoosed: false, type: 'tags' },
-      { desc: 'Screen', isChoosed: false, type: 'tags' },
-      { desc: 'HardwareDevices', isChoosed: false, type: 'tags' },
-      { desc: 'Web3', isChoosed: false, type: 'tags' },
-      { desc: 'VR', isChoosed: false, type: 'tags' },
-      { desc: 'AR', isChoosed: false, type: 'tags' },
-      { desc: 'Blockchain', isChoosed: false, type: 'tags' },
-      { desc: '3D', isChoosed: false, type: 'tags' },
+      { id: 1, desc: 'AI', isChoosed: false, type: 'tags' },
+      { id: 2, desc: 'AIGC', isChoosed: false, type: 'tags' },
+      { id: 3, desc: 'ML', isChoosed: false, type: 'tags' },
+      { id: 4, desc: 'NLP', isChoosed: false, type: 'tags' },
+      { id: 5, desc: 'Computer Vision', isChoosed: false, type: 'tags' },
+      { id: 6, desc: 'InteractiveHardware', isChoosed: false, type: 'tags' },
+      { id: 7, desc: 'Screen', isChoosed: false, type: 'tags' },
+      { id: 8, desc: 'Sensor', isChoosed: false, type: 'tags' },
+      { id: 9, desc: 'Screen', isChoosed: false, type: 'tags' },
+      { id: 10, desc: 'HardwareDevices', isChoosed: false, type: 'tags' },
+      { id: 11, desc: 'Web3', isChoosed: false, type: 'tags' },
+      { id: 12, desc: 'VR', isChoosed: false, type: 'tags' },
+      { id: 13, desc: 'AR', isChoosed: false, type: 'tags' },
+      { id: 14, desc: 'Blockchain', isChoosed: false, type: 'tags' },
+      { id: 15, desc: '3D', isChoosed: false, type: 'tags' },
     ],
   },
   {
+    id: 3,
     MenuTitle: 'APPLICATION',
     selectedCount: 0,
     isShow: false,
     menuItemList: [
-      { desc: 'VirualExhibition/Pop-up', isChoosed: false, type: 'tags' },
-      { desc: 'VirtualStore', isChoosed: false, type: 'tags' },
-      { desc: '3DDisplay', isChoosed: false, type: 'tags' },
-      { desc: 'Gamification', isChoosed: false, type: 'tags' },
-      { desc: 'VirtualTry-on', isChoosed: false, type: 'tags' },
-      { desc: 'SizeMeasurement', isChoosed: false, type: 'tags' },
-      { desc: 'ContentAggregation', isChoosed: false, type: 'tags' },
-      { desc: 'PersonalRecommendation', isChoosed: false, type: 'tags' },
-      { desc: 'Gifting', isChoosed: false, type: 'tags' },
-      { desc: 'DigitalMessages', isChoosed: false, type: 'tags' },
-      { desc: 'NFT', isChoosed: false, type: 'tags' },
+      {
+        id: 1,
+        desc: 'VirualExhibition/Pop-up',
+        isChoosed: false,
+        type: 'tags',
+      },
+      { id: 2, desc: 'VirtualStore', isChoosed: false, type: 'tags' },
+      { id: 3, desc: '3DDisplay', isChoosed: false, type: 'tags' },
+      { id: 4, desc: 'Gamification', isChoosed: false, type: 'tags' },
+      { id: 5, desc: 'VirtualTry-on', isChoosed: false, type: 'tags' },
+      { id: 6, desc: 'SizeMeasurement', isChoosed: false, type: 'tags' },
+      { id: 7, desc: 'ContentAggregation', isChoosed: false, type: 'tags' },
+      { id: 8, desc: 'PersonalRecommendation', isChoosed: false, type: 'tags' },
+      { id: 9, desc: 'Gifting', isChoosed: false, type: 'tags' },
+      { id: 10, desc: 'DigitalMessages', isChoosed: false, type: 'tags' },
+      { id: 11, desc: 'NFT', isChoosed: false, type: 'tags' },
     ],
   },
   {
+    id: 4,
     MenuTitle: 'CHANNEL',
     selectedCount: 0,
     isShow: false,
     menuItemList: [
-      { desc: 'Online', isChoosed: false, type: 'tags' },
-      { desc: 'Retail', isChoosed: false, type: 'tags' },
-      { desc: 'Omnichannel', isChoosed: false, type: 'tags' },
+      { id: 1, desc: 'Online', isChoosed: false, type: 'tags' },
+      { id: 2, desc: 'Retail', isChoosed: false, type: 'tags' },
+      { id: 3, desc: 'Omnichannel', isChoosed: false, type: 'tags' },
     ],
   },
   {
+    id: 5,
     MenuTitle: 'PLATFORM',
     selectedCount: 0,
     isShow: false,
     menuItemList: [
-      { desc: 'Wechat', isChoosed: false, type: 'tags' },
-      { desc: 'Wecom', isChoosed: false, type: 'tags' },
-      { desc: 'Taobao', isChoosed: false, type: 'tags' },
-      { desc: 'Tmall', isChoosed: false, type: 'tags' },
-      { desc: 'JD', isChoosed: false, type: 'tags' },
-      { desc: 'Douyin', isChoosed: false, type: 'tags' },
-      { desc: 'Kuaishou', isChoosed: false, type: 'tags' },
-      { desc: 'H5', isChoosed: false, type: 'tags' },
-      { desc: 'Weibo', isChoosed: false, type: 'tags' },
-      { desc: 'RED', isChoosed: false, type: 'tags' },
+      { id: 1, desc: 'Wechat', isChoosed: false, type: 'tags' },
+      { id: 2, desc: 'Wecom', isChoosed: false, type: 'tags' },
+      { id: 3, desc: 'Taobao', isChoosed: false, type: 'tags' },
+      { id: 4, desc: 'Tmall', isChoosed: false, type: 'tags' },
+      { id: 5, desc: 'JD', isChoosed: false, type: 'tags' },
+      { id: 6, desc: 'Douyin', isChoosed: false, type: 'tags' },
+      { id: 7, desc: 'Kuaishou', isChoosed: false, type: 'tags' },
+      { id: 8, desc: 'H5', isChoosed: false, type: 'tags' },
+      { id: 9, desc: 'Weibo', isChoosed: false, type: 'tags' },
+      { id: 10, desc: 'RED', isChoosed: false, type: 'tags' },
     ],
   },
-
   {
+    id: 6,
     MenuTitle: 'STATUS',
     selectedCount: 0,
     isShow: false,
     menuItemList: [
-      { desc: 'LVMH Programs', isChoosed: false, type: 'status' },
-      { desc: 'Used by Maison', isChoosed: false, type: 'status' },
-      { desc: 'LVMH recommended', isChoosed: false, type: 'status' },
-      { desc: 'Blueprint', isChoosed: false, type: 'status' },
+      { id: 1, desc: 'LVMH Programs', isChoosed: false, type: 'status' },
+      { id: 2, desc: 'Used by Maison', isChoosed: false, type: 'status' },
+      { id: 3, desc: 'LVMH recommended', isChoosed: false, type: 'status' },
+      { id: 4, desc: 'Blueprint', isChoosed: false, type: 'status' },
     ],
   },
 ])

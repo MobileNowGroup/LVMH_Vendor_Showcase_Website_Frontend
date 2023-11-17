@@ -1,35 +1,51 @@
 <script setup lang="ts">
-import { onMounted, computed, ref, reactive } from "vue";
-import { isMobile, setVideoPosterFn } from "@/util/common";
-import { useRouter, useRoute } from "vue-router";
-import projectSlide from "@/components/ProjectSlideComponent.vue";
+import { onMounted, onUpdated, ref, reactive } from 'vue'
+import { isMobile, setVideoPosterFn } from '@/util/common'
+import { useRouter, useRoute } from 'vue-router'
+import { commonStore } from '@/stores/authStore'
+import mockData from '../util/mockData'
+import projectSlide from '@/components/ProjectSlideComponent.vue'
 
-let demoLink = ref("ddddd"); // demolink的地址
+let demoLink = ref('ddddd') // demolink的地址
 
-const $route = useRoute();
-const $router = useRouter();
-const projectDemoData = JSON.parse($route.query.data as string);
+const $route = useRoute()
+const $router = useRouter()
+const store = commonStore()
+const cardId = $route.query.cardId
+
+const cardItem = mockData.vendorListMock.filter(cardItem => {
+  return cardItem.id == Number(cardId)
+})
+const brandItem = JSON.parse(JSON.stringify(cardItem[0]))
+const projectDemoDatas = brandItem.serviceBrandProjects.filter(
+  (brandItem: any) => {
+    return brandItem.id == Number($route.query.brandId)
+  }
+) //JSON.parse($route.query.brandId as string)
+const projectObj = JSON.parse(JSON.stringify(projectDemoDatas[0]))
+const projectDemoData = projectObj.example
 const projectSlideData = projectDemoData.filter((item: any, index: number) => {
-  return item.exampleType == "Link Only";
-});
-console.log(projectDemoData, projectSlideData);
+  return item.exampleType == 'video'
+})
 
 onMounted(() => {
+  console.log('________onUpdated', projectObj.logo)
+  store.setDemoUrl(projectObj.logo)
   // carousel on init
-  const frameZones = Array.from(document.querySelectorAll(".show-list"));
+  const frameZones = Array.from(document.querySelectorAll('.show-list'))
   for (let i = 0; i < frameZones.length; i++) {
-    frameZones[i].children[0].className = "show-item show-item-active";
+    frameZones[i].children[0].className = 'show-item show-item-active'
   }
-});
-
+})
+onUpdated(() => {})
 /**demolink 点击事件 */
 const clickNothing = function (src: any) {
-  window.open(src);
-};
+  window.open(src)
+}
 </script>
 
 <template>
-  <main :class="{ hasdeco: true }">
+  <main :class="{ hasdeco: true }" style="background: white">
     <div class="bg-white pb-[10rem] lg:mx-0 mx-4">
       <div
         v-for="(projectDemo, projectDemoIndex) of projectDemoData"
@@ -41,9 +57,13 @@ const clickNothing = function (src: any) {
               <div
                 class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
               ></div>
-              <span class="block flex-none"
-                >project {{ projectDemoIndex + 1 }}</span
-              >
+              <span class="block flex-none">
+                {{
+                  projectDemo.exampleContent
+                    ? projectDemo.exampleContent
+                    : `project${projectDemoIndex + 1}`
+                }}
+              </span>
               <div
                 class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
               ></div>
@@ -64,7 +84,8 @@ const clickNothing = function (src: any) {
             class="demo-button"
             @click="clickNothing(projectDemo.exampleSrc)"
           >
-            <img src="/images/icon/button_link.svg" alt="" /> Demo link
+            <img src="/images/icon/button_link.svg" alt="" />
+            Demo link
           </button>
         </div>
         <div v-else class="demo-box">
@@ -73,7 +94,8 @@ const clickNothing = function (src: any) {
             class="demo-button"
             @click="clickNothing(projectDemo.exampleSrc)"
           >
-            <img src="/images/icon/button_link.svg" alt="" /> Demo link
+            <img src="/images/icon/button_link.svg" alt="" />
+            Demo link
           </button>
         </div>
         <!-- <video autoplay src="https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4"></video> -->
@@ -197,7 +219,7 @@ const clickNothing = function (src: any) {
 }
 .demo {
   &-box {
-    margin-top:2rem;
+    margin-top: 2rem;
     text-align: center;
   }
   &-link {
