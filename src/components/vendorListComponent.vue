@@ -1,14 +1,14 @@
 <script setup lang="ts" name="vendorListComponent">
-import { useRouter } from "vue-router";
-import type vendorItem from "@/model/vendor.model";
+import { useRouter } from 'vue-router'
+import type vendorItem from '@/model/vendor.model'
 // props传值，非ts写法，ts写法后面后面的完整代码有，具体看后面的代码
 
 const props = defineProps({
   vendorListArray: Array<vendorItem>,
-});
-const emit = defineEmits(["change", "delete"]);
+})
+const emit = defineEmits(['change', 'delete'])
 
-const $router = useRouter();
+const $router = useRouter()
 </script>
 
 <template>
@@ -21,9 +21,9 @@ const $router = useRouter();
       <router-link :to="`/vendordetail?id=${vendor.id}`">
         <div class="vendor-head">
           <div class="vendor-logo">
-            <img  :src="vendor.logoSrc" alt="" />
+            <img :src="vendor.logoSrc" alt="" />
           </div>
-         
+
           <div>
             <p class="vendor-name">
               {{ vendor.vendorShortName }}
@@ -45,9 +45,12 @@ const $router = useRouter();
             {{ vendor.vendorName }}
           </p> -->
             <span class="vendor-category">{{ vendor.vendorCategory }}</span>
-            <span class="vendor-category-num"
-              >+{{ vendor.vendorCategoryNum }}</span
+            <span
+              class="vendor-category-num"
+              v-show="1 < parseInt(vendor.vendorCategoryNum.toString())"
             >
+              +{{ vendor.vendorCategoryNum }}
+            </span>
           </div>
         </div>
         <div class="vendor-main">
@@ -57,8 +60,9 @@ const $router = useRouter();
               class="vendor-tag"
               v-for="(tag, tagIndex) of vendor.vendorTags"
               :key="tagIndex"
-              >{{ tag }}</span
             >
+              {{ tag }}
+            </span>
           </p>
         </div>
         <div class="vendor-foot">
@@ -107,8 +111,8 @@ const $router = useRouter();
     background: #fff;
     display: flex;
     align-items: center;
-    img{
-      width:3.3rem;
+    img {
+      width: 3.3rem;
       height: 3.3rem;
       margin: auto;
     }
@@ -121,7 +125,7 @@ const $router = useRouter();
     font-weight: 800;
     line-height: normal;
     text-transform: uppercase;
-    @include ellipsisLn(1)
+    @include ellipsisLn(1);
   }
   &-category {
     color: #ecf0fa;

@@ -1,106 +1,106 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "vue";
-import mockData from "../util/mockData";
-import { useRouter } from "vue-router";
-import { isMobile, openLink, setVideoPosterFn } from "@/util/common";
+import { onMounted, reactive, ref } from 'vue'
+import mockData from '../util/mockData'
+import { useRouter } from 'vue-router'
+import { isMobile, openLink, setVideoPosterFn } from '@/util/common'
 
-const $router = useRouter();
-const vendor = ref({} as any);
-const length = ref(0); // slide 长度
-const isMobileAgent = ref(isMobile());
+const $router = useRouter()
+const vendor = ref({} as any)
+const length = ref(0) // slide 长度
+const isMobileAgent = ref(isMobile())
 
 onMounted(() => {
   // 进入页面给默认数据
   mockData.vendorListMock.forEach((element, elementINdex) => {
     if (element.id === Number($router.currentRoute.value.query.id)) {
-      vendor.value = element;
+      vendor.value = element
     }
-  });
+  })
 
-  length.value = vendor.value.serviceBrandLogos.length;
+  length.value = vendor.value.serviceBrandLogos.length
   console.log(
     vendor.value.serviceBrandLogos instanceof Array,
     vendor.value.serviceBrandLogos.length
-  );
+  )
   // 监听slidelist滚动距离计算下面scrllbar的滚动距离且只在移动端生效
   if (isMobileAgent.value) {
-    slideListNode.value.addEventListener("scroll", (e: any) => {
-      scrollThumbNode.value.style.marginLeft = e.target.scrollLeft / 5 + "px";
-    });
+    slideListNode.value.addEventListener('scroll', (e: any) => {
+      scrollThumbNode.value.style.marginLeft = e.target.scrollLeft / 5 + 'px'
+    })
   }
-});
+})
 
-let slideListNode = ref();
-let scrollThumbNode = ref();
-let count = ref(0);
+let slideListNode = ref()
+let scrollThumbNode = ref()
+let count = ref(0)
 
-const sendEmailText = ref("REQUEST");
-let sendEmailVisable = ref(false);
+const sendEmailText = ref('REQUEST')
+let sendEmailVisable = ref(false)
 // 发送邮件
 const sendEmail = () => {
-  sendEmailText.value = "Please wait...";
+  sendEmailText.value = 'Please wait...'
   setTimeout(() => {
-    sendEmailVisable.value = true;
-    sendEmailText.value = "REQUESTED";
-  }, 2000);
-};
+    sendEmailVisable.value = true
+    sendEmailText.value = 'REQUESTED'
+  }, 2000)
+}
 
 const gotoDemo = (serviceBrands: any) => {
   if (!serviceBrands.isCommingSoon) {
-    const data = JSON.stringify(serviceBrands.example);
+    const data = JSON.stringify(serviceBrands.example)
     $router.push({
-      name: "projectdemo",
+      name: 'projectdemo',
       query: { data },
-    });
+    })
   }
-};
+}
 
-import { Swiper, SwiperSlide } from "swiper/vue"; // swiper所需组件
-import { Navigation, Pagination, Grid } from "swiper/modules";
-import "swiper/css"; // 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { json } from "stream/consumers";
-const modules = ref([Navigation, Pagination, Grid]); // setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
+import { Swiper, SwiperSlide } from 'swiper/vue' // swiper所需组件
+import { Navigation, Pagination, Grid } from 'swiper/modules'
+import 'swiper/css' // 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import { json } from 'stream/consumers'
+const modules = ref([Navigation, Pagination, Grid]) // setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
 const navigation = ref({
-  nextEl: ".button-next",
-  prevEl: ".button-prev",
-});
+  nextEl: '.button-next',
+  prevEl: '.button-prev',
+})
 
-let swipers: any = null;
+let swipers: any = null
 // 初始化swiper
 const onSwiper = (swiper: any) => {
-  swipers = swiper;
-};
+  swipers = swiper
+}
 
 const prevEl = () => {
   if (count.value > 0) {
-    slideListNode.value.scrollLeft = --count.value * 100;
-    scrollThumbNode.value.style.marginLeft = 5 * count.value + "px";
+    slideListNode.value.scrollLeft = --count.value * 100
+    scrollThumbNode.value.style.marginLeft = 5 * count.value + 'px'
   }
-  swipers.slidePrev();
-};
+  swipers.slidePrev()
+}
 const nextEl = () => {
   if (count.value <= length.value - 3) {
-    slideListNode.value.scrollLeft = count.value++ * 100;
-    scrollThumbNode.value.style.marginLeft = 5 * count.value + "px";
+    slideListNode.value.scrollLeft = count.value++ * 100
+    scrollThumbNode.value.style.marginLeft = 5 * count.value + 'px'
   }
-  swipers.slideNext();
-};
+  swipers.slideNext()
+}
 
 const touchmoves = (swiper: any) => {
-  console.log(swiper, swipers.getTranslate());
+  console.log(swiper, swipers.getTranslate())
   if (swiper.translate < 0) {
     scrollThumbNode.value.style.marginLeft =
-      (Math.abs(swiper.translate - 30) / 1300) * 30 + "px";
+      (Math.abs(swiper.translate - 30) / 1300) * 30 + 'px'
     if (isMobileAgent) {
       scrollThumbNode.value.style.marginLeft =
-        (Math.abs(swiper.translate - 30) / 1270) * 60 + "px";
+        (Math.abs(swiper.translate - 30) / 1270) * 60 + 'px'
     }
-    return;
+    return
   }
-  scrollThumbNode.value.style.marginLeft = "0px";
-};
+  scrollThumbNode.value.style.marginLeft = '0px'
+}
 </script>
 
 <template>
@@ -110,14 +110,16 @@ const touchmoves = (swiper: any) => {
         <div class="vendor-box-in h-[41rem]">
           <h2 class="vendor-name">{{ vendor.vendorName }}</h2>
           <p class="vendor-category">
-            <span class="vendor-title">Category: </span
-            >{{ vendor.vendorCategory }}
+            <span class="vendor-title">Category:</span>
+            {{ vendor.vendorCategory }}
           </p>
           <p class="vendor-found">
-            <span class="vendor-title">Founded: </span>{{ vendor.brandFounded }}
+            <span class="vendor-title">Founded:</span>
+            {{ vendor.brandFounded }}
           </p>
           <p class="vendor-time">
-            <span class="vendor-title">Lead Time: </span>{{ vendor.leadTime }}
+            <span class="vendor-title">Lead Time:</span>
+            {{ vendor.leadTime }}
           </p>
           <p class="vendor-tag">
             <span v-for="(tag, tagIndex) of vendor.vendorTags" :key="tagIndex">
@@ -125,8 +127,8 @@ const touchmoves = (swiper: any) => {
             </span>
           </p>
           <p class="vendor-intro">
-            <span class="vendor-title">Introduction: </span
-            >{{ vendor.vendorBrief }}
+            <span class="vendor-title">Introduction:</span>
+            {{ vendor.vendorBrief }}
           </p>
         </div>
       </div>
@@ -147,7 +149,7 @@ const touchmoves = (swiper: any) => {
               <div
                 class="h-[1px] flex-1 bg-[#ECF0FA] lg:mr-[24px] mr-[16px]"
               ></div>
-              <span class="block flex-none"> Service Brands</span>
+              <span class="block flex-none">Service Brands</span>
               <div
                 class="h-[1px] flex-1 bg-[#ECF0FA] lg:ml-[24px] ml-[16px]"
               ></div>
@@ -168,7 +170,7 @@ const touchmoves = (swiper: any) => {
               @swiper="onSwiper"
               @touchMove="touchmoves"
             >
-              <template> </template>
+              <template></template>
               <swiper-slide
                 class=""
                 v-for="(slide, slideIndex) of vendor.serviceBrandLogos"
@@ -334,7 +336,8 @@ const touchmoves = (swiper: any) => {
           <div v-else-if="item.type === 'link'">
             <p class="content-feature-desc">Click the link to view demo</p>
             <button class="content-feature-button" @click="openLink(item.src)">
-              <img :src="item.src" alt="" /> Demo link
+              <img :src="item.src" alt="" />
+              Demo link
             </button>
           </div>
           <div v-else>
@@ -388,15 +391,17 @@ const touchmoves = (swiper: any) => {
               class="content-desc content-service-desc"
               :class="{ 'is-comming-soon': serviceBrands.isCommingSoon }"
               href=""
-              >{{ serviceBrands.isCommingSoon ? "comming soon" : "demo" }}</a
             >
+              {{ serviceBrands.isCommingSoon ? 'comming soon' : 'demo' }}
+            </a>
           </div>
         </div>
       </div>
     </div>
     <div class="content-bottom">
       <h2 v-if="isMobileAgent">
-        Let’s get in touch <br />
+        Let’s get in touch
+        <br />
         with an awesome team
       </h2>
       <h2 v-else>Let’s get in touch with an awesome team</h2>
@@ -429,12 +434,12 @@ const touchmoves = (swiper: any) => {
   max-width: 100vw;
   height: 36rem;
   padding-top: 6rem;
-  background: url("/images/detail_top_bg.png");
+  background: url('/images/detail_top_bg.png');
   display: flex;
   justify-content: space-between;
 }
 .top_mobile {
-  background: url("/images/PDP-bg@2x.jpg");
+  background: url('/images/PDP-bg@2x.jpg');
   background-size: 100%;
 }
 .vendor {
@@ -689,7 +694,7 @@ const touchmoves = (swiper: any) => {
     &-left {
       width: 43.2rem;
       height: 33rem;
-      background: url("/images/Media.jpg");
+      background: url('/images/Media.jpg');
       background-size: 100%;
       padding: 4rem;
       text-align: left;
@@ -780,7 +785,7 @@ const touchmoves = (swiper: any) => {
       width: 93rem;
       height: 52.3rem;
       margin: 0 auto;
-      background: url("/images/2978edfd8198672cbedd2d62ad446d607daa1856f2fb92e6dda9544a274ef680.png");
+      background: url('/images/2978edfd8198672cbedd2d62ad446d607daa1856f2fb92e6dda9544a274ef680.png');
       display: flex;
       align-items: center;
       justify-content: center;

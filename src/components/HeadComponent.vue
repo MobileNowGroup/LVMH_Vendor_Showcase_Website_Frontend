@@ -6,214 +6,234 @@ import {
   reactive,
   ref,
   watch,
-} from "vue";
-import { useRoute, useRouter } from "vue-router";
-import mockData from "../util/mockData";
-import { throttle } from "@/util/common";
-
-const filterNumber = ref(0);
-let searchVisibale = ref(false); // searchbox是否展示
-let searchValue = ref(""); // 需要search 的数据
-let filterVisibale = ref(false); // filterbox是否展示
-let filterVisibaleBg = ref(false); // filterbox background
-const filterList = mockData.filterListMock; // filter数据
-const filterShow = ref(true); // 是否展示filter
-let decoVisiable = ref(false); // 是否展示顶部装饰文本
-let decoText = ref("Agency Listing"); // 顶部装饰文本内容
-const $route = useRoute(); // router 路由信息
-const $router = useRouter(); // router 路由操作
-const headerDom = ref();
-const decoShowArray = ["/vendordetail", "/policy"]; // 不展示agency listing 的页面
-decoVisiable.value = decoShowArray.every((item) => {
-  return item !== $route.path;
-});
+} from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import mockData from '../util/mockData'
+import { throttle } from '@/util/common'
+import { match } from 'assert'
+const filterNumber = ref(0)
+let searchVisibale = ref(false) // searchbox是否展示
+let searchValue = ref('') // 需要search 的数据
+let filterVisibale = ref(false) // filterbox是否展示
+let filterVisibaleBg = ref(false) // filterbox background
+const filterList = mockData.filterListMock // filter数据
+const filterShow = ref(true) // 是否展示filter
+let decoVisiable = ref(false) // 是否展示顶部装饰文本
+let decoText = ref('Agency Listing') // 顶部装饰文本内容
+const $route = useRoute() // router 路由信息
+const $router = useRouter() // router 路由操作
+const headerDom = ref()
+const decoShowArray = ['/vendordetail', '/policy'] // 不展示agency listing 的页面
+decoVisiable.value = decoShowArray.every(item => {
+  return item !== $route.path
+})
 // header背景色
-const shutDownComponent = ref(true);
+const shutDownComponent = ref(true)
 
 onMounted(() => {
-
   if (window) {
-    window.addEventListener("scroll", _onPageScroll);
+    window.addEventListener('scroll', _onPageScroll)
   }
   // 启用filter功能
-  filterShow.value = $route.path !== "/vendordetail";
+  filterShow.value = $route.path !== '/vendordetail'
 
   // 监听路由匹配不同header背景色
-  headerbg();
+  headerbg()
   // else {
   // (headerDom.value as any).setAttribute(
   //   "style",
   //   "background: rgba(255,255,255,0)",
   // );
   // }
-});
+})
 
 const headerbg = () => {
   switch ($route.path) {
-    case "/vendorlisting":
-      headerDom.value.className = "header z-10 headbg_07";
-      break;
-    case "/vendordetail":
-      headerDom.value.className = "header z-10 headbg_10";
-      break;
-    case "/projectdemo":
-      headerDom.value.className = "header z-10 headbg_0 headbg_image";
-      break;
+    case '/vendorlisting':
+      headerDom.value.className = 'header z-10 headbg_07'
+      break
+    case '/vendordetail':
+      headerDom.value.className = 'header z-10 headbg_10'
+      break
+    case '/projectdemo':
+      headerDom.value.className = 'header z-10 headbg_0 headbg_image'
+      break
     default:
-      headerDom.value.className = "header z-10 headbg_10";
-      break;
+      headerDom.value.className = 'header z-10 headbg_10'
+      break
   }
-};
+}
 
 watch(
   () => $router.currentRoute.value.path,
   (newPath, oldPath) => {
     //  监听路由变化，动态添加header下面的装饰文本
-    decoVisiable.value = decoShowArray.every((item) => {
-      if (item === "/projectdemo") {
-        decoText.value = "qi ta ming zi";
+    decoVisiable.value = decoShowArray.every(item => {
+      if (item === '/projectdemo') {
+        decoText.value = 'qi ta ming zi'
       }
-      if (item === "/vendordetail") {
+      if (item === '/vendordetail') {
         // 绕过agencylisting 动画直接强制关闭这个组件
-        shutDownComponent.value = false;
+        shutDownComponent.value = false
       } else {
-        shutDownComponent.value = true;
+        shutDownComponent.value = true
       }
-      return item !== newPath;
-    });
+      return item !== newPath
+    })
     // 在这两个页面不显示filter功能
-    filterShow.value = ["/vendordetail", "/projectdemo"].every((item) => {
-      return newPath !== item;
-    });
+    filterShow.value = ['/vendordetail', '/projectdemo'].every(item => {
+      return newPath !== item
+    })
     // 强制每个页面初始化的时候滚动条在最上部
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
 
     // 监听路由匹配不同header背景色
     setTimeout(() => {
-      headerbg();
-    });
+      headerbg()
+    })
   },
   { immediate: true }
-);
+)
 
-onBeforeUpdate(() => {});
-
+onBeforeUpdate(() => {})
 /** 打开searc或者filter */
 const openBox = (e: any, openType: string) => {
-  headerDom.value.className = "header z-10 headbg_10";
-  if (openType === "search") {
-    searchVisibale.value = true;
-    filterVisibale.value = false;
+  headerDom.value.className = 'header z-10 headbg_10'
+  if (openType === 'search') {
+    searchVisibale.value = true
+    filterVisibale.value = false
   } else {
-    filterVisibale.value = true;
-    searchVisibale.value = false;
-    filterVisibaleBg.value = true; // bg 展示
+    filterVisibale.value = true
+    searchVisibale.value = false
+    filterVisibaleBg.value = true // bg 展示
   }
-};
+}
 /** 关闭searc或者filter */
 const closeBox = (e: any, closeType: any) => {
-  headerbg();
+  headerbg()
   // 点击关闭searchbox
-  if (e) e.cancelBubble = true;
+  if (e) e.cancelBubble = true
   // 获取滚动高度
   const scrollTop =
     window.pageYOffset ||
     document.documentElement.scrollTop ||
-    document.body.scrollTop;
+    document.body.scrollTop
   if (scrollTop > 0) {
-    headerDom.value.className = "header z-10 headbg_10";
+    headerDom.value.className = 'header z-10 headbg_10'
   }
   // e.stopPropagation()
   // e.preventDefault()
-  if (closeType === "search") {
-    searchVisibale.value = false;
+  if (closeType === 'search') {
+    searchVisibale.value = false
   } else {
-    filterNumber.value = 0;
+    filterNumber.value = 0
     filterList.forEach((menu, menuIndex) => {
-      filterNumber.value += menu.selectedCount;
-    });
-    filterVisibale.value = false;
+      filterNumber.value += menu.selectedCount
+    })
+    filterVisibale.value = false
     setTimeout(() => {
-      filterVisibaleBg.value = false;
-    }, 250);
+      filterVisibaleBg.value = false
+    }, 250)
   }
   // console.log('关闭',filterVisibale.value)
-  return false;
-};
+  return false
+}
 /**清空所有filter */
 const clearFilter = () => {
   filterList.forEach((menu, menindex) => {
     // 清空所有category num
-    menu.selectedCount = 0;
+    menu.selectedCount = 0
     // 清空filter总数量
-    filterNumber.value = 0;
+    filterNumber.value = 0
     // 所有menuitem选中状态清空
-    menu.menuItemList.forEach((menuItem) => {
-      menuItem.isChoosed = false;
-    });
-  });
-  applyshowcolor();
-};
+    menu.menuItemList.forEach(menuItem => {
+      menuItem.isChoosed = false
+    })
+  })
+  applyshowcolor()
+  if ($router.currentRoute.value.path === '/search') {
+    searchValue.value = ''
+    // 执行filter逻辑,进入search页面
+    $router.push({
+      name: 'search',
+      query: {
+        searchType: 'clear',
+        update: Math.random(),
+      },
+    })
+  }
+}
 /** 根据filter查询结果 */
 const searchResult = (e: any, searchType: string) => {
   // 点击查询结果
-  // console.log(searchType);
-  if (searchType === "search") {
+  if (searchType === 'search') {
+    filterList.forEach((menu, menindex) => {
+      // 清空所有category num
+      menu.selectedCount = 0
+      // 清空filter总数量
+      filterNumber.value = 0
+      // 所有menuitem选中状态清空
+      menu.menuItemList.forEach(menuItem => {
+        menuItem.isChoosed = false
+      })
+    })
+    applyshowcolor()
     // 执行search逻辑,进入search页面
     $router.push({
-      name: "search",
+      name: 'search',
       query: {
-        searchType: "search",
+        searchType: 'search',
         queryParam: searchValue.value,
+        update: Math.random(),
       },
-    });
-
+    })
   } else {
+    searchValue.value = ''
     // 执行filter逻辑,进入search页面
     $router.push({
-      name: "search",
+      name: 'search',
       query: {
-        searchType: "filter",
+        searchType: 'filter',
+        update: Math.random(),
       },
-    });
-
+    })
   }
-};
+}
 
 /** 页面滚动 */
 const _onPageScroll = () => {
   const scrollTop =
     window.pageYOffset ||
     document.documentElement.scrollTop ||
-    document.body.scrollTop;
+    document.body.scrollTop
 
   if (scrollTop > 0) {
-    decoVisiable.value = false;
+    decoVisiable.value = false
     // 发生滚动时header背景
-    headerDom.value.className = "header z-10 headbg_10 headshadow";
+    headerDom.value.className = 'header z-10 headbg_10 headshadow'
   } else {
     // 监听路由匹配不同header背景色
-    headerbg();
-    decoVisiable.value = decoShowArray.every((item) => {
-      return item !== $route.path;
-    });
+    headerbg()
+    decoVisiable.value = decoShowArray.every(item => {
+      return item !== $route.path
+    })
   }
-};
+}
 // 用来控制filter中的apply 按钮样式
-const applyshowcolorVisiable = ref(false);
+const applyshowcolorVisiable = ref(false)
 const applyshowcolor = () => {
   // 判断所有filter中的数据，只要有一个是被选中那么就是true
   applyshowcolorVisiable.value = filterList.some((menu, menindex) => {
-    return menu.menuItemList.some((menuItem) => {
-      return menuItem.isChoosed;
-    });
-  });
-};
+    return menu.menuItemList.some(menuItem => {
+      return menuItem.isChoosed
+    })
+  })
+}
 // 页面销毁
 onUnmounted(() => {
-  window.removeEventListener("scroll", _onPageScroll);
-});
+  window.removeEventListener('scroll', _onPageScroll)
+})
 </script>
 <template>
   <div ref="headerDom" class="header z-10">
@@ -225,8 +245,8 @@ onUnmounted(() => {
           () => {
             $router.push({
               name: 'vendorlisting',
-            });
-            headerbg();
+            })
+            headerbg()
           }
         "
         alt=""
@@ -260,19 +280,19 @@ onUnmounted(() => {
                       placeholder="Search here"
                       v-model="searchValue"
                       @focus="
-                        (e) => {
-                          (e as any).target.previousSibling.setAttribute(
+                        e => {
+                          ;(e as any).target.previousSibling.setAttribute(
                             'src',
                             '/images/icon/search.svg'
-                          );
+                          )
                         }
                       "
                       @blur="
-                        (e) => {
-                          (e as any).target.previousSibling.setAttribute(
+                        e => {
+                          ;(e as any).target.previousSibling.setAttribute(
                             'src',
                             '/images/icon/search_gray.svg'
-                          );
+                          )
                         }
                       "
                     />
@@ -280,7 +300,19 @@ onUnmounted(() => {
                       class="search-clear"
                       @click="
                         () => {
-                          searchValue = '';
+                          searchValue = ''
+                          if ($router.currentRoute.value.path === '/search') {
+                            clearFilter()
+                            // 执行search逻辑,进入search页面
+                            $router.push({
+                              name: 'search',
+                              query: {
+                                searchType: 'clear',
+                                queryParam: searchValue,
+                                update: Math.random(),
+                              },
+                            })
+                          }
                         }
                       "
                       v-show="searchValue"
@@ -306,98 +338,105 @@ onUnmounted(() => {
           v-if="filterShow"
         >
           <img class="filter" src="/images/icon/filter.svg" alt="" />
-          <span> filter({{ filterNumber }}) </span>
+          <span>filter({{ filterNumber }})</span>
           <div class="filter-box" v-show="filterVisibaleBg">
             <Transition
               enter-active-class="animate__animated animate__fadeInRight"
               leave-active-class="animate__animated animate__fadeOutRight"
             >
-              <div class="bg-box" v-show="filterVisibale">
-                <img
-                  class="close-icon"
-                  src="/images/icon/close.svg"
-                  alt=""
+              <div style="width: 100%; height: 100%; display: flex">
+                <div
+                  style="flex: 1; background: none"
                   @click.stop="closeBox($event, 'filter')"
                 />
-                <div class="filter-main">
-                  <div class="inner-box">
-                    <div
-                      class="menu-box"
-                      v-for="(menu, menuIndex) of filterList"
-                      :key="menuIndex"
-                    >
-                      <p
-                        class="menu-title"
-                        @click="
-                          () => {
-                            menu.isShow = !menu.isShow;
-                          }
-                        "
+                <div class="bg-box" v-show="filterVisibale">
+                  <img
+                    class="close-icon"
+                    src="/images/icon/close.svg"
+                    alt=""
+                    @click.stop="closeBox($event, 'filter')"
+                  />
+                  <div class="filter-main">
+                    <div class="inner-box">
+                      <div
+                        class="menu-box"
+                        v-for="(menu, menuIndex) of filterList"
+                        :key="menuIndex"
                       >
-                        <span>
-                          {{ menu.MenuTitle
-                          }}{{
-                            menu.selectedCount > 0
-                              ? ` (${menu.selectedCount})`
-                              : null
-                          }}
-                        </span>
-                        <Transition
-                          enter-active-class="animate__animated animate__rotateIn"
-                          leave-active-class="animate__animated animate__rotateOut"
-                        >
-                          <img
-                            :class="{
-                              'menu-title-show': menu.isShow,
-                              'menu-title-hide': !menu.isShow,
-                            }"
-                            src="/images/icon/arrow.svg"
-                            alt=""
-                          />
-                        </Transition>
-                      </p>
-                      <ul v-show="menu.isShow">
-                        <li
-                          class="menu-item"
-                          v-for="(menuItem, menuItemIndex) of menu.menuItemList"
-                          :key="menuItemIndex"
+                        <p
+                          class="menu-title"
                           @click="
-                            (e) => {
-                              menuItem.isChoosed = !menuItem.isChoosed;
-                              menu.selectedCount = 0;
-
-                              menu.menuItemList.forEach((item) => {
-                                if (item.isChoosed) {
-                                  menu.selectedCount += 1;
-                                }
-                              });
-                              applyshowcolor();
+                            () => {
+                              menu.isShow = !menu.isShow
                             }
                           "
                         >
-                          <div class="flex items-center">
-                            <span
-                              class="inline-block w-[20px] h-[20px] border border-[#A6A8B1] mr-[8px]"
-                              :class="{ checkedBg: menuItem.isChoosed }"
-                            >
-                            </span>
-                            <span>{{ menuItem.desc }}</span>
-                          </div>
-                        </li>
-                      </ul>
+                          <span>
+                            {{ menu.MenuTitle
+                            }}{{
+                              menu.selectedCount > 0
+                                ? ` (${menu.selectedCount})`
+                                : null
+                            }}
+                          </span>
+                          <Transition
+                            enter-active-class="animate__animated animate__rotateIn"
+                            leave-active-class="animate__animated animate__rotateOut"
+                          >
+                            <img
+                              :class="{
+                                'menu-title-show': menu.isShow,
+                                'menu-title-hide': !menu.isShow,
+                              }"
+                              src="/images/icon/arrow.svg"
+                              alt=""
+                            />
+                          </Transition>
+                        </p>
+                        <ul v-show="menu.isShow">
+                          <li
+                            class="menu-item"
+                            v-for="(
+                              menuItem, menuItemIndex
+                            ) of menu.menuItemList"
+                            :key="menuItemIndex"
+                            @click="
+                              e => {
+                                menuItem.isChoosed = !menuItem.isChoosed
+                                menu.selectedCount = 0
+
+                                menu.menuItemList.forEach(item => {
+                                  if (item.isChoosed) {
+                                    menu.selectedCount += 1
+                                  }
+                                })
+                                applyshowcolor()
+                              }
+                            "
+                          >
+                            <div class="flex items-center">
+                              <span
+                                class="inline-block w-[20px] h-[20px] border border-[#A6A8B1] mr-[8px]"
+                                :class="{ checkedBg: menuItem.isChoosed }"
+                              ></span>
+                              <span>{{ menuItem.desc }}</span>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                  <div class="control-box">
-                    <button @click="clearFilter" class="clear">CLEAR</button>
-                    <button
-                      :class="{ hasfilter: applyshowcolorVisiable }"
-                      @click="
-                        searchResult($event, 'filter'),
-                          closeBox($event, 'filter')
-                      "
-                    >
-                      APPLY
-                    </button>
+                    <div class="control-box">
+                      <button @click="clearFilter" class="clear">CLEAR</button>
+                      <button
+                        :class="{ hasfilter: applyshowcolorVisiable }"
+                        @click="
+                          searchResult($event, 'filter'),
+                            closeBox($event, 'filter')
+                        "
+                      >
+                        APPLY
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -415,7 +454,7 @@ onUnmounted(() => {
             src="/images/hennessy.png"
             alt=""
           />
-          <span v-else> {{ decoText }}</span>
+          <span v-else>{{ decoText }}</span>
         </div>
       </Transition>
     </div>
@@ -437,7 +476,7 @@ onUnmounted(() => {
 }
 .headbg_image {
   transition: all 0.5s linear;
-  background: url("/images/page_bg.png") repeat;
+  background: url('/images/page_bg.png') repeat;
 }
 .headshadow {
   box-shadow: 0 1px 0px 0px #2437a026;
@@ -639,7 +678,7 @@ onUnmounted(() => {
         align-items: center;
         margin-bottom: 1.2rem;
         letter-spacing: -0.1px;
-        input[type="checkbox"] {
+        input[type='checkbox'] {
           width: 2rem;
           height: 2rem;
           border-radius: 0;
@@ -653,7 +692,7 @@ onUnmounted(() => {
           width: 20px;
           height: 20px;
           border-color: #20253b;
-          background: url("/images/checkbox.png");
+          background: url('/images/checkbox.png');
           background-size: contain;
         }
       }
@@ -838,8 +877,8 @@ onUnmounted(() => {
           height: 2rem;
           margin-right: 0.8rem;
         }
-        input[type="checkbox"]:checked::after {
-          content: "\2713";
+        input[type='checkbox']:checked::after {
+          content: '\2713';
           display: block;
           cursor: pointer;
           color: #fff;
