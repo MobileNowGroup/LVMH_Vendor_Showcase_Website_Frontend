@@ -1,7 +1,7 @@
 <script setup lang="ts" name="vendorListComponent">
 import { useRouter } from "vue-router";
 import { isMobile, setVideoPosterFn } from "@/util/common";
-import { ref, reactive, defineEmits, defineProps } from "vue";
+import { ref, reactive } from "vue";
 import { onMounted } from "vue";
 
 const isMobileDevice = ref(isMobile());

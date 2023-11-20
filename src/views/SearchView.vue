@@ -4,7 +4,7 @@ import mockData from '../util/mockData'
 import vendorList from '@/components/vendorListComponent.vue'
 import { authStore } from '../stores/authStore'
 import { useRouter, useRoute } from 'vue-router'
-import { AnyARecord } from 'dns'
+// import { AnyARecord } from 'dns'
 let store = authStore()
 let resultCount = ref(0)
 
