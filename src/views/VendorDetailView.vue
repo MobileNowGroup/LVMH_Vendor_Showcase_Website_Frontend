@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, computed, reactive, ref } from 'vue'
 import mockData from '../util/mockData'
 import { useRouter } from 'vue-router'
 import { isMobile, openLink, setVideoPosterFn } from '@/util/common'
@@ -7,8 +7,9 @@ import { isMobile, openLink, setVideoPosterFn } from '@/util/common'
 const $router = useRouter()
 const vendor = ref({} as any)
 const length = ref(0) // slide 长度
+let sumWidth = ref(80)
+let itemWidth = ref(40)
 const isMobileAgent = ref(isMobile())
-
 onMounted(() => {
   // 进入页面给默认数据
   mockData.vendorListMock.forEach((element, elementINdex) => {
@@ -18,10 +19,19 @@ onMounted(() => {
   })
 
   length.value = vendor.value.serviceBrandLogos.length
-  console.log(
-    vendor.value.serviceBrandLogos instanceof Array,
-    vendor.value.serviceBrandLogos.length
-  )
+  itemWidth = computed(() => {
+    //每个item宽度
+    if (length.value < 10) {
+      return 40
+    } else if (length.value < 20) {
+      return 20
+    } else {
+      return 10
+    }
+  })
+  sumWidth = computed(() => {
+    return (length.value - 4) * itemWidth.value
+  })
   // 监听slidelist滚动距离计算下面scrllbar的滚动距离且只在移动端生效
   if (isMobileAgent.value) {
     slideListNode.value.addEventListener('scroll', (e: any) => {
@@ -74,34 +84,26 @@ let swipers: any = null
 const onSwiper = (swiper: any) => {
   swipers = swiper
 }
-
+const onSlideChange = (swiper: any) => {
+  count.value = swiper.activeIndex
+  scrollThumbNode.value.style.marginLeft =
+    swiper.activeIndex * itemWidth.value + 'px'
+}
 const prevEl = () => {
   if (count.value > 0) {
     slideListNode.value.scrollLeft = --count.value * 100
-    scrollThumbNode.value.style.marginLeft = 5 * count.value + 'px'
+    scrollThumbNode.value.style.marginLeft =
+      count.value * itemWidth.value + 'px'
   }
   swipers.slidePrev()
 }
 const nextEl = () => {
-  if (count.value <= length.value - 3) {
+  if (count.value < length.value - 5) {
     slideListNode.value.scrollLeft = count.value++ * 100
-    scrollThumbNode.value.style.marginLeft = 5 * count.value + 'px'
+    scrollThumbNode.value.style.marginLeft =
+      count.value * itemWidth.value + 'px'
   }
   swipers.slideNext()
-}
-
-const touchmoves = (swiper: any) => {
-  console.log(swiper, swipers.getTranslate())
-  if (swiper.translate < 0) {
-    scrollThumbNode.value.style.marginLeft =
-      (Math.abs(swiper.translate - 30) / 1300) * 30 + 'px'
-    if (isMobileAgent) {
-      scrollThumbNode.value.style.marginLeft =
-        (Math.abs(swiper.translate - 30) / 1270) * 60 + 'px'
-    }
-    return
-  }
-  scrollThumbNode.value.style.marginLeft = '0px'
 }
 </script>
 
@@ -170,7 +172,7 @@ const touchmoves = (swiper: any) => {
               :modules="modules"
               class="mySwiper"
               @swiper="onSwiper"
-              @touchMove="touchmoves"
+              @slideChange="onSlideChange"
             >
               <template></template>
               <swiper-slide
@@ -184,15 +186,19 @@ const touchmoves = (swiper: any) => {
               </swiper-slide>
             </swiper>
           </div>
-          <div class="scroll-track">
-            <div ref="scrollThumbNode" class="scroll-thumb"></div>
+          <div class="scroll-track" :style="`width: ${sumWidth}px;`">
+            <div
+              ref="scrollThumbNode"
+              class="scroll-thumb"
+              :style="`width:${itemWidth}px;`"
+            ></div>
             <div class="scroll-track-bottom"></div>
           </div>
         </div>
 
         <div class="slide-arrow slide-arrow-right flex items-center">
           <img
-            v-show="count < length - 4"
+            v-show="count < length - 5"
             @click.stop="nextEl"
             src="/images/right_arrow.png"
             alt=""
@@ -577,11 +583,9 @@ const touchmoves = (swiper: any) => {
     position: relative;
     margin: 0 auto;
     margin-top: 40px;
-    width: 80px;
     height: fit-content;
   }
   &-thumb {
-    width: 40px;
     height: 4px;
     background: #ecf0fa;
   }
