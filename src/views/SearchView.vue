@@ -2,10 +2,11 @@
 import { onUpdated, onMounted, computed, reactive, ref, watch } from 'vue'
 import mockData from '../util/mockData'
 import vendorList from '@/components/vendorListComponent.vue'
-import { authStore } from '../stores/authStore'
+import { authStore, commonStore } from '../stores/authStore'
 import { useRouter, useRoute } from 'vue-router'
 // import { AnyARecord } from 'dns'
 let store = authStore()
+let cStore = commonStore()
 let resultCount = ref(0)
 
 let vendorListArray = ref([] as any)
@@ -20,32 +21,26 @@ const filterDataFn = () => {
   vendorListArray.value = []
   if (searchType === 'search') {
     filterList = mockData.filterListMock
-    param = $route.query.queryParam
-    console.log('FANCY TECH', param)
-
-    mockData.vendorListMock.forEach((element, index) => {
-      console.log(element.vendorName, param)
-      if (!param) return
-      // 只搜索vendorname
-      if (
-        param &&
-        element.vendorName
-          .toLocaleLowerCase()
-          .indexOf(param.toLocaleString().toLocaleLowerCase() + '') > -1
-      ) {
-        vendorListArray.value.push(element)
-      }
-      console.warn('进来的是search')
-
-      // 搜索所有数据
-
-      // Object.values(element).forEach((value) => {
-      //   console.log(value)
-      //   if (value.toString().indexOf(param) > -1) {
-      //     vendorListArray.value.push(element);
-      //   }
-      // });
-    })
+    if (param) {
+      mockData.vendorListMock.forEach((element, index) => {
+        // 只搜索vendorname
+        if (
+          param &&
+          element.vendorName
+            .toLocaleLowerCase()
+            .indexOf(param.toLocaleString().toLocaleLowerCase() + '') > -1
+        ) {
+          const newArr = vendorListArray.value.filter((item: any) => {
+            return item.id === element.id
+          })
+          if (newArr.length == 0) {
+            vendorListArray.value.push(element)
+          }
+        }
+      })
+    } else {
+      vendorListArray.value = mockData.vendorListMock
+    }
   } else if (searchType === 'filter') {
     let tempArry: any = []
     filterList.forEach((items, itemsindex) => {
@@ -58,20 +53,34 @@ const filterDataFn = () => {
             if (itemb.type === 'category') {
               //category
               if (itemb.desc.indexOf(element.vendorCategory) > -1) {
-                vendorListArray.value.push(element)
+                const newArr = vendorListArray.value.filter((item: any) => {
+                  return item.id === itemb.id
+                })
+                if (newArr.length == 0) {
+                  vendorListArray.value.push(element)
+                }
               }
             } else if (itemb.type === 'tags') {
               //tags
               if (element.vendorTags.indexOf('#' + itemb.desc) > -1) {
-                vendorListArray.value.push(element)
+                const newArr = vendorListArray.value.filter((item: any) => {
+                  return item.id === itemb.id
+                })
+                if (newArr.length == 0) {
+                  vendorListArray.value.push(element)
+                }
               }
             } else if (itemb.type === 'status') {
               //status
               if (element.vendorStatus.indexOf(itemb.desc) > -1) {
-                vendorListArray.value.push(element)
+                const newArr = vendorListArray.value.filter((item: any) => {
+                  return item.id === itemb.id
+                })
+                if (newArr.length == 0) {
+                  vendorListArray.value.push(element)
+                }
               }
             }
-            // 只搜索vendorname
           })
         }
       })
@@ -85,18 +94,14 @@ const filterDataFn = () => {
   resultCount.value = vendorListArray.value.length
 }
 watch(updateState, (newValue, oldValue) => {
-  console.log('+++++++++++', newValue, oldValue, $route.query.searchType)
   if (newValue) {
     searchType = $route.query.searchType
+    param = $route.query.queryParam
     filterDataFn()
-    console.log(
-      `我侦听到了count状态的变化，当前值为${newValue},从而处理相关逻辑`
-    )
   }
 })
 onMounted(() => {
   filterDataFn()
-  console.log('onMounted')
 })
 const openCookie = () => {
   //  store.CookiesModelopen()
@@ -107,32 +112,39 @@ const openCookie = () => {
   <main class="vendor-listing" :class="{ hasdeco: true }">
     <div class="vendor-list">
       <!-- 搜索到无结果 -->
-      <div class="result" v-if="resultCount === 0">All Results: 0 Agency</div>
+      <div class="result" v-if="resultCount === 0">
+        <div>All Results: 0 Agency</div>
+        <div class="noresult">
+          <p class="noresult-desc">
+            Sorry, there is no relevant search result.
+          </p>
+          <button
+            class="noresult-button"
+            @click="
+              () => {
+                cStore.clearFilter(true)
+                $router.push({
+                  name: 'vendorlisting',
+                })
+              }
+            "
+          >
+            BACK
+          </button>
+        </div>
+      </div>
       <!-- 搜索到有无结果 -->
       <div class="result" v-else>
-        <span v-if="searchType === 'search' && param">
-          Search Results - “{{ param }}”: {{ resultCount }} Agency
-        </span>
-        <span v-else>Search Results: {{ resultCount }} Agency</span>
-      </div>
-      <vendorList
-        v-show="vendorListArray.length > 0"
-        :vendorListArray="vendorListArray"
-      ></vendorList>
-      <div class="noresult">
-        <p class="noresult-desc">Sorry, there is no relevant search result.</p>
-        <button
-          class="noresult-button"
-          @click="
-            () => {
-              $router.push({
-                name: 'vendorlisting',
-              })
-            }
-          "
-        >
-          BACK
-        </button>
+        <div style="padding-bottom: 20px">
+          <span v-if="searchType === 'search' && param">
+            Search Results - “{{ param }}”: {{ resultCount }} Agency
+          </span>
+          <span v-else>Search Results: {{ resultCount }} Agency</span>
+        </div>
+        <vendorList
+          v-show="vendorListArray.length > 0"
+          :vendorListArray="vendorListArray"
+        ></vendorList>
       </div>
     </div>
   </main>

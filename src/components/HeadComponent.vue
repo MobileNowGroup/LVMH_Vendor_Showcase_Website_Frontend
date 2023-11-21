@@ -13,12 +13,29 @@ import mockData from '../util/mockData'
 import { throttle } from '@/util/common'
 import { commonStore } from '@/stores/authStore'
 import { match } from 'assert'
+//使用递归的方式实现数组、对象的深拷贝
+const sleepCopy = (obj: any) => {
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+  // 创建一个新的数组或对象，以匹配原始数据类型
+  let copy: any = Array.isArray(obj) ? [] : {}
+  for (let key in obj) {
+    // 确保key不是原型属性
+    if (obj.hasOwnProperty(key)) {
+      // 递归拷贝所有属性
+      copy[key] = sleepCopy(obj[key])
+    }
+  }
+  return copy
+}
 const filterNumber = ref(0)
 let searchVisibale = ref(false) // searchbox是否展示
 let searchValue = ref('') // 需要search 的数据
 let filterVisibale = ref(false) // filterbox是否展示
 let filterVisibaleBg = ref(false) // filterbox background
-const filterList = mockData.filterListMock // filter数据
+var newFilterArr = reactive(mockData.filterListMock)
+let filterList = reactive(sleepCopy(mockData.filterListMock)) // filter数据
 const filterShow = ref(true) // 是否展示filter
 let decoVisiable = ref(false) // 是否展示顶部装饰文本
 let decoText = ref('Agency Listing') // 顶部装饰文本内容
@@ -29,6 +46,7 @@ const decoShowArray = ['/vendordetail', '/policy'] // 不展示agency listing �
 let logoUrl = computed(() => {
   return commonStore().demoUrl
 })
+const updateState = computed(() => commonStore().isClearFilter)
 decoVisiable.value = decoShowArray.every(item => {
   return item !== $route.path
 })
@@ -41,7 +59,6 @@ onMounted(() => {
   }
   // 启用filter功能
   filterShow.value = $route.path !== '/vendordetail'
-
   // 监听路由匹配不同header背景色
   headerbg()
   // else {
@@ -92,7 +109,6 @@ watch(
     // 强制每个页面初始化的时候滚动条在最上部
     document.documentElement.scrollTop = 0
     document.body.scrollTop = 0
-
     // 监听路由匹配不同header背景色
     setTimeout(() => {
       headerbg()
@@ -100,7 +116,13 @@ watch(
   },
   { immediate: true }
 )
-
+//当返回列表页面的时候清除filter数据
+watch(updateState, (newValue, oldValue) => {
+  if (newValue) {
+    clearFilter()
+    commonStore().clearFilter(false)
+  }
+})
 onBeforeUpdate(() => {})
 /** 打开searc或者filter */
 const openBox = (e: any, openType: string) => {
@@ -112,10 +134,12 @@ const openBox = (e: any, openType: string) => {
     filterVisibale.value = true
     searchVisibale.value = false
     filterVisibaleBg.value = true // bg 展示
+    applyshowcolor()
   }
 }
 /** 关闭searc或者filter */
 const closeBox = (e: any, closeType: any) => {
+  filterList = reactive(sleepCopy(newFilterArr))
   headerbg()
   // 点击关闭searchbox
   if (e) e.cancelBubble = true
@@ -133,7 +157,7 @@ const closeBox = (e: any, closeType: any) => {
     searchVisibale.value = false
   } else {
     filterNumber.value = 0
-    filterList.forEach((menu, menuIndex) => {
+    filterList.forEach((menu: any, menuIndex: any) => {
       filterNumber.value += menu.selectedCount
     })
     filterVisibale.value = false
@@ -146,13 +170,14 @@ const closeBox = (e: any, closeType: any) => {
 }
 /**清空所有filter */
 const clearFilter = () => {
-  filterList.forEach((menu, menindex) => {
+  updateMockData()
+  filterList.forEach((menu: any, menindex: any) => {
     // 清空所有category num
     menu.selectedCount = 0
     // 清空filter总数量
     filterNumber.value = 0
     // 所有menuitem选中状态清空
-    menu.menuItemList.forEach(menuItem => {
+    menu.menuItemList.forEach((menuItem: any) => {
       menuItem.isChoosed = false
     })
   })
@@ -173,16 +198,17 @@ const clearFilter = () => {
 const searchResult = (e: any, searchType: string) => {
   // 点击查询结果
   if (searchType === 'search') {
-    filterList.forEach((menu, menindex) => {
+    filterList.forEach((menu: any, menindex: any) => {
       // 清空所有category num
       menu.selectedCount = 0
       // 清空filter总数量
       filterNumber.value = 0
       // 所有menuitem选中状态清空
-      menu.menuItemList.forEach(menuItem => {
+      menu.menuItemList.forEach((menuItem: any) => {
         menuItem.isChoosed = false
       })
     })
+    updateMockData()
     applyshowcolor()
     // 执行search逻辑,进入search页面
     $router.push({
@@ -194,6 +220,7 @@ const searchResult = (e: any, searchType: string) => {
       },
     })
   } else {
+    updateMockData()
     searchValue.value = ''
     // 执行filter逻辑,进入search页面
     $router.push({
@@ -205,7 +232,17 @@ const searchResult = (e: any, searchType: string) => {
     })
   }
 }
-
+const updateMockData = () => {
+  filterList.forEach((element: any) => {
+    newFilterArr.forEach(newElement => {
+      if (newElement.id == element.id) {
+        newElement.isShow = element.isShow
+        newElement.selectedCount = element.selectedCount
+        newElement.menuItemList = element.menuItemList
+      }
+    })
+  })
+}
 /** 页面滚动 */
 const _onPageScroll = () => {
   const scrollTop =
@@ -229,8 +266,8 @@ const _onPageScroll = () => {
 const applyshowcolorVisiable = ref(false)
 const applyshowcolor = () => {
   // 判断所有filter中的数据，只要有一个是被选中那么就是true
-  applyshowcolorVisiable.value = filterList.some((menu, menindex) => {
-    return menu.menuItemList.some(menuItem => {
+  applyshowcolorVisiable.value = filterList.some((menu: any, menindex: any) => {
+    return menu.menuItemList.some((menuItem: any) => {
       return menuItem.isChoosed
     })
   })
@@ -409,8 +446,7 @@ onUnmounted(() => {
                               e => {
                                 menuItem.isChoosed = !menuItem.isChoosed
                                 menu.selectedCount = 0
-
-                                menu.menuItemList.forEach(item => {
+                                menu.menuItemList.forEach((item: any) => {
                                   if (item.isChoosed) {
                                     menu.selectedCount += 1
                                   }

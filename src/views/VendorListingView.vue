@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
-import mockData from "../util/mockData";
-import vendorList from "@/components/vendorListComponent.vue";
-import { authStore } from "../stores/authStore";
+import { reactive, ref, watch, computed } from 'vue'
+import mockData from '../util/mockData'
+import vendorList from '@/components/vendorListComponent.vue'
+import { authStore, commonStore } from '../stores/authStore'
 
-let store = authStore();
+let store = authStore()
 
-let vendorListArray = ref();
-vendorListArray.value = mockData.vendorListMock;
-const resultCount = ref(vendorListArray.value.length);
+let vendorListArray = ref()
+vendorListArray.value = mockData.vendorListMock
+const resultCount = ref(vendorListArray.value.length)
 
 const openCookie = () => {
   //  store.CookiesModelopen()
-};
+}
 </script>
 
 <template>
@@ -40,7 +40,7 @@ const openCookie = () => {
   width: auto;
   min-height: 100vh;
   padding-bottom: 8rem;
-  background: url("/images/page_bg.png") repeat;
+  background: url('/images/page_bg.png') repeat;
 }
 
 .result {

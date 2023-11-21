@@ -71,6 +71,7 @@ export const commonStore = defineStore('common', {
     // 存放的就是模块的变量
     return {
       demoUrl: '', //demo页面的头部icon
+      isClearFilter: false, // 是否清除过滤内容
     }
   },
   getters: {
@@ -83,6 +84,9 @@ export const commonStore = defineStore('common', {
     },
     clearDemoUrl() {
       this.$state.demoUrl = ''
+    },
+    clearFilter(isClear: boolean) {
+      this.$state.isClearFilter = isClear
     },
   },
 })
