@@ -21,7 +21,7 @@ const $router = useRouter()
       <router-link :to="`/vendordetail?id=${vendor.id}`">
         <div class="vendor-head">
           <div class="vendor-logo">
-            <img :src="vendor.logoSrc" alt="" />
+            <img :src="vendor.logoSrc" alt="" style="object-fit: contain" />
           </div>
 
           <div>

@@ -1,53 +1,53 @@
 <script setup lang="ts" name="vendorListComponent">
-import { useRouter } from "vue-router";
-import { isMobile, setVideoPosterFn } from "@/util/common";
-import { ref, reactive } from "vue";
-import { onMounted } from "vue";
+import { useRouter } from 'vue-router'
+import { isMobile, setVideoPosterFn } from '@/util/common'
+import { ref, reactive } from 'vue'
+import { onMounted } from 'vue'
 
-const isMobileDevice = ref(isMobile());
+const isMobileDevice = ref(isMobile())
 
 const props = defineProps({
   projectExample: { type: Object, reauired: true },
-});
+})
 const showList = reactive([
   {
-    exampleDesc: "bvlgari size guide:",
-    exampleType: "",
-    exampleSrc: "https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4",
+    exampleDesc: 'bvlgari size guide:',
+    exampleType: '',
+    exampleSrc:
+      'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4',
   },
-] as any);
-let showMediaSrc = ref("");
-showList.values = props.projectExample;
-
+] as any)
+let showMediaSrc = ref('')
+showList.values = props.projectExample
 
 onMounted(() => {
-  showMediaSrc.value = showList.values[0].exampleSrc; // 当前展示的多媒体地址
+  showMediaSrc.value = showList.values[0].exampleSrc // 当前展示的多媒体地址
 
-  console.log(showList.values);
-});
+  console.log(showList.values)
+})
 /** 判断当前多媒体资源是视频还是图片 */
 const mediaType = function (src: string) {
-  let a = src.indexOf("mp4") > 0 ? "media" : "image";
-  return a;
-};
+  let a = src.indexOf('mp4') > 0 ? 'media' : 'image'
+  return a
+}
 
 /** 点击展示当前的slide */
 const showSlideMedia = function (src: string, _key: number, $event: any) {
   // choose whitch slide to show
-  console.log($event.target.parentNode.parentNode.parentNode.children);
-  showMediaSrc.value = src;
-  const changeVideoSource = document.querySelector("video");
+  console.log($event.target.parentNode.parentNode.parentNode.children)
+  showMediaSrc.value = src
+  const changeVideoSource = document.querySelector('video')
   // 每次更新video资源时手动load一次资源
-  changeVideoSource && changeVideoSource.load();
+  changeVideoSource && changeVideoSource.load()
   // 对下面的slide样式进行改变
-  const frameZones = $event.target.parentNode.parentNode.parentNode.children;
+  const frameZones = $event.target.parentNode.parentNode.parentNode.children
 
   for (let i = 0; i < frameZones.length; i++) {
     if (_key === i) {
-      console.log(frameZones[i]);
-      frameZones[i].className = "show-item show-item-active";
+      console.log(frameZones[i])
+      frameZones[i].className = 'show-item show-item-active'
     } else {
-      frameZones[i].className = "show-item";
+      frameZones[i].className = 'show-item'
     }
   }
   //   frameZones.forEach((element: any, index: any) => {
@@ -57,36 +57,36 @@ const showSlideMedia = function (src: string, _key: number, $event: any) {
   //       element.className = "show-item";
   //     }
   //   });
-};
+}
 /** 点击右箭头换下一个slide */
 const nextShow = function ($event: any) {
   // console.log($event.target.parentNode.previousElementSibling);
   // 对下面的slide样式进行改变
   // const frameZones = Array.from(document.querySelectorAll(".show-item"));
   // const frameDom = document.querySelector(".show-list") as Element;
-  const frameZones = $event.target.parentNode.previousElementSibling.children;
-  const frameDom = $event.target.parentNode.previousElementSibling;
-  console.log();
+  const frameZones = $event.target.parentNode.previousElementSibling.children
+  const frameDom = $event.target.parentNode.previousElementSibling
+  console.log()
   for (let i = 0; i < frameZones.length; i++) {
-    if (frameZones[i].className === "show-item show-item-active") {
-      frameZones[i].className = "show-item";
+    if (frameZones[i].className === 'show-item show-item-active') {
+      frameZones[i].className = 'show-item'
       if (frameZones[i + 1]) {
-        frameZones[i + 1].className = "show-item show-item-active";
+        frameZones[i + 1].className = 'show-item show-item-active'
         // 修改地址
-        showMediaSrc.value = showList[i + 1].exampleSrc;
+        showMediaSrc.value = showList[i + 1].exampleSrc
         // 修改选中元素与左边边距
-        frameDom.scrollLeft = 175 * (i + 1);
+        frameDom.scrollLeft = 175 * (i + 1)
       } else {
-        frameZones[0].className = "show-item show-item-active";
+        frameZones[0].className = 'show-item show-item-active'
         // 修改地址
-        showMediaSrc.value = showList[0].exampleSrc;
+        showMediaSrc.value = showList[0].exampleSrc
         // 修改选中元素与左边边距
-        frameDom.scrollLeft = 0;
+        frameDom.scrollLeft = 0
       }
-      break;
+      break
     }
   }
-};
+}
 /** 设置每个video的预览图 setVideoPosterFn */
 </script>
 
@@ -101,17 +101,14 @@ const nextShow = function ($event: any) {
           class="video"
           @loadeddata="setVideoPosterFn($event)"
         >
-          <source
-            :src="showMediaSrc"
-            type="video/mp4"
-          />
+          <source :src="showMediaSrc" type="video/mp4" />
         </video>
       </div>
       <div v-else class="slide-image">
         <img :src="showMediaSrc" alt="" />
       </div>
     </div>
-    <div class="show" ref="slide">
+    <div v-if="1 < showList.length" class="show" ref="slide">
       <div class="show-list">
         <div
           class="show-item"

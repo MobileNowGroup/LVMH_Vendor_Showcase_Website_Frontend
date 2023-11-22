@@ -6,25 +6,24 @@
       src="/images/logo.png"
       alt=""
       @loadeddata="
-        ($event) => {
-          console.log($event);
+        $event => {
+          console.log($event)
         }
       "
     />
     <p class="mid lg:ml-[-111px]">
       <span>Principle: Regina</span>
       <span>E-mail: ReginaLVMH@gmail.com</span>
-      <span
-        >Address: 1266 West Nanjing Road, Jing'an District, Shanghai (Plaza
-        66)</span
-      >
+      <span>
+        Address: 1266 West Nanjing Road, Jing'an District, Shanghai (Plaza 66)
+      </span>
     </p>
     <p class="right">
-      <span>
+      <!-- <span>
         <router-link to="policy" class="lg:mr-[42px]"
           >Privacy policy</router-link
         >
-      </span>
+      </span> -->
       <span class="lg:mr-[34px] ping">沪ICP备 ***********号</span>
       <span>Copyright@LVMH Digital</span>
     </p>

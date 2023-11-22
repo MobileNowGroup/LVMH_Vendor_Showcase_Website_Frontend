@@ -29,7 +29,6 @@ const projectSlideData = projectDemoData.filter((item: any, index: number) => {
 })
 
 onMounted(() => {
-  console.log('________onUpdated', projectObj.logo)
   store.setDemoUrl(projectObj.logo)
   // carousel on init
   const frameZones = Array.from(document.querySelectorAll('.show-list'))
@@ -71,7 +70,9 @@ const clickNothing = function (src: any) {
           </h2>
         </div>
         <div v-if="projectDemo.exampleType === 'video'" class="demo-box">
-          <p class="demo-link">{{ projectDemo.exampleDesc }}</p>
+          <p class="demo-link" style="margin-bottom: 20px">
+            {{ projectDemo.exampleDesc }}
+          </p>
         </div>
         <div
           v-else-if="projectDemo.exampleType === 'Link Only'"

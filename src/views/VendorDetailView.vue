@@ -388,13 +388,11 @@ const nextEl = () => {
             :key="serviceBrandsIndex"
             class="content-service-list-item"
           >
-            <div class="content-service-list-item-logo-box">
-              <img
-                class="content-service-logo"
-                :src="serviceBrands.logo"
-                alt=""
-              />
-            </div>
+            <img
+              class="content-service-logo"
+              :src="serviceBrands.logo"
+              alt=""
+            />
             <a
               class="content-desc content-service-desc"
               :class="{ 'is-comming-soon': serviceBrands.isCommingSoon }"
@@ -789,8 +787,8 @@ const nextEl = () => {
       background: #e9eaec;
     }
     &-video-box {
-      width: 93rem;
-      height: 52.3rem;
+      width: 100%;
+      height: 100%;
       margin: 0 auto;
       background: url('/images/2978edfd8198672cbedd2d62ad446d607daa1856f2fb92e6dda9544a274ef680.png');
       display: flex;
@@ -811,22 +809,16 @@ const nextEl = () => {
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
-      padding: 0 2rem 1.7rem 2rem;
+      padding: 1.7rem 2rem;
       background: #fff;
       box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
       margin: 0 1.2rem;
       cursor: pointer;
-      &-logo-box {
-        display: flex;
-        align-items: center;
-        width: 12rem;
-        height: 5rem;
-        margin: 3.5rem 1.6rem;
-        overflow: hidden;
-      }
       img {
         display: block;
-        width: 12rem;
+        flex: 1;
+        width: 7.5rem;
+        object-fit: contain;
       }
       a {
         color: var(--lvmh-secondary-1100, #3e65d0);
@@ -835,6 +827,7 @@ const nextEl = () => {
         font-style: normal;
         font-weight: 500;
         line-height: normal;
+        margin-top: 1rem;
         text-decoration-line: underline;
       }
       .is-comming-soon {
@@ -1223,25 +1216,12 @@ const nextEl = () => {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem 1.2rem;
-
         &-item {
-          &-logo-box {
-            // display: flex;
-            // align-items: center;
-            // width: 12rem;
-            // height: 5rem;
-            margin: 2rem 0;
-            display: flex;
-            text-align: center;
-            overflow: hidden;
-          }
-          // div {
-          //   margin: 0;
           img {
             margin: 0 auto;
             width: 10rem;
+            object-fit: contain;
           }
-          // }
         }
       }
     }

@@ -23,13 +23,36 @@ const filterDataFn = () => {
     filterList = mockData.filterListMock
     if (param) {
       mockData.vendorListMock.forEach((element, index) => {
-        // 只搜索vendorname
-        if (
-          param &&
-          element.vendorName
-            .toLocaleLowerCase()
-            .indexOf(param.toLocaleString().toLocaleLowerCase() + '') > -1
-        ) {
+        param = param ? param.toLocaleString().toLocaleLowerCase() : ''
+        if (element.vendorName.toLocaleLowerCase().indexOf(param) != -1) {
+          const newArr = vendorListArray.value.filter((item: any) => {
+            return item.id === element.id
+          })
+          if (newArr.length == 0) {
+            vendorListArray.value.push(element)
+          }
+        }
+        if (element.vendorCategory.toLocaleLowerCase().indexOf(param) != -1) {
+          const newArr = vendorListArray.value.filter((item: any) => {
+            return item.id === element.id
+          })
+          if (newArr.length == 0) {
+            vendorListArray.value.push(element)
+          }
+        }
+        if (element.vendorStatus.toLocaleLowerCase().indexOf(param) != -1) {
+          const newArr = vendorListArray.value.filter((item: any) => {
+            return item.id === element.id
+          })
+          if (newArr.length == 0) {
+            vendorListArray.value.push(element)
+          }
+        }
+        const newTagsArr = element.vendorTags.filter(obj => {
+          param = param ? param.toLocaleString().toLocaleLowerCase() : ''
+          return obj.toLocaleLowerCase().indexOf(param) != -1
+        })
+        if (newTagsArr.length) {
           const newArr = vendorListArray.value.filter((item: any) => {
             return item.id === element.id
           })
