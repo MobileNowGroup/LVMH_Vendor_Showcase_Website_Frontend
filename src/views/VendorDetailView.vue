@@ -219,8 +219,12 @@ const nextEl = () => {
             ></div>
           </div>
         </h2>
-        <p class="content-desc content-solution">
-          {{ vendor.useCaseExample }}
+        <p
+          v-for="item in vendor.useCaseExample"
+          :key="item"
+          class="content-desc content-solution"
+        >
+          {{ item }}
         </p>
         <img :src="vendor.useCaseExampleSrc" alt="" />
       </div>
@@ -237,11 +241,14 @@ const nextEl = () => {
           </div>
         </h2>
         <!-- <div class="is-flex-row kpibox"></div> -->
-        <div class="is-flex-row">
-          <p class="content-desc content-claimed">
-            {{ vendor.claimedKpis }}
-          </p>
-          <!-- <p class="content-desc content-claimed is-flex-column">
+        <p
+          v-for="item in vendor.claimedKpis"
+          :key="item"
+          class="content-desc content-claimed"
+        >
+          {{ item }}
+        </p>
+        <!-- <p class="content-desc content-claimed is-flex-column">
             <span class="content-kpi">+16%</span>
             <span class="content-kpi-desc">conventions</span>
           </p>
@@ -257,7 +264,6 @@ const nextEl = () => {
             <span class="content-kpi">+16%</span>
             <span class="content-kpi-desc">conventions</span>
           </p> -->
-        </div>
       </div>
       <div class="content-box content-box-price">
         <div class="content-box-price-spec">
@@ -272,8 +278,12 @@ const nextEl = () => {
               ></div>
             </div>
           </h2>
-          <p class="content-desc content-price">
-            {{ vendor.priceModel }}
+          <p
+            v-for="item in vendor.priceModel"
+            :key="item"
+            class="content-desc content-price"
+          >
+            {{ item }}
           </p>
         </div>
 
@@ -656,8 +666,7 @@ const nextEl = () => {
   }
 
   &-desc {
-    margin: 0 auto;
-    max-width: 77.5rem;
+    margin: 0 24.5px;
     text-align: left;
     color: var(--lvmh-primary-1100, #20253b);
     font-family: avenir_next_text;
@@ -672,7 +681,7 @@ const nextEl = () => {
   &-feature,
   &-service,
   &-price {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
   /** kpi  */
   .kpibox {

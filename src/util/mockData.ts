@@ -22,12 +22,15 @@ const vendorListMock: Array<vendorItem> = reactive([
     vendorTags: ['#ProductDiscovery;', '#VirtualTry-on'],
     useCaseExampleSrc:
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/kivisense_painpoint.png',
-    useCaseExample:
-      "We solve the painpoint of online shopping. It's quite hard for people who shop online to try-on see the style of the product. ",
-    claimedKpis:
+    useCaseExample: [
+      "We solve the painpoint of online shopping. It's quite hard for people who shop online to try-on see the style of the product.",
+    ],
+    claimedKpis: [
       '6million monthly purchase value from AR try-on for contact lens;10millon monthly add-to-cart value from our AR try-on page for high jewelry brand BVLGARI',
-    priceModel:
+    ],
+    priceModel: [
       'About 20k - 40k Euro annual SaaS license for each AR try-on category with unlimited SKU and traffic. There wil be good discount for try-on head to toe of all the try-on license',
+    ],
     priceModelCard: [
       {
         id: 1,
@@ -305,12 +308,17 @@ const vendorListMock: Array<vendorItem> = reactive([
       "Short-form video is becoming a vital part of every brand’s marketing strategy, the most popular medium for reaching mass audiences quickly. We've developed an industry-specific LLM, FancyGPT, tailored for short-from video generation. With our unique technology, we are able to create product centric short videos to highlight key product attributes in a cost-efficient way. Our solution combines 3D scanning technology with AI-driven video creation and rendering process, which allows our output videos to maintain high-quality product demonstration.",
     vendorTags: ['#AI', '#AIGC', '#3DDisplay'],
     useCaseExampleSrc: '',
-    useCaseExample:
-      'Brand Pain Points: Inadequate availability of complete product styles for new arrivals, along with a lack of any video or image assets. \n Our Solution: We address these challenges by leveraging the available product styles to create 3D models for those items that are yet to arrive. These 3D models serve as the foundation for producing high-quality videos and images that showcase product functionality and intricate details, effectively compensating for the absence of traditional assets. This not only ensures a comprehensive representation of the entire product range but also offers a visually engaging and informative means of presenting these styles to customers.',
-    claimedKpis:
-      'Click rate for products with 3D videos would be higher than those without videos\n High efficiency for the lead time, around/less than 2 weeks for a 3D video production\n Cost saving, Avg 30% off vs existing/traditional production house',
-    priceModel:
+    useCaseExample: [
+      'Brand Pain Points: Inadequate availability of complete product styles for new arrivals, along with a lack of any video or image assets.',
+      'Our Solution: We address these challenges by leveraging the available product styles to create 3D models for those items that are yet to arrive. These 3D models serve as the foundation for producing high-quality videos and images that showcase product functionality and intricate details, effectively compensating for the absence of traditional assets. This not only ensures a comprehensive representation of the entire product range but also offers a visually engaging and informative means of presenting these styles to customers.',
+    ],
+    claimedKpis: [
+      'Click rate for products with 3D videos would be higher than those without videos\n High efficiency for the lead time, around/less than 2 weeks for a 3D video production',
+      'Cost saving, Avg 30% off vs existing/traditional production house',
+    ],
+    priceModel: [
       'AIGC video: 5000-10000/per video (depends on category)\n 3D modeling: 2500-30000/SKU (depends on category)',
+    ],
     priceModelCard: [
       {
         id: 1,
@@ -518,32 +526,34 @@ const vendorListMock: Array<vendorItem> = reactive([
       "The integration of Chattech and AI equips sales assistants with an intelligent language package, enabling them to provide professional responses and enhance user interaction. AI utilizes a vast database to answer user queries, allowing sales assistants to adapt to different user preferences. Beyond addressing inquiries, AI offers sales recommendations throughout the customer lifecycle, including customer referrals, topic guidance, and content generation. The intelligent recommendation system analyzes user information, providing product recommendations and strategies to enhance conversion rates for high-value customers. AI alleviates the headquarters' data organization workload, offering quick summary tables and real-time anomaly alerts. The open cloud note feature assists sales assistants in creating personalized notes to meet their needs. Chattech and AI not only serve as assistants to sales, but also as intelligent tools to boost sales performance.",
     vendorTags: ['#Clienteling', '#AI', '#CSCmonitor'],
     useCaseExampleSrc: '',
-    useCaseExample: `Brand Pain Points:
-    Time and Cost Investment: The traditional approach of training sales personnel consumes a significant amount of time and resources. Both brands and sales representatives undergo lengthy training cycles, resulting in a dual investment of cost and time as a major market pain point.Low Sales Efficiency and Conversion Rates: Traditional sales methods struggle to enhance sales efficiency and conversion rates. Sales representatives lack real-time tools to understand customer needs, leading to suboptimal interaction effects and challenges in achieving anticipated conversion rates.
-Solutions:
-AI Response - Providing Skillful Replies
-The combination of Chattech and AI is like enhancing a salesperson with an intelligent language package, enabling them to deliver more professional and skillful responses, thereby enhancing the warmth of the chat with users. For example, when a user asks a salesperson a question beyond their knowledge, AI can provide precise responses based on the brand's extensive database. Of course, the salesperson can customize different roles and tones of responses, allowing them to adapt to users with different chat preferences.
-AI Insight - Offering Expert Sales Strategies
-The AI can provide high-value recommendations to sales based on the user lifecycle, thereby improving sales performance. By analyzing user data and purchase habits, the system provides targeted recommendations to high-value customers and incentive suggestions to potential customers. This helps junior sales quickly achieve better sales results.
-AI Data Statistics
-Instant Business Data Summary: AI's data organization work can significantly reduce the headquarters' workload. Simply ask the AI assistant about this month's performance or ranking to receive a satisfying summary table.
-Data Analysis: Based on the data summary, the AI assistant can further analyze the data for you.
-Data Anomaly Alerts: Monitor data anomalies in real-time, such as a store's performance being three times higher than usual or fewer participants in a particular event, and receive timely alerts.
-AI Cloud Notes
-Assisting salespeople in automatically generating note content. Salespeople can customize cloud notes based on their needs, such as recommended usage scenarios, styling suggestions, and link them to order links.
-AI Consultation
-Copywriting: Let it help you write copies and polish cloud notes.
-Grassroots Platform Collection: Inquire with AI to organize links related to online shopping recommendations.`,
-    claimedKpis: `Improvement in Business Performance:
-
-Enhanced Sales Team Efficiency: Achieving smarter sales interactions and more efficient customer management is expected to elevate the overall efficiency of the sales team.
-
-Strengthened Customer Relationships: Through more personalized and precise user interactions, there is potential to enhance customer awareness and loyalty to the brand, thereby increasing the stability of customer relationships."
-  priceModel:"The expenses are divided into two main components. One part involves charging for accounts using AI functionalities within Enterprise WeChat, and the other relates to the cleaning work of the corpus.
-
-Accounts with AI functionalities: $2500 per account per year; (includes 6000 monthly AI information retrieval instances for one account, with the option to recharge beyond the allotted instances. Recharge starts at ¥1500, with a deduction of ¥1500 RMB for every 15,000 additional access instances.)
-
-Corpus cleaning: fees are determined based on the clarity difficulty and scale of the database: A one-time base fee of ¥30,000 RMB, with a monthly corpus cleaning fee quote of ¥25,000 RMB."`,
+    useCaseExample: [
+      'Brand Pain Points:',
+      'Time and Cost Investment: The traditional approach of training sales personnel consumes a significant amount of time and resources. Both brands and sales representatives undergo lengthy training cycles, resulting in a dual investment of cost and time as a major market pain point.Low Sales Efficiency and Conversion Rates: Traditional sales methods struggle to enhance sales efficiency and conversion rates. Sales representatives lack real-time tools to understand customer needs, leading to suboptimal interaction effects and challenges in achieving anticipated conversion rates.',
+      'Solutions:',
+      'AI Response - Providing Skillful Replies',
+      "The combination of Chattech and AI is like enhancing a salesperson with an intelligent language package, enabling them to deliver more professional and skillful responses, thereby enhancing the warmth of the chat with users. For example, when a user asks a salesperson a question beyond their knowledge, AI can provide precise responses based on the brand's extensive database. Of course, the salesperson can customize different roles and tones of responses, allowing them to adapt to users with different chat preferences.",
+      'AI Insight - Offering Expert Sales Strategies',
+      'The AI can provide high-value recommendations to sales based on the user lifecycle, thereby improving sales performance. By analyzing user data and purchase habits, the system provides targeted recommendations to high-value customers and incentive suggestions to potential customers. This helps junior sales quickly achieve better sales results.',
+      'AI Data Statistics',
+      "Instant Business Data Summary: AI's data organization work can significantly reduce the headquarters' workload. Simply ask the AI assistant about this month's performance or ranking to receive a satisfying summary table.",
+      'Data Analysis: Based on the data summary, the AI assistant can further analyze the data for you.',
+      "Data Anomaly Alerts: Monitor data anomalies in real-time, such as a store's performance being three times higher than usual or fewer participants in a particular event, and receive timely alerts.",
+      'AI Cloud Notes',
+      'Assisting salespeople in automatically generating note content. Salespeople can customize cloud notes based on their needs, such as recommended usage scenarios, styling suggestions, and link them to order links.',
+      'AI Consultation',
+      'Copywriting: Let it help you write copies and polish cloud notes.',
+      'Grassroots Platform Collection: Inquire with AI to organize links related to online shopping recommendations.',
+    ],
+    claimedKpis: [
+      'Improvement in Business Performance:',
+      'Enhanced Sales Team Efficiency: Achieving smarter sales interactions and more efficient customer management is expected to elevate the overall efficiency of the sales team.',
+      'Strengthened Customer Relationships: Through more personalized and precise user interactions, there is potential to enhance customer awareness and loyalty to the brand, thereby increasing the stability of customer relationships.',
+    ],
+    priceModel: [
+      'The expenses are divided into two main components. One part involves charging for accounts using AI functionalities within Enterprise WeChat, and the other relates to the cleaning work of the corpus.',
+      'Accounts with AI functionalities: $2500 per account per year; (includes 6000 monthly AI information retrieval instances for one account, with the option to recharge beyond the allotted instances. Recharge starts at ¥1500, with a deduction of ¥1500 RMB for every 15,000 additional access instances.)',
+      'Corpus cleaning: fees are determined based on the clarity difficulty and scale of the database: A one-time base fee of ¥30,000 RMB, with a monthly corpus cleaning fee quote of ¥25,000 RMB.',
+    ],
     priceModelCard: [
       {
         id: 1,
