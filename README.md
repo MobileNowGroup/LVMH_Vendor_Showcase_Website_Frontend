@@ -53,7 +53,7 @@ npm run lint
 
 ## Deploy to dev server
 
-```bash
+```bash  dev 执行dev脚本并build,不需要专门去服务器拉取代码,服务器每十分钟自动拉一次(23-11-22)
 Step 1. Local
 $ sh .deploy/shell/run.dev.sh
 
