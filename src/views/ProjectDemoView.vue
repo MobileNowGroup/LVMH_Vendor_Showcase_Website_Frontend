@@ -24,10 +24,6 @@ const projectDemoDatas = brandItem.serviceBrandProjects.filter(
 ) //JSON.parse($route.query.brandId as string)
 const projectObj = JSON.parse(JSON.stringify(projectDemoDatas[0]))
 const projectDemoData = projectObj.example
-const projectSlideData = projectDemoData.filter((item: any, index: number) => {
-  return item.exampleType == 'video'
-})
-
 onMounted(() => {
   store.setDemoUrl(projectObj.logo)
   // carousel on init
@@ -101,8 +97,11 @@ const clickNothing = function (src: any) {
         </div>
         <!-- <video autoplay src="https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4"></video> -->
         <projectSlide
-          v-if="projectSlideData.length > 0"
-          :project-example="projectSlideData"
+          v-if="
+            projectDemo.exampleType === 'video' &&
+            projectDemo.exampleArr.length > 0
+          "
+          :project-example="projectDemo.exampleArr"
         ></projectSlide>
       </div>
       <!-- <div>

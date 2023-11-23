@@ -279,7 +279,7 @@ const nextEl = () => {
             </div>
           </h2>
           <p
-            v-for="item in vendor.priceModel"
+            v-for="item in vendor.cost"
             :key="item"
             class="content-desc content-price"
           >

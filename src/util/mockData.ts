@@ -28,7 +28,7 @@ const vendorListMock: Array<vendorItem> = reactive([
     claimedKpis: [
       '6million monthly purchase value from AR try-on for contact lens;10millon monthly add-to-cart value from our AR try-on page for high jewelry brand BVLGARI',
     ],
-    priceModel: [
+    cost: [
       'About 20k - 40k Euro annual SaaS license for each AR try-on category with unlimited SKU and traffic. There wil be good discount for try-on head to toe of all the try-on license',
     ],
     priceModelCard: [
@@ -128,8 +128,14 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Link Only',
             exampleContent: 'CELINE 3D:',
             exampleType: 'link',
-            exampleSrc:
-              'https://meta.kivisense.com/celine-3d-web/index.html?sku=10I822DS9.04LU',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc:
+                  'https://meta.kivisense.com/celine-3d-web/index.html?sku=10I822DS9.04LU',
+              },
+            ],
           },
         ],
       },
@@ -143,15 +149,27 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Link Only',
             exampleContent: 'bvlgari AR try-on:',
             exampleType: 'link',
-            exampleSrc:
-              'https://bvlgari.kivisense.com/bvlgari-tryon-center/index.html',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc:
+                  'https://bvlgari.kivisense.com/bvlgari-tryon-center/index.html',
+              },
+            ],
           },
           {
             id: 2,
             exampleDesc: 'Link Only',
             exampleContent: 'bvlgari size guide:',
             exampleType: 'link',
-            exampleSrc: 'https://www.bulgari.cn/zh-cn/products/an860189',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc: 'https://www.bulgari.cn/zh-cn/products/an860189',
+              },
+            ],
           },
         ],
       },
@@ -165,22 +183,40 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Link Only',
             exampleContent: 'tiffany high quality 3D:',
             exampleType: 'link',
-            exampleSrc: 'https://www.youtube.com/watch?v=IsYCnMgusEE',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc: 'https://www.youtube.com/watch?v=IsYCnMgusEE',
+              },
+            ],
           },
           {
             id: 2,
             exampleDesc: 'Link Only',
             exampleContent: '3D here:',
             exampleType: 'link',
-            exampleSrc:
-              'https://meta.kivisense.com/tiffany-wx/display.html?sku=GRP11535',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc:
+                  'https://meta.kivisense.com/tiffany-wx/display.html?sku=GRP11535',
+              },
+            ],
           },
           {
             id: 3,
             exampleDesc: 'Link Only',
             exampleContent: 'Tiffany AR try-on:',
             exampleType: 'link',
-            exampleSrc: 'https://www.youtube.com/watch?v=LhjoFHOibr4',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc: 'https://www.youtube.com/watch?v=LhjoFHOibr4',
+              },
+            ],
           },
         ],
       },
@@ -204,15 +240,27 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Link Only',
             exampleContent: 'sizing guide:',
             exampleType: 'link',
-            exampleSrc: 'https://www.youtube.com/watch?v=_UOpG9BK7Lc',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc: 'https://www.youtube.com/watch?v=_UOpG9BK7Lc',
+              },
+            ],
           },
           {
             id: 2,
             exampleDesc: 'Link Only',
             exampleContent: 'try here:',
             exampleType: 'link',
-            exampleSrc:
-              'https://www.pomellato.com/en_intl/jewelry/rings/ring-nudo-classic-rose-gold-18kt-white-gold-18kt-blue-london-topaz?childSku=PAA1100_O6000_000TL_58',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc:
+                  'https://www.pomellato.com/en_intl/jewelry/rings/ring-nudo-classic-rose-gold-18kt-white-gold-18kt-blue-london-topaz?childSku=PAA1100_O6000_000TL_58',
+              },
+            ],
           },
         ],
       },
@@ -226,14 +274,26 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Link Only',
             exampleContent: 'shoes try-on:',
             exampleType: 'link',
-            exampleSrc: 'https://www.youtube.com/watch?v=TW0TOK8gMbM',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc: 'https://www.youtube.com/watch?v=TW0TOK8gMbM',
+              },
+            ],
           },
           {
             id: 2,
             exampleDesc: 'Link Only',
             exampleContent: 'try here:',
             exampleType: 'link',
-            exampleSrc: 'https://www.valentino.cn/zh-cn/WW2S0CS4RUSL71',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc: 'https://www.valentino.cn/zh-cn/WW2S0CS4RUSL71',
+              },
+            ],
           },
         ],
       },
@@ -247,8 +307,14 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Link Only',
             exampleContent: 'bracelace:',
             exampleType: 'link',
-            exampleSrc:
-              'https://meta.kivisense.com/gucci-tmall-tryon-web/bracelet.html',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc:
+                  'https://meta.kivisense.com/gucci-tmall-tryon-web/bracelet.html',
+              },
+            ],
           },
           {
             id: 2,
@@ -256,7 +322,13 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleContent:
               'gucci shoes try-on for wechat, tmall, website .cn (mobile only):',
             exampleType: 'link',
-            exampleSrc: 'https://gucci.kivisense.com/',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'link',
+                exampleSrc: 'https://gucci.kivisense.com/',
+              },
+            ],
           },
         ],
       },
@@ -316,7 +388,7 @@ const vendorListMock: Array<vendorItem> = reactive([
       'Click rate for products with 3D videos would be higher than those without videos\n High efficiency for the lead time, around/less than 2 weeks for a 3D video production',
       'Cost saving, Avg 30% off vs existing/traditional production house',
     ],
-    priceModel: [
+    cost: [
       'AIGC video: 5000-10000/per video (depends on category)\n 3D modeling: 2500-30000/SKU (depends on category)',
     ],
     priceModelCard: [
@@ -379,8 +451,14 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Media Only',
             exampleContent: '',
             exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4',
+              },
+            ],
           },
         ],
       },
@@ -394,8 +472,14 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E8%90%A7%E9%82%A6chopard.mp4',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E8%90%A7%E9%82%A6chopard.mp4',
+              },
+            ],
           },
         ],
       },
@@ -409,8 +493,14 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E5%AE%9D%E7%8F%80Blancpain.mp4',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E5%AE%9D%E7%8F%80Blancpain.mp4',
+              },
+            ],
           },
         ],
       },
@@ -424,8 +514,14 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/stellamccartney.mp4',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/stellamccartney.mp4',
+              },
+            ],
           },
         ],
       },
@@ -439,8 +535,14 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/etro.mp4',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/etro.mp4',
+              },
+            ],
           },
         ],
       },
@@ -454,16 +556,20 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Armani.mp4',
-          },
-          {
-            id: 2,
-            exampleDesc: 'Meida Only',
-            exampleContent: '',
-            exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Armani%E5%8C%85.mp4',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Armani.mp4',
+              },
+              {
+                id: 2,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Armani%E5%8C%85.mp4',
+              },
+            ],
           },
         ],
       },
@@ -477,8 +583,14 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Meida Only',
             exampleContent: '',
             exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E5%A4%A7%E7%8E%8BAlexander%20wang.mp4',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E5%A4%A7%E7%8E%8BAlexander%20wang.mp4',
+              },
+            ],
           },
         ],
       },
@@ -492,16 +604,20 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Media Only',
             exampleContent: '',
             exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/BBY.mp4',
-          },
-          {
-            id: 2,
-            exampleDesc: 'Media Only',
-            exampleContent: '',
-            exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Burberry%20%E4%B8%8A%E7%BA%BFdemo.MOV',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/BBY.mp4',
+              },
+              {
+                id: 2,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Burberry%20%E4%B8%8A%E7%BA%BFdemo.MOV',
+              },
+            ],
           },
         ],
       },
@@ -549,7 +665,7 @@ const vendorListMock: Array<vendorItem> = reactive([
       'Enhanced Sales Team Efficiency: Achieving smarter sales interactions and more efficient customer management is expected to elevate the overall efficiency of the sales team.',
       'Strengthened Customer Relationships: Through more personalized and precise user interactions, there is potential to enhance customer awareness and loyalty to the brand, thereby increasing the stability of customer relationships.',
     ],
-    priceModel: [
+    cost: [
       'The expenses are divided into two main components. One part involves charging for accounts using AI functionalities within Enterprise WeChat, and the other relates to the cleaning work of the corpus.',
       'Accounts with AI functionalities: $2500 per account per year; (includes 6000 monthly AI information retrieval instances for one account, with the option to recharge beyond the allotted instances. Recharge starts at ¥1500, with a deduction of ¥1500 RMB for every 15,000 additional access instances.)',
       'Corpus cleaning: fees are determined based on the clarity difficulty and scale of the database: A one-time base fee of ¥30,000 RMB, with a monthly corpus cleaning fee quote of ¥25,000 RMB.',
@@ -618,8 +734,14 @@ const vendorListMock: Array<vendorItem> = reactive([
             exampleDesc: 'Media Only',
             exampleContent: '',
             exampleType: 'video',
-            exampleSrc:
-              'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Featured%20Demo%20and%20%20Maison%20Cases_iCC.mp4',
+            exampleArr: [
+              {
+                id: 1,
+                type: 'video',
+                exampleSrc:
+                  'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Featured%20Demo%20and%20%20Maison%20Cases_iCC.mp4',
+              },
+            ],
           },
         ],
       },
