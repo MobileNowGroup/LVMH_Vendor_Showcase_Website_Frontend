@@ -102,9 +102,9 @@ const agreeSaveCookies = () => {
           </div>
         </div>
       </div>
-      <div style="display: flex; height: 100vh; flex-flow: column nowrap">
+      <div>
         <HeadComponent></HeadComponent>
-        <RouterView style="flex: 1" />
+        <RouterView />
         <FootComponent></FootComponent>
       </div>
     </div>
