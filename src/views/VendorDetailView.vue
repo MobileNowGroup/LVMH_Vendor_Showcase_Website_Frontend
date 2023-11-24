@@ -136,7 +136,6 @@ const nextEl = () => {
           </p>
         </div>
       </div>
-
       <div class="slide-box">
         <div class="slide-arrow slide-arrow-left flex items-center">
           <img
@@ -206,8 +205,40 @@ const nextEl = () => {
         </div>
       </div>
     </div>
+
     <div class="content">
-      <div class="content-box content-box-solution">
+      <div
+        v-if="vendor.briefIntroduction && vendor.briefIntroduction.length"
+        class="content-box content-box-solution"
+      >
+        <h2 class="title">
+          <div class="flex items-center justify-center">
+            <div
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
+            ></div>
+            <span class="block flex-none">
+              Brief Introduction of Product / Service
+            </span>
+            <div
+              class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
+            ></div>
+          </div>
+        </h2>
+        <p
+          v-for="item in vendor.briefIntroduction"
+          :key="item.id"
+          :style="item.style"
+          class="content-desc content-solution"
+        >
+          {{ item.value }}
+        </p>
+        <img :src="vendor.useCaseExampleSrc" alt="" />
+      </div>
+
+      <div
+        v-if="vendor.useCaseExample && vendor.useCaseExample.length"
+        class="content-box content-box-solution"
+      >
         <h2 class="title">
           <div class="flex items-center justify-center">
             <div
@@ -221,14 +252,19 @@ const nextEl = () => {
         </h2>
         <p
           v-for="item in vendor.useCaseExample"
-          :key="item"
+          :key="item.id"
+          :style="item.style"
           class="content-desc content-solution"
         >
-          {{ item }}
+          {{ item.value }}
         </p>
         <img :src="vendor.useCaseExampleSrc" alt="" />
       </div>
-      <div class="content-box content-box-claimed">
+
+      <div
+        v-if="vendor.claimedKpis && vendor.claimedKpis.length"
+        class="content-box content-box-claimed"
+      >
         <h2 class="title">
           <div class="flex items-center justify-center">
             <div
@@ -243,10 +279,11 @@ const nextEl = () => {
         <!-- <div class="is-flex-row kpibox"></div> -->
         <p
           v-for="item in vendor.claimedKpis"
-          :key="item"
+          :key="item.id"
+          :style="item.style"
           class="content-desc content-claimed"
         >
-          {{ item }}
+          {{ item.value }}
         </p>
         <!-- <p class="content-desc content-claimed is-flex-column">
             <span class="content-kpi">+16%</span>
@@ -265,7 +302,10 @@ const nextEl = () => {
             <span class="content-kpi-desc">conventions</span>
           </p> -->
       </div>
-      <div class="content-box content-box-price">
+      <div
+        v-if="vendor.cost && vendor.cost.length"
+        class="content-box content-box-price"
+      >
         <div class="content-box-price-spec">
           <h2 class="title">
             <div class="flex items-center justify-center">
@@ -279,11 +319,12 @@ const nextEl = () => {
             </div>
           </h2>
           <p
-            v-for="item in vendor.priceModel"
-            :key="item"
+            v-for="item in vendor.cost"
+            :key="item.id"
+            :style="item.style"
             class="content-desc content-price"
           >
-            {{ item }}
+            {{ item.value }}
           </p>
         </div>
 
@@ -334,7 +375,11 @@ const nextEl = () => {
           </div>
         </div>
       </div>
-      <div class="content-box content-box-feature">
+
+      <div
+        v-if="vendor.featureDemo && vendor.featureDemo.length"
+        class="content-box content-box-feature"
+      >
         <h2 class="title">
           <div class="flex items-center justify-center">
             <div
@@ -377,7 +422,11 @@ const nextEl = () => {
           </div>
         </div>
       </div>
-      <div class="content-box content-box-service">
+
+      <div
+        v-if="vendor.serviceBrandProjects && vendor.serviceBrandProjects.length"
+        class="content-box content-box-service"
+      >
         <h2 class="title">
           <div class="flex items-center justify-center">
             <div

@@ -1,41 +1,20 @@
 <script setup lang="ts" name="vendorListComponent">
 import { useRouter } from 'vue-router'
 import { isMobile, setVideoPosterFn } from '@/util/common'
-import { ref, reactive } from 'vue'
-import { onMounted } from 'vue'
-
+import { ref, reactive, onMounted } from 'vue'
 const isMobileDevice = ref(isMobile())
-
 const props = defineProps({
-  projectExample: { type: Object, reauired: true },
+  projectExample: { type: Array, reauired: true },
 })
-const showList = reactive([
-  {
-    exampleDesc: 'bvlgari size guide:',
-    exampleType: '',
-    exampleSrc:
-      'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4',
-  },
-] as any)
-let showMediaSrc = ref('')
-showList.values = props.projectExample
-
+let showList = reactive(props.projectExample as any)
+let currentObj = reactive({ value: {} } as any)
 onMounted(() => {
-  showMediaSrc.value = showList.values[0].exampleSrc // 当前展示的多媒体地址
-
-  console.log(showList.values)
+  currentObj.value = showList[0]
 })
-/** 判断当前多媒体资源是视频还是图片 */
-const mediaType = function (src: string) {
-  let a = src.indexOf('mp4') > 0 ? 'media' : 'image'
-  return a
-}
-
 /** 点击展示当前的slide */
 const showSlideMedia = function (src: string, _key: number, $event: any) {
   // choose whitch slide to show
   console.log($event.target.parentNode.parentNode.parentNode.children)
-  showMediaSrc.value = src
   const changeVideoSource = document.querySelector('video')
   // 每次更新video资源时手动load一次资源
   changeVideoSource && changeVideoSource.load()
@@ -50,20 +29,10 @@ const showSlideMedia = function (src: string, _key: number, $event: any) {
       frameZones[i].className = 'show-item'
     }
   }
-  //   frameZones.forEach((element: any, index: any) => {
-  //     if (_key === index) {
-  //       element.className = "show-item show-item-active";
-  //     } else {
-  //       element.className = "show-item";
-  //     }
-  //   });
 }
+
 /** 点击右箭头换下一个slide */
 const nextShow = function ($event: any) {
-  // console.log($event.target.parentNode.previousElementSibling);
-  // 对下面的slide样式进行改变
-  // const frameZones = Array.from(document.querySelectorAll(".show-item"));
-  // const frameDom = document.querySelector(".show-list") as Element;
   const frameZones = $event.target.parentNode.previousElementSibling.children
   const frameDom = $event.target.parentNode.previousElementSibling
   console.log()
@@ -73,13 +42,13 @@ const nextShow = function ($event: any) {
       if (frameZones[i + 1]) {
         frameZones[i + 1].className = 'show-item show-item-active'
         // 修改地址
-        showMediaSrc.value = showList[i + 1].exampleSrc
+        currentObj.value = showList[i + 1]
         // 修改选中元素与左边边距
         frameDom.scrollLeft = 175 * (i + 1)
       } else {
         frameZones[0].className = 'show-item show-item-active'
         // 修改地址
-        showMediaSrc.value = showList[0].exampleSrc
+        currentObj.value = showList[0]
         // 修改选中元素与左边边距
         frameDom.scrollLeft = 0
       }
@@ -93,19 +62,20 @@ const nextShow = function ($event: any) {
 <template>
   <div class="show-box">
     <div class="slide">
-      <div class="slide-video" v-if="mediaType(showMediaSrc) === 'media'">
+      <div class="slide-video" v-if="currentObj.value.type === 'video'">
         <video
           controls
           preload="metadata"
-          :poster="`${showMediaSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
+          :poster="`${currentObj.value.exampleSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
           class="video"
           @loadeddata="setVideoPosterFn($event)"
+          :src="currentObj.value.exampleSrc"
         >
-          <source :src="showMediaSrc" type="video/mp4" />
+          <!-- <source :src="currentObj.value.exampleSrc" type="video/mp4" /> -->
         </video>
       </div>
       <div v-else class="slide-image">
-        <img :src="showMediaSrc" alt="" />
+        <img :src="currentObj.value.exampleSrc" alt="" />
       </div>
     </div>
     <div v-if="1 < showList.length" class="show" ref="slide">
@@ -116,7 +86,7 @@ const nextShow = function ($event: any) {
           :key="key"
           @click="showSlideMedia(value.exampleSrc, key, $event)"
         >
-          <div class="media-box video-box" v-if="value.exampleDesc === 'video'">
+          <div class="media-box video-box" v-if="value.type === 'video'">
             <img
               class="icon show-item-video-icon"
               src="/images/24gf-videoCamera.png"
@@ -124,14 +94,14 @@ const nextShow = function ($event: any) {
             />
             <video
               preload="metadata"
-              :poster="`${value}?x-oss-process=video/snapshot,t_1,m_fast`"
+              :poster="`${value.exampleSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
               @loadeddata="setVideoPosterFn($event)"
             >
-              <source :src="value.exampleDesc" type="video/mp4" />
+              <source :src="value.exampleSrc" type="video/mp4" />
             </video>
           </div>
           <div class="media-box image-box" v-else>
-            <img class="media-img" :src="showMediaSrc" alt="" />
+            <img class="media-img" :src="value.exampleSrc" alt="" />
           </div>
         </div>
       </div>
