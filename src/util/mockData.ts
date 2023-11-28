@@ -391,7 +391,7 @@ const vendorListMock: Array<vendorItem> = reactive([
     vendorName: 'FANCY TECHNOLOGY (NANJING) CO., LTD',
     vendorShortName: 'FANCY TECH',
     vendorFullName: 'FANCY TECHNOLOGY (NANJING) CO., LTD',
-    vendorCategory: 'Clienteling',
+    vendorCategory: 'Clienting',
     vendorCategoryNum: 1, // vendorCategory的数量
     brandFounded: '2020',
     leadTime: '2-4 weeks',
@@ -684,7 +684,7 @@ const vendorListMock: Array<vendorItem> = reactive([
     vendorName: 'iCC Grow',
     vendorShortName: 'iCC Grow',
     vendorFullName: 'iCC Grow',
-    vendorCategory: 'Clienteling',
+    vendorCategory: 'Clienting',
     vendorCategoryNum: 1, // vendorCategory的数量
     brandFounded: '2019',
     leadTime: '4-6 weeks',

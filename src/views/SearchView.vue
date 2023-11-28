@@ -77,7 +77,7 @@ const filterDataFn = () => {
               //category
               if (itemb.desc.indexOf(element.vendorCategory) > -1) {
                 const newArr = vendorListArray.value.filter((item: any) => {
-                  return item.id === itemb.id
+                  return item.id === element.id
                 })
                 if (newArr.length == 0) {
                   vendorListArray.value.push(element)
@@ -87,7 +87,7 @@ const filterDataFn = () => {
               //tags
               if (element.vendorTags.indexOf('#' + itemb.desc) > -1) {
                 const newArr = vendorListArray.value.filter((item: any) => {
-                  return item.id === itemb.id
+                  return item.id === element.id
                 })
                 if (newArr.length == 0) {
                   vendorListArray.value.push(element)
@@ -97,7 +97,7 @@ const filterDataFn = () => {
               //status
               if (element.vendorStatus.indexOf(itemb.desc) > -1) {
                 const newArr = vendorListArray.value.filter((item: any) => {
-                  return item.id === itemb.id
+                  return item.id === element.id
                 })
                 if (newArr.length == 0) {
                   vendorListArray.value.push(element)

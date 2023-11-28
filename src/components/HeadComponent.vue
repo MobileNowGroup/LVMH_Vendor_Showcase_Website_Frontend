@@ -170,7 +170,6 @@ const closeBox = (e: any, closeType: any) => {
 }
 /**清空所有filter */
 const clearFilter = () => {
-  updateMockData()
   filterList.forEach((menu: any, menindex: any) => {
     // 清空所有category num
     menu.selectedCount = 0
@@ -181,6 +180,7 @@ const clearFilter = () => {
       menuItem.isChoosed = false
     })
   })
+  updateMockData()
   applyshowcolor()
   if ($router.currentRoute.value.path === '/search') {
     searchValue.value = ''

@@ -452,13 +452,14 @@ const nextEl = () => {
               :src="serviceBrands.logo"
               alt=""
             />
-            <a
+            <div
+              v-if="serviceBrands.isCommingSoon"
               class="content-desc content-service-desc"
               :class="{ 'is-comming-soon': serviceBrands.isCommingSoon }"
-              href=""
             >
-              {{ serviceBrands.isCommingSoon ? 'comming soon' : 'demo' }}
-            </a>
+              comming soon
+            </div>
+            <a v-else class="content-desc content-service-desc" href="">demo</a>
           </div>
         </div>
       </div>
@@ -715,11 +716,11 @@ const nextEl = () => {
   }
 
   &-desc {
-    margin: 0 24.5px;
+    margin-top: 15px;
     text-align: left;
     color: var(--lvmh-primary-1100, #20253b);
     font-family: avenir_next_text;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -867,7 +868,7 @@ const nextEl = () => {
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
-      padding: 1.7rem 2rem;
+      padding: 1.7rem 1.5rem;
       background: #fff;
       box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
       margin: 0 1.2rem;
@@ -1041,7 +1042,6 @@ const nextEl = () => {
       }
     }
   }
-
   .price {
     &-right {
       grid-template-columns: repeat(2, 1fr);
@@ -1297,7 +1297,6 @@ const nextEl = () => {
     }
   }
 }
-
 .swiper-wrapper {
   // justify-content: center;
 }
