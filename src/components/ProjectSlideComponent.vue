@@ -3,6 +3,8 @@ import { useRouter } from 'vue-router'
 import { isMobile, setVideoPosterFn } from '@/util/common'
 import { ref, reactive, onMounted } from 'vue'
 const isMobileDevice = ref(isMobile())
+const listRef = ref()
+let currentIndex = ref(0 as number)
 const props = defineProps({
   projectExample: { type: Array, reauired: true },
 })
@@ -12,79 +14,57 @@ onMounted(() => {
   currentObj.value = showList[0]
 })
 /** 点击展示当前的slide */
-const showSlideMedia = function (src: string, _key: number, $event: any) {
-  // choose whitch slide to show
-  console.log($event.target.parentNode.parentNode.parentNode.children)
-  const changeVideoSource = document.querySelector('video')
-  // 每次更新video资源时手动load一次资源
-  changeVideoSource && changeVideoSource.load()
-  // 对下面的slide样式进行改变
-  const frameZones = $event.target.parentNode.parentNode.parentNode.children
-
-  for (let i = 0; i < frameZones.length; i++) {
-    if (_key === i) {
-      console.log(frameZones[i])
-      frameZones[i].className = 'show-item show-item-active'
-    } else {
-      frameZones[i].className = 'show-item'
-    }
-  }
+const showSlideMedia = function (value: object, _key: number, $event: any) {
+  currentIndex.value = _key
+  listRef.value.scrollLeft =
+    currentIndex.value == 0 ? 0 : 75 * currentIndex.value
+  currentObj.value = value
 }
 
 /** 点击右箭头换下一个slide */
 const nextShow = function ($event: any) {
-  const frameZones = $event.target.parentNode.previousElementSibling.children
-  const frameDom = $event.target.parentNode.previousElementSibling
-  console.log()
-  for (let i = 0; i < frameZones.length; i++) {
-    if (frameZones[i].className === 'show-item show-item-active') {
-      frameZones[i].className = 'show-item'
-      if (frameZones[i + 1]) {
-        frameZones[i + 1].className = 'show-item show-item-active'
-        // 修改地址
-        currentObj.value = showList[i + 1]
-        // 修改选中元素与左边边距
-        frameDom.scrollLeft = 175 * (i + 1)
-      } else {
-        frameZones[0].className = 'show-item show-item-active'
-        // 修改地址
-        currentObj.value = showList[0]
-        // 修改选中元素与左边边距
-        frameDom.scrollLeft = 0
-      }
-      break
-    }
+  currentIndex.value += 1
+  if ((showList && showList.length - 1) < currentIndex.value) {
+    currentIndex.value = 0
   }
+  listRef.value.scrollLeft =
+    currentIndex.value == 0 ? 0 : 175 * currentIndex.value
+  currentObj.value = showList[currentIndex.value]
 }
 /** 设置每个video的预览图 setVideoPosterFn */
 </script>
 
 <template>
   <div class="show-box">
-    <div class="slide">
-      <div class="slide-video" v-if="currentObj.value.type === 'video'">
-        <video
-          controls
-          preload="metadata"
-          :poster="`${currentObj.value.exampleSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
-          class="video"
-          @loadeddata="setVideoPosterFn($event)"
-          :src="currentObj.value.exampleSrc"
-        >
-          <!-- <source :src="currentObj.value.exampleSrc" type="video/mp4" /> -->
-        </video>
+    <div class="box-slide">
+      <div class="box-slide-arrow" @click="nextShow($event)"></div>
+      <div class="slide">
+        <div class="slide-video" v-if="currentObj.value.type === 'video'">
+          <video
+            controls
+            preload="metadata"
+            :poster="`${currentObj.value.exampleSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
+            class="video"
+            @loadeddata="setVideoPosterFn($event)"
+            :src="currentObj.value.exampleSrc"
+          >
+            <!-- <source :src="currentObj.value.exampleSrc" type="video/mp4" /> -->
+          </video>
+        </div>
+        <div v-else class="slide-image">
+          <img :src="currentObj.value.exampleSrc" alt="" />
+        </div>
       </div>
-      <div v-else class="slide-image">
-        <img :src="currentObj.value.exampleSrc" alt="" />
-      </div>
+      <div class="box-slide-arrow" @click="nextShow($event)"></div>
     </div>
     <div v-if="1 < showList.length" class="show" ref="slide">
-      <div class="show-list">
+      <div ref="listRef" class="show-list">
         <div
           class="show-item"
           v-for="(value, key) of showList"
           :key="key"
-          @click="showSlideMedia(value.exampleSrc, key, $event)"
+          :class="value.id === currentObj.value.id ? 'show-item-active' : ''"
+          @click="showSlideMedia(value, key, $event)"
         >
           <div class="media-box video-box" v-if="value.type === 'video'">
             <img
@@ -119,16 +99,27 @@ const nextShow = function ($event: any) {
 </template>
 
 <style lang="scss" scoped>
+.box-slide {
+  display: flex;
+  flex-flow: row nowrap;
+  &-arrow {
+    content: '';
+    cursor: url('/images/icon/close_circle.svg'), pointer;
+    width: 9rem;
+    position: relative;
+    top: 0;
+    bottom: 0;
+  }
+}
 .slide {
-  max-width: 93rem;
+  width: 93rem;
   height: max-content;
   background: #000;
   transition: all 2s linear;
 }
 .slide-video {
   position: relative;
-  max-width: 93rem;
-  width: 93rem;
+  width: 100%;
   display: flex;
   align-items: center;
   video {
@@ -225,7 +216,7 @@ const nextShow = function ($event: any) {
 }
 .show {
   position: relative;
-
+  padding: 0 7rem;
   &-box {
     max-width: 93rem;
     overflow: hidden;
@@ -239,7 +230,7 @@ const nextShow = function ($event: any) {
   &-control {
     position: absolute;
     top: 2px;
-    right: -2px;
+    right: 6.8rem;
     height: 100%;
     padding: 3.5rem 0rem 3.5rem 13.4rem;
     background: linear-gradient(
@@ -293,11 +284,13 @@ const nextShow = function ($event: any) {
 
 @media screen and (max-width: 960px) {
   .show {
+    padding: 0;
     &-box {
       margin: 0 1.5rem;
     }
     &-control {
       padding: 3.5rem 0rem 3.5rem 5.9rem;
+      right: -2px;
     }
     .media-box {
       width: 13.5rem;

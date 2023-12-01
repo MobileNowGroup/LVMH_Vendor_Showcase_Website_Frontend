@@ -92,32 +92,36 @@ const vendorListMock: Array<vendorItem> = reactive([
         list: ['Level 3'],
       },
     ],
-    featureDemo: [
-      {
-        id: 1,
-        type: 'link',
-        desc: 'AR try-on from head to toe',
-        src: 'https://www.youtube.com/watch?v=bu0QHVT2DyE&t=7s',
-      },
-      {
-        id: 2,
-        type: 'link',
-        desc: 'Ulysse Nardin watch try-on',
-        src: 'https://www.youtube.com/watch?v=EdUsFeXZmq0',
-      },
-      {
-        id: 3,
-        type: 'link',
-        desc: 'Celine bag 3D interaction',
-        src: 'https://www.youtube.com/watch?v=u76O_-xhlw4',
-      },
-      {
-        id: 4,
-        type: 'link',
-        desc: 'Valentino shoes try-on',
-        src: 'https://www.youtube.com/watch?v=TW0TOK8gMbM',
-      },
-    ],
+    featureDemo: {
+      links: [
+        {
+          id: 1,
+          type: 'link',
+          desc: 'AR try-on from head to toe',
+          src: 'https://www.youtube.com/watch?v=bu0QHVT2DyE&t=7s',
+        },
+        {
+          id: 2,
+          type: 'link',
+          desc: 'Ulysse Nardin watch try-on',
+          src: 'https://www.youtube.com/watch?v=EdUsFeXZmq0',
+        },
+        {
+          id: 3,
+          type: 'link',
+          desc: 'Celine bag 3D interaction',
+          src: 'https://www.youtube.com/watch?v=u76O_-xhlw4',
+        },
+        {
+          id: 4,
+          type: 'link',
+          desc: 'Valentino shoes try-on',
+          src: 'https://www.youtube.com/watch?v=TW0TOK8gMbM',
+        },
+      ],
+      qrCodes: [],
+      videos: [],
+    },
     serviceBrandLogos: [
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/lv_white.png',
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/dior_white.png',
@@ -481,7 +485,11 @@ const vendorListMock: Array<vendorItem> = reactive([
         list: ['Level 1'],
       },
     ],
-    featureDemo: [],
+    featureDemo: {
+      links: [],
+      qrCodes: [],
+      videos: [],
+    },
     serviceBrandLogos: [
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/Givenchy_white.png',
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/Chopard_white.png',
@@ -854,14 +862,18 @@ const vendorListMock: Array<vendorItem> = reactive([
         list: ['Level 3'],
       },
     ],
-    featureDemo: [
-      {
-        id: 1,
-        type: 'video',
-        desc: '',
-        src: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Featured%20Demo%20and%20%20Maison%20Cases_iCC.mp4',
-      },
-    ],
+    featureDemo: {
+      links: [],
+      qrCodes: [],
+      videos: [
+        {
+          id: 1,
+          type: 'video',
+          desc: '',
+          src: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/Featured%20Demo%20and%20%20Maison%20Cases_iCC.mp4',
+        },
+      ],
+    },
     serviceBrandLogos: [
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/lv_white.png',
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/macdonald_white.png',
@@ -1124,7 +1136,11 @@ const vendorListMock: Array<vendorItem> = reactive([
         list: ['Level 3'],
       },
     ],
-    featureDemo: [],
+    featureDemo: {
+      links: [],
+      qrCodes: [],
+      videos: [],
+    },
     serviceBrandLogos: [
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/hennessy_white.png',
       'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/ardbeg_white.png',

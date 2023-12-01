@@ -112,28 +112,33 @@ const nextEl = () => {
     <div class="top" :class="{ top_mobile: isMobileAgent }">
       <div class="vendor-box">
         <div class="vendor-box-in h-[41rem]">
-          <h2 class="vendor-name">{{ vendor.vendorName }}</h2>
-          <p class="vendor-category">
-            <span class="vendor-title">Category:</span>
-            {{ vendor.vendorCategory }}
-          </p>
-          <p class="vendor-found">
-            <span class="vendor-title">Founded:</span>
-            {{ vendor.brandFounded }}
-          </p>
-          <p class="vendor-time">
-            <span class="vendor-title">Lead Time:</span>
-            {{ vendor.leadTime }}
-          </p>
-          <p class="vendor-tag">
-            <span v-for="(tag, tagIndex) of vendor.vendorTags" :key="tagIndex">
-              {{ tag }}
-            </span>
-          </p>
-          <p class="vendor-intro">
-            <span class="vendor-title">Introduction:</span>
-            {{ vendor.vendorBrief }}
-          </p>
+          <div class="vendor-box-in-scroll">
+            <h2 class="vendor-name">{{ vendor.vendorName }}</h2>
+            <p class="vendor-category">
+              <span class="vendor-title">Category:</span>
+              {{ vendor.vendorCategory }}
+            </p>
+            <p class="vendor-found">
+              <span class="vendor-title">Founded:</span>
+              {{ vendor.brandFounded }}
+            </p>
+            <p class="vendor-time">
+              <span class="vendor-title">Lead Time:</span>
+              {{ vendor.leadTime }}
+            </p>
+            <p class="vendor-tag">
+              <span
+                v-for="(tag, tagIndex) of vendor.vendorTags"
+                :key="tagIndex"
+              >
+                {{ tag }}
+              </span>
+            </p>
+            <p class="vendor-intro">
+              <span class="vendor-title">Introduction:</span>
+              {{ vendor.vendorBrief }}
+            </p>
+          </div>
         </div>
       </div>
       <div class="slide-box">
@@ -377,7 +382,12 @@ const nextEl = () => {
       </div>
 
       <div
-        v-if="vendor.featureDemo && vendor.featureDemo.length"
+        v-if="
+          vendor.featureDemo &&
+          (vendor.featureDemo.links.length ||
+            vendor.featureDemo.qrCodes.length ||
+            vendor.featureDemo.videos.length)
+        "
         class="content-box content-box-feature"
       >
         <h2 class="title">
@@ -391,23 +401,40 @@ const nextEl = () => {
             ></div>
           </div>
         </h2>
-        <div v-for="(item, index) of vendor.featureDemo" :key="index">
-          <div v-if="item.type === 'QRcode'">
-            <p class="content-feature-desc">Scan the QR code to view demo</p>
-            <img :src="item.src" alt="" />
-          </div>
-          <div v-else-if="item.type === 'link'">
-            <p class="content-feature-desc">Click the link to view demo</p>
-            <button class="content-feature-button" @click="openLink(item.src)">
-              <img :src="item.src" alt="" />
+        <div v-show="vendor.featureDemo.links.length">
+          <p class="content-feature-desc">Click the link to view demo</p>
+          <div class="content-feature-list">
+            <button
+              class="content-feature-button"
+              @click="openLink(item.src)"
+              v-for="(item, index) of vendor.featureDemo.links"
+              :key="index"
+            >
+              <img src="/images/icon/button_link.svg" alt="" />
               Demo link
             </button>
           </div>
-          <div v-else>
-            <p class="content-feature-desc">
-              Click the play button to view demo
-            </p>
-            <div class="content-feature-video-box" @click="">
+        </div>
+        <div v-show="vendor.featureDemo.qrCodes.length">
+          <p class="content-feature-desc">Scan the QR code to view demo</p>
+          <div class="content-feature-list">
+            <img
+              v-for="(item, index) of vendor.featureDemo.qrCodes"
+              :key="index"
+              :src="item.src"
+              alt=""
+            />
+          </div>
+        </div>
+        <div v-show="vendor.featureDemo.videos.length">
+          <p class="content-feature-desc">Click the play button to view demo</p>
+          <div class="content-feature-list">
+            <div
+              class="content-feature-video-box"
+              @click=""
+              v-for="(item, index) of vendor.featureDemo.videos"
+              :key="index"
+            >
               <!-- <img :src="item.src" alt="" /> -->
               <video
                 controls
@@ -520,9 +547,14 @@ const nextEl = () => {
     font-weight: 400;
     line-height: 22px;
     &-in {
-      padding: 4rem;
+      padding: 3rem 1rem 3rem 3rem;
       background: #fff;
       box-shadow: 0px 8px 15px 0px rgba(62, 101, 208, 0.1);
+      overflow: hidden;
+      &-scroll {
+        height: 100%;
+        overflow-y: auto;
+      }
     }
   }
   &-title {
@@ -545,7 +577,7 @@ const nextEl = () => {
     line-height: normal;
     text-transform: uppercase;
     margin-bottom: 2.4rem;
-    @include ellipsisLn(1);
+    //@include ellipsisLn(1);
   }
   &-time {
     margin-bottom: 1.2rem;
@@ -571,7 +603,7 @@ const nextEl = () => {
     }
   }
   &-intro {
-    @include ellipsisLn(6);
+    //@include ellipsisLn(6);
   }
 }
 .slide {
@@ -830,13 +862,20 @@ const nextEl = () => {
       font-weight: 400;
       line-height: normal;
     }
+    &-list {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+    }
     &-button {
       display: flex;
       padding: 8px 40px;
       align-items: center;
       gap: 2px;
       border: none;
-      margin: 0 auto;
+      margin: 10px 10px;
       color: var(--lvmh-primary-170, #636776);
       font-family: avenir_next_text;
       font-size: 14px;

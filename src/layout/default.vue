@@ -102,9 +102,9 @@ const agreeSaveCookies = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div style="height: 100vh">
         <HeadComponent></HeadComponent>
-        <RouterView />
+        <RouterView style="height: max-content; min-height: 85.7%" />
         <FootComponent></FootComponent>
       </div>
     </div>
