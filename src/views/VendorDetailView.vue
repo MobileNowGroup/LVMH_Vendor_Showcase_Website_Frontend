@@ -571,7 +571,7 @@ const nextEl = () => {
   &-name {
     color: var(--lvmh-secondary-1100, #3e65d0);
     font-family: avenir_next_text;
-    font-size: 32px;
+    font-size: 28px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
