@@ -148,8 +148,7 @@ const nextShow = function ($event: any) {
   }
 }
 .slide-image {
-  max-width: 93rem;
-  width: 93rem;
+  width: 100%;
   display: flex;
   align-items: center;
   img {
