@@ -85,7 +85,14 @@ const filterDataFn = () => {
               }
             } else if (itemb.type === 'tags') {
               //tags
-              if (element.vendorTags.indexOf('#' + itemb.desc) > -1) {
+              // debugger
+              const newTagsArr = element.vendorTags.filter(obj => {
+                const itemDesc = itemb.desc
+                  ? `#${itemb.desc}`.toLocaleLowerCase()
+                  : ''
+                return obj.toLocaleLowerCase().indexOf(itemDesc) != -1
+              })
+              if (newTagsArr.length) {
                 const newArr = vendorListArray.value.filter((item: any) => {
                   return item.id === element.id
                 })

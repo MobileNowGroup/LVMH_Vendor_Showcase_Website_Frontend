@@ -31,13 +31,27 @@ const nextShow = function ($event: any) {
     currentIndex.value == 0 ? 0 : 175 * currentIndex.value
   currentObj.value = showList[currentIndex.value]
 }
+/** 点击右箭头换下一个slide */
+const prevShow = function () {
+  currentIndex.value -= 1
+  if (showList && currentIndex.value < 0) {
+    currentIndex.value = showList.length - 1
+  }
+  listRef.value.scrollLeft =
+    currentIndex.value == 0 ? 0 : 175 * currentIndex.value
+  currentObj.value = showList[currentIndex.value]
+}
 /** 设置每个video的预览图 setVideoPosterFn */
 </script>
 
 <template>
   <div class="show-box">
     <div class="box-slide">
-      <div class="box-slide-arrow" @click="nextShow($event)"></div>
+      <div
+        v-if="!isMobileDevice && 1 < showList.length"
+        class="box-slide-arrow box-slide-arrow-left"
+        @click="prevShow()"
+      ></div>
       <div class="slide">
         <div class="slide-video" v-if="currentObj.value.type === 'video'">
           <video
@@ -55,9 +69,22 @@ const nextShow = function ($event: any) {
           <img :src="currentObj.value.exampleSrc" alt="" />
         </div>
       </div>
-      <div class="box-slide-arrow" @click="nextShow($event)"></div>
+      <div
+        v-if="!isMobileDevice && 1 < showList.length"
+        class="box-slide-arrow box-slide-arrow-right"
+        @click="nextShow"
+      ></div>
     </div>
     <div v-if="1 < showList.length" class="show" ref="slide">
+      <div class="show-control left">
+        <img
+          v-if="!isMobileDevice"
+          class=""
+          src="/images/icon/close_circle_left.svg"
+          @click="prevShow"
+          alt="decoration img for slide control"
+        />
+      </div>
       <div ref="listRef" class="show-list">
         <div
           class="show-item"
@@ -85,12 +112,12 @@ const nextShow = function ($event: any) {
           </div>
         </div>
       </div>
-      <div class="show-control">
+      <div class="show-control right">
         <img
           v-if="!isMobileDevice"
           class=""
-          src="/images/icon/close_circle.svg"
-          @click="nextShow($event)"
+          src="/images/icon/close_circle_right.svg"
+          @click="nextShow"
           alt="decoration img for slide control"
         />
       </div>
@@ -104,11 +131,16 @@ const nextShow = function ($event: any) {
   flex-flow: row nowrap;
   &-arrow {
     content: '';
-    cursor: url('/images/icon/close_circle.svg'), pointer;
     width: 9rem;
     position: relative;
     top: 0;
     bottom: 0;
+    &-right {
+      cursor: url('/images/icon/close_circle_right.svg'), pointer;
+    }
+    &-left {
+      cursor: url('/images/icon/close_circle_left.svg'), pointer;
+    }
   }
 }
 .slide {
@@ -227,17 +259,34 @@ const nextShow = function ($event: any) {
     overflow-x: scroll;
   }
   &-control {
+    height: 100%;
+
+    z-index: 99;
+  }
+  .left {
+    position: absolute;
+    top: 2px;
+    left: 6.8rem;
+    padding: 3.5rem 3.4rem 3.5rem 0;
+    background: linear-gradient(
+      -89deg,
+      rgba(255, 255, 255, 0) 1.25%,
+      #fff 73.86%
+    );
+    img {
+      padding-right: 2px;
+    }
+  }
+  .right {
     position: absolute;
     top: 2px;
     right: 6.8rem;
-    height: 100%;
-    padding: 3.5rem 0rem 3.5rem 13.4rem;
+    padding: 3.5rem 0rem 3.5rem 3.4rem;
     background: linear-gradient(
       89deg,
       rgba(255, 255, 255, 0) 1.25%,
       #fff 73.86%
     );
-    z-index: 99;
     img {
       padding-right: 2px;
     }

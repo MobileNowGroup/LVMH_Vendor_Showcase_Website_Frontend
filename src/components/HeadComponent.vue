@@ -460,7 +460,12 @@ onUnmounted(() => {
                                 class="inline-block w-[20px] h-[20px] border border-[#A6A8B1] mr-[8px]"
                                 :class="{ checkedBg: menuItem.isChoosed }"
                               ></span>
-                              <span>{{ menuItem.desc }}</span>
+                              <span>
+                                {{ menuItem.desc }}
+                                {{
+                                  menuItem.value ? `(${menuItem.value})` : ''
+                                }}
+                              </span>
                             </div>
                           </li>
                         </ul>

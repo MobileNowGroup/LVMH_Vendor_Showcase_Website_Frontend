@@ -281,7 +281,6 @@ const nextEl = () => {
             ></div>
           </div>
         </h2>
-        <!-- <div class="is-flex-row kpibox"></div> -->
         <p
           v-for="item in vendor.claimedKpis"
           :key="item.id"
@@ -290,22 +289,6 @@ const nextEl = () => {
         >
           {{ item.value }}
         </p>
-        <!-- <p class="content-desc content-claimed is-flex-column">
-            <span class="content-kpi">+16%</span>
-            <span class="content-kpi-desc">conventions</span>
-          </p>
-          <p class="content-desc content-claimed is-flex-column">
-            <span class="content-kpi">+16%</span>
-            <span class="content-kpi-desc">conventions</span>
-          </p>
-          <p class="content-desc content-claimed is-flex-column">
-            <span class="content-kpi">+16%</span>
-            <span class="content-kpi-desc">conventions</span>
-          </p>
-          <p class="content-desc content-claimed is-flex-column">
-            <span class="content-kpi">+16%</span>
-            <span class="content-kpi-desc">conventions</span>
-          </p> -->
       </div>
       <div
         v-if="vendor.cost && vendor.cost.length"
@@ -423,6 +406,7 @@ const nextEl = () => {
               :key="index"
               :src="item.src"
               alt=""
+              style="margin: 12px 6px"
             />
           </div>
         </div>
@@ -483,6 +467,7 @@ const nextEl = () => {
               v-if="serviceBrands.isCommingSoon"
               class="content-desc content-service-desc"
               :class="{ 'is-comming-soon': serviceBrands.isCommingSoon }"
+              style="font-size: 1rem"
             >
               comming soon
             </div>
@@ -662,6 +647,7 @@ const nextEl = () => {
 
     img {
       max-width: 5.2rem;
+
       // width: 4.5rem;
       // height: 4.5rem;
       // margin: 0 auto;
@@ -752,7 +738,7 @@ const nextEl = () => {
     text-align: left;
     color: var(--lvmh-primary-1100, #20253b);
     font-family: avenir_next_text;
-    font-size: 1rem;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -857,7 +843,7 @@ const nextEl = () => {
       margin: 2rem 0;
       color: var(--lvmh-primary-1100, #20253b);
       font-family: avenir_next_text;
-      font-size: 16px;
+      font-size: 1rem;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
@@ -865,7 +851,7 @@ const nextEl = () => {
     &-list {
       display: flex;
       flex-flow: row wrap;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
       width: 100%;
     }
@@ -875,7 +861,7 @@ const nextEl = () => {
       align-items: center;
       gap: 2px;
       border: none;
-      margin: 10px 10px;
+      margin: 10px 6px;
       color: var(--lvmh-primary-170, #636776);
       font-family: avenir_next_text;
       font-size: 14px;
@@ -907,15 +893,15 @@ const nextEl = () => {
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
-      padding: 1.7rem 1.5rem;
+      padding: 1rem 1.5rem;
       background: #fff;
       box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
       margin: 0 1.2rem;
       cursor: pointer;
       img {
-        display: block;
-        flex: 1;
         width: 7.5rem;
+        height: 7.5rem;
+        min-height: 7.5rem;
         object-fit: contain;
       }
       a {
