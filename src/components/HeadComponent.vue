@@ -2,6 +2,7 @@
 import {
   onBeforeUpdate,
   onMounted,
+  onUpdated,
   onUnmounted,
   reactive,
   ref,
@@ -57,6 +58,7 @@ const shutDownComponent = ref(true)
 const updatefilterData = () => {
   filterList.forEach((filterObj: any) => {
     filterObj.menuItemList.forEach((itemObj: any) => {
+      itemObj.value = 0
       mockData.vendorListMock.forEach((cardObj: vendorItem) => {
         if (itemObj.type === 'category') {
           if (
@@ -86,22 +88,24 @@ const updatefilterData = () => {
     })
   })
 }
-onMounted(() => {
+onUpdated(() => {
   updatefilterData()
-  if (window) {
-    window.addEventListener('scroll', _onPageScroll)
-  }
-  // 启用filter功能
-  filterShow.value = $route.path !== '/vendordetail'
-  // 监听路由匹配不同header背景色
-  headerbg()
-  // else {
-  // (headerDom.value as any).setAttribute(
-  //   "style",
-  //   "background: rgba(255,255,255,0)",
-  // );
-  // }
-})
+}),
+  onMounted(() => {
+    if (window) {
+      window.addEventListener('scroll', _onPageScroll)
+    }
+    // 启用filter功能
+    filterShow.value = $route.path !== '/vendordetail'
+    // 监听路由匹配不同header背景色
+    headerbg()
+    // else {
+    // (headerDom.value as any).setAttribute(
+    //   "style",
+    //   "background: rgba(255,255,255,0)",
+    // );
+    // }
+  })
 
 const headerbg = () => {
   switch ($route.path) {
