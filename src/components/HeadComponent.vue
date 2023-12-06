@@ -10,9 +10,11 @@ import {
 } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import mockData from '../util/mockData'
+import type vendorItem from '@/model/vendor.model'
 import { throttle } from '@/util/common'
 import { commonStore } from '@/stores/authStore'
 import { match } from 'assert'
+import { mock } from 'node:test'
 //使用递归的方式实现数组、对象的深拷贝
 const sleepCopy = (obj: any) => {
   if (obj === null || typeof obj !== 'object') {
@@ -52,8 +54,40 @@ decoVisiable.value = decoShowArray.every(item => {
 })
 // header背景色
 const shutDownComponent = ref(true)
-
+const updatefilterData = () => {
+  filterList.forEach((filterObj: any) => {
+    filterObj.menuItemList.forEach((itemObj: any) => {
+      mockData.vendorListMock.forEach((cardObj: vendorItem) => {
+        if (itemObj.type === 'category') {
+          if (
+            itemObj.desc.toLocaleLowerCase() ===
+            cardObj.vendorCategory.toLocaleLowerCase()
+          ) {
+            itemObj.value += 1
+          }
+        } else if (itemObj.type === 'tags') {
+          let newCardArr = cardObj.vendorTags.filter((tagItem: any) => {
+            return (
+              tagItem.toLocaleLowerCase() ===
+              `#${itemObj.desc}`.toLocaleLowerCase()
+            )
+          })
+          itemObj.value += newCardArr.length
+        } else if (itemObj.type === 'status') {
+          if (
+            cardObj.vendorStatus
+              .toLocaleLowerCase()
+              .indexOf(itemObj.desc.toLocaleLowerCase()) > -1
+          ) {
+            itemObj.value += 1
+          }
+        }
+      })
+    })
+  })
+}
 onMounted(() => {
+  updatefilterData()
   if (window) {
     window.addEventListener('scroll', _onPageScroll)
   }
