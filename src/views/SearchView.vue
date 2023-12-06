@@ -75,7 +75,11 @@ const filterDataFn = () => {
           mockData.vendorListMock.forEach((element, index) => {
             if (itemb.type === 'category') {
               //category
-              if (itemb.desc.indexOf(element.vendorCategory) > -1) {
+              if (
+                itemb.desc
+                  .toLocaleLowerCase()
+                  .indexOf(element.vendorCategory.toLocaleLowerCase()) > -1
+              ) {
                 const newArr = vendorListArray.value.filter((item: any) => {
                   return item.id === element.id
                 })
@@ -102,7 +106,11 @@ const filterDataFn = () => {
               }
             } else if (itemb.type === 'status') {
               //status
-              if (element.vendorStatus.indexOf(itemb.desc) > -1) {
+              if (
+                element.vendorStatus
+                  .toLocaleLowerCase()
+                  .indexOf(itemb.desc.toLocaleLowerCase()) > -1
+              ) {
                 const newArr = vendorListArray.value.filter((item: any) => {
                   return item.id === element.id
                 })
@@ -123,6 +131,7 @@ const filterDataFn = () => {
   // 设置搜索数据总数
   resultCount.value = vendorListArray.value.length
 }
+
 watch(updateState, (newValue, oldValue) => {
   if (newValue) {
     searchType = $route.query.searchType
