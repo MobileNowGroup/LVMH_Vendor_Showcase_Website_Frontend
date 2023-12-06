@@ -55,8 +55,8 @@ npm run lint
 
 ```bash  dev 执行dev脚本并build,不需要专门去服务器拉取代码,服务器每十分钟自动拉一次(23-11-22)
 Step 1. Local
-$ sh .deploy/shell/run.dev.sh
+$ git pull && sh .deploy/shell/run.dev.sh
 
 Step 2. Server
-$ sh lvmh_vendor_showcase_frontend/deploy.dev.sh
+$ git pull && sh lvmh_vendor_showcase_frontend/deploy.dev.sh
 ```
