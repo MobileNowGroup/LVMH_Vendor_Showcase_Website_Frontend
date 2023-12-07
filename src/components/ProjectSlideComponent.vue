@@ -66,7 +66,7 @@ const prevShow = function () {
           </video>
         </div>
         <div v-else class="slide-image">
-          <img :src="currentObj.value.exampleSrc" alt="" />
+          <img :src="currentObj.value.exampleSrc" alt="" style="object-fit: contain;" />
         </div>
       </div>
       <div
@@ -83,6 +83,7 @@ const prevShow = function () {
           src="/images/icon/close_circle_left.svg"
           @click="prevShow"
           alt="decoration img for slide control"
+          style="object-fit: contain;"
         />
       </div>
       <div ref="listRef" class="show-list">
@@ -98,6 +99,7 @@ const prevShow = function () {
               class="icon show-item-video-icon"
               src="/images/24gf-videoCamera.png"
               alt=""
+              style="object-fit: contain;"
             />
             <video
               preload="metadata"
@@ -108,7 +110,7 @@ const prevShow = function () {
             </video>
           </div>
           <div class="media-box image-box" v-else>
-            <img class="media-img" :src="value.exampleSrc" alt="" />
+            <img class="media-img" :src="value.exampleSrc" alt="" style="object-fit: contain;"/>
           </div>
         </div>
       </div>
@@ -119,6 +121,7 @@ const prevShow = function () {
           src="/images/icon/close_circle_right.svg"
           @click="nextShow"
           alt="decoration img for slide control"
+          style="object-fit: contain;"
         />
       </div>
     </div>

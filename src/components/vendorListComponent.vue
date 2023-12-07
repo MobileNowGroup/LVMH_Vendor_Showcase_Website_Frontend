@@ -84,10 +84,11 @@ const $router = useRouter()
 <style lang="scss" scoped>
 .vendor {
   box-shadow: 0px 7px 14px 0px rgba(62, 101, 208, 0.1);
+  // min-width: 345px;
   &-listing-component {
     display: grid;
     grid-gap: 3.2rem 2.4rem;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   //   max-width: 34.5rem;
   //   margin: 0 auto;

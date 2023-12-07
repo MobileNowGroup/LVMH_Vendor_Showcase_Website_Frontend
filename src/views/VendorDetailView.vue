@@ -237,7 +237,7 @@ const nextEl = () => {
         >
           {{ item.value }}
         </p>
-        <img :src="vendor.useCaseExampleSrc" alt="" />
+        <img style="margin-top: 20px;" :src="vendor.useCaseExampleSrc" alt="" />
       </div>
 
       <div
@@ -259,11 +259,11 @@ const nextEl = () => {
           v-for="item in vendor.useCaseExample"
           :key="item.id"
           :style="item.style"
-          class="content-desc content-solution"
+          class="content-desc"
         >
-          {{ item.value }}
+          {{ item.value }} 
         </p>
-        <img :src="vendor.useCaseExampleSrc" alt="" />
+        <img style="margin-top: 20px;" :src="vendor.useCaseExampleSrc" alt="" />
       </div>
 
       <div
@@ -734,14 +734,13 @@ const nextEl = () => {
   }
 
   &-desc {
-    margin-top: 15px;
     text-align: left;
     color: var(--lvmh-primary-1100, #20253b);
     font-family: avenir_next_text;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    line-height: 22px;
     text-transform: capitalize;
   }
   &-solution,

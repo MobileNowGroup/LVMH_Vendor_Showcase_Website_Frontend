@@ -709,17 +709,17 @@ const vendorListMock: Array<vendorItem> = reactive([
     vendorTags: ['#Clienteling', '#AI', '#CSCmonitor'],
     useCaseExampleSrc: '',
     useCaseExample: [
-      { id: 1, style: 'font-weight: 500;', value: 'Market Pain Points:' },
+      { id: 1, style: 'font-weight: 500;font-size:18px;margin-top:3rem;', value: 'Market Pain Points:' },
       {
         id: 2,
         style: '',
         value:
           'Time and Cost Investment: The traditional approach of training sales personnel consumes a significant amount of time and resources. Both brands and sales representatives undergo lengthy training cycles, resulting in a dual investment of cost and time as a major market pain point.Low Sales Efficiency and Conversion Rates: Traditional sales methods struggle to enhance sales efficiency and conversion rates. Sales representatives lack real-time tools to understand customer needs, leading to suboptimal interaction effects and challenges in achieving anticipated conversion rates.',
       },
-      { id: 3, style: 'font-weight: 500;', value: 'Solutions:' },
+      { id: 3, style: 'font-weight: 500;font-size:18px;margin-top:3rem;', value: 'Solutions:' },
       {
         id: 4,
-        style: 'font-weight: 500;',
+        style: '',
         value: 'AI Response - Providing Skillful Replies',
       },
       {
@@ -730,7 +730,7 @@ const vendorListMock: Array<vendorItem> = reactive([
       },
       {
         id: 6,
-        style: 'font-weight: 500;',
+        style: 'margin-top:2rem',
         value: 'AI Insight - Offering Expert Sales Strategies',
       },
       {
@@ -739,7 +739,7 @@ const vendorListMock: Array<vendorItem> = reactive([
         value:
           'The AI can provide high-value recommendations to sales based on the user lifecycle, thereby improving sales performance. By analyzing user data and purchase habits, the system provides targeted recommendations to high-value customers and incentive suggestions to potential customers. This helps junior sales quickly achieve better sales results.',
       },
-      { id: 8, style: 'font-weight: 500;', value: 'AI Data Statistics' },
+      { id: 8, style: 'margin-top:2rem', value: 'AI Data Statistics' },
       {
         id: 9,
         style: '',
@@ -748,24 +748,24 @@ const vendorListMock: Array<vendorItem> = reactive([
       },
       {
         id: 10,
-        style: '',
+        style: 'margin-top:2rem',
         value:
           'Data Analysis: Based on the data summary, the AI assistant can further analyze the data for you.',
       },
       {
         id: 11,
-        style: '',
+        style: 'margin-top:2rem',
         value:
           "Data Anomaly Alerts: Monitor data anomalies in real-time, such as a store's performance being three times higher than usual or fewer participants in a particular event, and receive timely alerts.",
       },
-      { id: 12, style: 'font-weight: 500;', value: 'AI Cloud Notes' },
+      { id: 12, style: 'margin-top:2rem', value: 'AI Cloud Notes' },
       {
         id: 13,
         style: '',
         value:
           'Assisting salespeople in automatically generating note content. Salespeople can customize cloud notes based on their needs, such as recommended usage scenarios, styling suggestions, and link them to order links.',
       },
-      { id: 14, style: 'font-weight: 500;', value: 'AI Consultation' },
+      { id: 14, style: 'margin-top:2rem', value: 'AI Consultation' },
       {
         id: 15,
         style: '',
