@@ -7,7 +7,7 @@ export default interface vendorItem {
   vendorCategoryNum: Number;
   brandFounded: String;
   leadTime: String;
-  vendorBrief: String;
+  vendorBrief: Array<any>;
   vendorTags: Array<String>;
   vendorStatus: String;
   vendorDot: number;

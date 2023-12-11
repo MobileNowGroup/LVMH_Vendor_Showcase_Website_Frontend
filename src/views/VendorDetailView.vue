@@ -135,8 +135,7 @@ const nextEl = () => {
               </span>
             </p>
             <p class="vendor-intro">
-              <span class="vendor-title">Introduction:</span>
-              {{ vendor.vendorBrief }}
+              <p v-for="item in vendor.vendorBrief" :key="item.id" style="margin-top: 10px;">{{ item.id === 1 ?`Introduction:${item.value}`:item.value }}</p>
             </p>
           </div>
         </div>

@@ -15,8 +15,55 @@ const vendorListMock: Array<vendorItem> = reactive([
     brandFounded: '2018',
     leadTime:
       'Try-on product: 2 weeks; 3D modeling: 2 mandays per piece of SKU',
-    vendorBrief:
-      "Kivisense focuses on WebAR solutions in E-commerce and digital-marketing. We are a MarTech company that uses proprietary AI technology as its core to automatically create AR algorithm products through type AIGC technology capabilities. Our solutions cover multiple links in new retail including content, social, e-commerce, data, etc., and create value beyond reality for brand customers based on AI and AR capabilities. It's our duty to help your e-commerce integrate our SaaS faster, easier and better performance. It's omnichannel for your service including website, APP, Shopify, boutique store and popup store. Our AR platform Kivicube provides the base-engine of rendering, physics, the essential function in metaverse in digi-content authoring, aiming to solve the needs of AR mass production efficiency and difficulty, and provide secure and stable underlying support for UGC and PGC. Our AR try-on products provide full category product try-on capabilities for e-commerce brand customers, solving the urgent needs of consumers' online shopping, and being an important engine for brand GMV growth. Our AI algorithms provide customers with a wide range of AI scene customization requirements. We believe that AI can change the world, so we can kick it off from changing our own R&D efficiency.",
+    vendorBrief:[
+      {
+        id: 1,
+        style: '',
+        value:
+          "Kivisense focuses on WebAR solutions in E-commerce and digital-marketing.",
+      },{
+        id: 2,
+        style: '',
+        value:
+          "We are a MarTech company that uses proprietary AI technology as its core to automatically create AR algorithm products through type AIGC technology capabilities.",
+      },{
+        id: 3,
+        style: '',
+        value:
+          "Our solutions cover multiple links in new retail including content, social, e-commerce, data, etc., and create value beyond reality for brand customers based on AI and AR capabilities.",
+      },{
+        id: 4,
+        style: '',
+        value:
+          "It's our duty to help your e-commerce integrate our SaaS faster, easier and better performance. ",
+      },{
+        id: 5,
+        style: '',
+        value:
+          "It's omnichannel for your service including website, APP, Shopify, boutique store and popup store. ",
+      },{
+        id: 6,
+        style: '',
+        value:
+          "Our AR platform Kivicube provides the base-engine of rendering, physics, the essential function in metaverse in digi-content authoring, aiming to solve the needs of AR mass production efficiency and difficulty, and provide secure and stable underlying support for UGC and PGC.",
+      },{
+        id: 7,
+        style: '',
+        value:
+          "Our AR try-on products provide full category product try-on capabilities for e-commerce brand customers, solving the urgent needs of consumers' online shopping, and being an important engine for brand GMV growth.",
+      },{
+        id: 8,
+        style: '',
+        value:
+          "Our AI algorithms provide customers with a wide range of AI scene customization requirements.",
+      },
+      {
+        id: 9,
+        style: '',
+        value:
+          "We believe that AI can change the world, so we can kick it off from changing our own R&D efficiency.",
+      },
+    ],
     briefIntroduction: [
       {
         id: 1,
@@ -399,14 +446,49 @@ const vendorListMock: Array<vendorItem> = reactive([
     vendorCategoryNum: 1, // vendorCategory的数量
     brandFounded: '2020',
     leadTime: '2-4 weeks',
-    vendorBrief:
-      ' Founded in 2020, FancyTech is committed to empowering intelligent businesses through self-developed AIGC technology. \n As a pioneer and significant driver in the AIGC field, we have always pursued a dual-track approach of technology-driven innovation and commercial implementation. By leveraging our industry-leading LLM model - FancyGPT, we drive content generation and management in consumer scenarios. We provide efficient and stable AIGC solutions to a vast number of consumer industry clients, achieving cost reduction and efficiency improvement.\n We firmly believe that AIGC will revolutionize traditional content generation and management methods. With its efficient and innovative generation capabilities, it will break barriers in content creation and unlock greater commercial value.',
+    vendorBrief:[
+      {
+      id: 1,
+      style: '',
+      value:
+        "Founded in 2020, FancyTech is committed to empowering intelligent businesses through self-developed AIGC technology.",
+    },{
+      id: 2,
+      style: '',
+      value:
+        "As a pioneer and significant driver in the AIGC field, we have always pursued a dual-track approach of technology-driven innovation and commercial implementation. By leveraging our industry-leading LLM model - FancyGPT, we drive content generation and management in consumer scenarios.",
+    },{
+      id: 3,
+      style: '',
+      value:
+        "Short-form video is becoming a vital part of every brand’s marketing strategy, the most popular medium for reaching mass audiences quickly.",
+    },{
+      id: 4,
+      style: '',
+      value:
+        "We've developed an industry-specific LLM, FancyGPT, tailored for short-from video generation.",
+    },{
+      id: 5,
+      style: '',
+      value:
+        "We provide efficient and stable AIGC solutions to a vast number of consumer industry clients, achieving cost reduction and efficiency improvement.",
+    },{
+      id: 6,
+      style: '',
+      value:
+        "We firmly believe that AIGC will revolutionize traditional content generation and management methods.",
+    },{
+      id: 7,
+      style: '',
+      value:
+        "With its efficient and innovative generation capabilities, it will break barriers in content creation and unlock greater commercial value.",
+    },],
     briefIntroduction: [
       {
         id: 1,
         style: '',
         value:
-          "Short-form video is becoming a vital part of every brand’s marketing strategy, the most popular medium for reaching mass audiences quickly. We've developed an industry-specific LLM, FancyGPT, tailored for short-from video generation. With our unique technology, we are able to create product centric short videos to highlight key product attributes in a cost-efficient way. Our solution combines 3D scanning technology with AI-driven video creation and rendering process, which allows our output videos to maintain high-quality product demonstration.",
+          "  With our unique technology, we are able to create product centric short videos to highlight key product attributes in a cost-efficient way. Our solution combines 3D scanning technology with AI-driven video creation and rendering process, which allows our output videos to maintain high-quality product demonstration.",
       },
     ],
     vendorTags: ['#AI', '#AIGC', '#3DDisplay'],
@@ -696,8 +778,33 @@ const vendorListMock: Array<vendorItem> = reactive([
     vendorCategoryNum: 1, // vendorCategory的数量
     brandFounded: '2019',
     leadTime: '4-6 weeks',
-    vendorBrief:
-      ' iCC Grow is an AI technology company that offers user growth services. Through chat technology solutions, it helps businesses establish valuable user connections and achieve commercial growth. iCC has experienced robust business growth in China, having served over 100 brands. Its SaaS products have rapidly expanded, covering top brands in sectors such as catering and apparel. With a cumulative user base of 320 million, coverage of 230,000 stores, and a total community of 1.65 million members, iCC has made a significant impact. The company has received the initial authorization from Microsoft China Azure AI, establishing itself as a pioneering enterprise in applying AI to brand-owned communication in the private domain.',
+    vendorBrief:[
+      {
+        id: 1,
+        style: '',
+        value:"iCC Grow is an AI technology company that offers user growth services.",
+      },{
+        id: 2,
+        style: '',
+        value:"Through chat technology solutions, it helps businesses establish valuable user connections and achieve commercial growth.",
+      },{
+        id: 3,
+        style: '',
+        value:"iCC has experienced robust business growth in China, having served over 100 brands.",
+      },{
+        id: 4,
+        style: '',
+        value:"Its SaaS products have rapidly expanded, covering top brands in sectors such as catering and apparel.",
+      },{
+        id: 5,
+        style: '',
+        value:"With a cumulative user base of 320 million, coverage of 230,000 stores, and a total community of 1.65 million members, iCC has made a significant impact.",
+      },{
+        id: 6,
+        style: '',
+        value:"The company has received the initial authorization from Microsoft China Azure AI, establishing itself as a pioneering enterprise in applying AI to brand-owned communication in the private domain.",
+      },
+    ],
     briefIntroduction: [
       {
         id: 1,
@@ -963,8 +1070,24 @@ const vendorListMock: Array<vendorItem> = reactive([
     brandFounded: '2009',
     leadTime:
       '3-6 months for MVP followed by ongoing enhancements and roadmap management',
-    vendorBrief:
-      ' Mobile Now is a leading, full service, mobile agency, with a focus on branded apps, games, mobile platforms, websites bespoke WeChat Mini Programs and Wecom solutions, CRM and mCommerce integration.They set up in 2009; hubing out of Shanghai, Hangzhou and Changsha, China and Singapore. As an international team of 100, Mobile Now provide consultancy through to UX and UI design, as well as development across all the key mobile platforms.',
+    vendorBrief:[
+      {
+        id: 1,
+        style: '',
+        value:
+          'Mobile Now is a leading, full service, mobile agency, with a focus on branded apps, games, mobile platforms, websites bespoke WeChat Mini Programs and Wecom solutions, CRM and mCommerce integration.',
+      },{
+        id: 2,
+        style: '',
+        value:
+          'They set up in 2009; hubing out of Shanghai, Hangzhou and Changsha, China and Singapore.',
+      },{
+        id: 3,
+        style: '',
+        value:
+          'As an international team of 100, Mobile Now provide consultancy through to UX and UI design, as well as development across all the key mobile platforms.',
+      },
+    ],
     briefIntroduction: [
       {
         id: 1,

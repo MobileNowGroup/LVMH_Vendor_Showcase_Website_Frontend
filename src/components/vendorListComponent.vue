@@ -1,5 +1,6 @@
 <script setup lang="ts" name="vendorListComponent">
 import { useRouter } from 'vue-router'
+import {computed} from 'vue'
 import type vendorItem from '@/model/vendor.model'
 // props传值，非ts写法，ts写法后面后面的完整代码有，具体看后面的代码
 
@@ -7,7 +8,13 @@ const props = defineProps({
   vendorListArray: Array<vendorItem>,
 })
 const emit = defineEmits(['change', 'delete'])
-
+const vendorBriefString = (briefArr:Array<any>)=>{
+  let briefStr = ""
+  briefArr.forEach(element => {
+    briefStr = briefStr + element.value
+  });
+  return briefStr
+}
 const $router = useRouter()
 </script>
 
@@ -54,7 +61,7 @@ const $router = useRouter()
           </div>
         </div>
         <div class="vendor-main">
-          <p class="vendor-brief">{{ vendor.vendorBrief }}</p>
+          <p class="vendor-brief">{{ vendorBriefString(vendor.vendorBrief) }}</p>
           <p>
             <span
               class="vendor-tag"
