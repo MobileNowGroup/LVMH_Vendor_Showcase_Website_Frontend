@@ -78,7 +78,6 @@ const prevShow = function () {
     <div v-if="1 < showList.length" class="show" ref="slide">
       <div class="show-control left">
         <img
-          v-if="!isMobileDevice"
           class=""
           src="/images/icon/close_circle_left.svg"
           @click="prevShow"
@@ -116,7 +115,6 @@ const prevShow = function () {
       </div>
       <div class="show-control right">
         <img
-          v-if="!isMobileDevice"
           class=""
           src="/images/icon/close_circle_right.svg"
           @click="nextShow"
@@ -147,21 +145,23 @@ const prevShow = function () {
   }
 }
 .slide {
-  width: 93rem;
-  height: max-content;
+  flex: 1;
+  height: calc(100vw * 9 /16);
+  max-height: 52.3rem;
   background: #000;
   transition: all 2s linear;
 }
 .slide-video {
   position: relative;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   video {
     width: 100%;
     transition: all 2s linear;
     margin: 0 auto;
-    height: 52.3rem;
+    height: 100%;
   }
   &-control {
     position: absolute;
@@ -188,7 +188,7 @@ const prevShow = function () {
   align-items: center;
   img {
     transition: all 2s linear;
-    height: 52.3rem;
+    height: 100%;
     margin: 0 auto;
   }
 }
@@ -250,9 +250,9 @@ const prevShow = function () {
 }
 .show {
   position: relative;
-  padding: 0 7rem;
+  padding: 0 9rem;
   &-box {
-    max-width: 93rem;
+    max-width: 111rem !important;
     overflow: hidden;
     margin: 0 auto;
   }
@@ -263,14 +263,13 @@ const prevShow = function () {
   }
   &-control {
     height: 100%;
-
     z-index: 99;
   }
   .left {
     position: absolute;
-    top: 2px;
-    left: 6.8rem;
-    padding: 3.5rem 3.4rem 3.5rem 0;
+    top: 0;
+    left: 9rem;
+    padding: 3.5rem 6.8rem 3.5rem 0;
     background: linear-gradient(
       -89deg,
       rgba(255, 255, 255, 0) 1.25%,
@@ -279,12 +278,19 @@ const prevShow = function () {
     img {
       padding-right: 2px;
     }
+    @media screen and (max-width: 960px) {
+      padding: 2.5rem 30px 2.5rem 0;
+      left: 0;
+      img {
+        padding-right: 0;
+      }
+    }
   }
   .right {
     position: absolute;
-    top: 2px;
-    right: 6.8rem;
-    padding: 3.5rem 0rem 3.5rem 3.4rem;
+    top: 0;
+    right: 9rem;
+    padding: 3.5rem 0rem 3.5rem 6.8rem;
     background: linear-gradient(
       89deg,
       rgba(255, 255, 255, 0) 1.25%,
@@ -292,6 +298,13 @@ const prevShow = function () {
     );
     img {
       padding-right: 2px;
+    }
+    @media screen and (max-width: 960px) {
+      padding: 2.5rem 0 2.5rem 30px;
+      right: 0;
+      img {
+        padding-right: 0;
+      }
     }
   }
   &-item {
@@ -336,12 +349,11 @@ const prevShow = function () {
 @media screen and (max-width: 960px) {
   .show {
     padding: 0;
-    &-box {
-      margin: 0 1.5rem;
+    &-box{
+      margin: 0 !important;
     }
     &-control {
       padding: 3.5rem 0rem 3.5rem 5.9rem;
-      right: -2px;
     }
     .media-box {
       width: 13.5rem;
@@ -351,6 +363,7 @@ const prevShow = function () {
   .slide {
     &-video {
       width: calc(100vw - 3rem);
+      height: 100%;
     }
     &-image {
       width: 100%;
@@ -361,7 +374,7 @@ const prevShow = function () {
     }
     video {
       width: calc(100vw - 3rem);
-      height: auto;
+      height: 100%;
     }
   }
   .title {

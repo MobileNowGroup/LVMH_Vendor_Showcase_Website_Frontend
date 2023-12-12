@@ -356,6 +356,9 @@ const clickNothing = function (src: any) {
       height: auto;
     }
   }
+  .title-box {
+    margin-top: 6rem;
+  }
   .title {
     color: #3e65d0;
     font-family: lvmh_italic;
