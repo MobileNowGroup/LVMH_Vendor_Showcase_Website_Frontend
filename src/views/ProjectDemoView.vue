@@ -4,30 +4,27 @@ import { isMobile, setVideoPosterFn } from '@/util/common'
 import { useRouter, useRoute } from 'vue-router'
 import { commonStore } from '@/stores/authStore'
 import mockData from '../util/mockData'
-import { VendorItemModel, BrandItemModel, VendorBaseModel } from '@/model/vendor.model'
+import { VendorItemModel, BrandItemModel, VendorBaseModel,ServiceBrandModel } from '@/model/vendor.model'
 import projectSlide from '@/components/ProjectSlideComponent.vue'
-const vendor = ref({} as VendorItemModel)
-const brandItem =  ref({} as VendorItemModel)
-const projectDemoDatas = ref([] as Array<BrandItemModel>)
-const projectObj = ref({} as BrandItemModel)
-const projectDemoData = ref([] as Array<VendorBaseModel>)
 const $route = useRoute()
 const store = commonStore()
 const cardId = $route.query.cardId
+const brandId = Number($route.query.brandId)
+
+let brandItemModel = reactive({} as BrandItemModel)
 
 onMounted(() => {
   mockData.vendorListMock.forEach((element, elementINdex) => {
     if (element.id == Number(cardId)) {
-      vendor.value = element
-      brandItem.value = JSON.parse(JSON.stringify(element))
-      projectDemoDatas.value = brandItem.value.serviceBrand.brands.filter((brandItem: any) => {
-        return brandItem.id == Number($route.query.brandId)
+      element.serviceBrand.brands.forEach((brandObj)=>{
+        if (brandId === brandObj.id) {
+          brandItemModel = brandObj
+          //这个是为了设置projectDemo页面顶部的icon
+          store.setDemoUrl(brandItemModel.logo)
+        }
       })
-      projectObj.value = JSON.parse(JSON.stringify(projectDemoDatas.value[0]))
-      projectDemoData.value =  projectObj.value.example
-  }
-})
-  store.setDemoUrl(projectObj.value.logo)
+    }
+  })
   // carousel on init
   const frameZones = Array.from(document.querySelectorAll('.show-list'))
   for (let i = 0; i < frameZones.length; i++) {

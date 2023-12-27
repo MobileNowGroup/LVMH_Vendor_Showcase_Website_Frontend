@@ -1,9 +1,270 @@
-import { VendorItemModel, BriefItemModel } from '@/model/vendor.model'
-import { title } from 'process'
+import { VendorItemModel, ServiceBrandLogoModel, VendorBaseModel, BriefsIntroductionModel, UseCaseExampleModel, ClaimedKpiModel, PriceModel, FeatureDemoModel, ServiceBrandModel, BrandItemModel } from '@/model/vendor.model'
 import { reactive } from 'vue'
 
-const allowedCommon = ["'self'"]
-const vendorListMock: Array<VendorItemModel> = reactive([
+
+
+const filterListMock = reactive([
+  {
+    id: 1,
+    MenuTitle: 'category',
+    selectedCount: 0,
+    isShow: false,
+    menuItemList: [
+      {
+        id: 1,
+        desc: 'Customization & Personalization',
+        value: 0, //1,
+        isChoosed: false,
+        type: 'category',
+      },
+      {
+        id: 2,
+        desc: 'Customer Service',
+        value: 0,
+        isChoosed: false,
+        type: 'category',
+      },
+      {
+        id: 3,
+        desc: 'In-store Interactive Experience',
+        value: 0,
+        isChoosed: false,
+        type: 'category',
+      },
+      {
+        id: 4,
+        desc: 'Metaverse',
+        value: 0,
+        isChoosed: false,
+        type: 'category',
+      },
+      {
+        id: 5,
+        desc: 'Product Discovery',
+        value: 0, //1,
+        isChoosed: false,
+        type: 'category',
+      },
+      {
+        id: 6,
+        desc: 'Clienteling',
+        value: 0, //'2',
+        isChoosed: false,
+        type: 'category',
+      },
+    ],
+  },
+  {
+    id: 2,
+    MenuTitle: 'TECHNOLOGY',
+    selectedCount: 0,
+    isShow: false,
+    menuItemList: [
+      {
+        id: 1,
+        desc: 'AI',
+        value: 0, //'2',
+        isChoosed: false,
+        type: 'tags',
+      },
+      {
+        id: 2,
+        desc: 'AIGC',
+        value: 0, //'1',
+        isChoosed: false,
+        type: 'tags',
+      },
+      { id: 3, desc: 'ML', value: 0, isChoosed: false, type: 'tags' },
+      { id: 4, desc: 'NLP', value: 0, isChoosed: false, type: 'tags' },
+      {
+        id: 5,
+        desc: 'Computer Vision',
+        value: 0,
+        isChoosed: false,
+        type: 'tags',
+      },
+      {
+        id: 6,
+        desc: 'InteractiveHardware',
+        value: 0,
+        isChoosed: false,
+        type: 'tags',
+      },
+      { id: 7, desc: 'Screen', value: 0, isChoosed: false, type: 'tags' },
+      { id: 8, desc: 'Sensor', value: 0, isChoosed: false, type: 'tags' },
+      { id: 9, desc: 'Screen', value: 0, isChoosed: false, type: 'tags' },
+      {
+        id: 10,
+        desc: 'HardwareDevices',
+        value: 0,
+        isChoosed: false,
+        type: 'tags',
+      },
+      { id: 11, desc: 'Web3', value: 0, isChoosed: false, type: 'tags' },
+      { id: 12, desc: 'VR', value: 0, isChoosed: false, type: 'tags' },
+      { id: 13, desc: 'AR', value: 0, isChoosed: false, type: 'tags' },
+      { id: 14, desc: 'Blockchain', value: 0, isChoosed: false, type: 'tags' },
+      { id: 15, desc: '3D', value: 0, isChoosed: false, type: 'tags' },
+    ],
+  },
+  {
+    id: 3,
+    MenuTitle: 'APPLICATION',
+    selectedCount: 0,
+    isShow: false,
+    menuItemList: [
+      {
+        id: 1,
+        desc: 'VirualExhibition/Pop-up',
+        value: 0,
+        isChoosed: false,
+        type: 'tags',
+      },
+      {
+        id: 2,
+        desc: 'VirtualStore',
+        value: 0,
+        isChoosed: false,
+        type: 'tags',
+      },
+      {
+        id: 3,
+        desc: '3DDisplay',
+        value: 0, //'1',
+        isChoosed: false,
+        type: 'tags',
+      },
+      {
+        id: 4,
+        desc: 'Gamification',
+        value: 0,
+        isChoosed: false,
+        type: 'tags',
+      },
+      {
+        id: 5,
+        desc: 'VirtualTry-on',
+        value: 0, //'1',
+        isChoosed: false,
+        type: 'tags',
+      },
+      {
+        id: 6,
+        desc: 'SizeMeasurement',
+        value: 0,
+        isChoosed: false,
+        type: 'tags',
+      },
+      {
+        id: 7,
+        desc: 'ContentAggregation',
+        value: 0,
+        isChoosed: false,
+        type: 'tags',
+      },
+      {
+        id: 8,
+        desc: 'PersonalRecommendation',
+        value: 0,
+        isChoosed: false,
+        type: 'tags',
+      },
+      { id: 9, desc: 'Gifting', value: 0, isChoosed: false, type: 'tags' },
+      {
+        id: 10,
+        desc: 'DigitalMessages',
+        value: 0,
+        isChoosed: false,
+        type: 'tags',
+      },
+      { id: 11, desc: 'NFT', value: 0, isChoosed: false, type: 'tags' },
+    ],
+  },
+  {
+    id: 4,
+    MenuTitle: 'CHANNEL',
+    selectedCount: 0,
+    isShow: false,
+    menuItemList: [
+      {
+        id: 1,
+        desc: 'Online',
+        value: 0, //'1',
+        isChoosed: false,
+        type: 'tags',
+      },
+      { id: 2, desc: 'Retail', value: 0, isChoosed: false, type: 'tags' },
+      { id: 3, desc: 'Omnichannel', value: 0, isChoosed: false, type: 'tags' },
+    ],
+  },
+  {
+    id: 5,
+    MenuTitle: 'PLATFORM',
+    selectedCount: 0,
+    isShow: false,
+    menuItemList: [
+      {
+        id: 1,
+        desc: 'Wechat',
+        value: 0, //'1',
+        isChoosed: false,
+        type: 'tags',
+      },
+      {
+        id: 2,
+        desc: 'Wecom',
+        value: 0, //'1',
+        isChoosed: false,
+        type: 'tags',
+      },
+      { id: 3, desc: 'Taobao', value: 0, isChoosed: false, type: 'tags' },
+      { id: 4, desc: 'Tmall', value: 0, isChoosed: false, type: 'tags' },
+      { id: 5, desc: 'JD', value: 0, isChoosed: false, type: 'tags' },
+      { id: 6, desc: 'Douyin', value: 0, isChoosed: false, type: 'tags' },
+      { id: 7, desc: 'Kuaishou', value: 0, isChoosed: false, type: 'tags' },
+      {
+        id: 8,
+        desc: 'H5',
+        value: 0, //'1',
+        isChoosed: false,
+        type: 'tags',
+      },
+      { id: 9, desc: 'Weibo', value: 0, isChoosed: false, type: 'tags' },
+      { id: 10, desc: 'RED', value: 0, isChoosed: false, type: 'tags' },
+    ],
+  },
+  {
+    id: 6,
+    MenuTitle: 'STATUS',
+    selectedCount: 0,
+    isShow: false,
+    menuItemList: [
+      {
+        id: 1,
+        desc: 'LVMH Programs',
+        value: 0,
+        isChoosed: false,
+        type: 'status',
+      },
+      {
+        id: 2,
+        desc: 'Used by Maison',
+        value: 0, //'3'
+        isChoosed: false,
+        type: 'status',
+      },
+      {
+        id: 3,
+        desc: 'LVMH recommended',
+        value: 0, //'1'
+        isChoosed: false,
+        type: 'status',
+      },
+      { id: 4, desc: 'Blueprint', value: 0, isChoosed: false, type: 'status' },
+    ],
+  },
+])
+const vendorCardData: Array<any> = reactive([
   {
     id: 1,
     logo: 'https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/images/Kivisense_logo_new.png',
@@ -2121,269 +2382,97 @@ const vendorListMock: Array<VendorItemModel> = reactive([
     }
   },
 ])
-
-const filterListMock = reactive([
-  {
-    id: 1,
-    MenuTitle: 'category',
-    selectedCount: 0,
-    isShow: false,
-    menuItemList: [
-      {
-        id: 1,
-        desc: 'Customization & Personalization',
-        value: 0, //1,
-        isChoosed: false,
-        type: 'category',
-      },
-      {
-        id: 2,
-        desc: 'Customer Service',
-        value: 0,
-        isChoosed: false,
-        type: 'category',
-      },
-      {
-        id: 3,
-        desc: 'In-store Interactive Experience',
-        value: 0,
-        isChoosed: false,
-        type: 'category',
-      },
-      {
-        id: 4,
-        desc: 'Metaverse',
-        value: 0,
-        isChoosed: false,
-        type: 'category',
-      },
-      {
-        id: 5,
-        desc: 'Product Discovery',
-        value: 0, //1,
-        isChoosed: false,
-        type: 'category',
-      },
-      {
-        id: 6,
-        desc: 'Clienteling',
-        value: 0, //'2',
-        isChoosed: false,
-        type: 'category',
-      },
-    ],
-  },
-  {
-    id: 2,
-    MenuTitle: 'TECHNOLOGY',
-    selectedCount: 0,
-    isShow: false,
-    menuItemList: [
-      {
-        id: 1,
-        desc: 'AI',
-        value: 0, //'2',
-        isChoosed: false,
-        type: 'tags',
-      },
-      {
-        id: 2,
-        desc: 'AIGC',
-        value: 0, //'1',
-        isChoosed: false,
-        type: 'tags',
-      },
-      { id: 3, desc: 'ML', value: 0, isChoosed: false, type: 'tags' },
-      { id: 4, desc: 'NLP', value: 0, isChoosed: false, type: 'tags' },
-      {
-        id: 5,
-        desc: 'Computer Vision',
-        value: 0,
-        isChoosed: false,
-        type: 'tags',
-      },
-      {
-        id: 6,
-        desc: 'InteractiveHardware',
-        value: 0,
-        isChoosed: false,
-        type: 'tags',
-      },
-      { id: 7, desc: 'Screen', value: 0, isChoosed: false, type: 'tags' },
-      { id: 8, desc: 'Sensor', value: 0, isChoosed: false, type: 'tags' },
-      { id: 9, desc: 'Screen', value: 0, isChoosed: false, type: 'tags' },
-      {
-        id: 10,
-        desc: 'HardwareDevices',
-        value: 0,
-        isChoosed: false,
-        type: 'tags',
-      },
-      { id: 11, desc: 'Web3', value: 0, isChoosed: false, type: 'tags' },
-      { id: 12, desc: 'VR', value: 0, isChoosed: false, type: 'tags' },
-      { id: 13, desc: 'AR', value: 0, isChoosed: false, type: 'tags' },
-      { id: 14, desc: 'Blockchain', value: 0, isChoosed: false, type: 'tags' },
-      { id: 15, desc: '3D', value: 0, isChoosed: false, type: 'tags' },
-    ],
-  },
-  {
-    id: 3,
-    MenuTitle: 'APPLICATION',
-    selectedCount: 0,
-    isShow: false,
-    menuItemList: [
-      {
-        id: 1,
-        desc: 'VirualExhibition/Pop-up',
-        value: 0,
-        isChoosed: false,
-        type: 'tags',
-      },
-      {
-        id: 2,
-        desc: 'VirtualStore',
-        value: 0,
-        isChoosed: false,
-        type: 'tags',
-      },
-      {
-        id: 3,
-        desc: '3DDisplay',
-        value: 0, //'1',
-        isChoosed: false,
-        type: 'tags',
-      },
-      {
-        id: 4,
-        desc: 'Gamification',
-        value: 0,
-        isChoosed: false,
-        type: 'tags',
-      },
-      {
-        id: 5,
-        desc: 'VirtualTry-on',
-        value: 0, //'1',
-        isChoosed: false,
-        type: 'tags',
-      },
-      {
-        id: 6,
-        desc: 'SizeMeasurement',
-        value: 0,
-        isChoosed: false,
-        type: 'tags',
-      },
-      {
-        id: 7,
-        desc: 'ContentAggregation',
-        value: 0,
-        isChoosed: false,
-        type: 'tags',
-      },
-      {
-        id: 8,
-        desc: 'PersonalRecommendation',
-        value: 0,
-        isChoosed: false,
-        type: 'tags',
-      },
-      { id: 9, desc: 'Gifting', value: 0, isChoosed: false, type: 'tags' },
-      {
-        id: 10,
-        desc: 'DigitalMessages',
-        value: 0,
-        isChoosed: false,
-        type: 'tags',
-      },
-      { id: 11, desc: 'NFT', value: 0, isChoosed: false, type: 'tags' },
-    ],
-  },
-  {
-    id: 4,
-    MenuTitle: 'CHANNEL',
-    selectedCount: 0,
-    isShow: false,
-    menuItemList: [
-      {
-        id: 1,
-        desc: 'Online',
-        value: 0, //'1',
-        isChoosed: false,
-        type: 'tags',
-      },
-      { id: 2, desc: 'Retail', value: 0, isChoosed: false, type: 'tags' },
-      { id: 3, desc: 'Omnichannel', value: 0, isChoosed: false, type: 'tags' },
-    ],
-  },
-  {
-    id: 5,
-    MenuTitle: 'PLATFORM',
-    selectedCount: 0,
-    isShow: false,
-    menuItemList: [
-      {
-        id: 1,
-        desc: 'Wechat',
-        value: 0, //'1',
-        isChoosed: false,
-        type: 'tags',
-      },
-      {
-        id: 2,
-        desc: 'Wecom',
-        value: 0, //'1',
-        isChoosed: false,
-        type: 'tags',
-      },
-      { id: 3, desc: 'Taobao', value: 0, isChoosed: false, type: 'tags' },
-      { id: 4, desc: 'Tmall', value: 0, isChoosed: false, type: 'tags' },
-      { id: 5, desc: 'JD', value: 0, isChoosed: false, type: 'tags' },
-      { id: 6, desc: 'Douyin', value: 0, isChoosed: false, type: 'tags' },
-      { id: 7, desc: 'Kuaishou', value: 0, isChoosed: false, type: 'tags' },
-      {
-        id: 8,
-        desc: 'H5',
-        value: 0, //'1',
-        isChoosed: false,
-        type: 'tags',
-      },
-      { id: 9, desc: 'Weibo', value: 0, isChoosed: false, type: 'tags' },
-      { id: 10, desc: 'RED', value: 0, isChoosed: false, type: 'tags' },
-    ],
-  },
-  {
-    id: 6,
-    MenuTitle: 'STATUS',
-    selectedCount: 0,
-    isShow: false,
-    menuItemList: [
-      {
-        id: 1,
-        desc: 'LVMH Programs',
-        value: 0,
-        isChoosed: false,
-        type: 'status',
-      },
-      {
-        id: 2,
-        desc: 'Used by Maison',
-        value: 0, //'3'
-        isChoosed: false,
-        type: 'status',
-      },
-      {
-        id: 3,
-        desc: 'LVMH recommended',
-        value: 0, //'1'
-        isChoosed: false,
-        type: 'status',
-      },
-      { id: 4, desc: 'Blueprint', value: 0, isChoosed: false, type: 'status' },
-    ],
-  },
-])
-
+//获取公共模型数据
+function getVendorBaseModel(baseData:Array<any>){
+  let vendorBaseItemArr = [] as Array<VendorBaseModel>
+  if (baseData.length) {
+    baseData.forEach((element: any) => {
+      let itemObj:VendorBaseModel = reactive({} as VendorBaseModel)
+      itemObj.id = element.id  ?? 1
+      itemObj.src = element.src ?? ""
+      itemObj.title = element.title ?? ""
+      itemObj.style = element.style ?? ""
+      itemObj.type = element.type ?? ""
+      itemObj.value = element.value ?? ""
+      itemObj.desc = element.desc ?? ""
+      itemObj.itemArr = getVendorBaseModel(element.itemArr ?? [])
+      vendorBaseItemArr.push(itemObj)
+    });
+  }
+  return vendorBaseItemArr
+}
+//获取卡片模型数据
+function getVendorCardData(vendorCardData:Array<any>){
+  let vendorCardArr = [] as Array<VendorItemModel>
+  vendorCardData.forEach((element)=>{
+    let vendorItemM:VendorItemModel = reactive({} as VendorItemModel)
+    vendorItemM.id = element.id
+    vendorItemM.logo = element.logo
+    vendorItemM.title = element.title
+    vendorItemM.shortName = element.shortName
+    vendorItemM.category = element.category
+    vendorItemM.categoryCount = element.categoryCount
+    vendorItemM.brandFounded = element.brandFounded
+    vendorItemM.leadTime = element.leadTime
+    vendorItemM.status = element.status
+    vendorItemM.dot = element.dot
+    //introductions
+    vendorItemM.introductions = getVendorBaseModel(element.introductions)
+    //serviceBrandLogo
+    let serviceBrandLogoM = reactive({} as ServiceBrandLogoModel)
+    serviceBrandLogoM.title = element.serviceBrandLogo.title
+    serviceBrandLogoM.itemArr = getVendorBaseModel(element.serviceBrandLogo.itemArr)
+    vendorItemM.serviceBrandLogo = serviceBrandLogoM
+    //briefsIntroduction
+    let briedfsIntroductionM = reactive({} as BriefsIntroductionModel)
+    briedfsIntroductionM.title = element.briefsIntroduction.title
+    briedfsIntroductionM.itemArr = getVendorBaseModel(element.briefsIntroduction.itemArr)
+    vendorItemM.briefsIntroduction = briedfsIntroductionM
+    //tags
+    vendorItemM.tags = getVendorBaseModel(element.tags)
+    //useCaseExample
+    let useCaseExampleM = reactive({} as UseCaseExampleModel)
+    useCaseExampleM.title = element.useCaseExample.title
+    useCaseExampleM.url = element.useCaseExample.url
+    useCaseExampleM.itemArr = getVendorBaseModel(element.useCaseExample.itemArr)
+    vendorItemM.useCaseExample = useCaseExampleM
+    //claimedKpis
+    let claimedKpiM = reactive({} as ClaimedKpiModel)
+    claimedKpiM.title = element.claimedKpis.title
+    claimedKpiM.itemArr = getVendorBaseModel(element.claimedKpis.itemArr)
+    vendorItemM.claimedKpis = claimedKpiM
+    //priceModelCard
+    let priceM = reactive({} as PriceModel)
+    priceM.title = element.priceModelCard.title
+    priceM.itemArr = getVendorBaseModel(element.priceModelCard.itemArr)
+    priceM.cards = getVendorBaseModel(element.priceModelCard.cards)
+    vendorItemM.priceModelCard = priceM
+    //featureDemo
+    let featureDemoM = reactive({} as FeatureDemoModel) 
+    featureDemoM.title = element.featureDemo.title
+    featureDemoM.links = getVendorBaseModel(element.featureDemo.links)
+    featureDemoM.qrCodes = getVendorBaseModel(element.featureDemo.qrCodes)
+    featureDemoM.videos = getVendorBaseModel(element.featureDemo.videos)
+    vendorItemM.featureDemo = featureDemoM
+    //serviceBrand
+    let serviceBrandM = reactive({} as ServiceBrandModel)
+    serviceBrandLogoM.title = element.serviceBrand.title
+    let brandArr = [] as Array<BrandItemModel>
+    element.serviceBrand.brands.forEach((brandItem:any) => {
+      let brandItemM = reactive({} as BrandItemModel)
+      brandItemM.id = brandItem.id
+      brandItemM.logo = brandItem.logo
+      brandItemM.isCommingSoon = brandItem.isCommingSoon
+      brandItemM.example = getVendorBaseModel(brandItem.example)
+      brandArr.push(brandItemM)
+    });
+    serviceBrandM.brands = brandArr
+    vendorItemM.serviceBrand = serviceBrandM
+    vendorCardArr.push(vendorItemM)
+  })
+  return vendorCardArr
+}
+const vendorListMock: Array<VendorItemModel> = getVendorCardData(vendorCardData)
 export default {
   vendorListMock,
   filterListMock,

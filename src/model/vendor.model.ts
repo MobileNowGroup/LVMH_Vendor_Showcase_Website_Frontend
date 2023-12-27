@@ -10,38 +10,26 @@ export type VendorBaseModel = {
   itemArr:Array<VendorBaseModel>;
 }
 export type  exampleModel = VendorBaseModel & {}
-export type BriefItemModel = VendorBaseModel & {}
-
-export type TagItemModel = VendorBaseModel & {}
-
 export type ServiceBrandLogoModel = VendorBaseModel & {}
-
 export type BriefsIntroductionModel = VendorBaseModel & {}
-
 export type UseCaseExampleModel = VendorBaseModel & {
   url:string;
 }
-
 export type ClaimedKpiModel = VendorBaseModel & {}
-
 export type PriceModelCardItemModel = VendorBaseModel & {}
-
 export type PriceModel = VendorBaseModel & {
   cards:Array<PriceModelCardItemModel>
 }
-
 export type FeatureDemoModel = VendorBaseModel & {
   links:Array<VendorBaseModel>;
   qrCodes:Array<VendorBaseModel>;
   videos:Array<VendorBaseModel>
 }
-
 export type BrandItemModel = VendorBaseModel & {
   logo:string;
   isCommingSoon:false;
   example:Array<VendorBaseModel>
 }
-
 export type ServiceBrandModel = VendorBaseModel & {
   brands:Array<BrandItemModel>
 }
@@ -58,10 +46,10 @@ export type VendorItemModel  = VendorBaseModel & {
   leadTime: string;
   dot: number;
   status: string;
-  introductions: Array<BriefItemModel>;
+  introductions: Array<VendorBaseModel>;
   serviceBrandLogo: ServiceBrandLogoModel;
   briefsIntroduction: BriefsIntroductionModel;
-  tags:Array<TagItemModel>;
+  tags: Array<VendorBaseModel>;
   useCaseExample: UseCaseExampleModel;
   claimedKpis: ClaimedKpiModel;
   priceModelCard: PriceModel;
