@@ -2,8 +2,9 @@
 import { onMounted, computed, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { isMobile, openLink, setVideoPosterFn } from '@/util/common'
-// import { postVendorAppointment } from "@/api/appointment/index"
+import { postVendorAppointment } from "@/api/appointment/index"
 import { VendorItemModel } from '@/model/vendor.model'
+import { authStore } from '@/stores/authStore'
 import { Swiper, SwiperSlide } from 'swiper/vue' // swiper所需组件
 import { Navigation, Pagination, Grid } from 'swiper/modules'
 import mockData from '../util/mockData'
@@ -20,7 +21,7 @@ let slideListNode = ref()
 let scrollThumbNode = ref()
 let count = ref(0)
 const sendEmailText = ref('REQUEST')
-let sendEmailVisable = ref(false)
+let sendEmailVisable = ref(authStore().getAppointment.length ? true : false)
 const modules = ref([Navigation, Pagination, Grid]) // setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
 const navigation = ref({
   nextEl: '.button-next',
@@ -88,12 +89,16 @@ const nextEl = () => {
 
 // 发送邮件
 const sendEmail = () => {
-  sendEmailText.value = 'Please wait...'
-// const appointmentObj = postVendorAppointment({vendor_name:vendor.id,vendor_number:vendor.fullName})
-  setTimeout(() => {
-    sendEmailVisable.value = true
-    sendEmailText.value = 'REQUESTED'
-  }, 2000)
+  if (!sendEmailVisable.value) {
+    sendEmailText.value = 'Please wait...'
+    const appointmentObj = postVendorAppointment({vendor_name:vendor.data.fullName,vendor_number:String(vendor.data.id)}).then((res)=>{
+      authStore().saveAppointment(vendor.data.fullName)
+      sendEmailText.value = 'REQUESTED'
+      sendEmailVisable.value = true
+    }).catch((error:any)=>{
+    })  
+  }
+  
 }
 const gotoDemo = (serviceBrands: any) => {
   if (!serviceBrands.isCommingSoon) {

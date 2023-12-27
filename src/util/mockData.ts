@@ -1,7 +1,5 @@
-import { VendorItemModel, ServiceBrandLogoModel, VendorBaseModel, BriefsIntroductionModel, UseCaseExampleModel, ClaimedKpiModel, PriceModel, FeatureDemoModel, ServiceBrandModel, BrandItemModel } from '@/model/vendor.model'
+import { VendorItemModel ,getVendorCardData} from '@/model/vendor.model'
 import { reactive } from 'vue'
-
-
 
 const filterListMock = reactive([
   {
@@ -2382,96 +2380,6 @@ const vendorCardData: Array<any> = reactive([
     }
   },
 ])
-//获取公共模型数据
-function getVendorBaseModel(baseData:Array<any>){
-  let vendorBaseItemArr = [] as Array<VendorBaseModel>
-  if (baseData.length) {
-    baseData.forEach((element: any) => {
-      let itemObj:VendorBaseModel = reactive({} as VendorBaseModel)
-      itemObj.id = element.id  ?? 1
-      itemObj.src = element.src ?? ""
-      itemObj.title = element.title ?? ""
-      itemObj.style = element.style ?? ""
-      itemObj.type = element.type ?? ""
-      itemObj.value = element.value ?? ""
-      itemObj.desc = element.desc ?? ""
-      itemObj.itemArr = getVendorBaseModel(element.itemArr ?? [])
-      vendorBaseItemArr.push(itemObj)
-    });
-  }
-  return vendorBaseItemArr
-}
-//获取卡片模型数据
-function getVendorCardData(vendorCardData:Array<any>){
-  let vendorCardArr = [] as Array<VendorItemModel>
-  vendorCardData.forEach((element)=>{
-    let vendorItemM:VendorItemModel = reactive({} as VendorItemModel)
-    vendorItemM.id = element.id
-    vendorItemM.logo = element.logo
-    vendorItemM.title = element.title
-    vendorItemM.shortName = element.shortName
-    vendorItemM.category = element.category
-    vendorItemM.categoryCount = element.categoryCount
-    vendorItemM.brandFounded = element.brandFounded
-    vendorItemM.leadTime = element.leadTime
-    vendorItemM.status = element.status
-    vendorItemM.dot = element.dot
-    //introductions
-    vendorItemM.introductions = getVendorBaseModel(element.introductions)
-    //serviceBrandLogo
-    let serviceBrandLogoM = reactive({} as ServiceBrandLogoModel)
-    serviceBrandLogoM.title = element.serviceBrandLogo.title
-    serviceBrandLogoM.itemArr = getVendorBaseModel(element.serviceBrandLogo.itemArr)
-    vendorItemM.serviceBrandLogo = serviceBrandLogoM
-    //briefsIntroduction
-    let briedfsIntroductionM = reactive({} as BriefsIntroductionModel)
-    briedfsIntroductionM.title = element.briefsIntroduction.title
-    briedfsIntroductionM.itemArr = getVendorBaseModel(element.briefsIntroduction.itemArr)
-    vendorItemM.briefsIntroduction = briedfsIntroductionM
-    //tags
-    vendorItemM.tags = getVendorBaseModel(element.tags)
-    //useCaseExample
-    let useCaseExampleM = reactive({} as UseCaseExampleModel)
-    useCaseExampleM.title = element.useCaseExample.title
-    useCaseExampleM.url = element.useCaseExample.url
-    useCaseExampleM.itemArr = getVendorBaseModel(element.useCaseExample.itemArr)
-    vendorItemM.useCaseExample = useCaseExampleM
-    //claimedKpis
-    let claimedKpiM = reactive({} as ClaimedKpiModel)
-    claimedKpiM.title = element.claimedKpis.title
-    claimedKpiM.itemArr = getVendorBaseModel(element.claimedKpis.itemArr)
-    vendorItemM.claimedKpis = claimedKpiM
-    //priceModelCard
-    let priceM = reactive({} as PriceModel)
-    priceM.title = element.priceModelCard.title
-    priceM.itemArr = getVendorBaseModel(element.priceModelCard.itemArr)
-    priceM.cards = getVendorBaseModel(element.priceModelCard.cards)
-    vendorItemM.priceModelCard = priceM
-    //featureDemo
-    let featureDemoM = reactive({} as FeatureDemoModel) 
-    featureDemoM.title = element.featureDemo.title
-    featureDemoM.links = getVendorBaseModel(element.featureDemo.links)
-    featureDemoM.qrCodes = getVendorBaseModel(element.featureDemo.qrCodes)
-    featureDemoM.videos = getVendorBaseModel(element.featureDemo.videos)
-    vendorItemM.featureDemo = featureDemoM
-    //serviceBrand
-    let serviceBrandM = reactive({} as ServiceBrandModel)
-    serviceBrandLogoM.title = element.serviceBrand.title
-    let brandArr = [] as Array<BrandItemModel>
-    element.serviceBrand.brands.forEach((brandItem:any) => {
-      let brandItemM = reactive({} as BrandItemModel)
-      brandItemM.id = brandItem.id
-      brandItemM.logo = brandItem.logo
-      brandItemM.isCommingSoon = brandItem.isCommingSoon
-      brandItemM.example = getVendorBaseModel(brandItem.example)
-      brandArr.push(brandItemM)
-    });
-    serviceBrandM.brands = brandArr
-    vendorItemM.serviceBrand = serviceBrandM
-    vendorCardArr.push(vendorItemM)
-  })
-  return vendorCardArr
-}
 const vendorListMock: Array<VendorItemModel> = getVendorCardData(vendorCardData)
 export default {
   vendorListMock,

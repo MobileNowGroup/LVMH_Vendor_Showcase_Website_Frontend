@@ -100,51 +100,6 @@ const clickNothing = function (src: any) {
           </div>
         <projectSlide v-if=" brandItem.type === 'video' && brandItem.itemArr.length > 0 " :project-example="brandItem.itemArr"></projectSlide>
       </div>
-      <!-- <div>
-        <div class="title-box">
-          <h2 class="title">
-            <div class="flex items-center justify-center">
-              <div
-                class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
-              ></div>
-              <span class="block flex-none">project 2</span>
-              <div
-                class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
-              ></div>
-            </div>
-          </h2>
-        </div>
-        <div v-if="demoLink" class="demo-box">
-          <p class="demo-link">Link Only</p>
-          <p class="demo-desc">Click the link to view demo</p>
-          <button class="demo-button" @click="clickNothing">
-            <img src="/images/icon/button_link.svg" alt="" /> Demo link
-          </button>
-        </div>
-      </div> -->
-      <!-- <div>
-        <div class="title-box">
-          <h2 class="title">
-            <div class="flex items-center justify-center">
-              <div
-                class="h-[1px] w-[272px] bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
-              ></div>
-              <span class="block flex-none">project 3</span>
-              <div
-                class="h-[1px] w-[272px] bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
-              ></div>
-            </div>
-          </h2>
-        </div>
-        <div v-if="demoLink" class="demo-box">
-          <p class="demo-link">Media and Link</p>
-          <p class="demo-desc">Click the link to view demo</p>
-          <button class="demo-button" @click="clickNothing">
-            <img src="/images/icon/button_link.svg" alt="" /> Demo link
-          </button>
-        </div>
-        <projectSlide></projectSlide>
-      </div> -->
     </div>
   </main>
 </template>

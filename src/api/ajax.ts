@@ -1,5 +1,5 @@
 import axios,{AxiosInstance,AxiosRequestConfig,AxiosResponse} from "axios";
-
+import { authStore } from '@/stores/authStore'
 interface requestType{
     url: string
     params?:any
@@ -24,7 +24,8 @@ const service:AxiosInstance = axios.create({
 service.interceptors.request.use((config:any)=>{
     const { method, params} = config
     const headers:any = {
-        token:localStorage.getItem('token')
+        Authorization: authStore().accessToken ?? "",
+        ContentType:'application/json'
     }
     if (method === 'get') {
         headers['Cache-Control'] = 'no-cache'

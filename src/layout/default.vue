@@ -4,14 +4,14 @@ import HeadComponent from '@/components/HeadComponent.vue'
 import FootComponent from '@/components/FootComponent.vue'
 import { onMounted, onBeforeUpdate, ref, watch } from 'vue'
 import { authStore } from '../stores/authStore'
-const isLogin = authStore().accessToken.length === 0
+
 const $router = useRouter()
 const $route = useRoute()
 let showModel = ref(true)
 let loginPage = ref(false)
 
 onMounted(() => {
-  loginPage.value = isLogin
+  loginPage.value = authStore().accessToken.length === 0
 })
 onBeforeUpdate(() => {})
 
@@ -19,6 +19,7 @@ onBeforeUpdate(() => {})
 watch(
   () => $route.path,
   (newPath, oldPath) => {
+    const isLogin = authStore().accessToken.length === 0
     loginPage.value =  isLogin
     if (isLogin) {
       $router.push({
