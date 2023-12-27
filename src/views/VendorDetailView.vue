@@ -1,85 +1,65 @@
 <script setup lang="ts">
 import { onMounted, computed, reactive, ref } from 'vue'
-import mockData from '../util/mockData'
 import { useRouter } from 'vue-router'
 import { isMobile, openLink, setVideoPosterFn } from '@/util/common'
-
+// import { postVendorAppointment } from "@/api/appointment/index"
+import { VendorItemModel } from '@/model/vendor.model'
+import { Swiper, SwiperSlide } from 'swiper/vue' // swiper所需组件
+import { Navigation, Pagination, Grid } from 'swiper/modules'
+import mockData from '../util/mockData'
+import 'swiper/css' // 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 const $router = useRouter()
-const vendor = ref({} as any)
-const length = ref(0) // slide 长度
+const vendor = ref({} as VendorItemModel)
+const serviceBrandCount = ref(0) // slide 长度
 let sumWidth = ref(80)
 let itemWidth = ref(40)
 const isMobileAgent = ref(isMobile())
+let slideListNode = ref()
+let scrollThumbNode = ref()
+let count = ref(0)
+const sendEmailText = ref('REQUEST')
+let sendEmailVisable = ref(false)
+const modules = ref([Navigation, Pagination, Grid]) // setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
+const navigation = ref({
+  nextEl: '.button-next',
+  prevEl: '.button-prev',
+})
+let swipers: any = null
+
 onMounted(() => {
   // 进入页面给默认数据
   mockData.vendorListMock.forEach((element, elementINdex) => {
     if (element.id === Number($router.currentRoute.value.query.id)) {
       vendor.value = element
+      serviceBrandCount.value = vendor.value.serviceBrandLogo.itemArr.length
     }
   })
 
-  length.value = vendor.value.serviceBrandLogos.length
   itemWidth = computed(() => {
     //每个item宽度
-    if (length.value < 10) {
+    if (serviceBrandCount.value < 10) {
       return 40
-    } else if (length.value < 20) {
+    } else if (serviceBrandCount.value < 20) {
       return 20
     } else {
       return 10
     }
   })
   sumWidth = computed(() => {
-    return (length.value - 4) * itemWidth.value
+    return (serviceBrandCount.value - 4) * itemWidth.value
   })
+
   // 监听slidelist滚动距离计算下面scrllbar的滚动距离且只在移动端生效
   if (isMobileAgent.value) {
     slideListNode.value.addEventListener('scroll', (e: any) => {
       scrollThumbNode.value.style.marginLeft = e.target.scrollLeft / 5 + 'px'
     })
   }
+
 })
 
-let slideListNode = ref()
-let scrollThumbNode = ref()
-let count = ref(0)
-
-const sendEmailText = ref('REQUEST')
-let sendEmailVisable = ref(false)
-// 发送邮件
-const sendEmail = () => {
-  sendEmailText.value = 'Please wait...'
-  setTimeout(() => {
-    sendEmailVisable.value = true
-    sendEmailText.value = 'REQUESTED'
-  }, 2000)
-}
-
-const gotoDemo = (serviceBrands: any) => {
-  if (!serviceBrands.isCommingSoon) {
-    // const data: any = JSON.stringify(serviceBrands.example)
-    const brandId = serviceBrands.id
-    const cardId = vendor.value.id
-    $router.push({
-      name: 'projectdemo',
-      query: { cardId: cardId, brandId: brandId },
-    })
-  }
-}
-
-import { Swiper, SwiperSlide } from 'swiper/vue' // swiper所需组件
-import { Navigation, Pagination, Grid } from 'swiper/modules'
-import 'swiper/css' // 引入swiper样式，对应css 如果使用less或者css只需要把scss改为对应的即可
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import { json } from 'stream/consumers'
-const modules = ref([Navigation, Pagination, Grid]) // setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
-const navigation = ref({
-  nextEl: '.button-next',
-  prevEl: '.button-prev',
-})
-
-let swipers: any = null
 // 初始化swiper
 const onSwiper = (swiper: any) => {
   swipers = swiper
@@ -98,25 +78,45 @@ const prevEl = () => {
   swipers.slidePrev()
 }
 const nextEl = () => {
-  if (count.value < length.value - 5) {
+  if (count.value < serviceBrandCount.value - 5) {
     slideListNode.value.scrollLeft = count.value++ * 100
     scrollThumbNode.value.style.marginLeft =
       count.value * itemWidth.value + 'px'
   }
   swipers.slideNext()
 }
+
+// 发送邮件
+const sendEmail = () => {
+  sendEmailText.value = 'Please wait...'
+// const appointmentObj = postVendorAppointment({vendor_name:vendor.id,vendor_number:vendor.fullName})
+  setTimeout(() => {
+    sendEmailVisable.value = true
+    sendEmailText.value = 'REQUESTED'
+  }, 2000)
+}
+const gotoDemo = (serviceBrands: any) => {
+  if (!serviceBrands.isCommingSoon) {
+    const brandId = serviceBrands.id
+    const cardId = vendor.value.id
+    $router.push({
+      name: 'projectdemo',
+      query: { cardId: cardId, brandId: brandId },
+    })
+  }
+}
 </script>
 
 <template>
   <main :class="{ hasnodeco: true }" style="background: white">
     <div class="top" :class="{ top_mobile: isMobileAgent }">
-      <div class="vendor-box">
+      <div v-if="vendor.serviceBrandLogo" class="vendor-box">
         <div class="vendor-box-in h-[41rem]">
           <div class="vendor-box-in-scroll">
-            <h2 class="vendor-name">{{ vendor.vendorName }}</h2>
+            <h2 class="vendor-name">{{ vendor.title }}</h2>
             <p class="vendor-category">
               <span class="vendor-title">Category:</span>
-              {{ vendor.vendorCategory }}
+              {{ vendor.category }}
             </p>
             <p class="vendor-found">
               <span class="vendor-title">Founded:</span>
@@ -128,14 +128,14 @@ const nextEl = () => {
             </p>
             <p class="vendor-tag">
               <span
-                v-for="(tag, tagIndex) of vendor.vendorTags"
+                v-for="(tag, tagIndex) of vendor.tags"
                 :key="tagIndex"
               >
-                {{ tag }}
+                {{ tag.value }}
               </span>
             </p>
             <p class="vendor-intro">
-              <p v-for="item in vendor.vendorBrief" :key="item.id" style="margin-top: 10px;">{{ item.id === 1 ?`Introduction:${item.value}`:item.value }}</p>
+              <p v-for="item in vendor.introductions" :key="item.id" style="margin-top: 10px;">{{ item.id === 1 ?`Introduction:${item.value}`:item.value }}</p>
             </p>
           </div>
         </div>
@@ -150,13 +150,13 @@ const nextEl = () => {
             alt=""
           />
         </div>
-        <div class="slide-track">
+        <div v-if="vendor.serviceBrandLogo" class="slide-track">
           <div class="slide-title">
             <div class="flex items-center justify-center">
               <div
                 class="h-[1px] flex-1 bg-[#ECF0FA] lg:mr-[24px] mr-[16px]"
               ></div>
-              <span class="block flex-none">Service Brands</span>
+              <span class="block flex-none">{{ vendor.serviceBrandLogo.title }}</span>
               <div
                 class="h-[1px] flex-1 bg-[#ECF0FA] lg:ml-[24px] ml-[16px]"
               ></div>
@@ -180,11 +180,11 @@ const nextEl = () => {
               <template></template>
               <swiper-slide
                 class=""
-                v-for="(slide, slideIndex) of vendor.serviceBrandLogos"
+                v-for="(slide, slideIndex) of vendor.serviceBrandLogo.itemArr"
                 :key="slideIndex"
               >
                 <div class="slide-item">
-                  <img class="images" :src="slide" alt="" />
+                  <img class="images" :src="slide.value.toString()" alt="" />
                 </div>
               </swiper-slide>
             </swiper>
@@ -198,10 +198,9 @@ const nextEl = () => {
             <div class="scroll-track-bottom"></div>
           </div>
         </div>
-
         <div class="slide-arrow slide-arrow-right flex items-center">
           <img
-            v-show="count < length - 5"
+            v-show="count < serviceBrandCount - 5"
             @click.stop="nextEl"
             src="/images/right_arrow.png"
             alt=""
@@ -212,7 +211,7 @@ const nextEl = () => {
 
     <div class="content">
       <div
-        v-if="vendor.briefIntroduction && vendor.briefIntroduction.length"
+        v-if="vendor.briefsIntroduction && vendor.briefsIntroduction.itemArr.length"
         class="content-box content-box-solution"
       >
         <h2 class="title">
@@ -221,7 +220,7 @@ const nextEl = () => {
               class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
             <span class="block flex-none">
-              Brief Introduction of Product / Service
+              {{ vendor.briefsIntroduction.title }}
             </span>
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
@@ -229,18 +228,17 @@ const nextEl = () => {
           </div>
         </h2>
         <p
-          v-for="item in vendor.briefIntroduction"
+          v-for="item in vendor.briefsIntroduction.itemArr"
           :key="item.id"
           :style="item.style"
           class="content-desc content-solution"
         >
           {{ item.value }}
         </p>
-        <img style="margin-top: 20px;" :src="vendor.useCaseExampleSrc" alt="" />
       </div>
 
       <div
-        v-if="vendor.useCaseExample && vendor.useCaseExample.length"
+        v-if="vendor.useCaseExample && vendor.useCaseExample.itemArr.length"
         class="content-box content-box-solution"
       >
         <h2 class="title">
@@ -248,25 +246,25 @@ const nextEl = () => {
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
-            <span class="block flex-none">Solution Case</span>
+            <span class="block flex-none">{{ vendor.useCaseExample.title }}</span>
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
           </div>
         </h2>
         <p
-          v-for="item in vendor.useCaseExample"
+          v-for="item in vendor.useCaseExample.itemArr"
           :key="item.id"
           :style="item.style"
           class="content-desc"
         >
           {{ item.value }} 
         </p>
-        <img style="margin-top: 20px;" :src="vendor.useCaseExampleSrc" alt="" />
+        <img style="margin-top: 20px;" :src="vendor.useCaseExample.url" alt="" />
       </div>
 
       <div
-        v-if="vendor.claimedKpis && vendor.claimedKpis.length"
+        v-if="vendor.claimedKpis && vendor.claimedKpis.itemArr.length"
         class="content-box content-box-claimed"
       >
         <h2 class="title">
@@ -274,14 +272,14 @@ const nextEl = () => {
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
-            <span class="block flex-none">Claimed Kpis</span>
+            <span class="block flex-none">{{ vendor.claimedKpis.title}}</span>
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
           </div>
         </h2>
         <p
-          v-for="item in vendor.claimedKpis"
+          v-for="item in vendor.claimedKpis.itemArr"
           :key="item.id"
           :style="item.style"
           class="content-desc content-claimed"
@@ -290,7 +288,7 @@ const nextEl = () => {
         </p>
       </div>
       <div
-        v-if="vendor.cost && vendor.cost.length"
+        v-if="vendor.priceModelCard && vendor.priceModelCard.itemArr.length"
         class="content-box content-box-price"
       >
         <div class="content-box-price-spec">
@@ -299,14 +297,14 @@ const nextEl = () => {
               <div
                 class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
               ></div>
-              <span class="block flex-none">Pricing Model</span>
+              <span class="block flex-none">{{ vendor.priceModelCard.title }}</span>
               <div
                 class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
               ></div>
             </div>
           </h2>
           <p
-            v-for="item in vendor.cost"
+            v-for="item in vendor.priceModelCard.itemArr"
             :key="item.id"
             :style="item.style"
             class="content-desc content-price"
@@ -324,11 +322,11 @@ const nextEl = () => {
             </p>
           </div>
           <div class="content-price-right">
-            <div v-for="(item, index) of vendor.priceModelCard" :key="index">
+            <div v-for="(item, index) of vendor.priceModelCard.cards" :key="index">
               <img :src="item.src" alt="" />
               <h2 class="">{{ item.title }}</h2>
-              <p v-for="(items, indexs) of item.list" :key="indexs">
-                {{ items }}
+              <p v-for="(itemObj, indexs) of item.itemArr" :key="indexs">
+                {{ itemObj.value }}
               </p>
             </div>
             <!-- <div>
@@ -377,7 +375,7 @@ const nextEl = () => {
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
-            <span class="block flex-none">Featured Demo</span>
+            <span class="block flex-none">{{ vendor.featureDemo.title }}</span>
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
@@ -434,7 +432,7 @@ const nextEl = () => {
       </div>
 
       <div
-        v-if="vendor.serviceBrandProjects && vendor.serviceBrandProjects.length"
+        v-if="vendor.serviceBrand && vendor.serviceBrand.brands.length"
         class="content-box content-box-service"
       >
         <h2 class="title">
@@ -442,7 +440,7 @@ const nextEl = () => {
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
-            <span class="block flex-none">Service Brands</span>
+            <span class="block flex-none">{{ vendor.serviceBrand.title}}</span>
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
@@ -450,22 +448,22 @@ const nextEl = () => {
         </h2>
         <div class="content-service-list">
           <div
-            @click="gotoDemo(serviceBrands)"
             v-for="(
-              serviceBrands, serviceBrandsIndex
-            ) of vendor.serviceBrandProjects"
+              brandItem, serviceBrandsIndex
+            ) of vendor.serviceBrand.brands"
             :key="serviceBrandsIndex"
             class="content-service-list-item"
+            @click="gotoDemo(brandItem)"
           >
             <img
               class="content-service-logo"
-              :src="serviceBrands.logo"
+              :src="brandItem.logo"
               alt=""
             />
             <div
-              v-if="serviceBrands.isCommingSoon"
+              v-if="brandItem.isCommingSoon"
               class="content-desc content-service-desc"
-              :class="{ 'is-comming-soon': serviceBrands.isCommingSoon }"
+              :class="{ 'is-comming-soon': brandItem.isCommingSoon }"
               style="font-size: 1rem"
             >
               comming soon
@@ -549,9 +547,6 @@ const nextEl = () => {
     font-weight: 500;
     line-height: 22px; /* 137.5% */
   }
-  &-category {
-    // @include ellipsisLn(1);
-  }
   &-name {
     color: var(--lvmh-secondary-1100, #3e65d0);
     font-family: avenir_next_text;
@@ -586,9 +581,6 @@ const nextEl = () => {
       background: var(--lvmh-secondary-110, #ecf0fa);
     }
   }
-  &-intro {
-    //@include ellipsisLn(6);
-  }
 }
 .slide {
   &-box {
@@ -622,8 +614,6 @@ const nextEl = () => {
     text-transform: capitalize;
     position: relative;
     margin-bottom: 3.6rem;
-  }
-  &-track {
   }
   &-item-list {
     width: 48rem;
@@ -1188,8 +1178,6 @@ const nextEl = () => {
       margin: 0 1.5rem;
       margin-bottom: 2rem;
     }
-    &-track {
-    }
     &-item-list {
       width: calc(100vw - 3rem);
       max-width: 100vw;
@@ -1319,8 +1307,5 @@ const nextEl = () => {
       opacity: 1;
     }
   }
-}
-.swiper-wrapper {
-  // justify-content: center;
 }
 </style>

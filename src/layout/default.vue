@@ -4,43 +4,27 @@ import HeadComponent from '@/components/HeadComponent.vue'
 import FootComponent from '@/components/FootComponent.vue'
 import { onMounted, onBeforeUpdate, ref, watch } from 'vue'
 import { authStore } from '../stores/authStore'
-import { storeToRefs } from 'pinia'
-
+const isLogin = authStore().accessToken.length === 0
 const $router = useRouter()
 const $route = useRoute()
-const pathArray = ['/login', '/', '']
 let showModel = ref(true)
-
-let store = authStore()
-const { cookiesIsSave, userName, StorageTime, ExpirationTime } =
-  storeToRefs(store)
-
 let loginPage = ref(false)
 
 onMounted(() => {
-  console.log(cookiesIsSave.value)
-  // cookiesIsSave.value ? (showModel.value = false) : (showModel.value = true);
-  if ($route.path !== '/vendorlisting') {
-  }
-  // 判断路由，控制当前导航标签
-  loginPage.value = pathArray.some(item => {
-    return $route.path === item
-  })
+  loginPage.value = isLogin
 })
-
 onBeforeUpdate(() => {})
 
 // 判断路由，控制当前导航标签
 watch(
   () => $route.path,
   (newPath, oldPath) => {
-    if (newPath !== '/vendorlisting') {
-    } else {
-      // showCookies.value = true;
+    loginPage.value =  isLogin
+    if (isLogin) {
+      $router.push({
+        name: "login",
+      });
     }
-    loginPage.value = pathArray.some(item => {
-      return newPath === item
-    })
   },
   { immediate: true }
 )
@@ -49,7 +33,7 @@ const closeCookies = () => {
 }
 const agreeSaveCookies = () => {
   // 保存用户名什么的
-  store.saveCookiesFn()
+  authStore().saveCookiesFn()
   showModel.value = false
 }
 </script>

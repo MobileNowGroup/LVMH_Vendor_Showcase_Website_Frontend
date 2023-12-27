@@ -1,21 +1,27 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { login} from "@/api/login/index"
+import { authStore } from '@/stores/authStore'
 const router = useRouter();
 
 let isPassVerify = ref<boolean>(false);
 let isPassValid = ref<boolean>(false);
-let loginEmail = ref<string>("");
+let loginEmail = ref<string>("test@qq.com");
 let buttonText = ref<string>("LOGIN");
 const verifyEmail = () => {
   if (buttonText.value === "LOGIN") {
-    loginEmail.value.indexOf("@dfs.com") > 0
+    loginEmail.value.indexOf("@qq.com") > 0
       ? (isPassVerify.value = true) && (buttonText.value = "EXPLORE")
       : (isPassValid.value = true);
   } else {
-    router.push({
-      name: "vendorlisting",
-    });
+    const loginObj = login({email:loginEmail.value}).then((res)=>{
+      const { access_token } = res.data
+      authStore().saveAssessToken(access_token)
+      router.push({ name: "vendorlisting" });
+    }).catch((error:any)=>{
+      console.log('login_err:',error);
+    })
   }
 };
 </script>

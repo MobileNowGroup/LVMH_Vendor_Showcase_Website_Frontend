@@ -4,12 +4,11 @@ import mockData from '../util/mockData'
 import vendorList from '@/components/vendorListComponent.vue'
 import { authStore, commonStore } from '../stores/authStore'
 import { useRouter, useRoute } from 'vue-router'
-// import { AnyARecord } from 'dns'
-let store = authStore()
+import { VendorItemModel, BrandItemModel, VendorBaseModel } from '@/model/vendor.model'
 let cStore = commonStore()
 let resultCount = ref(0)
-
-let vendorListArray = ref([] as any)
+const vendorListData = reactive(mockData.vendorListMock as Array<VendorItemModel>)
+let vendorListArray = ref([] as Array<VendorItemModel>)
 const $router = useRouter() // router 路由操作
 const $route = useRoute() // 路由信息
 
@@ -22,9 +21,9 @@ const filterDataFn = () => {
   if (searchType === 'search') {
     filterList = mockData.filterListMock
     if (param) {
-      mockData.vendorListMock.forEach((element, index) => {
+      vendorListData.forEach((element, index) => {
         param = param ? param.toLocaleString().toLocaleLowerCase() : ''
-        if (element.vendorName.toLocaleLowerCase().indexOf(param) != -1) {
+        if (element.title.toLocaleLowerCase().indexOf(param) != -1) {
           const newArr = vendorListArray.value.filter((item: any) => {
             return item.id === element.id
           })
@@ -32,7 +31,7 @@ const filterDataFn = () => {
             vendorListArray.value.push(element)
           }
         }
-        if (element.vendorCategory.toLocaleLowerCase().indexOf(param) != -1) {
+        if (element.category.toLocaleLowerCase().indexOf(param) != -1) {
           const newArr = vendorListArray.value.filter((item: any) => {
             return item.id === element.id
           })
@@ -40,7 +39,7 @@ const filterDataFn = () => {
             vendorListArray.value.push(element)
           }
         }
-        if (element.vendorStatus.toLocaleLowerCase().indexOf(param) != -1) {
+        if (element.status.toLocaleLowerCase().indexOf(param) != -1) {
           const newArr = vendorListArray.value.filter((item: any) => {
             return item.id === element.id
           })
@@ -48,9 +47,9 @@ const filterDataFn = () => {
             vendorListArray.value.push(element)
           }
         }
-        const newTagsArr = element.vendorTags.filter(obj => {
+        const newTagsArr = element.tags.filter(obj => {
           param = param ? param.toLocaleString().toLocaleLowerCase() : ''
-          return obj.toLocaleLowerCase().indexOf(param) != -1
+          return obj.value.toLocaleLowerCase().indexOf(param) != -1
         })
         if (newTagsArr.length) {
           const newArr = vendorListArray.value.filter((item: any) => {
@@ -62,7 +61,7 @@ const filterDataFn = () => {
         }
       })
     } else {
-      vendorListArray.value = mockData.vendorListMock
+      vendorListArray.value = vendorListData
     }
   } else if (searchType === 'filter') {
     let tempArry: any = []
@@ -72,13 +71,13 @@ const filterDataFn = () => {
     tempArry.forEach((itema: any, indexa: any) => {
       itema.forEach((itemb: any, indexb: any) => {
         if (itemb.isChoosed) {
-          mockData.vendorListMock.forEach((element, index) => {
+          vendorListData.forEach((element, index) => {
             if (itemb.type === 'category') {
               //category
               if (
                 itemb.desc
                   .toLocaleLowerCase()
-                  .indexOf(element.vendorCategory.toLocaleLowerCase()) > -1
+                  .indexOf(element.category.toLocaleLowerCase()) > -1
               ) {
                 const newArr = vendorListArray.value.filter((item: any) => {
                   return item.id === element.id
@@ -90,11 +89,11 @@ const filterDataFn = () => {
             } else if (itemb.type === 'tags') {
               //tags
               // debugger
-              const newTagsArr = element.vendorTags.filter(obj => {
+              const newTagsArr = element.tags.filter(obj => {
                 const itemDesc = itemb.desc
                   ? `#${itemb.desc}`.toLocaleLowerCase()
                   : ''
-                return obj.toLocaleLowerCase().indexOf(itemDesc) != -1
+                return obj.value.toLocaleLowerCase().indexOf(itemDesc) != -1
               })
               if (newTagsArr.length) {
                 const newArr = vendorListArray.value.filter((item: any) => {
@@ -107,7 +106,7 @@ const filterDataFn = () => {
             } else if (itemb.type === 'status') {
               //status
               if (
-                element.vendorStatus
+                element.status
                   .toLocaleLowerCase()
                   .indexOf(itemb.desc.toLocaleLowerCase()) > -1
               ) {
@@ -124,7 +123,7 @@ const filterDataFn = () => {
       })
     })
   } else {
-    mockData.vendorListMock.forEach((element, index) => {
+    vendorListData.forEach((element, index) => {
       vendorListArray.value.push(element)
     })
   }

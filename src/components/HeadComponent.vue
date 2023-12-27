@@ -11,7 +11,7 @@ import {
 } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import mockData from '../util/mockData'
-import type vendorItem from '@/model/vendor.model'
+import { VendorItemModel } from '@/model/vendor.model'
 import { throttle } from '@/util/common'
 import { commonStore } from '@/stores/authStore'
 import { match } from 'assert'
@@ -59,25 +59,25 @@ const updatefilterData = () => {
   filterList.forEach((filterObj: any) => {
     filterObj.menuItemList.forEach((itemObj: any) => {
       itemObj.value = 0
-      mockData.vendorListMock.forEach((cardObj: vendorItem) => {
+      mockData.vendorListMock.forEach((cardObj: VendorItemModel) => {
         if (itemObj.type === 'category') {
           if (
             itemObj.desc.toLocaleLowerCase() ===
-            cardObj.vendorCategory.toLocaleLowerCase()
+            cardObj.category.toLocaleLowerCase()
           ) {
             itemObj.value += 1
           }
         } else if (itemObj.type === 'tags') {
-          let newCardArr = cardObj.vendorTags.filter((tagItem: any) => {
+          let newCardArr = cardObj.tags.filter((tagItem: any) => {
             return (
-              tagItem.toLocaleLowerCase() ===
+              tagItem.value.toLocaleLowerCase() ===
               `#${itemObj.desc}`.toLocaleLowerCase()
             )
           })
           itemObj.value += newCardArr.length
         } else if (itemObj.type === 'status') {
           if (
-            cardObj.vendorStatus
+            cardObj.status
               .toLocaleLowerCase()
               .indexOf(itemObj.desc.toLocaleLowerCase()) > -1
           ) {

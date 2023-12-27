@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { reactive, ref, watch, computed } from 'vue'
+import { reactive, ref, toRefs, computed } from 'vue'
 import mockData from '../util/mockData'
 import vendorList from '@/components/vendorListComponent.vue'
-import { authStore, commonStore } from '../stores/authStore'
-
+import { authStore } from '../stores/authStore'
 let store = authStore()
-
 let vendorListArray = ref()
 vendorListArray.value = mockData.vendorListMock
 const resultCount = ref(vendorListArray.value.length)
-
 const openCookie = () => {
   //  store.CookiesModelopen()
 }
@@ -24,7 +21,7 @@ const openCookie = () => {
         v-if="resultCount > 0"
         @click="openCookie"
       >
-        All Results: {{ resultCount }} Agencies
+        All Results: {{ resultCount }} Agencies{{ store.accessToken }}
       </div>
       <vendorList
         v-show="vendorListArray.length > 0"

@@ -4,28 +4,30 @@ import { isMobile, setVideoPosterFn } from '@/util/common'
 import { useRouter, useRoute } from 'vue-router'
 import { commonStore } from '@/stores/authStore'
 import mockData from '../util/mockData'
+import { VendorItemModel, BrandItemModel, VendorBaseModel } from '@/model/vendor.model'
 import projectSlide from '@/components/ProjectSlideComponent.vue'
-
-let demoLink = ref('ddddd') // demolink的地址
-
+const vendor = ref({} as VendorItemModel)
+const brandItem =  ref({} as VendorItemModel)
+const projectDemoDatas = ref([] as Array<BrandItemModel>)
+const projectObj = ref({} as BrandItemModel)
+const projectDemoData = ref([] as Array<VendorBaseModel>)
 const $route = useRoute()
-const $router = useRouter()
 const store = commonStore()
 const cardId = $route.query.cardId
 
-const cardItem = mockData.vendorListMock.filter(cardItem => {
-  return cardItem.id == Number(cardId)
-})
-const brandItem = JSON.parse(JSON.stringify(cardItem[0]))
-const projectDemoDatas = brandItem.serviceBrandProjects.filter(
-  (brandItem: any) => {
-    return brandItem.id == Number($route.query.brandId)
-  }
-) //JSON.parse($route.query.brandId as string)
-const projectObj = JSON.parse(JSON.stringify(projectDemoDatas[0]))
-const projectDemoData = projectObj.example
 onMounted(() => {
-  store.setDemoUrl(projectObj.logo)
+  mockData.vendorListMock.forEach((element, elementINdex) => {
+    if (element.id == Number(cardId)) {
+      vendor.value = element
+      brandItem.value = JSON.parse(JSON.stringify(element))
+      projectDemoDatas.value = brandItem.value.serviceBrand.brands.filter((brandItem: any) => {
+        return brandItem.id == Number($route.query.brandId)
+      })
+      projectObj.value = JSON.parse(JSON.stringify(projectDemoDatas.value[0]))
+      projectDemoData.value =  projectObj.value.example
+  }
+})
+  store.setDemoUrl(projectObj.value.logo)
   // carousel on init
   const frameZones = Array.from(document.querySelectorAll('.show-list'))
   for (let i = 0; i < frameZones.length; i++) {
@@ -54,8 +56,8 @@ const clickNothing = function (src: any) {
               ></div>
               <span class="block flex-none">
                 {{
-                  projectDemo.exampleContent
-                    ? projectDemo.exampleContent
+                  projectDemo.value
+                    ? projectDemo.value
                     : `project${projectDemoIndex + 1}`
                 }}
               </span>
@@ -65,31 +67,31 @@ const clickNothing = function (src: any) {
             </div>
           </h2>
         </div>
-        <div v-if="projectDemo.exampleType === 'video'" class="demo-box">
+        <div v-if="projectDemo.type === 'video'" class="demo-box">
           <p class="demo-link" style="margin-bottom: 20px">
-            {{ projectDemo.exampleDesc }}
+            {{ projectDemo.desc }}
           </p>
         </div>
         <div
-          v-else-if="projectDemo.exampleType === 'Link Only'"
+          v-else-if="projectDemo.type === 'Link Only'"
           class="demo-box"
         >
-          <p class="demo-desc" v-if="projectDemo.exampleType === 'link'">
-            {{ projectDemo.exampleDesce }}
+          <p class="demo-desc">
+            {{ projectDemo.desc }}
           </p>
           <button
             class="demo-button"
-            @click="clickNothing(projectDemo.exampleSrc)"
+            @click="clickNothing(projectDemo.value)"
           >
             <img src="/images/icon/button_link.svg" alt="" />
             Demo link
           </button>
         </div>
         <div v-else class="demo-box">
-          <p class="demo-desc">{{ projectDemo.exampleDesc }}</p>
+          <p class="demo-desc">{{ projectDemo.desc }}</p>
           <button
             class="demo-button"
-            @click="clickNothing(projectDemo.exampleSrc)"
+            @click="clickNothing(projectDemo.value)"
           >
             <img src="/images/icon/button_link.svg" alt="" />
             Demo link
@@ -98,10 +100,10 @@ const clickNothing = function (src: any) {
         <!-- <video autoplay src="https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4"></video> -->
         <projectSlide
           v-if="
-            projectDemo.exampleType === 'video' &&
-            projectDemo.exampleArr.length > 0
+            projectDemo.type === 'video' &&
+            projectDemo.itemArr.length > 0
           "
-          :project-example="projectDemo.exampleArr"
+          :project-example="projectDemo.itemArr"
         ></projectSlide>
       </div>
       <!-- <div>

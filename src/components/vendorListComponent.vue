@@ -1,11 +1,11 @@
 <script setup lang="ts" name="vendorListComponent">
 import { useRouter } from 'vue-router'
 import {computed} from 'vue'
-import type vendorItem from '@/model/vendor.model'
+import { VendorItemModel } from '@/model/vendor.model'
 // props传值，非ts写法，ts写法后面后面的完整代码有，具体看后面的代码
 
 const props = defineProps({
-  vendorListArray: Array<vendorItem>,
+  vendorListArray: Array<VendorItemModel>,
 })
 const emit = defineEmits(['change', 'delete'])
 const vendorBriefString = (briefArr:Array<any>)=>{
@@ -28,12 +28,12 @@ const $router = useRouter()
       <router-link :to="`/vendordetail?id=${vendor.id}`">
         <div class="vendor-head">
           <div class="vendor-logo">
-            <img :src="vendor.logoSrc" alt="" style="object-fit: contain" />
+            <img :src="vendor.logo" alt="" style="object-fit: contain" />
           </div>
 
           <div>
             <p class="vendor-name">
-              {{ vendor.vendorShortName }}
+              {{ vendor.shortName }}
             </p>
 
             <!-- <p
@@ -51,33 +51,33 @@ const $router = useRouter()
           >
             {{ vendor.vendorName }}
           </p> -->
-            <span class="vendor-category">{{ vendor.vendorCategory }}</span>
+            <span class="vendor-category">{{ vendor.category }}</span>
             <span
               class="vendor-category-num"
-              v-show="1 < parseInt(vendor.vendorCategoryNum.toString())"
+              v-show="1 < parseInt(vendor.categoryCount.toString())"
             >
-              +{{ vendor.vendorCategoryNum }}
+              +{{ vendor.categoryCount }}
             </span>
           </div>
         </div>
         <div class="vendor-main">
-          <p class="vendor-brief">{{ vendorBriefString(vendor.vendorBrief) }}</p>
+          <p class="vendor-brief">{{ vendorBriefString(vendor.introductions) }}</p>
           <p>
             <span
               class="vendor-tag"
-              v-for="(tag, tagIndex) of vendor.vendorTags"
+              v-for="(tag, tagIndex) of vendor.tags"
               :key="tagIndex"
             >
-              {{ tag }}
+              {{ tag.value }}
             </span>
           </p>
         </div>
         <div class="vendor-foot">
-          <p class="vendor-status">{{ vendor.vendorStatus }}</p>
+          <p class="vendor-status">{{ vendor.status }}</p>
           <div class="vendor-dots">
             <div
               class="vendor-dot"
-              :class="{ 'vendor-dot-level': vendor.vendorDot > valueIndex }"
+              :class="{ 'vendor-dot-level': vendor.dot > valueIndex }"
               v-for="(value, valueIndex) of 4"
               :key="valueIndex"
             ></div>
