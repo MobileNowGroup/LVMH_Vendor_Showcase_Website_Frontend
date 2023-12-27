@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { onUpdated, onMounted, computed, reactive, ref, watch } from 'vue'
+import { onMounted, computed, reactive, ref, watch } from 'vue'
 import mockData from '../util/mockData'
 import vendorList from '@/components/vendorListComponent.vue'
-import { authStore, commonStore } from '../stores/authStore'
+import { commonStore } from '../stores/authStore'
 import { useRouter, useRoute } from 'vue-router'
-import { VendorItemModel, BrandItemModel, VendorBaseModel } from '@/model/vendor.model'
+import { VendorItemModel } from '@/model/vendor.model'
 let cStore = commonStore()
 let resultCount = ref(0)
-const vendorListData = reactive(mockData.vendorListMock as Array<VendorItemModel>)
-let vendorListArray = ref([] as Array<VendorItemModel>)
+const vendorListData = reactive({data:mockData.vendorListMock as Array<VendorItemModel>})
+let vendorListArray = reactive({data:[] as Array<VendorItemModel>})
 const $router = useRouter() // router 路由操作
 const $route = useRoute() // 路由信息
 
@@ -17,34 +17,34 @@ var searchType = $route.query.searchType
 var filterList = mockData.filterListMock
 const updateState = computed(() => $route.query.update)
 const filterDataFn = () => {
-  vendorListArray.value = []
+  vendorListArray.data = []
   if (searchType === 'search') {
     filterList = mockData.filterListMock
     if (param) {
-      vendorListData.forEach((element, index) => {
+      vendorListData.data.forEach((element, index) => {
         param = param ? param.toLocaleString().toLocaleLowerCase() : ''
         if (element.title.toLocaleLowerCase().indexOf(param) != -1) {
-          const newArr = vendorListArray.value.filter((item: any) => {
+          const newArr = vendorListArray.data.filter((item: any) => {
             return item.id === element.id
           })
           if (newArr.length == 0) {
-            vendorListArray.value.push(element)
+            vendorListArray.data.push(element)
           }
         }
         if (element.category.toLocaleLowerCase().indexOf(param) != -1) {
-          const newArr = vendorListArray.value.filter((item: any) => {
+          const newArr = vendorListArray.data.filter((item: any) => {
             return item.id === element.id
           })
           if (newArr.length == 0) {
-            vendorListArray.value.push(element)
+            vendorListArray.data.push(element)
           }
         }
         if (element.status.toLocaleLowerCase().indexOf(param) != -1) {
-          const newArr = vendorListArray.value.filter((item: any) => {
+          const newArr = vendorListArray.data.filter((item: any) => {
             return item.id === element.id
           })
           if (newArr.length == 0) {
-            vendorListArray.value.push(element)
+            vendorListArray.data.push(element)
           }
         }
         const newTagsArr = element.tags.filter(obj => {
@@ -52,16 +52,16 @@ const filterDataFn = () => {
           return obj.value.toLocaleLowerCase().indexOf(param) != -1
         })
         if (newTagsArr.length) {
-          const newArr = vendorListArray.value.filter((item: any) => {
+          const newArr = vendorListArray.data.filter((item: any) => {
             return item.id === element.id
           })
           if (newArr.length == 0) {
-            vendorListArray.value.push(element)
+            vendorListArray.data.push(element)
           }
         }
       })
     } else {
-      vendorListArray.value = vendorListData
+      vendorListArray = vendorListData
     }
   } else if (searchType === 'filter') {
     let tempArry: any = []
@@ -71,7 +71,7 @@ const filterDataFn = () => {
     tempArry.forEach((itema: any, indexa: any) => {
       itema.forEach((itemb: any, indexb: any) => {
         if (itemb.isChoosed) {
-          vendorListData.forEach((element, index) => {
+          vendorListData.data.forEach((element, index) => {
             if (itemb.type === 'category') {
               //category
               if (
@@ -79,11 +79,11 @@ const filterDataFn = () => {
                   .toLocaleLowerCase()
                   .indexOf(element.category.toLocaleLowerCase()) > -1
               ) {
-                const newArr = vendorListArray.value.filter((item: any) => {
+                const newArr = vendorListArray.data.filter((item: any) => {
                   return item.id === element.id
                 })
                 if (newArr.length == 0) {
-                  vendorListArray.value.push(element)
+                  vendorListArray.data.push(element)
                 }
               }
             } else if (itemb.type === 'tags') {
@@ -96,11 +96,11 @@ const filterDataFn = () => {
                 return obj.value.toLocaleLowerCase().indexOf(itemDesc) != -1
               })
               if (newTagsArr.length) {
-                const newArr = vendorListArray.value.filter((item: any) => {
+                const newArr = vendorListArray.data.filter((item: any) => {
                   return item.id === element.id
                 })
                 if (newArr.length == 0) {
-                  vendorListArray.value.push(element)
+                  vendorListArray.data.push(element)
                 }
               }
             } else if (itemb.type === 'status') {
@@ -110,11 +110,11 @@ const filterDataFn = () => {
                   .toLocaleLowerCase()
                   .indexOf(itemb.desc.toLocaleLowerCase()) > -1
               ) {
-                const newArr = vendorListArray.value.filter((item: any) => {
+                const newArr = vendorListArray.data.filter((item: any) => {
                   return item.id === element.id
                 })
                 if (newArr.length == 0) {
-                  vendorListArray.value.push(element)
+                  vendorListArray.data.push(element)
                 }
               }
             }
@@ -123,12 +123,12 @@ const filterDataFn = () => {
       })
     })
   } else {
-    vendorListData.forEach((element, index) => {
-      vendorListArray.value.push(element)
+    vendorListData.data.forEach((element, index) => {
+      vendorListArray.data.push(element)
     })
   }
   // 设置搜索数据总数
-  resultCount.value = vendorListArray.value.length
+  resultCount.value = vendorListArray.data.length
 }
 
 watch(updateState, (newValue, oldValue) => {
@@ -180,8 +180,8 @@ const openCookie = () => {
           <span v-else>Search Results: {{ resultCount }} Agency</span>
         </div>
         <vendorList
-          v-show="vendorListArray.length > 0"
-          :vendorListArray="vendorListArray"
+          v-show="vendorListArray.data.length > 0"
+          :vendorListArray="vendorListArray.data"
         ></vendorList>
       </div>
     </div>

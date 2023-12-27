@@ -1,26 +1,24 @@
 <script setup lang="ts">
 import { onMounted, onUpdated, ref, reactive } from 'vue'
-import { isMobile, setVideoPosterFn } from '@/util/common'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { commonStore } from '@/stores/authStore'
 import mockData from '../util/mockData'
-import { VendorItemModel, BrandItemModel, VendorBaseModel,ServiceBrandModel } from '@/model/vendor.model'
+import { BrandItemModel } from '@/model/vendor.model'
 import projectSlide from '@/components/ProjectSlideComponent.vue'
 const $route = useRoute()
 const store = commonStore()
 const cardId = $route.query.cardId
 const brandId = Number($route.query.brandId)
-
-let brandItemModel = reactive({} as BrandItemModel)
+let brandItemModel = reactive({data:{}as BrandItemModel} )
 
 onMounted(() => {
   mockData.vendorListMock.forEach((element, elementINdex) => {
     if (element.id == Number(cardId)) {
       element.serviceBrand.brands.forEach((brandObj)=>{
         if (brandId === brandObj.id) {
-          brandItemModel = brandObj
+          brandItemModel.data = brandObj
           //这个是为了设置projectDemo页面顶部的icon
-          store.setDemoUrl(brandItemModel.logo)
+          store.setDemoUrl(brandItemModel.data.logo)
         }
       })
     }
@@ -34,6 +32,8 @@ onMounted(() => {
 onUpdated(() => {})
 /**demolink 点击事件 */
 const clickNothing = function (src: any) {
+  console.log("clickNothing:",src);
+  
   window.open(src)
 }
 </script>
@@ -42,8 +42,8 @@ const clickNothing = function (src: any) {
   <main :class="{ hasdeco: true }" style="background: white">
     <div class="bg-white pb-[10rem] lg:mx-0 mx-4">
       <div
-        v-for="(projectDemo, projectDemoIndex) of projectDemoData"
-        :key="projectDemoIndex"
+        v-for="(brandItem, index) of brandItemModel.data.example"
+        :key="index"
       >
         <div class="title-box">
           <h2 class="title">
@@ -53,9 +53,9 @@ const clickNothing = function (src: any) {
               ></div>
               <span class="block flex-none">
                 {{
-                  projectDemo.value
-                    ? projectDemo.value
-                    : `project${projectDemoIndex + 1}`
+                  brandItem.value
+                    ? brandItem.value
+                    : `project${index + 1}`
                 }}
               </span>
               <div
@@ -64,44 +64,41 @@ const clickNothing = function (src: any) {
             </div>
           </h2>
         </div>
-        <div v-if="projectDemo.type === 'video'" class="demo-box">
-          <p class="demo-link" style="margin-bottom: 20px">
-            {{ projectDemo.desc }}
-          </p>
-        </div>
-        <div
-          v-else-if="projectDemo.type === 'Link Only'"
-          class="demo-box"
-        >
-          <p class="demo-desc">
-            {{ projectDemo.desc }}
-          </p>
-          <button
-            class="demo-button"
-            @click="clickNothing(projectDemo.value)"
+          <div v-if="brandItem.type === 'video'" class="demo-box">
+            <p class="demo-link" style="margin-bottom: 20px">
+              {{ brandItem.desc }}
+            </p>
+          </div>
+          <div
+            v-else-if="brandItem.type === 'link'"
+            class="demo-box"
           >
-            <img src="/images/icon/button_link.svg" alt="" />
-            Demo link
-          </button>
-        </div>
-        <div v-else class="demo-box">
-          <p class="demo-desc">{{ projectDemo.desc }}</p>
-          <button
-            class="demo-button"
-            @click="clickNothing(projectDemo.value)"
-          >
-            <img src="/images/icon/button_link.svg" alt="" />
-            Demo link
-          </button>
-        </div>
-        <!-- <video autoplay src="https://alsahlcinsuat01-oss.oss-cn-shanghai.aliyuncs.com/videos/%E7%BA%AA%E6%A2%B5%E5%B8%8CGivenchy.mp4"></video> -->
-        <projectSlide
-          v-if="
-            projectDemo.type === 'video' &&
-            projectDemo.itemArr.length > 0
-          "
-          :project-example="projectDemo.itemArr"
-        ></projectSlide>
+            <p class="demo-desc">
+              {{ brandItem.desc }}
+            </p>
+            <div style="display: flex; flex-flow: row wrap; justify-content: center; align-items: center;">
+            <button
+              v-for="(itemObj,itemIndex) of brandItem.itemArr" :key="itemIndex"
+              class="demo-button"
+              @click="clickNothing(itemObj.value)"
+            >
+              <img src="/images/icon/button_link.svg" alt="" />
+              Demo link
+            </button>
+          </div>
+          </div>
+          <div v-else class="demo-box">
+            <p class="demo-desc">{{ brandItem.desc }}</p>
+            <button
+              v-for="(itemObj,itemIndex) of brandItem.itemArr" :key="itemIndex"
+              class="demo-button"
+              @click="clickNothing(itemObj.value)"
+            >
+              <img src="/images/icon/button_link.svg" alt="" />
+              Demo link
+            </button>
+          </div>
+        <projectSlide v-if=" brandItem.type === 'video' && brandItem.itemArr.length > 0 " :project-example="brandItem.itemArr"></projectSlide>
       </div>
       <!-- <div>
         <div class="title-box">
@@ -244,7 +241,7 @@ const clickNothing = function (src: any) {
     align-items: center;
     gap: 2px;
     border: none;
-    margin: 2rem auto;
+    margin: 2rem 20px;
     color: var(--lvmh-primary-170, #636776);
     font-family: avenir_next_text;
     font-size: 14px;

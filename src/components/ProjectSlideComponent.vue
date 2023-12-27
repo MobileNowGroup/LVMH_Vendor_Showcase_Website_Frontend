@@ -1,45 +1,45 @@
 <script setup lang="ts" name="vendorListComponent">
-import { useRouter } from 'vue-router'
 import { isMobile, setVideoPosterFn } from '@/util/common'
 import { ref, reactive, onMounted } from 'vue'
+import { VendorBaseModel } from '@/model/vendor.model'
 const isMobileDevice = ref(isMobile())
 const listRef = ref()
 let currentIndex = ref(0 as number)
 const props = defineProps({
-  projectExample: { type: Array, reauired: true },
+  projectExample: { type: Array<VendorBaseModel>, reauired: true },
 })
-let showList = reactive(props.projectExample as any)
-let currentObj = reactive({ value: {} } as any)
+let showList = reactive({data: props.projectExample as Array<VendorBaseModel>})
+let currentObj = reactive({ data: {} as VendorBaseModel } )
 onMounted(() => {
-  currentObj.value = showList[0]
+  currentObj.data = showList.data[0]
 })
 /** 点击展示当前的slide */
-const showSlideMedia = function (value: object, _key: number, $event: any) {
+const showSlideMedia = function (value: VendorBaseModel, _key: number, $event: any) {
   currentIndex.value = _key
   listRef.value.scrollLeft =
     currentIndex.value == 0 ? 0 : 75 * currentIndex.value
-  currentObj.value = value
+  currentObj.data = value
 }
 
 /** 点击右箭头换下一个slide */
 const nextShow = function ($event: any) {
   currentIndex.value += 1
-  if ((showList && showList.length - 1) < currentIndex.value) {
+  if ((showList && showList.data.length - 1) < currentIndex.value) {
     currentIndex.value = 0
   }
   listRef.value.scrollLeft =
     currentIndex.value == 0 ? 0 : 175 * currentIndex.value
-  currentObj.value = showList[currentIndex.value]
+  currentObj.data = showList.data[currentIndex.value]
 }
 /** 点击右箭头换下一个slide */
 const prevShow = function () {
   currentIndex.value -= 1
   if (showList && currentIndex.value < 0) {
-    currentIndex.value = showList.length - 1
+    currentIndex.value = showList.data.length - 1
   }
   listRef.value.scrollLeft =
     currentIndex.value == 0 ? 0 : 175 * currentIndex.value
-  currentObj.value = showList[currentIndex.value]
+  currentObj.data = showList.data[currentIndex.value]
 }
 /** 设置每个video的预览图 setVideoPosterFn */
 </script>
@@ -48,34 +48,34 @@ const prevShow = function () {
   <div class="show-box">
     <div class="box-slide">
       <div
-        v-if="!isMobileDevice && 1 < showList.length"
+        v-if="!isMobileDevice && 1 < showList.data.length"
         class="box-slide-arrow box-slide-arrow-left"
         @click="prevShow()"
       ></div>
       <div class="slide">
-        <div class="slide-video" v-if="currentObj.value.type === 'video'">
+        <div class="slide-video" v-if="currentObj.data.type === 'video'">
           <video
             controls
             preload="metadata"
-            :poster="`${currentObj.value.exampleSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
+            :poster="`${currentObj.data.value}?x-oss-process=video/snapshot,t_1,m_fast`"
             class="video"
             @loadeddata="setVideoPosterFn($event)"
-            :src="currentObj.value.exampleSrc"
+            :src="currentObj.data.value"
           >
             <!-- <source :src="currentObj.value.exampleSrc" type="video/mp4" /> -->
           </video>
         </div>
         <div v-else class="slide-image">
-          <img :src="currentObj.value.exampleSrc" alt="" style="object-fit: contain;" />
+          <img :src="currentObj.data.value" alt="" style="object-fit: contain;" />
         </div>
       </div>
       <div
-        v-if="!isMobileDevice && 1 < showList.length"
+        v-if="!isMobileDevice && 1 < showList.data.length"
         class="box-slide-arrow box-slide-arrow-right"
         @click="nextShow"
       ></div>
     </div>
-    <div v-if="1 < showList.length" class="show" ref="slide">
+    <div v-if="1 < showList.data.length" class="show" ref="slide">
       <div class="show-control left">
         <img
           class=""
@@ -88,12 +88,12 @@ const prevShow = function () {
       <div ref="listRef" class="show-list">
         <div
           class="show-item"
-          v-for="(value, key) of showList"
+          v-for="(itemObj, key) of showList.data"
           :key="key"
-          :class="value.id === currentObj.value.id ? 'show-item-active' : ''"
-          @click="showSlideMedia(value, key, $event)"
+          :class="itemObj.id === currentObj.data.id ? 'show-item-active' : ''"
+          @click="showSlideMedia(itemObj, key, $event)"
         >
-          <div class="media-box video-box" v-if="value.type === 'video'">
+          <div class="media-box video-box" v-if="itemObj.type === 'video'">
             <img
               class="icon show-item-video-icon"
               src="/images/24gf-videoCamera.png"
@@ -102,14 +102,14 @@ const prevShow = function () {
             />
             <video
               preload="metadata"
-              :poster="`${value.exampleSrc}?x-oss-process=video/snapshot,t_1,m_fast`"
+              :poster="`${itemObj.value}?x-oss-process=video/snapshot,t_1,m_fast`"
               @loadeddata="setVideoPosterFn($event)"
             >
-              <source :src="value.exampleSrc" type="video/mp4" />
+              <source :src="itemObj.value" type="video/mp4" />
             </video>
           </div>
           <div class="media-box image-box" v-else>
-            <img class="media-img" :src="value.exampleSrc" alt="" style="object-fit: contain;"/>
+            <img class="media-img" :src="itemObj.value" alt="" style="object-fit: contain;"/>
           </div>
         </div>
       </div>

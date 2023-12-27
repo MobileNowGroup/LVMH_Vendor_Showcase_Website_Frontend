@@ -11,7 +11,7 @@ import 'swiper/css' // 引入swiper样式，对应css 如果使用less或者css�
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 const $router = useRouter()
-const vendor = ref({} as VendorItemModel)
+const vendor = reactive({data:{} as VendorItemModel})
 const serviceBrandCount = ref(0) // slide 长度
 let sumWidth = ref(80)
 let itemWidth = ref(40)
@@ -32,8 +32,8 @@ onMounted(() => {
   // 进入页面给默认数据
   mockData.vendorListMock.forEach((element, elementINdex) => {
     if (element.id === Number($router.currentRoute.value.query.id)) {
-      vendor.value = element
-      serviceBrandCount.value = vendor.value.serviceBrandLogo.itemArr.length
+      vendor.data = element
+      serviceBrandCount.value = vendor.data.serviceBrandLogo.itemArr.length
     }
   })
 
@@ -98,7 +98,7 @@ const sendEmail = () => {
 const gotoDemo = (serviceBrands: any) => {
   if (!serviceBrands.isCommingSoon) {
     const brandId = serviceBrands.id
-    const cardId = vendor.value.id
+    const cardId = vendor.data.id
     $router.push({
       name: 'projectdemo',
       query: { cardId: cardId, brandId: brandId },
@@ -110,32 +110,32 @@ const gotoDemo = (serviceBrands: any) => {
 <template>
   <main :class="{ hasnodeco: true }" style="background: white">
     <div class="top" :class="{ top_mobile: isMobileAgent }">
-      <div v-if="vendor.serviceBrandLogo" class="vendor-box">
+      <div v-if="vendor.data.serviceBrandLogo" class="vendor-box">
         <div class="vendor-box-in h-[41rem]">
           <div class="vendor-box-in-scroll">
-            <h2 class="vendor-name">{{ vendor.title }}</h2>
+            <h2 class="vendor-name">{{ vendor.data.title }}</h2>
             <p class="vendor-category">
               <span class="vendor-title">Category:</span>
-              {{ vendor.category }}
+              {{ vendor.data.category }}
             </p>
             <p class="vendor-found">
               <span class="vendor-title">Founded:</span>
-              {{ vendor.brandFounded }}
+              {{ vendor.data.brandFounded }}
             </p>
             <p class="vendor-time">
               <span class="vendor-title">Lead Time:</span>
-              {{ vendor.leadTime }}
+              {{ vendor.data.leadTime }}
             </p>
             <p class="vendor-tag">
               <span
-                v-for="(tag, tagIndex) of vendor.tags"
+                v-for="(tag, tagIndex) of vendor.data.tags"
                 :key="tagIndex"
               >
                 {{ tag.value }}
               </span>
             </p>
             <p class="vendor-intro">
-              <p v-for="item in vendor.introductions" :key="item.id" style="margin-top: 10px;">{{ item.id === 1 ?`Introduction:${item.value}`:item.value }}</p>
+              <p v-for="item in vendor.data.introductions" :key="item.id" style="margin-top: 10px;">{{ item.id === 1 ?`Introduction:${item.value}`:item.value }}</p>
             </p>
           </div>
         </div>
@@ -150,13 +150,13 @@ const gotoDemo = (serviceBrands: any) => {
             alt=""
           />
         </div>
-        <div v-if="vendor.serviceBrandLogo" class="slide-track">
+        <div v-if="vendor.data.serviceBrandLogo" class="slide-track">
           <div class="slide-title">
             <div class="flex items-center justify-center">
               <div
                 class="h-[1px] flex-1 bg-[#ECF0FA] lg:mr-[24px] mr-[16px]"
               ></div>
-              <span class="block flex-none">{{ vendor.serviceBrandLogo.title }}</span>
+              <span class="block flex-none">{{ vendor.data.serviceBrandLogo.title }}</span>
               <div
                 class="h-[1px] flex-1 bg-[#ECF0FA] lg:ml-[24px] ml-[16px]"
               ></div>
@@ -180,7 +180,7 @@ const gotoDemo = (serviceBrands: any) => {
               <template></template>
               <swiper-slide
                 class=""
-                v-for="(slide, slideIndex) of vendor.serviceBrandLogo.itemArr"
+                v-for="(slide, slideIndex) of vendor.data.serviceBrandLogo.itemArr"
                 :key="slideIndex"
               >
                 <div class="slide-item">
@@ -211,7 +211,7 @@ const gotoDemo = (serviceBrands: any) => {
 
     <div class="content">
       <div
-        v-if="vendor.briefsIntroduction && vendor.briefsIntroduction.itemArr.length"
+        v-if="vendor.data.briefsIntroduction && vendor.data.briefsIntroduction.itemArr.length"
         class="content-box content-box-solution"
       >
         <h2 class="title">
@@ -220,7 +220,7 @@ const gotoDemo = (serviceBrands: any) => {
               class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
             <span class="block flex-none">
-              {{ vendor.briefsIntroduction.title }}
+              {{ vendor.data.briefsIntroduction.title }}
             </span>
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
@@ -228,7 +228,7 @@ const gotoDemo = (serviceBrands: any) => {
           </div>
         </h2>
         <p
-          v-for="item in vendor.briefsIntroduction.itemArr"
+          v-for="item in vendor.data.briefsIntroduction.itemArr"
           :key="item.id"
           :style="item.style"
           class="content-desc content-solution"
@@ -238,7 +238,7 @@ const gotoDemo = (serviceBrands: any) => {
       </div>
 
       <div
-        v-if="vendor.useCaseExample && vendor.useCaseExample.itemArr.length"
+        v-if="vendor.data.useCaseExample && vendor.data.useCaseExample.itemArr.length"
         class="content-box content-box-solution"
       >
         <h2 class="title">
@@ -246,25 +246,25 @@ const gotoDemo = (serviceBrands: any) => {
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
-            <span class="block flex-none">{{ vendor.useCaseExample.title }}</span>
+            <span class="block flex-none">{{ vendor.data.useCaseExample.title }}</span>
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
           </div>
         </h2>
         <p
-          v-for="item in vendor.useCaseExample.itemArr"
+          v-for="item in vendor.data.useCaseExample.itemArr"
           :key="item.id"
           :style="item.style"
           class="content-desc"
         >
           {{ item.value }} 
         </p>
-        <img style="margin-top: 20px;" :src="vendor.useCaseExample.url" alt="" />
+        <img style="margin-top: 20px;" :src="vendor.data.useCaseExample.url" alt="" />
       </div>
 
       <div
-        v-if="vendor.claimedKpis && vendor.claimedKpis.itemArr.length"
+        v-if="vendor.data.claimedKpis && vendor.data.claimedKpis.itemArr.length"
         class="content-box content-box-claimed"
       >
         <h2 class="title">
@@ -272,14 +272,14 @@ const gotoDemo = (serviceBrands: any) => {
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
-            <span class="block flex-none">{{ vendor.claimedKpis.title}}</span>
+            <span class="block flex-none">{{ vendor.data.claimedKpis.title}}</span>
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
           </div>
         </h2>
         <p
-          v-for="item in vendor.claimedKpis.itemArr"
+          v-for="item in vendor.data.claimedKpis.itemArr"
           :key="item.id"
           :style="item.style"
           class="content-desc content-claimed"
@@ -288,7 +288,7 @@ const gotoDemo = (serviceBrands: any) => {
         </p>
       </div>
       <div
-        v-if="vendor.priceModelCard && vendor.priceModelCard.itemArr.length"
+        v-if="vendor.data.priceModelCard && vendor.data.priceModelCard.itemArr.length"
         class="content-box content-box-price"
       >
         <div class="content-box-price-spec">
@@ -297,14 +297,14 @@ const gotoDemo = (serviceBrands: any) => {
               <div
                 class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
               ></div>
-              <span class="block flex-none">{{ vendor.priceModelCard.title }}</span>
+              <span class="block flex-none">{{ vendor.data.priceModelCard.title }}</span>
               <div
                 class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
               ></div>
             </div>
           </h2>
           <p
-            v-for="item in vendor.priceModelCard.itemArr"
+            v-for="item in vendor.data.priceModelCard.itemArr"
             :key="item.id"
             :style="item.style"
             class="content-desc content-price"
@@ -322,51 +322,23 @@ const gotoDemo = (serviceBrands: any) => {
             </p>
           </div>
           <div class="content-price-right">
-            <div v-for="(item, index) of vendor.priceModelCard.cards" :key="index">
+            <div v-for="(item, index) of vendor.data.priceModelCard.cards" :key="index">
               <img :src="item.src" alt="" />
               <h2 class="">{{ item.title }}</h2>
               <p v-for="(itemObj, indexs) of item.itemArr" :key="indexs">
                 {{ itemObj.value }}
               </p>
             </div>
-            <!-- <div>
-              <img src="" alt="" />
-              <h2>Hosting</h2>
-              <p>Back-end Integration</p>
-              <p>CRM Integration</p>
-              <p>SPECIFIX Integration</p>
-            </div>
-            <div>
-              <img src="" alt="" />
-              <h2>Hosting</h2>
-              <p>Back-end Integration</p>
-              <p>CRM Integration</p>
-              <p>SPECIFIX Integration</p>
-            </div>
-            <div>
-              <img src="" alt="" />
-              <h2>Hosting</h2>
-              <p>Back-end Integration</p>
-              <p>CRM Integration</p>
-              <p>SPECIFIX Integration</p>
-            </div>
-            <div>
-              <img src="" alt="" />
-              <h2>Hosting</h2>
-              <p>Back-end Integration</p>
-              <p>CRM Integration</p>
-              <p>SPECIFIX Integration</p>
-            </div> -->
           </div>
         </div>
       </div>
 
       <div
         v-if="
-          vendor.featureDemo &&
-          (vendor.featureDemo.links.length ||
-            vendor.featureDemo.qrCodes.length ||
-            vendor.featureDemo.videos.length)
+          vendor.data.featureDemo &&
+          (vendor.data.featureDemo.links.length ||
+            vendor.data.featureDemo.qrCodes.length ||
+            vendor.data.featureDemo.videos.length)
         "
         class="content-box content-box-feature"
       >
@@ -375,19 +347,19 @@ const gotoDemo = (serviceBrands: any) => {
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
-            <span class="block flex-none">{{ vendor.featureDemo.title }}</span>
+            <span class="block flex-none">{{ vendor.data.featureDemo.title }}</span>
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
           </div>
         </h2>
-        <div v-show="vendor.featureDemo.links.length">
+        <div v-show="vendor.data.featureDemo.links.length">
           <p class="content-feature-desc">Click the link to view demo</p>
           <div class="content-feature-list">
             <button
               class="content-feature-button"
               @click="openLink(item.src)"
-              v-for="(item, index) of vendor.featureDemo.links"
+              v-for="(item, index) of vendor.data.featureDemo.links"
               :key="index"
             >
               <img src="/images/icon/button_link.svg" alt="" />
@@ -395,11 +367,11 @@ const gotoDemo = (serviceBrands: any) => {
             </button>
           </div>
         </div>
-        <div v-show="vendor.featureDemo.qrCodes.length">
+        <div v-show="vendor.data.featureDemo.qrCodes.length">
           <p class="content-feature-desc">Scan the QR code to view demo</p>
           <div class="content-feature-list">
             <img
-              v-for="(item, index) of vendor.featureDemo.qrCodes"
+              v-for="(item, index) of vendor.data.featureDemo.qrCodes"
               :key="index"
               :src="item.src"
               alt=""
@@ -407,13 +379,13 @@ const gotoDemo = (serviceBrands: any) => {
             />
           </div>
         </div>
-        <div v-show="vendor.featureDemo.videos.length">
+        <div v-show="vendor.data.featureDemo.videos.length">
           <p class="content-feature-desc">Click the play button to view demo</p>
           <div class="content-feature-list">
             <div
               class="content-feature-video-box"
               @click=""
-              v-for="(item, index) of vendor.featureDemo.videos"
+              v-for="(item, index) of vendor.data.featureDemo.videos"
               :key="index"
             >
               <!-- <img :src="item.src" alt="" /> -->
@@ -432,7 +404,7 @@ const gotoDemo = (serviceBrands: any) => {
       </div>
 
       <div
-        v-if="vendor.serviceBrand && vendor.serviceBrand.brands.length"
+        v-if="vendor.data.serviceBrand && vendor.data.serviceBrand.brands.length"
         class="content-box content-box-service"
       >
         <h2 class="title">
@@ -440,7 +412,7 @@ const gotoDemo = (serviceBrands: any) => {
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:mr-[24px] mr-[16px]"
             ></div>
-            <span class="block flex-none">{{ vendor.serviceBrand.title}}</span>
+            <span class="block flex-none">{{ vendor.data.serviceBrand.title}}</span>
             <div
               class="h-[1px] flex-1 bg-[#3E65D0] lg:ml-[24px] ml-[16px]"
             ></div>
@@ -450,7 +422,7 @@ const gotoDemo = (serviceBrands: any) => {
           <div
             v-for="(
               brandItem, serviceBrandsIndex
-            ) of vendor.serviceBrand.brands"
+            ) of vendor.data.serviceBrand.brands"
             :key="serviceBrandsIndex"
             class="content-service-list-item"
             @click="gotoDemo(brandItem)"

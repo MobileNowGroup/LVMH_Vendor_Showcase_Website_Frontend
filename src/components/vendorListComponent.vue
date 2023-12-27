@@ -1,9 +1,6 @@
 <script setup lang="ts" name="vendorListComponent">
 import { useRouter } from 'vue-router'
-import {computed} from 'vue'
 import { VendorItemModel } from '@/model/vendor.model'
-// props传值，非ts写法，ts写法后面后面的完整代码有，具体看后面的代码
-
 const props = defineProps({
   vendorListArray: Array<VendorItemModel>,
 })

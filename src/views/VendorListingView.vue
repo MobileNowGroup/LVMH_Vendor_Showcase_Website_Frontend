@@ -3,10 +3,10 @@ import { reactive, ref, toRefs, computed } from 'vue'
 import mockData from '../util/mockData'
 import vendorList from '@/components/vendorListComponent.vue'
 import { authStore } from '../stores/authStore'
+import { VendorItemModel } from '@/model/vendor.model'
 let store = authStore()
-let vendorListArray = ref()
-vendorListArray.value = mockData.vendorListMock
-const resultCount = ref(vendorListArray.value.length)
+const vendorListArray = reactive({data: mockData.vendorListMock as Array<VendorItemModel>})
+const resultCount = ref(vendorListArray.data.length)
 const openCookie = () => {
   //  store.CookiesModelopen()
 }
@@ -24,8 +24,8 @@ const openCookie = () => {
         All Results: {{ resultCount }} Agencies
       </div>
       <vendorList
-        v-show="vendorListArray.length > 0"
-        :vendorListArray="vendorListArray"
+        v-show="vendorListArray.data.length > 0"
+        :vendorListArray="vendorListArray.data"
       ></vendorList>
     </div>
   </main>

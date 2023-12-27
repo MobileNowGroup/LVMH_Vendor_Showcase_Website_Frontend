@@ -12,10 +12,7 @@ import {
 import { useRoute, useRouter } from 'vue-router'
 import mockData from '../util/mockData'
 import { VendorItemModel } from '@/model/vendor.model'
-import { throttle } from '@/util/common'
 import { commonStore } from '@/stores/authStore'
-import { match } from 'assert'
-import { mock } from 'node:test'
 //使用递归的方式实现数组、对象的深拷贝
 const sleepCopy = (obj: any) => {
   if (obj === null || typeof obj !== 'object') {

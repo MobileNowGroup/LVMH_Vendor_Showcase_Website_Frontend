@@ -15,7 +15,7 @@ const verifyEmail = () => {
       ? (isPassVerify.value = true) && (buttonText.value = "EXPLORE")
       : (isPassValid.value = true);
   } else {
-    const loginObj = login({email:loginEmail.value}).then((res)=>{
+    login({email:loginEmail.value}).then((res)=>{
       const { access_token } = res.data
       authStore().saveAssessToken(access_token)
       router.push({ name: "vendorlisting" });
