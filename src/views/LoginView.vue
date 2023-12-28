@@ -38,6 +38,7 @@ const verifyEmail = () => {
         <p class="login-desc" v-show="isPassVerify">
           Elevating LVMH digital services through sharing and transparency.
         </p>
+        <!-- docker deploy test  -->
         <div class="login-input-box" v-show="!isPassVerify">
           <input
             class="login-input"
