@@ -19,6 +19,10 @@
 
 
 # build
+echo **** git branch change ****
+git checkout master
+echo **** new code pull ****
+git pull
 echo npm run build:prod
 npm run build:prod
 
