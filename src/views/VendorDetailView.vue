@@ -21,7 +21,7 @@ let slideListNode = ref()
 let scrollThumbNode = ref()
 let count = ref(0)
 const sendEmailText = ref('REQUEST')
-let sendEmailVisable = ref(authStore().getAppointment.length ? true : false)
+let sendEmailVisable = ref(false as Boolean)
 const modules = ref([Navigation, Pagination, Grid]) // setup语法糖只需要这样创建一个变量就可以正常使用分页器和对应功能，如果没有这个数组则无法使用对应功能
 const navigation = ref({
   nextEl: '.button-next',
@@ -35,9 +35,17 @@ onMounted(() => {
     if (element.id === Number($router.currentRoute.value.query.id)) {
       vendor.data = element
       serviceBrandCount.value = vendor.data.serviceBrandLogo.itemArr.length
+      const vendors = authStore().getAppointment.length ? authStore().getAppointment.split(",") : []
+      let isRequested = false;
+      vendors.forEach(vendorId => {
+        if (Number(vendorId) === element.id) {
+         isRequested = true 
+        }
+      });
+      sendEmailVisable.value = isRequested
+      sendEmailText.value = isRequested ? 'REQUESTED' :'REQUEST'
     }
   })
-
   itemWidth = computed(() => {
     //每个item宽度
     if (serviceBrandCount.value < 10) {
@@ -92,7 +100,9 @@ const sendEmail = () => {
   if (!sendEmailVisable.value) {
     sendEmailText.value = 'Please wait...'
     const appointmentObj = postVendorAppointment({vendor_name:vendor.data.fullName,vendor_number:String(vendor.data.id)}).then((res)=>{
-      authStore().saveAppointment(vendor.data.fullName)
+      let appointmentStr = authStore().getAppointment
+      appointmentStr = appointmentStr.length ? appointmentStr + `,${vendor.data.id}` : `${vendor.data.id}`
+      authStore().saveAppointment(appointmentStr)
       sendEmailText.value = 'REQUESTED'
       sendEmailVisable.value = true
     }).catch((error:any)=>{

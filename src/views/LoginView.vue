@@ -7,7 +7,7 @@ const router = useRouter();
 
 let isPassVerify = ref<boolean>(false);
 let isPassValid = ref<boolean>(false);
-let loginEmail = ref<string>("test@qq.com");
+let loginEmail = ref<string>("");
 let buttonText = ref<string>("LOGIN");
 const verifyEmail = () => {
   if (buttonText.value === "LOGIN") {
