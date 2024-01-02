@@ -1,9 +1,9 @@
 # build
-echo **** git branch change ****
+echo  git branch change 
 git checkout develop
-echo **** new code pull ****
+echo  new code pull 
 git pull
-echo **** build code ****
+echo  build code 
 npm run build:dev
 
 sh .deploy/shell/docker-app.sh
