@@ -16,7 +16,7 @@ const vendor = reactive({data:{} as VendorItemModel})
 const serviceBrandCount = ref(0) // slide 长度
 let sumWidth = ref(80)
 let itemWidth = ref(40)
-const isMobileAgent = ref(isMobile())
+const isMobileAgent = ref(false)
 let slideListNode = ref()
 let scrollThumbNode = ref()
 let count = ref(0)
@@ -30,6 +30,7 @@ const navigation = ref({
 let swipers: any = null
 
 onMounted(() => {
+  isMobileAgent.value = isMobile()
   // 进入页面给默认数据
   mockData.vendorListMock.forEach((element, elementINdex) => {
     if (element.id === Number($router.currentRoute.value.query.id)) {
@@ -61,12 +62,11 @@ onMounted(() => {
   })
 
   // 监听slidelist滚动距离计算下面scrllbar的滚动距离且只在移动端生效
-  if (isMobileAgent.value) {
+  if (isMobileAgent.value && slideListNode.value) {
     slideListNode.value.addEventListener('scroll', (e: any) => {
       scrollThumbNode.value.style.marginLeft = e.target.scrollLeft / 5 + 'px'
     })
   }
-
 })
 
 // 初始化swiper
@@ -271,7 +271,7 @@ const gotoDemo = (serviceBrands: any) => {
           v-for="item in vendor.data.useCaseExample.itemArr"
           :key="item.id"
           :style="item.style"
-          class="content-desc"
+          class="content-desc content-claimed"
         >
           {{ item.value }} 
         </p>
@@ -331,10 +331,10 @@ const gotoDemo = (serviceBrands: any) => {
         <div class="content-price-list">
           <div class="content-price-left">
             <h2>Our Technology</h2>
-            <p>
+            <!-- <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor
-            </p>
+            </p> -->
           </div>
           <div class="content-price-right">
             <div v-for="(item, index) of vendor.data.priceModelCard.cards" :key="index">
@@ -446,6 +446,7 @@ const gotoDemo = (serviceBrands: any) => {
               class="content-service-logo"
               :src="brandItem.logo"
               alt=""
+              :style="brandItem.isCommingSoon ? 'opacity: 0.2;':''"
             />
             <div
               v-if="brandItem.isCommingSoon"
@@ -516,13 +517,14 @@ const gotoDemo = (serviceBrands: any) => {
     font-weight: 400;
     line-height: 22px;
     &-in {
-      padding: 3rem 1rem 3rem 3rem;
+      padding: 0 1rem 0 2rem;
       background: #fff;
       box-shadow: 0px 8px 15px 0px rgba(62, 101, 208, 0.1);
       overflow: hidden;
       &-scroll {
         height: 100%;
         overflow-y: auto;
+        padding: 2rem 0;
       }
     }
   }
@@ -1007,7 +1009,7 @@ const gotoDemo = (serviceBrands: any) => {
     &-title {
       color: var(--lvmh-secondary-110, #ecf0fa);
       font-family: lvmh_italic;
-      font-size: 32px;
+      font-size: 24px;
       font-style: italic;
       font-weight: 400;
       line-height: normal;
@@ -1062,9 +1064,12 @@ const gotoDemo = (serviceBrands: any) => {
       max-width: 100%;
 
       &-in {
-        padding: 4rem;
+        padding: 0 1rem;
         background: #fff;
         box-shadow: 0px 8px 15px 0px rgba(62, 101, 208, 0.1);
+        &-scroll {
+          padding: 1rem 0;
+        }
       }
     }
     &-title {
@@ -1156,7 +1161,7 @@ const gotoDemo = (serviceBrands: any) => {
     &-title {
       color: var(--lvmh-secondary-110, #ecf0fa);
       font-family: lvmh_italic;
-      font-size: 32px;
+      font-size: 24px;
       font-style: italic;
       font-weight: 400;
       line-height: normal;
@@ -1198,6 +1203,7 @@ const gotoDemo = (serviceBrands: any) => {
     }
   }
   .title {
+    font-size: 24px;
     &::after {
       right: 0;
       top: 2.4rem;
@@ -1213,15 +1219,17 @@ const gotoDemo = (serviceBrands: any) => {
     margin-top: 80px;
     &-box {
       margin: 0;
-      margin-bottom: 6rem;
+      margin-bottom: 3rem;
+    }
+    &-desc{
+      font-size: 14px;
     }
     &-solution,
     &-pric,
     &-feature,
     &-service-list {
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
-
     .content-box-price-spec {
       margin: 0;
     }

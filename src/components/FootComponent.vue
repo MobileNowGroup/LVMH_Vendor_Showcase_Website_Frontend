@@ -24,7 +24,7 @@
           >Privacy policy</router-link
         >
       </span> -->
-      <span class="lg:mr-[34px] ping">沪ICP备 ***********号</span>
+      <span class="lg:mr-[34px] ping">沪ICP备18019700号-3</span>
       <span>Copyright@LVMH Digital</span>
     </p>
   </div>

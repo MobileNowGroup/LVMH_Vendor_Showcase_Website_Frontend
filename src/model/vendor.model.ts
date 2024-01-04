@@ -132,7 +132,6 @@ export function getVendorCardData(vendorCardData:Array<any>){
     vendorItemM.featureDemo = featureDemoM
     //serviceBrand
     let serviceBrandM = reactive({} as ServiceBrandModel)
-    serviceBrandLogoM.title = element.serviceBrand.title
     let brandArr = [] as Array<BrandItemModel>
     element.serviceBrand.brands.forEach((brandItem:any) => {
       let brandItemM = reactive({} as BrandItemModel)
@@ -143,6 +142,7 @@ export function getVendorCardData(vendorCardData:Array<any>){
       brandArr.push(brandItemM)
     });
     serviceBrandM.brands = brandArr
+    serviceBrandM.title = element.serviceBrand.title
     vendorItemM.serviceBrand = serviceBrandM
     vendorCardArr.push(vendorItemM)
   })

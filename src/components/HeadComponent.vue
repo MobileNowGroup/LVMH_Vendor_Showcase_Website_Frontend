@@ -823,6 +823,7 @@ onUnmounted(() => {
   .header {
     width: 100%;
     padding: 1rem 1.5rem;
+    box-sizing: border-box;
     div.topbox {
       padding: 0;
     }

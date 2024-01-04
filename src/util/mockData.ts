@@ -349,7 +349,7 @@ const vendorCardData: Array<any> = reactive([
       ]
     },
     briefsIntroduction: {
-      title:"Brief Introduction of Product / Service",
+      title:"Brief Introduction",
       itemArr:[
         {
           id: 1,
@@ -472,7 +472,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 1,
               desc: '',
-              value: 'CELINE 3D:',
+              value: 'CELINE 3D',
               type: 'link',
               itemArr: [
                 {
@@ -493,7 +493,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 1,
               desc: '',
-              value: 'bvlgari AR try-on:',
+              value: 'bvlgari AR try-on',
               type: 'link',
               itemArr: [
                 {
@@ -507,7 +507,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 2,
               desc: '',
-              value: 'bvlgari size guide:',
+              value: 'bvlgari size guide',
               type: 'link',
               itemArr: [
                 {
@@ -527,7 +527,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 1,
               desc: '',
-              value: 'tiffany high quality 3D:',
+              value: 'tiffany high quality 3D',
               type: 'link',
               itemArr: [
                 {
@@ -540,7 +540,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 2,
               desc: '',
-              value: '3D here:',
+              value: '3D here',
               type: 'link',
               itemArr: [
                 {
@@ -554,7 +554,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 3,
               desc: '',
-              value: 'Tiffany AR try-on:',
+              value: 'Tiffany AR try-on',
               type: 'link',
               itemArr: [
                 {
@@ -586,7 +586,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 1,
               desc: '',
-              value: 'sizing guide:',
+              value: 'Sizing guide',
               type: 'link',
               itemArr: [
                 {
@@ -599,7 +599,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 2,
               desc: '',
-              value: 'try here:',
+              value: 'Try here',
               type: 'link',
               itemArr: [
                 {
@@ -620,7 +620,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 1,
               desc: '',
-              value: 'shoes try-on:',
+              value: 'Shoes try-on',
               type: 'link',
               itemArr: [
                 {
@@ -633,7 +633,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 2,
               desc: '',
-              value: 'try here:',
+              value: 'Try here',
               type: 'link',
               itemArr: [
                 {
@@ -653,7 +653,7 @@ const vendorCardData: Array<any> = reactive([
             {
               id: 1,
               desc: '',
-              value: 'bracelace:',
+              value: 'Bracelace',
               type: 'link',
               itemArr: [
                 {
@@ -668,7 +668,7 @@ const vendorCardData: Array<any> = reactive([
               id: 2,
               desc: '',
               value:
-                'gucci shoes try-on for wechat, tmall, website .cn (mobile only):',
+                'Gucci shoes try-on',
               type: 'link',
               itemArr: [
                 {
@@ -747,7 +747,7 @@ const vendorCardData: Array<any> = reactive([
       ],
     },
     briefsIntroduction:{
-      title:"Brief Introduction of Product / Service",
+      title:"Brief Introduction",
       itemArr:[
         {
           id: 1,
@@ -1087,7 +1087,7 @@ const vendorCardData: Array<any> = reactive([
       ],
     },
     briefsIntroduction: {
-      title:"Brief Introduction of Product / Service",
+      title:"Brief Introduction",
       itemArr:[
         {
           id: 1,
@@ -1411,7 +1411,7 @@ const vendorCardData: Array<any> = reactive([
       ],
     }, 
     briefsIntroduction:{
-      title:"Brief Introduction of Product / Service",
+      title:"Brief Introduction",
       itemArr: [
         {
           id: 1,
@@ -1587,7 +1587,7 @@ const vendorCardData: Array<any> = reactive([
           id: 5,
           title: 'MLPS',
           src: '/images/icon/MPLS.svg',
-          itemArr: [{id:1,value:"'Level 3",type:""}],
+          itemArr: [{id:1,value:"Level 3",type:""}],
         },
       ],
     },
