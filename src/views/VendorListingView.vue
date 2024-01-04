@@ -36,7 +36,7 @@ const openCookie = () => {
   max-width: 100vw;
   width: auto;
   min-height: 100vh;
-  padding-bottom: 8rem;
+  padding-bottom: 6rem;
   background: url('/images/page_bg.png') repeat;
 }
 
