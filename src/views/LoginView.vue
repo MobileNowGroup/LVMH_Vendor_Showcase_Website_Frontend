@@ -11,7 +11,7 @@ let loginEmail = ref<string>("");
 let buttonText = ref<string>("LOGIN");
 const verifyEmail = () => {
   if (buttonText.value === "LOGIN") {
-    loginEmail.value.indexOf("@qq.com") > 0
+    loginEmail.value.length > 0
       ? (isPassVerify.value = true) && (buttonText.value = "EXPLORE")
       : (isPassValid.value = true);
   } else {
@@ -20,6 +20,8 @@ const verifyEmail = () => {
       authStore().saveAssessToken(access_token)
       router.push({ name: "vendorlisting" });
     }).catch((error:any)=>{
+      isPassValid.value = true
+      isPassVerify.value = false
       console.log('login_err:',error);
     })
   }
