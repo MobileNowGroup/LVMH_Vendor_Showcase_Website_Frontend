@@ -313,7 +313,7 @@ const clickNothing = function (src: any) {
   .title {
     color: #3e65d0;
     font-family: lvmh_italic;
-    font-size: 32px;
+    font-size: 24px;
     font-style: italic;
     font-weight: 400;
     line-height: normal;

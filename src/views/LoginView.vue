@@ -70,7 +70,7 @@ const verifyEmail = () => {
 .login {
   max-width: 100vw;
   height: 100vh;
-  background: url("/images/LVMH_IT_Digita_bg.png") repeat-x;
+  background: url("/images/LVMH_IT_Digita_bg.png");
   object-fit: cover;
   &-box {
     width: max-content;

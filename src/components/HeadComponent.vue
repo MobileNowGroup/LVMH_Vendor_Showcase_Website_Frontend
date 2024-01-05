@@ -531,7 +531,7 @@ onUnmounted(() => {
         <div class="agency-listing items-center" v-if="decoVisiable">
           <img
             v-if="$route.path === '/projectdemo'"
-            class="lg:w-[136px] lg:h-[78px] w-52 m-auto"
+            class="logo-style m-auto"
             :src="logoUrl"
             style="object-fit: contain"
             alt=""
@@ -544,6 +544,10 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.logo-style{
+  width: 136px;
+  height: 78px;
+}
 .headbg_07 {
   transition: all 0.5s linear;
   background: rgba(255, 255, 255, 0.7);
@@ -820,6 +824,10 @@ onUnmounted(() => {
 }
 
 @media screen and (max-width: 960px) {
+  .logo-style{
+    width: 94px;
+    height: 54px;
+  }
   .header {
     width: 100%;
     padding: 1rem 1.5rem;
@@ -843,7 +851,7 @@ onUnmounted(() => {
       }
     }
     .agency-listing {
-      height: 8rem;
+      height: 6rem;
       color: var(--lvmh-primary-1100, #20253b);
       text-align: center;
       font-family: lvmh_italic;
