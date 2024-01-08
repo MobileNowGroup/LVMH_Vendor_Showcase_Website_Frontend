@@ -21,11 +21,11 @@ watch(
   (newPath, oldPath) => {
     const isLogin = authStore().accessToken.length === 0
     loginPage.value =  isLogin
-    console.log("_______",loginPage.value);
-    
     if (isLogin) {
       $router.push({
         name: "login",
+      }).finally(()=>{
+        loginPage.value = true
       });
     }
   },
@@ -90,7 +90,7 @@ const agreeSaveCookies = () => {
         </div>
       </div>
       <div style="height: 100vh">
-        <HeadComponent v-show="!loginPage"></HeadComponent>
+        <HeadComponent v-show="loginPage"></HeadComponent>
         <RouterView style="height: max-content;" />
         <FootComponent></FootComponent>
       </div>
