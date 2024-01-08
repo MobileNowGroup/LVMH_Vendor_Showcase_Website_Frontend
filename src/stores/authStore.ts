@@ -26,7 +26,9 @@ export const authStore = defineStore('auth', {
     saveAppointment(name:string){
       this.$state.appointment = name
       console.log("sendEmailVisable",name);
-      
+    },
+    clearAccessToken(){
+      this.$state.accessToken = ""
     },
     clearAccountInfo() {
       this.$state.cookiesIsSave = false

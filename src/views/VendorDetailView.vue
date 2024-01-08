@@ -106,6 +106,11 @@ const sendEmail = () => {
       sendEmailText.value = 'REQUESTED'
       sendEmailVisable.value = true
     }).catch((error:any)=>{
+      const { code } = error
+      if (code && code === 10020) {
+        authStore().clearAccessToken()
+        $router.push({name: "login"});
+      }
     })  
   }
   

@@ -9,6 +9,7 @@ let isPassVerify = ref<boolean>(false);
 let isPassValid = ref<boolean>(false);
 let loginEmail = ref<string>("");
 let buttonText = ref<string>("LOGIN");
+let errorMsg = ref<string>("")
 const verifyEmail = () => {
   if (buttonText.value === "LOGIN") {
     loginEmail.value.length > 0
@@ -19,10 +20,12 @@ const verifyEmail = () => {
       const { access_token } = res.data
       authStore().saveAssessToken(access_token)
       router.push({ name: "vendorlisting" });
+      errorMsg.value = ""
     }).catch((error:any)=>{
       isPassValid.value = true
       isPassVerify.value = false
-      console.log('login_err:',error);
+      const { message } = error
+      errorMsg.value = message ? message : "*invaild email"
     })
   }
 };
@@ -56,7 +59,7 @@ const verifyEmail = () => {
         </div>
 
         <p class="login-verify-text">
-          <span v-show="isPassValid && !isPassVerify">*invaild email</span>
+          <span v-show="isPassValid && !isPassVerify">{{errorMsg}}</span>
         </p>
         <button class="login-button bg-white" @click="verifyEmail">
           {{ buttonText }}

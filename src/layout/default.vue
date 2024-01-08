@@ -44,10 +44,10 @@ const agreeSaveCookies = () => {
 
 <template>
   <div class="layout" ref="layoutDom">
-    <!-- <div v-if="loginPage">
+    <div v-if="loginPage">
       <RouterView />
-    </div> -->
-    <div>
+    </div>
+    <div v-else>
       <div v-if="false" class="fixed w-screen h-screen bg-black/50 z-[999]">
         <div
           class="absolute bottom-0 w-screen h-fit lg:px-32 lg:py-10.5 px-[15px] pt-[40px] pb-[23px] flex justify-between bg-black items-center"
@@ -91,9 +91,9 @@ const agreeSaveCookies = () => {
         </div>
       </div>
       <div style="height: 100vh; display:flex; flex-flow: column nowrap;">
-        <HeadComponent v-show="!loginPage"></HeadComponent>
-        <RouterView style="flex: 1; overflow-y: auto;" />
-        <FootComponent v-show="!loginPage"></FootComponent>
+        <HeadComponent></HeadComponent>
+        <RouterView style="height: max-content; flex: 1;min-height: max-content;"/>
+        <FootComponent style="min-height: max-content;"></FootComponent>
       </div>
     </div>
   </div>
