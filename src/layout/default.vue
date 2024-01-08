@@ -11,7 +11,7 @@ let showModel = ref(true)
 let loginPage = ref(false)
 
 onMounted(() => {
-  loginPage.value = authStore().accessToken.length === 0
+  // loginPage.value = authStore().accessToken.length === 0
 })
 onBeforeUpdate(() => {})
 
@@ -19,14 +19,15 @@ onBeforeUpdate(() => {})
 watch(
   () => $route.path,
   (newPath, oldPath) => {
-    const isLogin = authStore().accessToken.length === 0
-    loginPage.value =  isLogin
+    const isLogin = authStore().accessToken.length === 0 || newPath === '/login'
     if (isLogin) {
       $router.push({
         name: "login",
       }).finally(()=>{
         loginPage.value = true
       });
+    }else{
+      loginPage.value = newPath === '/'
     }
   },
   { immediate: true }
@@ -43,10 +44,10 @@ const agreeSaveCookies = () => {
 
 <template>
   <div class="layout" ref="layoutDom">
-    <div v-if="loginPage">
+    <!-- <div v-if="loginPage">
       <RouterView />
-    </div>
-    <div v-else>
+    </div> -->
+    <div>
       <div v-if="false" class="fixed w-screen h-screen bg-black/50 z-[999]">
         <div
           class="absolute bottom-0 w-screen h-fit lg:px-32 lg:py-10.5 px-[15px] pt-[40px] pb-[23px] flex justify-between bg-black items-center"
@@ -89,10 +90,10 @@ const agreeSaveCookies = () => {
           </div>
         </div>
       </div>
-      <div style="height: 100vh">
-        <HeadComponent v-show="loginPage"></HeadComponent>
-        <RouterView style="height: max-content;" />
-        <FootComponent></FootComponent>
+      <div style="height: 100vh; display:flex; flex-flow: column nowrap;">
+        <HeadComponent v-show="!loginPage"></HeadComponent>
+        <RouterView style="flex: 1; overflow-y: auto;" />
+        <FootComponent v-show="!loginPage"></FootComponent>
       </div>
     </div>
   </div>

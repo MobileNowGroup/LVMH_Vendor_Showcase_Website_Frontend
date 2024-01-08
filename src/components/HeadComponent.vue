@@ -88,7 +88,7 @@ const updatefilterData = () => {
 onUpdated(() => {
   updatefilterData()
 }),
-  onMounted(() => {
+onMounted(() => {
     if (window) {
       window.addEventListener('scroll', _onPageScroll)
     }
@@ -102,22 +102,24 @@ onUpdated(() => {
     //   "background: rgba(255,255,255,0)",
     // );
     // }
-  })
+})
 
 const headerbg = () => {
-  switch ($route.path) {
-    case '/vendorlisting':
-      headerDom.value.className = 'header z-10 headbg_07'
-      break
-    case '/vendordetail':
-      headerDom.value.className = 'header z-10 headbg_10'
-      break
-    case '/projectdemo':
-      headerDom.value.className = 'header z-10 headbg_0 headbg_image'
-      break
-    default:
-      headerDom.value.className = 'header z-10 headbg_10'
-      break
+  if (headerDom.value) {
+    switch ($route.path) {
+      case '/vendorlisting':
+        headerDom.value.className = 'header z-10 headbg_07'
+        break
+      case '/vendordetail':
+        headerDom.value.className = 'header z-10 headbg_10'
+        break
+      case '/projectdemo':
+        headerDom.value.className = 'header z-10 headbg_0 headbg_image'
+        break
+      default:
+        headerDom.value.className = 'header z-10 headbg_10'
+        break
+    }  
   }
 }
 

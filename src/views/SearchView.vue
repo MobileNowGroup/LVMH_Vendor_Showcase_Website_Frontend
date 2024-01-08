@@ -151,7 +151,7 @@ const openCookie = () => {
     <div class="vendor-list">
       <!-- 搜索到无结果 -->
       <div class="result" v-if="resultCount === 0">
-        <div>All Results: 0 Agencies</div>
+        <div>All Results: 0 Agency</div>
         <div class="noresult">
           <p class="noresult-desc">
             Sorry, there is no relevant search result.
@@ -175,9 +175,9 @@ const openCookie = () => {
       <div class="result" v-else>
         <div style="padding-bottom: 20px">
           <span v-if="searchType === 'search' && param">
-            Search Results - “{{ param }}”: {{ resultCount }} Agencies
+            Search Results - “{{ param }}”: {{ resultCount }} {{ resultCount === 1 ? 'Agency' :'Agencies' }}
           </span>
-          <span v-else>Search Results: {{ resultCount }} Agencies</span>
+          <span v-else>Search Results: {{ resultCount }}  {{ resultCount === 1 ? 'Agency' :'Agencies' }}</span>
         </div>
         <vendorList
           v-show="vendorListArray.data.length > 0"

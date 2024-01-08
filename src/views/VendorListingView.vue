@@ -21,7 +21,7 @@ const openCookie = () => {
         v-if="resultCount > 0"
         @click="openCookie"
       >
-        All Results: {{ resultCount }} Agencies
+        All Results: {{ resultCount }}  {{ resultCount === 1 ? 'Agency' :'Agencies' }}
       </div>
       <vendorList
         v-show="vendorListArray.data.length > 0"
