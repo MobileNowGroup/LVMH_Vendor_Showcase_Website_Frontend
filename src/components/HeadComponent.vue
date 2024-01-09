@@ -93,7 +93,7 @@ onMounted(() => {
       window.addEventListener('scroll', _onPageScroll)
     }
     // 启用filter功能
-    filterShow.value = $route.path !== '/vendordetail'
+    filterShow.value = $route.path !== '/vendordetail' && $route.path !== '/projectdemo'
     // 监听路由匹配不同header背景色
     headerbg()
     // else {
@@ -326,6 +326,7 @@ onUnmounted(() => {
               name: 'vendorlisting',
             })
             headerbg()
+            clearFilter()
           }
         "
         alt=""

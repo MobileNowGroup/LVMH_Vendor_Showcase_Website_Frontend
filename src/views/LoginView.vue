@@ -24,8 +24,7 @@ const verifyEmail = () => {
     }).catch((error:any)=>{
       isPassValid.value = true
       isPassVerify.value = false
-      const { message } = error
-      errorMsg.value = message ? message : "*invaild email"
+      errorMsg.value =  "*invaild email"
     })
   }
 };

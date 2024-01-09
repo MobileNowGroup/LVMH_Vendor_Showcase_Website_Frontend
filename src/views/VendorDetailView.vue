@@ -155,7 +155,10 @@ const gotoDemo = (serviceBrands: any) => {
               </span>
             </p>
             <p class="vendor-intro">
-              <p v-for="item in vendor.data.introductions" :key="item.id" style="margin-top: 10px;">{{ item.id === 1 ?`Introduction:${item.value}`:item.value }}</p>
+              <p v-for="item in vendor.data.introductions" :key="item.id" style="margin-top: 10px;">
+                <span v-if="item.id === 1" class="vendor-title">Introduction:</span>
+                {{item.value}}
+            </p>
             </p>
           </div>
         </div>
